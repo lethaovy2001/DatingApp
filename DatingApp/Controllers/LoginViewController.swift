@@ -7,8 +7,8 @@
 //
 
 import UIKit
-//import FBSDKLoginKit
-//import FBSDKCoreKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
     
@@ -42,40 +42,20 @@ class LoginViewController: UIViewController {
     
     //TODO: Handle error
     @objc func loginWithFacebook() {
-//        let loginManager = LoginManager()
-//
-//        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
-//            if error != nil {
-//                print("***** Error: \(error!)")
-//            } else if result?.isCancelled == true {
-//                
-//                print("***** Cancel")
-//            } else {
-//                print("***** Log in with Facebook")
-//                let vc = MainViewController()
-//                self.present(vc, animated: true, completion: nil)
-//            }
-//        }
+        let loginManager = LoginManager()
+
+        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+            if error != nil {
+                print("***** Error: \(error!)")
+            } else if result?.isCancelled == true {
+                
+                print("***** Cancel")
+            } else {
+                print("***** Log in with Facebook")
+                let vc = MainViewController()
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
     }
 }
 
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-struct SwiftLeeViewRepresentable: UIViewRepresentable {
-    func makeUIView(context: Context) -> UIView {
-        return UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()!.view
-    }
-    
-    func updateUIView(_ view: UIView, context: Context) {
-        
-    }
-}
-
-@available(iOS 13.0, *)
-struct SwiftLeeViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        SwiftLeeViewRepresentable()
-    }
-}
-#endif
