@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>749556519819-g49bemrnc34vl35s57bjkce7iqh0b9vs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.749556519819-g49bemrnc34vl35s57bjkce7iqh0b9vs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCYKl72oJKkBx2Gfdzgh7ZX3BQSLGxRkJk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>749556519819</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.VyLe.DatingApp</string>
+	<key>PROJECT_ID</key>
+	<string>datingapp-a49e0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>datingapp-a49e0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:749556519819:ios:6a5581645d9ca08bf1558e</string>
+	<key>DATABASE_URL</key>
+	<string>https://datingapp-a49e0.firebaseio.com</string>
+</dict>
+</plist>
