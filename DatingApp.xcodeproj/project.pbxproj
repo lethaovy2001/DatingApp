@@ -17,6 +17,10 @@
 		382CC7A123D5EF650043060E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A023D5EF650043060E /* Constants.swift */; };
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
+		384EA7B323D7AE0F00940681 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EA7B223D7AE0F00940681 /* CircleButton.swift */; };
+		3869847F23D8263500AB23DF /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869847E23D8263500AB23DF /* UserImage.swift */; };
+		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
+		38A41D0B23E0C70600F904B9 /* ViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0A23E0C70600F904B9 /* ViewShadow.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +38,10 @@
 		382CC7A023D5EF650043060E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		384EA7B223D7AE0F00940681 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		3869847E23D8263500AB23DF /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
+		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
+		38A41D0A23E0C70600F904B9 /* ViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewShadow.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -108,6 +116,9 @@
 			children = (
 				382CC78C23D3B0DD0043060E /* Main.storyboard */,
 				382CC79D23D5ECFC0043060E /* RoundedButton.swift */,
+				384EA7B223D7AE0F00940681 /* CircleButton.swift */,
+				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
+				38A41D0A23E0C70600F904B9 /* ViewShadow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,6 +126,7 @@
 		382CC79C23D5ECCD0043060E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3869847E23D8263500AB23DF /* UserImage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -243,9 +255,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38A41D0B23E0C70600F904B9 /* ViewShadow.swift in Sources */,
+				384EA7B323D7AE0F00940681 /* CircleButton.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
+				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
+				3869847F23D8263500AB23DF /* UserImage.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				382CC79E23D5ECFC0043060E /* RoundedButton.swift in Sources */,
