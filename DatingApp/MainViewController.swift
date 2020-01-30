@@ -10,29 +10,28 @@ import UIKit
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    let profileImage = RoundedUserImage(imageName: "Image1.jpg")
+    private let profileImage = RoundedUserImage(imageName: "Image1.jpg")
     
 //    let viewShadow = ViewShadow()
     
-    let likeButton: CircleButton = {
+    private let likeButton: CircleButton = {
         let button = CircleButton(imageName: "heart.jpg")
         button.addTarget(self, action: #selector(likePressed), for: .touchUpInside)
         return button
     }()
-    
-    let dislikeButton: CircleButton = {
+    private let dislikeButton: CircleButton = {
         let button = CircleButton(imageName: "dislike.jpg")
         button.addTarget(self, action: #selector(dislikePressed), for: .touchUpInside)
         return button
     }()
     
-    let profileDetails: UILabel = {
+    private let profileDetails: UILabel = {
         let label = UILabel()
         label.textColor = .white
         return label
     }()
     
-    let buttonStack: UIStackView = {
+    private let buttonStack: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.backgroundColor = .red
@@ -43,16 +42,24 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         return stackView
     }()
     
-    let userImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
-    var currentImage = 0
+    private let userImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
+    private var currentImage = 0
     
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Constants.mainBackgroundColor
+        setup()
+    }
+    
+    // MARK: Setup
+    private func setup() {
         addSubViews()
         setupConstraints()
-        
+        addProfileImageTapGesture()
+    }
+    
+    private func addProfileImageTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnPicture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
@@ -60,7 +67,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         profileImage.addGestureRecognizer(tapGesture)
     }
     
-    // MARK: Setup
     private func addSubViews() {
         view.addSubview(profileImage)
         view.addSubview(buttonStack)
@@ -78,12 +84,16 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
             profileImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -36),
             profileImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180),
             profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+        ])
+        NSLayoutConstraint.activate([
             likeButton.heightAnchor.constraint(equalToConstant: 80),
             likeButton.widthAnchor.constraint(equalToConstant: 80),
-            
+        ])
+        NSLayoutConstraint.activate([
             dislikeButton.heightAnchor.constraint(equalToConstant: 80),
             dislikeButton.widthAnchor.constraint(equalToConstant: 80),
-            
+        ])
+        NSLayoutConstraint.activate([
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
             buttonStack.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 12)

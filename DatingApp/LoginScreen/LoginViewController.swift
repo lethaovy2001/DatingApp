@@ -12,7 +12,7 @@ import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
     
-    let fbLoginButton: RoundedButton = {
+    private let fbLoginButton: RoundedButton = {
         let button = RoundedButton(title: "LOG IN WITH FACEBOOK", color: Constants.fbColor)
        button.addTarget(self, action: #selector(loginWithFacebook), for: .touchUpInside)
         return button
@@ -21,12 +21,15 @@ class LoginViewController: UIViewController {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    // MARK: Setup
+    private func setUp() {
         addSubViews()
         setupConstraints()
         view.backgroundColor = .white
     }
     
-    // MARK: Setup
     private func addSubViews() {
         view.addSubview(fbLoginButton)
     }

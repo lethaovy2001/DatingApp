@@ -88,6 +88,8 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
+				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
+				38F1B52D23E25A100003F6A9 /* MainScreen */,
 				382CC79C23D5ECCD0043060E /* Models */,
 				382CC79B23D5ECBF0043060E /* Views */,
 				382CC79A23D5EC9F0043060E /* Controllers */,
@@ -105,8 +107,6 @@
 		382CC79A23D5EC9F0043060E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				382CC78A23D3B0DD0043060E /* LoginViewController.swift */,
-				382CC7A423D791150043060E /* MainViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -115,9 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				382CC78C23D3B0DD0043060E /* Main.storyboard */,
-				382CC79D23D5ECFC0043060E /* RoundedButton.swift */,
-				384EA7B223D7AE0F00940681 /* CircleButton.swift */,
-				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
 				38A41D0A23E0C70600F904B9 /* ViewShadow.swift */,
 			);
 			path = Views;
@@ -129,6 +126,25 @@
 				3869847E23D8263500AB23DF /* UserImage.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		38F1B52D23E25A100003F6A9 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				382CC7A423D791150043060E /* MainViewController.swift */,
+				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
+				384EA7B223D7AE0F00940681 /* CircleButton.swift */,
+			);
+			name = MainScreen;
+			sourceTree = "<group>";
+		};
+		38F1B52E23E25AF30003F6A9 /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				382CC78A23D3B0DD0043060E /* LoginViewController.swift */,
+				382CC79D23D5ECFC0043060E /* RoundedButton.swift */,
+			);
+			path = LoginScreen;
 			sourceTree = "<group>";
 		};
 		F12EC8373E2D99DDF2F32760 /* Frameworks */ = {
