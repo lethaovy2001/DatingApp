@@ -10,9 +10,11 @@ import UIKit
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    private let profileImage = RoundedUserImage(imageName: "Image1.jpg")
+    //private let profileImage = RoundedUserImage(imageName: "Image1.jpg")
     
 //    let viewShadow = ViewShadow()
+    
+    private let profileImage = SwipeCardView()
     
     private let likeButton: CircleButton = {
         let button = CircleButton(imageName: "heart.jpg")
@@ -80,10 +82,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            profileImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 36),
-            profileImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -36),
-            profileImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180),
-            profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            profileImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
+            profileImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
+            profileImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -160),
+            profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
         ])
         NSLayoutConstraint.activate([
             likeButton.heightAnchor.constraint(equalToConstant: 80),
@@ -108,19 +110,19 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
                 print("LEFT")
                 if (currentImage <= 0) {
                     currentImage = userImages.count - 1
-                    profileImage.image = UIImage(named: userImages[currentImage])
+//                    profileImage.image = UIImage(named: userImages[currentImage])
                 } else {
                     currentImage = currentImage - 1
-                    profileImage.image = UIImage(named: userImages[currentImage])
+//                    profileImage.image = UIImage(named: userImages[currentImage])
                 }
             } else {
                 print("RIGTH")
                 if (currentImage == userImages.count - 1) {
                     currentImage = 0
-                    profileImage.image = UIImage(named: userImages[currentImage])
+//                    profileImage.image = UIImage(named: userImages[currentImage])
                 } else {
                     currentImage = currentImage + 1
-                    profileImage.image = UIImage(named: userImages[currentImage])
+//                    profileImage.image = UIImage(named: userImages[currentImage])
                 }
             }
         }
@@ -135,4 +137,24 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
 }
+
+//extension MainViewController: SwipeableCardDataSource {
+//    
+//    func card(forItemAt index: Int) -> SwipeCardView {
+//            let card = SwipeCardView()
+//            //card.dataSource = userImages[index]
+//            return card
+//
+//    }
+//    
+//    func numberOfCards() -> Int {
+//        return userImages.count
+//    }
+//    
+//    func viewForEmptyCards() -> UIView? {
+//        return nil
+//    }
+//    
+//    
+//}
 
