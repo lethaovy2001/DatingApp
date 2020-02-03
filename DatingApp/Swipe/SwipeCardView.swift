@@ -10,7 +10,7 @@ import UIKit
 
 class SwipeCardView: UIView {
     
-//    private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
+    private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
 
     private let cardImageView = RoundedUserImage(imageName: "Vy.jpg")
     
@@ -65,6 +65,25 @@ class SwipeCardView: UIView {
             nameLabel.rightAnchor.constraint(equalTo: cardImageView.rightAnchor, constant: -36),
             nameLabel.bottomAnchor.constraint(equalTo: cardImageView.bottomAnchor, constant: -36)
         ])
+    }
+    
+    private var currentImage = 0
+    
+    func nextImage(isLeft: Bool) {
+        if (isLeft) {
+            if (currentImage <= 0) {
+                currentImage = cardImages.count - 1
+            } else {
+                currentImage = currentImage - 1
+            }
+        } else {
+            if (currentImage == cardImages.count - 1) {
+                currentImage = 0
+            } else {
+                currentImage = currentImage + 1
+            }
+        }
+        cardImageView.image = UIImage(named: cardImages[currentImage])
     }
     
     required init?(coder: NSCoder) {

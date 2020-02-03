@@ -10,11 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    //private let profileImage = RoundedUserImage(imageName: "Image1.jpg")
-    
-//    let viewShadow = ViewShadow()
-    
-    private let profileImage = SwipeCardView()
+    private let cardView = SwipeCardView()
     
     private let likeButton: CircleButton = {
         let button = CircleButton(imageName: "heart.jpg")
@@ -66,26 +62,22 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
         tapGesture.delegate = self
-        profileImage.addGestureRecognizer(tapGesture)
+        cardView.addGestureRecognizer(tapGesture)
     }
     
     private func addSubViews() {
-        view.addSubview(profileImage)
+        view.addSubview(cardView)
         view.addSubview(buttonStack)
         buttonStack.addArrangedSubview(dislikeButton)
         buttonStack.addArrangedSubview(likeButton)
-        
-//        viewShadow.addSubview(profileImage)
-//        view.bringSubviewToFront(profileImage)
-//        view.addSubview(viewShadow)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            profileImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
-            profileImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
-            profileImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -160),
-            profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+            cardView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
+            cardView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
+            cardView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -160),
+            cardView.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
         ])
         NSLayoutConstraint.activate([
             likeButton.heightAnchor.constraint(equalToConstant: 80),
@@ -98,32 +90,19 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         NSLayoutConstraint.activate([
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-            buttonStack.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 12)
+            buttonStack.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 12)
         ])
     }
     
     @objc func tapOnPicture(sender: UITapGestureRecognizer) {
-        let bounds = CGPoint(x: profileImage.bounds.midX, y: profileImage.bounds.midY)
+        let bounds = CGPoint(x: cardView.bounds.midX, y: cardView.bounds.midY)
         if sender.state == .ended {
-            let position = sender.location(in: self.profileImage)
+            let position = sender.location(in: self.cardView)
             if (position.x < bounds.x) {
                 print("LEFT")
-                if (currentImage <= 0) {
-                    currentImage = userImages.count - 1
-//                    profileImage.image = UIImage(named: userImages[currentImage])
-                } else {
-                    currentImage = currentImage - 1
-//                    profileImage.image = UIImage(named: userImages[currentImage])
-                }
+                cardView.nextImage(isLeft: true)
             } else {
-                print("RIGTH")
-                if (currentImage == userImages.count - 1) {
-                    currentImage = 0
-//                    profileImage.image = UIImage(named: userImages[currentImage])
-                } else {
-                    currentImage = currentImage + 1
-//                    profileImage.image = UIImage(named: userImages[currentImage])
-                }
+                cardView.nextImage(isLeft: false)
             }
         }
     }
