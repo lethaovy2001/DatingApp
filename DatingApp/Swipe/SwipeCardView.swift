@@ -25,6 +25,18 @@ class SwipeCardView: UIView {
         return label
     }()
     
+    var delegate: SwipeCardDelegate?
+    
+    var dataSource : SwipeCardModel? {
+        didSet {
+            guard let name = dataSource?.name else { return }
+            guard let age = dataSource?.age else { return }
+            guard let image = dataSource?.imageName[0] else { return }
+            self.nameLabel.text = "\(name), \(age)"
+            cardImageView.image = UIImage(named: image)
+        }
+    }
+    
     init() {
         super.init(frame: .zero)
         setup()
@@ -32,7 +44,7 @@ class SwipeCardView: UIView {
 
     //MARK: Setup
     private func setup() {
-        configureViewShadow()
+        //configureViewShadow()
         addSubViews()
         setupConstraints()
     }
