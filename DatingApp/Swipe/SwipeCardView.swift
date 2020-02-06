@@ -10,10 +10,9 @@ import UIKit
 
 class SwipeCardView: UIView {
     
+    //MARK: Properties
     private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
-
     private let cardImageView = RoundedUserImage(imageName: "Vy.jpg")
-    
     private var currentImage = 0
     
     private let nameLabel: UILabel = {
@@ -28,7 +27,6 @@ class SwipeCardView: UIView {
     }()
     
     var delegate: SwipeCardDelegate?
-    
     var dataSource : SwipeCardModel? {
         didSet {
             guard let name = dataSource?.name else { return }
@@ -39,9 +37,14 @@ class SwipeCardView: UIView {
         }
     }
     
+    //MARK: Init
     init() {
         super.init(frame: .zero)
         setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     //MARK: Setup
@@ -71,7 +74,69 @@ class SwipeCardView: UIView {
         ])
     }
     
-    func nextImage(isLeft: Bool) {
+    private func addGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(tapGesture)
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        self.addGestureRecognizer(panGesture)
+    }
+    
+    //MARK: Gestures
+    @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
+        let bounds = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+        if sender.state == .ended {
+            let position = sender.location(in: self)
+            if (position.x < bounds.x) {
+                self.nextImage(isLeft: true)
+            } else {
+                self.nextImage(isLeft: false)
+            }
+        }
+    }
+    
+    @objc private func handlePanGesture(sender: UIPanGestureRecognizer) {
+        let card = sender.view as! SwipeCardView
+        let point = sender.translation(in: self)
+        let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
+        switch sender.state {
+        case .ended:
+        if (card.center.x) > centerOfParentContainer.x + 40 {
+             self.delegate?.swipeDidEnd(on: card)
+            UIView.animate(withDuration: 0.2) {
+                card.center = CGPoint(x: centerOfParentContainer.x + point.x + 400, y: centerOfParentContainer.y + point.y + 75)
+                 card.alpha = 0
+                 self.layoutIfNeeded()
+             }
+             return
+         } else if card.center.x < centerOfParentContainer.x - 40 {
+             delegate?.swipeDidEnd(on: card)
+             UIView.animate(withDuration: 0.2) {
+                card.center = CGPoint(x: centerOfParentContainer.x + point.x - 400, y: centerOfParentContainer.y + point.y + 75)
+                 card.alpha = 0
+                self.layoutIfNeeded()
+                 
+             }
+             return
+         }
+         // neither swipe left or right
+         UIView.animate(withDuration: 0.2) {
+             card.transform = .identity
+             card.center = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+             self.layoutIfNeeded()
+         }
+         case .changed:
+             let rotation = tan(point.x / (self.frame.width * 2.0))
+             card.transform = CGAffineTransform(rotationAngle: rotation)
+         default:
+             break
+         }
+    }
+    
+    private func nextImage(isLeft: Bool) {
         if (isLeft) {
             if (currentImage <= 0) {
                 currentImage = cardImages.count - 1
@@ -86,70 +151,6 @@ class SwipeCardView: UIView {
             }
         }
         cardImageView.image = UIImage(named: cardImages[currentImage])
-    }
-    
-    private func addGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(tapGesture)
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        self.addGestureRecognizer(panGesture)
-    }
-    
-    @objc func handleTapGesture(sender: UITapGestureRecognizer) {
-        let bounds = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
-        if sender.state == .ended {
-            let position = sender.location(in: self)
-            if (position.x < bounds.x) {
-                self.nextImage(isLeft: true)
-            } else {
-                self.nextImage(isLeft: false)
-            }
-        }
-    }
-    
-    @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
-        let card = sender.view as! SwipeCardView
-        let point = sender.translation(in: self)
-        let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
-        
-        switch sender.state {
-        case .ended:
-        if (card.center.x) > 400 {
-             delegate?.swipeDidEnd(on: card)
-             UIView.animate(withDuration: 0.2) {
-                 card.center = CGPoint(x: centerOfParentContainer.x + point.x + 200, y: centerOfParentContainer.y + point.y + 75)
-                 card.alpha = 0
-                 self.layoutIfNeeded()
-             }
-             return
-         } else if card.center.x < -65 {
-             delegate?.swipeDidEnd(on: card)
-             UIView.animate(withDuration: 0.2) {
-                 card.center = CGPoint(x: centerOfParentContainer.x + point.x - 200, y: centerOfParentContainer.y + point.y + 75)
-                 card.alpha = 0
-                 self.layoutIfNeeded()
-             }
-             return
-         }
-         UIView.animate(withDuration: 0.2) {
-             card.transform = .identity
-             card.center = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-             self.layoutIfNeeded()
-         }
-         case .changed:
-             let rotation = tan(point.x / (self.frame.width * 2.0))
-             card.transform = CGAffineTransform(rotationAngle: rotation)
-         default:
-             break
-         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
 }

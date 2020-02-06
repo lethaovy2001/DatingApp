@@ -9,7 +9,6 @@
 import UIKit
 
 protocol SwipeableCardDataSource {
-    
     func numberOfCards() -> Int
     
     func card(forItemAt index: Int) -> SwipeCardView

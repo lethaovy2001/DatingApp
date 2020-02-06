@@ -25,11 +25,17 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
         }
     }
     
+    //MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
         configureViewShadow()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: Setup
     private func configureViewShadow() {
         self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor
         self.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
@@ -37,10 +43,6 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
         self.layer.shadowRadius = 5.0
         self.layer.cornerRadius = Constants.swipeImageCornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func reloadData() {
@@ -67,7 +69,6 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
        cardView.delegate = self
        cardView.frame = self.bounds
        cardViews.append(cardView)
-       self.addSubview(cardView)
        insertSubview(cardView, at: 0)
        remainingcards -= 1
     }
