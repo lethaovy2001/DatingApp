@@ -14,6 +14,8 @@ class SwipeCardView: UIView {
 
     private let cardImageView = RoundedUserImage(imageName: "Vy.jpg")
     
+    private var currentImage = 0
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -44,19 +46,9 @@ class SwipeCardView: UIView {
 
     //MARK: Setup
     private func setup() {
-        //configureViewShadow()
         addSubViews()
         setupConstraints()
-    }
-    
-    private func configureViewShadow() {
-        self.backgroundColor = .red
-        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = 5.0
-        self.layer.cornerRadius = Constants.swipeImageCornerRadius
-        self.translatesAutoresizingMaskIntoConstraints = false
+        addGestures()
     }
     
     private func addSubViews() {
@@ -79,8 +71,6 @@ class SwipeCardView: UIView {
         ])
     }
     
-    private var currentImage = 0
-    
     func nextImage(isLeft: Bool) {
         if (isLeft) {
             if (currentImage <= 0) {
@@ -96,6 +86,66 @@ class SwipeCardView: UIView {
             }
         }
         cardImageView.image = UIImage(named: cardImages[currentImage])
+    }
+    
+    private func addGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(tapGesture)
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        self.addGestureRecognizer(panGesture)
+    }
+    
+    @objc func handleTapGesture(sender: UITapGestureRecognizer) {
+        let bounds = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+        if sender.state == .ended {
+            let position = sender.location(in: self)
+            if (position.x < bounds.x) {
+                self.nextImage(isLeft: true)
+            } else {
+                self.nextImage(isLeft: false)
+            }
+        }
+    }
+    
+    @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
+        let card = sender.view as! SwipeCardView
+        let point = sender.translation(in: self)
+        let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
+        
+        switch sender.state {
+        case .ended:
+        if (card.center.x) > 400 {
+             delegate?.swipeDidEnd(on: card)
+             UIView.animate(withDuration: 0.2) {
+                 card.center = CGPoint(x: centerOfParentContainer.x + point.x + 200, y: centerOfParentContainer.y + point.y + 75)
+                 card.alpha = 0
+                 self.layoutIfNeeded()
+             }
+             return
+         } else if card.center.x < -65 {
+             delegate?.swipeDidEnd(on: card)
+             UIView.animate(withDuration: 0.2) {
+                 card.center = CGPoint(x: centerOfParentContainer.x + point.x - 200, y: centerOfParentContainer.y + point.y + 75)
+                 card.alpha = 0
+                 self.layoutIfNeeded()
+             }
+             return
+         }
+         UIView.animate(withDuration: 0.2) {
+             card.transform = .identity
+             card.center = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+             self.layoutIfNeeded()
+         }
+         case .changed:
+             let rotation = tan(point.x / (self.frame.width * 2.0))
+             card.transform = CGAffineTransform(rotationAngle: rotation)
+         default:
+             break
+         }
     }
     
     required init?(coder: NSCoder) {

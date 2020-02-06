@@ -18,7 +18,6 @@
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
 		384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */; };
-		384604AE23E7A41F006F6540 /* SwipeableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AD23E7A41F006F6540 /* SwipeableCardView.swift */; };
 		384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AF23E7A736006F6540 /* SwipeCardView.swift */; };
 		384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B123EA712A006F6540 /* SwipeCardModel.swift */; };
 		384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */; };
@@ -44,7 +43,6 @@
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCardDataSource.swift; sourceTree = "<group>"; };
-		384604AD23E7A41F006F6540 /* SwipeableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCardView.swift; sourceTree = "<group>"; };
 		384604AF23E7A736006F6540 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		384604B123EA712A006F6540 /* SwipeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardModel.swift; sourceTree = "<group>"; };
 		384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackContainer.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */,
-				384604AD23E7A41F006F6540 /* SwipeableCardView.swift */,
 				384604AF23E7A736006F6540 /* SwipeCardView.swift */,
 				384604B123EA712A006F6540 /* SwipeCardModel.swift */,
 				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
@@ -289,7 +286,6 @@
 				38A41D0B23E0C70600F904B9 /* ViewShadow.swift in Sources */,
 				384EA7B323D7AE0F00940681 /* CircleButton.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
-				384604AE23E7A41F006F6540 /* SwipeableCardView.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,

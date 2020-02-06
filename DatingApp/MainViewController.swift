@@ -41,6 +41,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         SwipeCardModel(name: "Son", age: 24, imageName: [userImages[1], userImages[2]]),
         SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
         SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
+        SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]]),
+        SwipeCardModel(name: "Son", age: 24, imageName: [userImages[1], userImages[2]]),
+        SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
+        SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
         SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]])]
     
     private var stackContainer = SwipeCardStackContainer()
@@ -58,16 +62,16 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     private func setup() {
         addSubViews()
         setupConstraints()
-        addProfileImageTapGesture()
+        //addProfileImageTapGesture()
     }
     
-    private func addProfileImageTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnPicture))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        tapGesture.delegate = self
-//        cardView.addGestureRecognizer(tapGesture)
-    }
+//    private func addProfileImageTapGesture() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnPicture))
+//        tapGesture.numberOfTapsRequired = 1
+//        tapGesture.numberOfTouchesRequired = 1
+//        tapGesture.delegate = self
+////        cardView.addGestureRecognizer(tapGesture)
+//    }
     
     private func addSubViews() {
 //        view.addSubview(cardView)
@@ -107,7 +111,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         ])
     }
     
-    @objc func tapOnPicture(sender: UITapGestureRecognizer) {
+//    @objc func tapOnPicture(sender: UITapGestureRecognizer) {
 //        let bounds = CGPoint(x: cardView.bounds.midX, y: cardView.bounds.midY)
 //        if sender.state == .ended {
 //            let position = sender.location(in: self.cardView)
@@ -118,7 +122,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 //                cardView.nextImage(isLeft: false)
 //            }
 //        }
-    }
+//    }
     
     @objc func likePressed() {
        

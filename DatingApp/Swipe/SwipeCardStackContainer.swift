@@ -12,7 +12,7 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
     
     //MARK: Properties
     var numberOfCardsToShow: Int = 0
-    var cardsToBeVisible: Int = 3
+    var cardsToBeVisible: Int = 2
     var cardViews : [SwipeCardView] = []
     var remainingcards: Int = 0
     
@@ -27,13 +27,10 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        self.backgroundColor = .clear
         configureViewShadow()
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func configureViewShadow() {
-        self.backgroundColor = .red
         self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor
         self.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
         self.layer.shadowOpacity = 1.0
@@ -82,20 +79,6 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
         if remainingcards > 0 {
             let newIndex = datasource.numberOfCards() - remainingcards
             addCardView(cardView: datasource.card(forItemAt: newIndex))
-            for (cardView) in visibleCards.reversed().enumerated() {
-                UIView.animate(withDuration: 0.2, animations: {
-//                    cardView.center = self.center
-                    self.layoutIfNeeded()
-                })
-            }
-
-        }else {
-            for (cardView) in visibleCards.reversed().enumerated() {
-                UIView.animate(withDuration: 0.2, animations: {
-//                    cardView.center = self.center
-                    self.layoutIfNeeded()
-                })
-            }
         }
     }
 
