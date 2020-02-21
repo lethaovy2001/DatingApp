@@ -14,7 +14,8 @@ class InputTextView: UITextView {
         super.init(frame: .zero, textContainer: nil)
         self.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 0.5)
         self.layer.cornerRadius = (Constants.inputContainerHeight - Constants.inputPadding*2)/2
-        self.text = "I was thinking about youuu oh lalaala ye"
+        self.text = "Aa"
+        self.textColor = .lightGray
         self.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         self.isScrollEnabled = false
         self.translatesAutoresizingMaskIntoConstraints = false

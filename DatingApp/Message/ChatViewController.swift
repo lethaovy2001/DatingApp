@@ -32,6 +32,11 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         setup()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //MARK: Setup
     private func setup() {
         view.backgroundColor = .white
@@ -40,6 +45,7 @@ class ChatViewController: UIViewController, UITextViewDelegate {
 
         inputTextView.delegate = self
         setupKeyboardObservers()
+        addTapGesture()
     }
     
     private func addSubviews() {
@@ -48,7 +54,6 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
     }
-    
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
@@ -82,13 +87,42 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         ])
     }
     
+    private func addTapGesture() {
+        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.dismissKeyboard))
+        self.view.addGestureRecognizer(tapRecognizer)
+        self.view.isUserInteractionEnabled = true
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         inputTextView.calculateBestHeight()
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (inputTextView.textColor == .lightGray) {
+            inputTextView.text = ""
+            inputTextView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if (inputTextView.text == "") {
+            inputTextView.text = "Aa"
+            inputTextView.textColor = .lightGray
+        }
+    }
+}
+
+//MARK: Keyboards
+extension ChatViewController {
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func dismissKeyboard() {
+       view.endEditing(true)
     }
     
     @objc func handleKeyboardWillHide(notification: NSNotification) {
@@ -109,7 +143,6 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
-
     }
 }
 
