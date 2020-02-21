@@ -25,6 +25,7 @@ class ChatViewController: UIViewController, UITextViewDelegate {
     
     private let inputTextView = InputTextView()
     private let sendButton = IconButton(systemName: "paperplane.fill")
+    private var inputContainerBottomAnchor: NSLayoutConstraint?
     
     //MARK: Life Cycles
     override func viewDidLoad() {
@@ -38,6 +39,7 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         setUpConstraints()
 
         inputTextView.delegate = self
+        setupKeyboardObservers()
     }
     
     private func addSubviews() {
@@ -46,6 +48,7 @@ class ChatViewController: UIViewController, UITextViewDelegate {
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
     }
+    
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
@@ -61,11 +64,13 @@ class ChatViewController: UIViewController, UITextViewDelegate {
             inputTextView.heightAnchor.constraint(equalToConstant: Constants.inputContainerHeight - (Constants.inputPadding*2)),
             inputTextView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: Constants.inputPadding),
         ])
+        inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: -(Constants.inputPadding))
+        inputContainerBottomAnchor?.isActive = true
         
         NSLayoutConstraint.activate([
             sendButton.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor),
             sendButton.widthAnchor.constraint(equalToConstant: Constants.inputContainerHeight),
-            sendButton.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: -(Constants.inputPadding*2)),
+            sendButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant: -(Constants.inputPadding)),
             sendButton.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: (Constants.inputPadding*2)),
         ])
         
@@ -79,6 +84,32 @@ class ChatViewController: UIViewController, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         inputTextView.calculateBestHeight()
+    }
+    
+    func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func handleKeyboardWillHide(notification: NSNotification) {
+        let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        
+        inputContainerBottomAnchor?.constant = 0
+        UIView.animate(withDuration: keyboardDuration!, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc func handleKeyboardWillShow(notification: NSNotification) {
+
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+
+        inputContainerBottomAnchor?.constant = -keyboardFrame!.height + Constants.inputPadding*2
+        UIView.animate(withDuration: keyboardDuration!, animations: {
+            self.view.layoutIfNeeded()
+        })
+
     }
 }
 
