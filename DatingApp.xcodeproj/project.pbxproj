@@ -21,6 +21,7 @@
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
 		384EA7B323D7AE0F00940681 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EA7B223D7AE0F00940681 /* CircleButton.swift */; };
 		3869847F23D8263500AB23DF /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869847E23D8263500AB23DF /* UserImage.swift */; };
+		387580282403679400C88086 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387580272403679400C88086 /* ChatCell.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
 		38A41D0B23E0C70600F904B9 /* ViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0A23E0C70600F904B9 /* ViewShadow.swift */; };
 		38DE9B5F23FEE91000DF6237 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE9B5E23FEE91000DF6237 /* ChatViewController.swift */; };
@@ -45,6 +46,7 @@
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		384EA7B223D7AE0F00940681 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		3869847E23D8263500AB23DF /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
+		387580272403679400C88086 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
 		38A41D0A23E0C70600F904B9 /* ViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewShadow.swift; sourceTree = "<group>"; };
 		38DE9B5E23FEE91000DF6237 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				38DE9B5E23FEE91000DF6237 /* ChatViewController.swift */,
 				3829E1DF23FF22E700136D65 /* IconButton.swift */,
 				3829E1E123FF268F00136D65 /* InputTextView.swift */,
+				387580272403679400C88086 /* ChatCell.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
 				3869847F23D8263500AB23DF /* UserImage.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
+				387580282403679400C88086 /* ChatCell.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				382CC79E23D5ECFC0043060E /* RoundedButton.swift in Sources */,
 			);

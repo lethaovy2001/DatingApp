@@ -12,7 +12,7 @@ class InputTextView: UITextView {
     
     init() {
         super.init(frame: .zero, textContainer: nil)
-        self.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 0.5)
+        self.backgroundColor = Constants.LIGHTGRAY
         self.layer.cornerRadius = (Constants.inputContainerHeight - Constants.inputPadding*2)/2
         self.text = "Aa"
         self.textColor = .lightGray
@@ -34,6 +34,11 @@ class InputTextView: UITextView {
     func calculateBestHeight() {
         let size = CGSize(width: self.frame.width, height: .infinity)
         let estimatedSize = self.sizeThatFits(size)
+        if (estimatedSize.height > 150) {
+            self.isScrollEnabled = true;
+            self.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 6)
+            return
+        }
         self.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {
                 constraint.constant = estimatedSize.height
