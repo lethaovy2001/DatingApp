@@ -104,11 +104,9 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
-				384604AA23E7A308006F6540 /* Swipe */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
+				384604AA23E7A308006F6540 /* MainScreen */,
 				3854F6442437C4EC00229E16 /* Message */,
-				38F1B52D23E25A100003F6A9 /* MainScreen */,
-				382CC79C23D5ECCD0043060E /* Models */,
 				382CC79B23D5ECBF0043060E /* Views */,
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
@@ -130,23 +128,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		382CC79C23D5ECCD0043060E /* Models */ = {
+		384604AA23E7A308006F6540 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
+				3854F64E2437C93300229E16 /* Swipe */,
+				3854F64D2437C8F100229E16 /* Views */,
 				3869847E23D8263500AB23DF /* UserImage.swift */,
+				382CC7A423D791150043060E /* MainViewController.swift */,
 			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		384604AA23E7A308006F6540 /* Swipe */ = {
-			isa = PBXGroup;
-			children = (
-				384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */,
-				384604AF23E7A736006F6540 /* SwipeCardView.swift */,
-				384604B123EA712A006F6540 /* SwipeCardModel.swift */,
-				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
-			);
-			path = Swipe;
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
 		3854F6442437C4EC00229E16 /* Message */ = {
@@ -160,14 +150,24 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
-		38F1B52D23E25A100003F6A9 /* MainScreen */ = {
+		3854F64D2437C8F100229E16 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				382CC7A423D791150043060E /* MainViewController.swift */,
 				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
 				384EA7B223D7AE0F00940681 /* CircleButton.swift */,
 			);
-			name = MainScreen;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3854F64E2437C93300229E16 /* Swipe */ = {
+			isa = PBXGroup;
+			children = (
+				384604B123EA712A006F6540 /* SwipeCardModel.swift */,
+				384604AF23E7A736006F6540 /* SwipeCardView.swift */,
+				384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */,
+				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
+			);
+			path = Swipe;
 			sourceTree = "<group>";
 		};
 		38F1B52E23E25AF30003F6A9 /* LoginScreen */ = {
