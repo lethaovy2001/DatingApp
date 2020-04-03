@@ -12,8 +12,8 @@ class InputTextView: UITextView {
     
     init() {
         super.init(frame: .zero, textContainer: nil)
-        self.backgroundColor = Constants.LIGHTGRAY
-        self.layer.cornerRadius = (Constants.inputContainerHeight - Constants.inputPadding*2)/2
+        self.backgroundColor = Constants.Colors.lightGray
+        self.layer.cornerRadius = (Constants.PaddingValues.inputContainerHeight - Constants.PaddingValues.inputPadding*2)/2
         self.text = "Aa"
         self.textColor = .lightGray
         self.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -27,7 +27,7 @@ class InputTextView: UITextView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.textContainerInset = UIEdgeInsets(top: Constants.inputPadding, left: Constants.inputPadding, bottom: Constants.inputPadding, right: Constants.inputPadding)
+        self.textContainerInset = UIEdgeInsets(top: Constants.PaddingValues.inputPadding, left: Constants.PaddingValues.inputPadding, bottom: Constants.PaddingValues.inputPadding, right: Constants.PaddingValues.inputPadding)
             calculateBestHeight()
     }
     

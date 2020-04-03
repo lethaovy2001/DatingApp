@@ -19,7 +19,7 @@ class ChatViewController: UICollectionViewController {
     
     private let line: UIView = {
         let view = UIView()
-        view.backgroundColor = Constants.LIGHTGRAY
+        view.backgroundColor = Constants.Colors.lightGray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -54,7 +54,7 @@ class ChatViewController: UICollectionViewController {
     private func setupCollectionView() {
         self.collectionView?.backgroundColor = UIColor.white
         self.collectionView?.alwaysBounceVertical = true
-        collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: Constants.CELL_ID)
+        collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
         self.collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
     }
     
@@ -76,23 +76,23 @@ class ChatViewController: UICollectionViewController {
             inputContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: inputContainerView.safeAreaLayoutGuide.bottomAnchor, constant: -(Constants.inputPadding))
+        inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: inputContainerView.safeAreaLayoutGuide.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding))
         
-        let inputTextViewHeight: CGFloat = Constants.inputContainerHeight - (Constants.inputPadding*2)
+        let inputTextViewHeight: CGFloat = Constants.PaddingValues.inputContainerHeight - (Constants.PaddingValues.inputPadding*2)
         
         NSLayoutConstraint.activate([
-            inputTextView.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: Constants.inputPadding),
+            inputTextView.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: Constants.PaddingValues.inputPadding),
             inputTextView.rightAnchor.constraint(equalTo: sendButton.leftAnchor),
             inputContainerBottomAnchor,
             inputTextView.heightAnchor.constraint(equalToConstant: inputTextViewHeight),
-            inputTextView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: Constants.inputPadding),
+            inputTextView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: Constants.PaddingValues.inputPadding),
         ])
         
         NSLayoutConstraint.activate([
             sendButton.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor),
-            sendButton.widthAnchor.constraint(equalToConstant: Constants.inputContainerHeight),
-            sendButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant: -(Constants.inputPadding)),
-            sendButton.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: (Constants.inputPadding*2)),
+            sendButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.inputContainerHeight),
+            sendButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding)),
+            sendButton.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: (Constants.PaddingValues.inputPadding*2)),
         ])
         
         NSLayoutConstraint.activate([
@@ -116,7 +116,7 @@ class ChatViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CELL_ID, for: indexPath) as! ChatCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
         cell.textView.text = "12"
         return cell
     }
@@ -187,7 +187,7 @@ extension ChatViewController {
         let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
 
-        inputContainerBottomAnchor.constant = -keyboardFrame!.height + Constants.inputPadding*2
+        inputContainerBottomAnchor.constant = -keyboardFrame!.height + Constants.PaddingValues.inputPadding*2
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })

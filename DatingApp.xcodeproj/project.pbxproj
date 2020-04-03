@@ -26,6 +26,7 @@
 		3854F64A2437C4EC00229E16 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6462437C4EC00229E16 /* IconButton.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
+		3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6512437DA7400229E16 /* UserDefaults+helper.swift */; };
 		3869847F23D8263500AB23DF /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869847E23D8263500AB23DF /* UserImage.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
 		38A41D0B23E0C70600F904B9 /* ViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0A23E0C70600F904B9 /* ViewShadow.swift */; };
@@ -55,6 +56,7 @@
 		3854F6462437C4EC00229E16 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		3854F6512437DA7400229E16 /* UserDefaults+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+helper.swift"; sourceTree = "<group>"; };
 		3869847E23D8263500AB23DF /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
 		38A41D0A23E0C70600F904B9 /* ViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewShadow.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				382CC79123D3B0DF0043060E /* LaunchScreen.storyboard */,
 				382CC79423D3B0DF0043060E /* Info.plist */,
 				382CC7A223D78C940043060E /* GoogleService-Info.plist */,
+				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
 			);
 			path = DatingApp;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				3869847F23D8263500AB23DF /* UserImage.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
+				3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */,
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,

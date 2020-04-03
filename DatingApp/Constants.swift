@@ -10,18 +10,23 @@ import UIKit
 
 struct Constants {
     //MARK: Colors
-    static let fbColor = UIColor(red: 65/225, green: 105/225, blue: 225/225, alpha: 1)
-    static let mainBackgroundColor = UIColor(red: 220/225, green: 220/225, blue: 220/225, alpha: 1)
-    static let LIGHTGRAY = UIColor(red: 211/225, green: 211/225, blue: 211/225, alpha: 0.6)
+    struct Colors {
+        static let fbColor = UIColor(red: 65/225, green: 105/225, blue: 225/225, alpha: 1)
+        static let mainBackgroundColor = UIColor(red: 220/225, green: 220/225, blue: 220/225, alpha: 1)
+        static let lightGray = UIColor(red: 211/225, green: 211/225, blue: 211/225, alpha: 0.6)
+    }
     
-    //MARK: Input Container
-    static let inputContainerHeight: CGFloat = 60
-    static let inputPadding: CGFloat = 12
+    struct PaddingValues {
+        //MARK: Input Container
+        static let inputContainerHeight: CGFloat = 60
+        static let inputPadding: CGFloat = 12
+        
+        //MARK: Swipe
+        static let swipeImageCornerRadius = CGFloat(20)
+    }
+
     
     //MARK: ID
-    static let CELL_ID = "cellId"
-    
-    //MARK: Swipe
-    static let swipeImageCornerRadius = CGFloat(20)
+    static let cellId = "cellId"
 }
 

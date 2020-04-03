@@ -41,7 +41,7 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
         self.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 5.0
-        self.layer.cornerRadius = Constants.swipeImageCornerRadius
+        self.layer.cornerRadius = Constants.PaddingValues.swipeImageCornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

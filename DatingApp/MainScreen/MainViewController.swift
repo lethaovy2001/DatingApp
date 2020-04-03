@@ -54,9 +54,17 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         stackContainer.dataSource = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if (!UserDefaults.standard.isLoggedIn()) {
+            let vc = LoginViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     // MARK: Setup
     private func setup() {
-        self.view.backgroundColor = Constants.mainBackgroundColor
+        self.view.backgroundColor = Constants.Colors.mainBackgroundColor
         addSubViews()
         setupConstraints()
     }
@@ -95,9 +103,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func dislikePressed() {
-       
+        
     }
-    
 }
 
 extension MainViewController: SwipeableCardDataSource {

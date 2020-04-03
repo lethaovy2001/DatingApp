@@ -14,7 +14,7 @@ class RoundedUserImage: UIImageView {
         super.init(image: UIImage(named: imageName))
         self.contentMode = .scaleAspectFill
         self.isUserInteractionEnabled = true
-        self.layer.cornerRadius = Constants.swipeImageCornerRadius
+        self.layer.cornerRadius = Constants.PaddingValues.swipeImageCornerRadius
 //        self.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
 //        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
 //        self.layer.shadowOpacity = 1.0
