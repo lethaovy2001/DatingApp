@@ -12,7 +12,7 @@ class InputTextView: UITextView {
     
     init() {
         super.init(frame: .zero, textContainer: nil)
-        self.backgroundColor = Constants.Colors.lightGray
+        self.backgroundColor = Constants.Colors.inputContainerColor
         self.layer.cornerRadius = (Constants.PaddingValues.inputContainerHeight - Constants.PaddingValues.inputPadding*2)/2
         self.text = "Aa"
         self.textColor = .lightGray

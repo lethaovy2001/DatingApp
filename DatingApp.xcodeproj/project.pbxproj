@@ -28,7 +28,7 @@
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
 		3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6512437DA7400229E16 /* UserDefaults+helper.swift */; };
 		3854F6552438092000229E16 /* UIView+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* UIView+helpers.swift */; };
-		3869847F23D8263500AB23DF /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869847E23D8263500AB23DF /* UserImage.swift */; };
+		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
@@ -58,7 +58,7 @@
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		3854F6512437DA7400229E16 /* UserDefaults+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+helper.swift"; sourceTree = "<group>"; };
 		3854F6542438092000229E16 /* UIView+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+helpers.swift"; sourceTree = "<group>"; };
-		3869847E23D8263500AB23DF /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
+		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,9 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				3854F64E2437C93300229E16 /* Swipe */,
-				3854F64D2437C8F100229E16 /* Views */,
-				3869847E23D8263500AB23DF /* UserImage.swift */,
-				382CC7A423D791150043060E /* MainViewController.swift */,
+				3854F65A24384F8F00229E16 /* Controller */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -177,28 +175,17 @@
 		3854F6442437C4EC00229E16 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				3854F6452437C4EC00229E16 /* ChatViewController.swift */,
-				3854F6472437C4EC00229E16 /* InputTextView.swift */,
-				3854F6482437C4EC00229E16 /* ChatCell.swift */,
+				3854F65924384F6A00229E16 /* Controller */,
+				3854F65824384F6100229E16 /* View */,
 			);
 			path = Message;
-			sourceTree = "<group>";
-		};
-		3854F64D2437C8F100229E16 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		3854F64E2437C93300229E16 /* Swipe */ = {
 			isa = PBXGroup;
 			children = (
-				384604B123EA712A006F6540 /* SwipeCardModel.swift */,
-				384604AF23E7A736006F6540 /* SwipeCardView.swift */,
-				384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */,
-				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
+				3854F65724384F1200229E16 /* Model */,
+				3854F65624384A0C00229E16 /* View */,
 			);
 			path = Swipe;
 			sourceTree = "<group>";
@@ -211,6 +198,51 @@
 				3854F6542438092000229E16 /* UIView+helpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		3854F65624384A0C00229E16 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
+				384604AF23E7A736006F6540 /* SwipeCardView.swift */,
+				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3854F65724384F1200229E16 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				384604B123EA712A006F6540 /* SwipeCardModel.swift */,
+				384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3854F65824384F6100229E16 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3854F6472437C4EC00229E16 /* InputTextView.swift */,
+				3854F6482437C4EC00229E16 /* ChatCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3854F65924384F6A00229E16 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3854F6452437C4EC00229E16 /* ChatViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3854F65A24384F8F00229E16 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				382CC7A423D791150043060E /* MainViewController.swift */,
+				3854F65B2438526B00229E16 /* MainView.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		38F1B52E23E25AF30003F6A9 /* LoginScreen */ = {
@@ -351,11 +383,11 @@
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				3854F6552438092000229E16 /* UIView+helpers.swift in Sources */,
+				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
 				384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */,
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
-				3869847F23D8263500AB23DF /* UserImage.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
 				3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */,
