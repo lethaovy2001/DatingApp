@@ -85,7 +85,7 @@ class MainView: UIView {
     }
     
     func setDataSource(uiViewController: UIViewController) {
-        swipeStackContainer.dataSource = uiViewController as! SwipeableCardDataSource
+        swipeStackContainer.dataSource = uiViewController as? SwipeableCardDataSource
     }
     
     func setLikeSelector(selector: Selector, target: UIViewController) {

@@ -25,15 +25,15 @@ class ChatViewController: UICollectionViewController {
     }()
     
     private let inputTextView = InputTextView()
-    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 25, color: .cyan, addShadow: true, cornerRadius: Constants.PaddingValues.likeButtonHeight/2)
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .red, addShadow: false, cornerRadius: nil)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     
     
     //MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setup()
+        sendButton.backgroundColor = .yellow
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -91,10 +91,10 @@ class ChatViewController: UICollectionViewController {
         NSLayoutConstraint.activate([
             sendButton.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor),
             sendButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.inputContainerHeight),
-            sendButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding)),
-            sendButton.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: (Constants.PaddingValues.inputPadding*2)),
+            sendButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor),
+            sendButton.topAnchor.constraint(equalTo: inputTextView.topAnchor)
         ])
-        
+        //-(Constants.PaddingValues.inputPadding)
         NSLayoutConstraint.activate([
             line.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor),
             line.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor),
