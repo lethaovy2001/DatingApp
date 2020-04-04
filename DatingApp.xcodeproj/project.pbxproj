@@ -21,15 +21,14 @@
 		384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AF23E7A736006F6540 /* SwipeCardView.swift */; };
 		384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B123EA712A006F6540 /* SwipeCardModel.swift */; };
 		384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */; };
-		384EA7B323D7AE0F00940681 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EA7B223D7AE0F00940681 /* CircleButton.swift */; };
+		384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EA7B223D7AE0F00940681 /* CustomButton.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
-		3854F64A2437C4EC00229E16 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6462437C4EC00229E16 /* IconButton.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
 		3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6512437DA7400229E16 /* UserDefaults+helper.swift */; };
+		3854F6552438092000229E16 /* UIView+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* UIView+helpers.swift */; };
 		3869847F23D8263500AB23DF /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869847E23D8263500AB23DF /* UserImage.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
-		38A41D0B23E0C70600F904B9 /* ViewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0A23E0C70600F904B9 /* ViewShadow.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,15 +50,14 @@
 		384604AF23E7A736006F6540 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		384604B123EA712A006F6540 /* SwipeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardModel.swift; sourceTree = "<group>"; };
 		384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackContainer.swift; sourceTree = "<group>"; };
-		384EA7B223D7AE0F00940681 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		384EA7B223D7AE0F00940681 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		3854F6462437C4EC00229E16 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		3854F6512437DA7400229E16 /* UserDefaults+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+helper.swift"; sourceTree = "<group>"; };
+		3854F6542438092000229E16 /* UIView+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+helpers.swift"; sourceTree = "<group>"; };
 		3869847E23D8263500AB23DF /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
-		38A41D0A23E0C70600F904B9 /* ViewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewShadow.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -117,7 +115,7 @@
 				382CC79123D3B0DF0043060E /* LaunchScreen.storyboard */,
 				382CC79423D3B0DF0043060E /* Info.plist */,
 				382CC7A223D78C940043060E /* GoogleService-Info.plist */,
-				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
+				3854F653243808FC00229E16 /* Helpers */,
 			);
 			path = DatingApp;
 			sourceTree = "<group>";
@@ -126,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				382CC78C23D3B0DD0043060E /* Main.storyboard */,
-				38A41D0A23E0C70600F904B9 /* ViewShadow.swift */,
+				384EA7B223D7AE0F00940681 /* CustomButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				3854F6452437C4EC00229E16 /* ChatViewController.swift */,
-				3854F6462437C4EC00229E16 /* IconButton.swift */,
 				3854F6472437C4EC00229E16 /* InputTextView.swift */,
 				3854F6482437C4EC00229E16 /* ChatCell.swift */,
 			);
@@ -157,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
-				384EA7B223D7AE0F00940681 /* CircleButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,6 +167,15 @@
 				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
 			);
 			path = Swipe;
+			sourceTree = "<group>";
+		};
+		3854F653243808FC00229E16 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
+				3854F6542438092000229E16 /* UIView+helpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		38F1B52E23E25AF30003F6A9 /* LoginScreen */ = {
@@ -306,12 +311,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3854F64A2437C4EC00229E16 /* IconButton.swift in Sources */,
-				38A41D0B23E0C70600F904B9 /* ViewShadow.swift in Sources */,
-				384EA7B323D7AE0F00940681 /* CircleButton.swift in Sources */,
+				384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
+				3854F6552438092000229E16 /* UIView+helpers.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
 				384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */,

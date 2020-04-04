@@ -11,27 +11,29 @@ import UIKit
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let cardView = SwipeCardView()
-    private var stackContainer = SwipeCardStackContainer()
+    private var swipeStackContainer = SwipeCardStackContainer()
     
-    private let likeButton: CircleButton = {
-        let button = CircleButton(imageName: "heart.jpg")
+    private let likeButton: CustomButton = {
+        let button = CustomButton(imageName: "heart.fill", size: 25, color: .cyan, addShadow: true, cornerRadius: Constants.PaddingValues.likeButtonHeight/2)
         button.addTarget(self, action: #selector(likePressed), for: .touchUpInside)
         return button
     }()
     
-    private let dislikeButton: CircleButton = {
-        let button = CircleButton(imageName: "dislike.jpg")
+    private let dislikeButton: CustomButton = {
+        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: .red, addShadow: true, cornerRadius: Constants.PaddingValues.likeButtonHeight/2)
         button.addTarget(self, action: #selector(dislikePressed), for: .touchUpInside)
         return button
     }()
+    private let (profileButton) = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, addShadow: false, cornerRadius: nil)
     
+    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, addShadow: false, cornerRadius: nil)
+
     private let buttonStack: UIStackView = {
        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.backgroundColor = .red
         stackView.spacing = 60
         stackView.alignment = .center
-        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -51,7 +53,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        stackContainer.dataSource = self
+        swipeStackContainer.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,32 +72,51 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func addSubViews() {
-        view.addSubview(stackContainer)
+        view.addSubview(profileButton)
+        view.addSubview(messageButton)
+        view.addSubview(swipeStackContainer)
         view.addSubview(buttonStack)
+        
         buttonStack.addArrangedSubview(dislikeButton)
         buttonStack.addArrangedSubview(likeButton)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            stackContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
-            stackContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
-            stackContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -160),
-            stackContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 90)
+            profileButton.heightAnchor.constraint(equalToConstant: 60),
+            profileButton.widthAnchor.constraint(equalToConstant: 60),
+            profileButton.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            profileButton.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 6)
         ])
+        
         NSLayoutConstraint.activate([
-            likeButton.heightAnchor.constraint(equalToConstant: 80),
-            likeButton.widthAnchor.constraint(equalToConstant: 80),
+            messageButton.heightAnchor.constraint(equalToConstant: 60),
+            messageButton.widthAnchor.constraint(equalToConstant: 60),
+            messageButton.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            messageButton.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 6)
         ])
-        NSLayoutConstraint.activate([
-            dislikeButton.heightAnchor.constraint(equalToConstant: 80),
-            dislikeButton.widthAnchor.constraint(equalToConstant: 80),
-        ])
+        
         NSLayoutConstraint.activate([
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-            buttonStack.topAnchor.constraint(equalTo: stackContainer.bottomAnchor, constant: 12)
+            buttonStack.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            buttonStack.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight)
         ])
+        
+        NSLayoutConstraint.activate([
+            swipeStackContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
+            swipeStackContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
+            swipeStackContainer.bottomAnchor.constraint(equalTo: buttonStack.topAnchor, constant: -Constants.PaddingValues.likeButtonHeight - 36),
+            swipeStackContainer.topAnchor.constraint(equalTo: profileButton.bottomAnchor, constant: 6)
+        ])
+        NSLayoutConstraint.activate([
+            likeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+            likeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+        ])
+        NSLayoutConstraint.activate([
+            dislikeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+            dislikeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+        ])
+        
     }
     
     @objc func likePressed() {
@@ -122,7 +143,6 @@ extension MainViewController: SwipeableCardDataSource {
     func viewForEmptyCards() -> UIView? {
         return nil
     }
-    
     
 }
 

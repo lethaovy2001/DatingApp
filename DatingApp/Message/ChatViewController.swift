@@ -25,7 +25,7 @@ class ChatViewController: UICollectionViewController {
     }()
     
     private let inputTextView = InputTextView()
-    private let sendButton = IconButton(systemName: "paperplane.fill")
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 25, color: .cyan, addShadow: true, cornerRadius: Constants.PaddingValues.likeButtonHeight/2)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     
     
@@ -128,7 +128,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text = "I love you 3000 \n lala"
         let width = UIScreen.main.bounds.width
-        var height = estimatedFrameForText(text: text).height + 20
+        let height = estimatedFrameForText(text: text).height + 20
         return CGSize(width: width, height: height)
     }
     

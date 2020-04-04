@@ -28,7 +28,7 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
     //MARK: Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        configureViewShadow()
+        configureSelf()
     }
     
     required init?(coder: NSCoder) {
@@ -36,12 +36,9 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
     }
     
     //MARK: Setup
-    private func configureViewShadow() {
-        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = 5.0
-        self.layer.cornerRadius = Constants.PaddingValues.swipeImageCornerRadius
+    private func configureSelf() {
+        self.layer.cornerRadius =  Constants.PaddingValues.swipeImageCornerRadius
+        self.addShadow()
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -82,6 +79,4 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
             addCardView(cardView: datasource.card(forItemAt: newIndex))
         }
     }
-
-    
 }
