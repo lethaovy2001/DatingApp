@@ -27,16 +27,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     private let (profileButton) = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, addShadow: false, cornerRadius: nil)
     
     private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, addShadow: false, cornerRadius: nil)
-
-    private let buttonStack: UIStackView = {
-       let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.backgroundColor = .red
-        stackView.spacing = 60
-        stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
     
     private let userImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
     private lazy var users = [
@@ -75,10 +65,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(profileButton)
         view.addSubview(messageButton)
         view.addSubview(swipeStackContainer)
-        view.addSubview(buttonStack)
-        
-        buttonStack.addArrangedSubview(dislikeButton)
-        buttonStack.addArrangedSubview(likeButton)
+        view.addSubview(dislikeButton)
+        view.addSubview(likeButton)
     }
     
     private func setupConstraints() {
@@ -97,26 +85,25 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         ])
         
         NSLayoutConstraint.activate([
-            buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonStack.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-            buttonStack.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight)
+            likeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+            likeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+            likeButton.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            likeButton.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -64)
+            
+        ])
+        NSLayoutConstraint.activate([
+            dislikeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+            dislikeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
+            dislikeButton.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            dislikeButton.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 64)
         ])
         
         NSLayoutConstraint.activate([
             swipeStackContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
             swipeStackContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
-            swipeStackContainer.bottomAnchor.constraint(equalTo: buttonStack.topAnchor, constant: -Constants.PaddingValues.likeButtonHeight - 36),
+            swipeStackContainer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 3.5/5),
             swipeStackContainer.topAnchor.constraint(equalTo: profileButton.bottomAnchor, constant: 6)
         ])
-        NSLayoutConstraint.activate([
-            likeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
-            likeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
-        ])
-        NSLayoutConstraint.activate([
-            dislikeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
-            dislikeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
-        ])
-        
     }
     
     @objc func likePressed() {
