@@ -19,7 +19,7 @@ class CustomButton: UIButton {
         self.backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
         if (addShadow) {
-            self.addShadow()
+            self.addShadow(withDirection: .bottom)
             self.backgroundColor = .white
         } 
         if let radius = cornerRadius {

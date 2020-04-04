@@ -38,7 +38,7 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
     //MARK: Setup
     private func configureSelf() {
         self.layer.cornerRadius =  Constants.PaddingValues.swipeImageCornerRadius
-        self.addShadow()
+        self.addShadow(withDirection: .bottom)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

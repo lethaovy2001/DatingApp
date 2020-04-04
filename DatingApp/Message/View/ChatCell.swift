@@ -13,7 +13,7 @@ class ChatCell: UICollectionViewCell {
     //TODO: Create a custom class for container
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .purple
+        view.backgroundColor = .orange
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
         view.layer.masksToBounds = true
@@ -32,7 +32,7 @@ class ChatCell: UICollectionViewCell {
     let textView: UITextView = {
         let tv = UITextView()
         tv.text = "I love you 3000 \n lala"
-        tv.font = UIFont.systemFont(ofSize: 16)
+        tv.font = UIFont.boldSystemFont(ofSize: 16)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor.clear
         tv.textColor = UIColor.white
@@ -47,10 +47,10 @@ class ChatCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .yellow
         setup()
     }
     
+    //MARK: Setup
     private func setup() {
         addSubviews()
         setupConstraints()
@@ -70,7 +70,6 @@ class ChatCell: UICollectionViewCell {
             profileImageView.heightAnchor.constraint(equalToConstant: 32)
         ])
 
-        
         containerViewRightAnchor = containerView.rightAnchor.constraint(equalTo: self.centerXAnchor, constant: 60)
         containerViewLeftAnchor = containerView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
         NSLayoutConstraint.activate([
