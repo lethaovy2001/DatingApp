@@ -11,18 +11,15 @@ import UIKit
 class MainView: UIView {
     private let cardView = SwipeCardView()
     private var swipeStackContainer = SwipeCardStackContainer()
-    
     private let likeButton: CustomButton = {
         let button = CustomButton(imageName: "heart.fill", size: 25, color: .cyan, addShadow: true, cornerRadius: Constants.PaddingValues.likeButtonHeight/2)
         return button
     }()
-    
     private let dislikeButton: CustomButton = {
         let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: .red, addShadow: true, cornerRadius: Constants.PaddingValues.likeButtonHeight/2)
         return button
     }()
     private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, addShadow: false, cornerRadius: nil)
-    
     private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, addShadow: false, cornerRadius: nil)
     
     override init(frame: CGRect) {
