@@ -102,6 +102,24 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		246B76BD24382AE500FE1D40 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				382CC78C23D3B0DD0043060E /* Main.storyboard */,
+				382CC79123D3B0DF0043060E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		246B76BE24382B1100FE1D40 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				382CC78F23D3B0DF0043060E /* Assets.xcassets */,
+				382CC7A223D78C940043060E /* GoogleService-Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		382CC77A23D3B0DD0043060E = {
 			isa = PBXGroup;
 			children = (
@@ -123,18 +141,16 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
+				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
+				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
 				3854F6442437C4EC00229E16 /* Message */,
 				382CC79B23D5ECBF0043060E /* Views */,
-				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
-				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
-				382CC7A023D5EF650043060E /* Constants.swift */,
-				382CC78F23D3B0DF0043060E /* Assets.xcassets */,
-				382CC79123D3B0DF0043060E /* LaunchScreen.storyboard */,
-				382CC79423D3B0DF0043060E /* Info.plist */,
-				382CC7A223D78C940043060E /* GoogleService-Info.plist */,
+				246B76BD24382AE500FE1D40 /* Storyboards */,
+				246B76BE24382B1100FE1D40 /* SupportingFiles */,
 				3854F653243808FC00229E16 /* Helpers */,
+				382CC79423D3B0DF0043060E /* Info.plist */,
 			);
 			path = DatingApp;
 			sourceTree = "<group>";
@@ -142,7 +158,6 @@
 		382CC79B23D5ECBF0043060E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				382CC78C23D3B0DD0043060E /* Main.storyboard */,
 				384EA7B223D7AE0F00940681 /* CustomButton.swift */,
 			);
 			path = Views;
@@ -191,6 +206,7 @@
 		3854F653243808FC00229E16 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				382CC7A023D5EF650043060E /* Constants.swift */,
 				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
 				3854F6542438092000229E16 /* UIView+helpers.swift */,
 			);
