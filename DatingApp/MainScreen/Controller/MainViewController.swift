@@ -49,13 +49,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    private func setSelectors() {
-        mainView.setLikeSelector(selector: #selector(likePressed), target: self)
-        mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
-        mainView.setProfileSelector(selector: #selector(profilePressed), target: self)
-        mainView.setMessageSelector(selector: #selector(messagePressed), target: self)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         if (!UserDefaults.standard.isLoggedIn()) {
             let vc = LoginViewController()

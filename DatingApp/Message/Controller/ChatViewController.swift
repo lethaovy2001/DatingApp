@@ -67,6 +67,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     //TODO: Report User
+    //MARK: Actions
     @objc func reportPressed(){
         
     }
