@@ -26,6 +26,8 @@
 		384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EA7B223D7AE0F00940681 /* CustomButton.swift */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
 		384EDF1F2439453400001F7B /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1E2439453400001F7B /* CircleImageView.swift */; };
+		384EDF27243A487800001F7B /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF26243A487800001F7B /* DatingAppTests.swift */; };
+		384EDF2F243A490B00001F7B /* MainModelControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF2E243A490B00001F7B /* MainModelControllerTest.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
@@ -35,6 +37,16 @@
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		384EDF29243A487800001F7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 382CC77B23D3B0DD0043060E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 382CC78223D3B0DD0043060E;
+			remoteInfo = DatingApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1DB7192F28F55265A50163F1 /* Pods-DatingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.release.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -59,6 +71,10 @@
 		384EA7B223D7AE0F00940681 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		384EDF1E2439453400001F7B /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		384EDF24243A487800001F7B /* DatingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		384EDF26243A487800001F7B /* DatingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppTests.swift; sourceTree = "<group>"; };
+		384EDF28243A487800001F7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		384EDF2E243A490B00001F7B /* MainModelControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModelControllerTest.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
@@ -76,6 +92,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		384EDF21243A487800001F7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				382CC78523D3B0DD0043060E /* DatingApp */,
+				384EDF25243A487800001F7B /* DatingAppTests */,
 				382CC78423D3B0DD0043060E /* Products */,
 				09ABD1EB85F38846F36BC74B /* Pods */,
 				F12EC8373E2D99DDF2F32760 /* Frameworks */,
@@ -140,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				382CC78323D3B0DD0043060E /* DatingApp.app */,
+				384EDF24243A487800001F7B /* DatingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,6 +202,16 @@
 				3854F65A24384F8F00229E16 /* Controller */,
 			);
 			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		384EDF25243A487800001F7B /* DatingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				384EDF26243A487800001F7B /* DatingAppTests.swift */,
+				384EDF28243A487800001F7B /* Info.plist */,
+				384EDF2E243A490B00001F7B /* MainModelControllerTest.swift */,
+			);
+			path = DatingAppTests;
 			sourceTree = "<group>";
 		};
 		3854F6442437C4EC00229E16 /* Message */ = {
@@ -293,6 +328,24 @@
 			productReference = 382CC78323D3B0DD0043060E /* DatingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		384EDF23243A487800001F7B /* DatingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 384EDF2D243A487800001F7B /* Build configuration list for PBXNativeTarget "DatingAppTests" */;
+			buildPhases = (
+				384EDF20243A487800001F7B /* Sources */,
+				384EDF21243A487800001F7B /* Frameworks */,
+				384EDF22243A487800001F7B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				384EDF2A243A487800001F7B /* PBXTargetDependency */,
+			);
+			name = DatingAppTests;
+			productName = DatingAppTests;
+			productReference = 384EDF24243A487800001F7B /* DatingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -305,6 +358,10 @@
 				TargetAttributes = {
 					382CC78223D3B0DD0043060E = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					384EDF23243A487800001F7B = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 382CC78223D3B0DD0043060E;
 					};
 				};
 			};
@@ -322,6 +379,7 @@
 			projectRoot = "";
 			targets = (
 				382CC78223D3B0DD0043060E /* DatingApp */,
+				384EDF23243A487800001F7B /* DatingAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -335,6 +393,13 @@
 				382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */,
 				382CC79023D3B0DF0043060E /* Assets.xcassets in Resources */,
 				382CC78E23D3B0DD0043060E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		384EDF22243A487800001F7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +477,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		384EDF20243A487800001F7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				384EDF2F243A490B00001F7B /* MainModelControllerTest.swift in Sources */,
+				384EDF27243A487800001F7B /* DatingAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		384EDF2A243A487800001F7B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 382CC78223D3B0DD0043060E /* DatingApp */;
+			targetProxy = 384EDF29243A487800001F7B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		382CC78C23D3B0DD0043060E /* Main.storyboard */ = {
@@ -584,6 +666,44 @@
 			};
 			name = Release;
 		};
+		384EDF2B243A487800001F7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DatingAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.VyLe.DatingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DatingApp.app/DatingApp";
+			};
+			name = Debug;
+		};
+		384EDF2C243A487800001F7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DatingAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.VyLe.DatingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DatingApp.app/DatingApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -601,6 +721,15 @@
 			buildConfigurations = (
 				382CC79823D3B0DF0043060E /* Debug */,
 				382CC79923D3B0DF0043060E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		384EDF2D243A487800001F7B /* Build configuration list for PBXNativeTarget "DatingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				384EDF2B243A487800001F7B /* Debug */,
+				384EDF2C243A487800001F7B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
