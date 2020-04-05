@@ -49,10 +49,6 @@ class ChatView: UIView {
         return cv
     }()
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -63,7 +59,6 @@ class ChatView: UIView {
         self.backgroundColor = .white
         addSubviews()
         setUpConstraints()
-        createObservers()
     }
     
     private func addSubviews() {
@@ -103,8 +98,10 @@ class ChatView: UIView {
         ])
     }
     
-    func addDelegate(uiViewController: UIViewController) {
-        inputTextView.delegate = uiViewController as? UITextViewDelegate
+    func addDelegate(viewController: ChatViewController) {
+        inputTextView.delegate = viewController
+        viewController.textViewEditingDelegate = self
+        viewController.keyboardDelegate = self
     }
     
     func setupTitleNavBar(navItem: UINavigationItem) {
@@ -147,48 +144,54 @@ class ChatView: UIView {
             self.isUserInteractionEnabled = true
     }
     
+    func getKeyboard(frame: CGRect) {
+        self.keyboardFrame = frame
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-//MARK: Notifications
-extension ChatView {
-    func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didChange(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.didChangeTF), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(beginEditing(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.beginEditingTF), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(endEditing(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.endEditingTF), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(animateKeyboard(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.showKeyboard), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(animateKeyboard(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.hideKeyboard), object: nil)
+extension ChatView: TextViewEditingDelegate {
+    func didChange() {
+         inputTextView.calculateBestHeight()
     }
     
-    @objc func didChange(notification: NSNotification) {
-        inputTextView.calculateBestHeight()
-    }
-    
-    @objc func beginEditing(notification: NSNotification) {
+    func beginEditing() {
         if (inputTextView.textColor == .lightGray) {
             inputTextView.text = ""
             inputTextView.textColor = .black
         }
     }
     
-    @objc func endEditing(notification: NSNotification) {
+    func endEditing() {
         if (inputTextView.text == "") {
             inputTextView.text = "Aa"
             inputTextView.textColor = .lightGray
         }
     }
-    
-    @objc func animateKeyboard(notification: NSNotification) {
-        if notification.name.rawValue == Constants.NotificationKeys.showKeyboard {
-            inputContainerBottomAnchor.constant = -self.keyboardFrame.height + Constants.PaddingValues.inputPadding*2
-        } else {
-            inputContainerBottomAnchor.constant = 0
-        }
+}
+
+extension ChatView: KeyboardDelegate {
+    func showKeyboard() {
+        inputContainerBottomAnchor.constant = -self.keyboardFrame.height + Constants.PaddingValues.inputPadding*2
     }
     
-    func getKeyboard(frame: CGRect) {
-        self.keyboardFrame = frame
+    func hideKeyboard() {
+        inputContainerBottomAnchor.constant = 0
     }
 }
+
+protocol TextViewEditingDelegate {
+    func didChange()
+    func beginEditing()
+    func endEditing()
+}
+
+protocol KeyboardDelegate {
+    func showKeyboard()
+    func hideKeyboard()
+}
+
+

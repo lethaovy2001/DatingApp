@@ -15,6 +15,8 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    var textViewEditingDelegate: TextViewEditingDelegate?
+    var keyboardDelegate: KeyboardDelegate?
     
     //MARK: Life Cycles
     override func viewDidLoad() {
@@ -23,7 +25,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setupUI()
         setupKeyboardObservers()
         registerCellId()
-        chatView.addDelegate(uiViewController: self)
+        chatView.addDelegate(viewController: self)
         chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
@@ -94,10 +96,8 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     }
     
     private func estimatedFrameForText(text: String) -> CGRect {
-        
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        
         return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
     }
 }
@@ -105,18 +105,15 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
 //MARK: UITextViewDelegate
 extension ChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        let name = Notification.Name(rawValue: Constants.NotificationKeys.didChangeTF)
-        NotificationCenter.default.post(name: name, object: nil)
+        textViewEditingDelegate?.didChange()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        let name = Notification.Name(rawValue: Constants.NotificationKeys.beginEditingTF)
-        NotificationCenter.default.post(name: name, object: nil)
+        textViewEditingDelegate?.beginEditing()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        let name = Notification.Name(rawValue: Constants.NotificationKeys.endEditingTF)
-        NotificationCenter.default.post(name: name, object: nil)
+         textViewEditingDelegate?.endEditing()
     }
 }
 
@@ -132,19 +129,19 @@ extension ChatViewController {
     }
     
     @objc func handleKeyboardWillHide(notification: NSNotification) {
-        performKeyboardAnimation(notificationName: Constants.NotificationKeys.hideKeyboard, notification: notification)
+        keyboardDelegate?.hideKeyboard()
+        performKeyboardAnimation(notification: notification)
     }
     
     @objc func handleKeyboardWillShow(notification: NSNotification) {
         let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue ?? CGRect(x: 0, y: 0, width: 0, height: 0)
         chatView.getKeyboard(frame: keyboardFrame)
-        performKeyboardAnimation(notificationName: Constants.NotificationKeys.showKeyboard, notification: notification)
+        keyboardDelegate?.showKeyboard()
+        performKeyboardAnimation(notification: notification)
     }
     
-    private func performKeyboardAnimation(notificationName: String, notification: NSNotification) {
+    private func performKeyboardAnimation(notification: NSNotification) {
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
-        let name = Notification.Name(rawValue: notificationName)
-        NotificationCenter.default.post(name: name, object: nil)
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
