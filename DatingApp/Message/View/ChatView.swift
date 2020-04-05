@@ -13,7 +13,7 @@ class ChatView: UIView {
         let container = UIView()
         container.backgroundColor = .white
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.addShadow(withDirection: .top)
+        container.layer.addShadow(withDirection: .top)
         return container
     }()
     private let line: UIView = {
@@ -25,6 +25,27 @@ class ChatView: UIView {
     private let inputTextView = InputTextView()
     private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, addShadow: false, cornerRadius: nil)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
+    private let titleButton: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
+        
+        return button
+    }()
+    
+    private let containerView: UIView = {
+        let containerView = UIView()
+         containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
+    
+    private let profileImageView = CircleImageView(cornerRadius: 20, imageName: "Vy")
+    
+    private let nameLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.text = "Vy"
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        return nameLabel
+    }()
     
     var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -42,6 +63,7 @@ class ChatView: UIView {
         inputTextView.delegate = uiViewController as? UITextViewDelegate
     }
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
          setup()
@@ -52,19 +74,6 @@ class ChatView: UIView {
         self.backgroundColor = .white
         addSubviews()
         setUpConstraints()
-    }
-    
-    func addTapGesture(target: UIViewController, selector: Selector) {
-        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-            target: target,
-            action: selector)
-        self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
-//        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-//            target: self,
-//            action: #selector(self.dismissKeyboard))
-//        self.view.addGestureRecognizer(tapRecognizer)
-//        self.view.isUserInteractionEnabled = true
     }
     
     private func addSubviews() {
@@ -82,17 +91,13 @@ class ChatView: UIView {
             inputContainerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding))
         inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: inputContainerView.safeAreaLayoutGuide.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding))
         inputContainerBottomAnchor.isActive = true
-
-        let inputTextViewHeight: CGFloat = Constants.PaddingValues.inputContainerHeight - (Constants.PaddingValues.inputPadding*2)
 
         NSLayoutConstraint.activate([
             inputTextView.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: Constants.PaddingValues.inputPadding),
             inputTextView.rightAnchor.constraint(equalTo: sendButton.leftAnchor),
-            inputContainerBottomAnchor,
-            inputTextView.heightAnchor.constraint(equalToConstant: inputTextViewHeight),
+            inputTextView.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.inputTextViewHeight),
             inputTextView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: Constants.PaddingValues.inputPadding)
         ])
 
@@ -116,6 +121,50 @@ class ChatView: UIView {
             collectionView.topAnchor.constraint(equalTo: self.topAnchor)
         ])
     }
+    
+    func setupTitleNavBar(navItem: UINavigationItem) {
+       addSubviewNavBar()
+        setupConstraintsForNavBarTitle()
+        navItem.titleView = titleButton
+    }
+    
+    private func addSubviewNavBar() {
+        titleButton.addSubview(containerView)
+        containerView.addSubview(profileImageView)
+        containerView.addSubview(nameLabel)
+    }
+    
+    private func setupConstraintsForNavBarTitle() {
+        NSLayoutConstraint.activate([
+            nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8),
+            nameLabel.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor),
+            nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            nameLabel.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        NSLayoutConstraint.activate([
+            profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            profileImageView.widthAnchor.constraint(equalToConstant: 40),
+            profileImageView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        NSLayoutConstraint.activate([
+            containerView.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor)
+        ])
+    }
+    
+    func addTapGesture(target: UIViewController, selector: Selector) {
+            let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+                target: target,
+                action: selector)
+            self.addGestureRecognizer(tapRecognizer)
+            self.isUserInteractionEnabled = true
+    //        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+    //            target: self,
+    //            action: #selector(self.dismissKeyboard))
+    //        self.view.addGestureRecognizer(tapRecognizer)
+    //        self.view.isUserInteractionEnabled = true
+        }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -19,12 +19,14 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        addNavigationBar()
         setupUI()
         setupKeyboardObservers()
         registerCellId()
         chatView.addDelegate(uiViewController: self)
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
+//        chatView.addNavigationBar(navigationController: self.navigationController)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -43,8 +45,26 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         ])
     }
     
+    
+    
+    func addNavigationBar() {
+
+        let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
+        chatView.setupTitleNavBar(navItem: self.navigationItem)
+        
+//         self.navigationItem.titleView = titleButton
+    }
+    
+    
     private func registerCellId() {
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
+    }
+    
+    @objc func reportPressed(){
+        
     }
 }
 

@@ -20,14 +20,7 @@ class ChatCell: UICollectionViewCell {
         return view
     }()
     
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Vy"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 16
-        imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    private let profileImageView = CircleImageView(cornerRadius: 16, imageName: "Vy")
     
     let textView: UITextView = {
         let tv = UITextView()

@@ -7,8 +7,7 @@
 //
 
 import UIKit
-
-extension UIView {
+extension CALayer {
     func addShadow(withDirection direction: shadowDirection) {
         switch direction {
         case .top:
@@ -17,14 +16,14 @@ extension UIView {
             addShadow(offsetHeight: 3.0, offsetWidth: 0.0, shadowRadius: 5.0)
         }
     }
-    
+
     private func addShadow(offsetHeight: CGFloat, offsetWidth: CGFloat, shadowRadius: CGFloat) {
-        self.layer.shadowColor = Constants.Colors.lightGray.cgColor
-        self.layer.shadowOffset = CGSize(width: offsetWidth, height: offsetHeight)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = shadowRadius
-        self.layer.borderColor = UIColor.clear.cgColor
-        self.layer.masksToBounds = false
+        self.shadowColor = Constants.Colors.lightGray.cgColor
+        self.shadowOffset = CGSize(width: offsetWidth, height: offsetHeight)
+        self.shadowOpacity = 1.0
+        self.shadowRadius = shadowRadius
+        self.borderColor = UIColor.clear.cgColor
+        self.masksToBounds = false
     }
 }
 
