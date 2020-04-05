@@ -30,14 +30,6 @@ struct Constants {
         static let likeButtonHeight = CGFloat(70)
     }
     
-    struct NotificationKeys {
-        static let didChangeTF = "VyLe.didChangeTF"
-        static let beginEditingTF = "VyLe.beginEditingTF"
-        static let endEditingTF = "VyLe.endEditingTF"
-        static let showKeyboard = "VyLe.showKeyboard"
-        static let hideKeyboard = "VyLe.hideKeyboard"
-    }
-    
     //MARK: ID
     static let cellId = "cellId"
 }
