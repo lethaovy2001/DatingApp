@@ -28,6 +28,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.collectionView.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -47,20 +51,30 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func addNavigationBar() {
         let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = UIColor.white
+        let boldConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .heavy, scale: .large)
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill"), style: .plain, target: self, action: #selector(reportPressed))
-        chatView.setupTitleNavBar(navItem: self.navigationItem)
-       
         
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill", withConfiguration: boldConfig)?.withTintColor(.orange, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(reportPressed))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left", withConfiguration: boldConfig)?.withTintColor(.orange, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backPressed))
+        chatView.setupTitleNavBar(navItem: self.navigationItem)
     }
     
     private func registerCellId() {
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
     }
     
+    //TODO: Report User
     @objc func reportPressed(){
         
+    }
+    
+    @objc func backPressed(){
+        let vc = MainViewController()
+        self.navigationController?.popViewController(animated: true)
+//        vc.modalPresentationStyle = .fullScreen
+//        self.present(vc, animated: true, completion: nil)
     }
 }
 

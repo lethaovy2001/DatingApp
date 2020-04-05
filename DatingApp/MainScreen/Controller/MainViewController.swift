@@ -47,6 +47,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         mainView.setDataSource(uiViewController: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     private func setSelectors() {
         mainView.setLikeSelector(selector: #selector(likePressed), target: self)
         mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
@@ -71,9 +75,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func messagePressed() {
-        let vc = UINavigationController(rootViewController: ChatViewController())
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        let vc = ChatViewController(); self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = UINavigationController(rootViewController: ChatViewController())
+//        vc.modalPresentationStyle = .fullScreen
+//        self.present(vc, animated: true, completion: nil)
     }
     
     @objc func profilePressed() {
