@@ -16,16 +16,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         return view
     }()
     
-    private let userImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
-    private lazy var users = [
-        SwipeCardModel(name: "Vy", age: 18, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
-        SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]]),
-        SwipeCardModel(name: "Vy", age: 18, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
-        SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]])]
+    private let modelController = MainModelController()
     
     // MARK: Setup
     private func setupUI() {
@@ -37,6 +28,13 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
             mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         view.backgroundColor = .white
+    }
+    
+    private func setSelectors() {
+        mainView.setLikeSelector(selector: #selector(likePressed), target: self)
+        mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
+        mainView.setProfileSelector(selector: #selector(profilePressed), target: self)
+        mainView.setMessageSelector(selector: #selector(messagePressed), target: self)
     }
     
     // MARK: Life Cycles
@@ -66,6 +64,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    // MARK: Actions
     @objc func likePressed() {
        
     }
@@ -83,20 +82,20 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 }
 
+// MARK: SwipeableCardDataSource
 extension MainViewController: SwipeableCardDataSource {
     func card(forItemAt index: Int) -> SwipeCardView {
             let card = SwipeCardView()
-            card.dataSource = users[index]
+            card.dataSource = modelController.getMockUsers()[index]
             return card
     }
     
     func numberOfCards() -> Int {
-        return users.count
+        return modelController.getMockUsers().count
     }
     
     func viewForEmptyCards() -> UIView? {
         return nil
     }
-    
 }
 
