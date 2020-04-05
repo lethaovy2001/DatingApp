@@ -76,9 +76,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @objc func messagePressed() {
         let vc = ChatViewController(); self.navigationController?.pushViewController(vc, animated: true)
-//        let vc = UINavigationController(rootViewController: ChatViewController())
-//        vc.modalPresentationStyle = .fullScreen
-//        self.present(vc, animated: true, completion: nil)
     }
     
     @objc func profilePressed() {

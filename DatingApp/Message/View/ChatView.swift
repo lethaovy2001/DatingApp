@@ -22,7 +22,6 @@ class ChatView: UIView {
     private let titleButton: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
-        
         return button
     }()
     private let containerView: UIView = {
@@ -37,7 +36,6 @@ class ChatView: UIView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
-    
     var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -49,10 +47,6 @@ class ChatView: UIView {
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
-    
-    func addDelegate(uiViewController: UIViewController) {
-        inputTextView.delegate = uiViewController as? UITextViewDelegate
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,7 +83,6 @@ class ChatView: UIView {
             inputTextView.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.inputTextViewHeight),
             inputTextView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: Constants.PaddingValues.inputPadding)
         ])
-
         NSLayoutConstraint.activate([
             sendButton.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor),
             sendButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.inputContainerHeight),
@@ -104,8 +97,12 @@ class ChatView: UIView {
         ])
     }
     
+    func addDelegate(uiViewController: UIViewController) {
+        inputTextView.delegate = uiViewController as? UITextViewDelegate
+    }
+    
     func setupTitleNavBar(navItem: UINavigationItem) {
-       addSubviewNavBar()
+        addSubviewNavBar()
         setupConstraintsForNavBarTitle()
         navItem.titleView = titleButton
     }
@@ -135,18 +132,14 @@ class ChatView: UIView {
         ])
     }
     
+    //TODO: dismiss keyboard
     func addTapGesture(target: UIViewController, selector: Selector) {
             let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
                 target: target,
                 action: selector)
             self.addGestureRecognizer(tapRecognizer)
             self.isUserInteractionEnabled = true
-    //        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-    //            target: self,
-    //            action: #selector(self.dismissKeyboard))
-    //        self.view.addGestureRecognizer(tapRecognizer)
-    //        self.view.isUserInteractionEnabled = true
-        }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

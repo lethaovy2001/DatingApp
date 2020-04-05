@@ -54,8 +54,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let boldConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .heavy, scale: .large)
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
-        
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill", withConfiguration: boldConfig)?.withTintColor(.orange, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(reportPressed))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left", withConfiguration: boldConfig)?.withTintColor(.orange, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backPressed))
         chatView.setupTitleNavBar(navItem: self.navigationItem)
@@ -71,10 +69,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func backPressed(){
-        let vc = MainViewController()
         self.navigationController?.popViewController(animated: true)
-//        vc.modalPresentationStyle = .fullScreen
-//        self.present(vc, animated: true, completion: nil)
     }
 }
 
@@ -86,7 +81,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        cell.textView.text = "12"
+        cell.textView.text = "I love you 3000 \n lala"
         return cell
     }
     
