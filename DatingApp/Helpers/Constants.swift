@@ -34,6 +34,8 @@ struct Constants {
         static let didChangeTF = "VyLe.didChangeTF"
         static let beginEditingTF = "VyLe.beginEditingTF"
         static let endEditingTF = "VyLe.endEditingTF"
+        static let showKeyboard = "VyLe.showKeyboard"
+        static let hideKeyboard = "VyLe.hideKeyboard"
     }
     
     //MARK: ID

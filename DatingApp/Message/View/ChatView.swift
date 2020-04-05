@@ -36,6 +36,7 @@ class ChatView: UIView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
+    private var keyboardFrame = CGRect()
     var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -157,6 +158,8 @@ extension ChatView {
         NotificationCenter.default.addObserver(self, selector: #selector(didChange(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.didChangeTF), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(beginEditing(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.beginEditingTF), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(endEditing(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.endEditingTF), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(animateKeyboard(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.showKeyboard), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(animateKeyboard(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.hideKeyboard), object: nil)
     }
     
     @objc func didChange(notification: NSNotification) {
@@ -175,5 +178,17 @@ extension ChatView {
             inputTextView.text = "Aa"
             inputTextView.textColor = .lightGray
         }
+    }
+    
+    @objc func animateKeyboard(notification: NSNotification) {
+        if notification.name.rawValue == Constants.NotificationKeys.showKeyboard {
+            inputContainerBottomAnchor.constant = -self.keyboardFrame.height + Constants.PaddingValues.inputPadding*2
+        } else {
+            inputContainerBottomAnchor.constant = 0
+        }
+    }
+    
+    func getKeyboard(frame: CGRect) {
+        self.keyboardFrame = frame
     }
 }

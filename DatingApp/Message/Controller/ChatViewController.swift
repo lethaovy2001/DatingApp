@@ -24,6 +24,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setupKeyboardObservers()
         registerCellId()
         chatView.addDelegate(uiViewController: self)
+        chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
     }
@@ -131,20 +132,19 @@ extension ChatViewController {
     }
     
     @objc func handleKeyboardWillHide(notification: NSNotification) {
-        let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
-
-        //inputContainerBottomAnchor.constant = 0
-        UIView.animate(withDuration: keyboardDuration!, animations: {
-            self.view.layoutIfNeeded()
-        })
+        performKeyboardAnimation(notificationName: Constants.NotificationKeys.hideKeyboard, notification: notification)
     }
     
     @objc func handleKeyboardWillShow(notification: NSNotification) {
-
-        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue ?? CGRect(x: 0, y: 0, width: 0, height: 0)
+        chatView.getKeyboard(frame: keyboardFrame)
+        performKeyboardAnimation(notificationName: Constants.NotificationKeys.showKeyboard, notification: notification)
+    }
+    
+    private func performKeyboardAnimation(notificationName: String, notification: NSNotification) {
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
-
-        //inputContainerBottomAnchor.constant = -keyboardFrame!.height + Constants.PaddingValues.inputPadding*2
+        let name = Notification.Name(rawValue: notificationName)
+        NotificationCenter.default.post(name: name, object: nil)
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
