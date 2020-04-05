@@ -49,7 +49,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
             appearance.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill"), style: .plain, target: self, action: #selector(reportPressed))
         chatView.setupTitleNavBar(navItem: self.navigationItem)
+       
+        
     }
     
     private func registerCellId() {
