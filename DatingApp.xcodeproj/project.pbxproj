@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2415F39B24381BB00090031D /* LoginMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2415F39A24381BB00090031D /* LoginMainView.swift */; };
+		246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B76C32438D73A00FE1D40 /* MainModelController.swift */; };
 		382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC78623D3B0DD0043060E /* AppDelegate.swift */; };
 		382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC78823D3B0DD0043060E /* SceneDelegate.swift */; };
 		382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC78A23D3B0DD0043060E /* LoginViewController.swift */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		1DB7192F28F55265A50163F1 /* Pods-DatingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.release.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.release.xcconfig"; sourceTree = "<group>"; };
 		2415F39A24381BB00090031D /* LoginMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMainView.swift; sourceTree = "<group>"; };
+		246B76C32438D73A00FE1D40 /* MainModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModelController.swift; sourceTree = "<group>"; };
 		382CC78323D3B0DD0043060E /* DatingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		382CC78623D3B0DD0043060E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		382CC78823D3B0DD0043060E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
 				384604AF23E7A736006F6540 /* SwipeCardView.swift */,
 				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
+				3854F65B2438526B00229E16 /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -240,7 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				382CC7A423D791150043060E /* MainViewController.swift */,
-				3854F65B2438526B00229E16 /* MainView.swift */,
+				246B76C32438D73A00FE1D40 /* MainModelController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				3854F6552438092000229E16 /* UIView+helpers.swift in Sources */,
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
+				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
 				384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */,
