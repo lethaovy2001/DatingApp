@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SwipeCardStackContainer: UIView, SwipeCardDelegate {
+class SwipeCardStackContainer: UIView {
     
     //MARK: Properties
     var numberOfCardsToShow: Int = 0
@@ -69,7 +69,9 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
        insertSubview(cardView, at: 0)
        remainingcards -= 1
     }
-    
+}
+
+extension SwipeCardStackContainer: SwipeCardDelegate {
     func swipeDidEnd(on view: SwipeCardView) {
         guard let datasource = dataSource else { return }
         view.removeFromSuperview()

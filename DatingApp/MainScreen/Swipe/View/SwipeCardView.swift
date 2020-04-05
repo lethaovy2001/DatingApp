@@ -11,7 +11,7 @@ import UIKit
 class SwipeCardView: UIView {
     
     //MARK: Properties
-    private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
+    private var cardImages: [String] = []
     private let cardImageView = RoundedUserImage(imageName: "Vy.jpg")
     private var currentImage = 0
     
@@ -31,9 +31,12 @@ class SwipeCardView: UIView {
         didSet {
             guard let name = dataSource?.name else { return }
             guard let age = dataSource?.age else { return }
-            guard let image = dataSource?.imageName[0] else { return }
+            guard let image = dataSource?.imageName[currentImage] else { return }
             self.nameLabel.text = "\(name), \(age)"
             cardImageView.image = UIImage(named: image)
+            if let cardImages = dataSource?.imageName {
+                self.cardImages = cardImages
+            }
         }
     }
     
@@ -104,14 +107,16 @@ class SwipeCardView: UIView {
          card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
         switch sender.state {
         case .ended:
+        //swipe right
         if (card.center.x) > centerOfParentContainer.x + 40 {
-             self.delegate?.swipeDidEnd(on: card)
+            delegate?.swipeDidEnd(on: card)
             UIView.animate(withDuration: 0.2) {
                 card.center = CGPoint(x: centerOfParentContainer.x + point.x + 400, y: centerOfParentContainer.y + point.y + 75)
                  card.alpha = 0
                  self.layoutIfNeeded()
              }
              return
+        // swipe left
          } else if card.center.x < centerOfParentContainer.x - 40 {
              delegate?.swipeDidEnd(on: card)
              UIView.animate(withDuration: 0.2) {
@@ -152,5 +157,23 @@ class SwipeCardView: UIView {
         }
         cardImageView.image = UIImage(named: cardImages[currentImage])
     }
+}
+
+
+extension SwipeCardView: UserChoiceDelegate {
+    func addDelegate(viewController: MainViewController) {
+        viewController.userChoiceDelegate = self
+    }
+    
+    //TODO: animate swipe right 
+    func likePressed() {
+        print("**LIKE")
+    }
+    
+    func dislikePressed() {
+        print("**DISLIKE")
+    }
 
 }
+
+

@@ -21,3 +21,8 @@ protocol SwipeableCardDataSource {
 protocol SwipeCardDelegate {
     func swipeDidEnd(on view: SwipeCardView)
 }
+
+protocol UserChoiceDelegate {
+    func likePressed()
+    func dislikePressed()
+}

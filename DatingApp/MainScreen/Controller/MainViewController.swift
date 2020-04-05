@@ -15,8 +15,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
     private let modelController = MainModelController()
+    var userChoiceDelegate: UserChoiceDelegate?
     
     // MARK: Setup
     private func setupUI() {
@@ -55,11 +55,11 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: Actions
     @objc func likePressed() {
-       
+        userChoiceDelegate?.likePressed()
     }
     
     @objc func dislikePressed() {
-        
+        userChoiceDelegate?.dislikePressed()
     }
     
     @objc func messagePressed() {
@@ -77,6 +77,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 extension MainViewController: SwipeableCardDataSource {
     func card(forItemAt index: Int) -> SwipeCardView {
             let card = SwipeCardView()
+            card.addDelegate(viewController: self)
             card.dataSource = modelController.getMockUsers()[index]
             return card
     }
