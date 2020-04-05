@@ -48,9 +48,13 @@ class ChatView: UIView {
         return cv
     }()
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-         setup()
+        setup()
     }
     
     //MARK: Setup
@@ -58,6 +62,7 @@ class ChatView: UIView {
         self.backgroundColor = .white
         addSubviews()
         setUpConstraints()
+        createObservers()
     }
     
     private func addSubviews() {
@@ -144,5 +149,31 @@ class ChatView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+//MARK: Notifications
+extension ChatView {
+    func createObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didChange(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.didChangeTF), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(beginEditing(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.beginEditingTF), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(endEditing(notification:)), name: NSNotification.Name(rawValue: Constants.NotificationKeys.endEditingTF), object: nil)
+    }
     
+    @objc func didChange(notification: NSNotification) {
+        inputTextView.calculateBestHeight()
+    }
+    
+    @objc func beginEditing(notification: NSNotification) {
+        if (inputTextView.textColor == .lightGray) {
+            inputTextView.text = ""
+            inputTextView.textColor = .black
+        }
+    }
+    
+    @objc func endEditing(notification: NSNotification) {
+        if (inputTextView.text == "") {
+            inputTextView.text = "Aa"
+            inputTextView.textColor = .lightGray
+        }
+    }
 }

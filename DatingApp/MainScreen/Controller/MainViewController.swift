@@ -84,7 +84,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension MainViewController: SwipeableCardDataSource {
-    
     func card(forItemAt index: Int) -> SwipeCardView {
             let card = SwipeCardView()
             card.dataSource = users[index]

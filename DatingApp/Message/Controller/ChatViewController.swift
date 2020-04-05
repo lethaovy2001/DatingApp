@@ -104,21 +104,18 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
 //MARK: UITextViewDelegate
 extension ChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        //inputTextView.calculateBestHeight()
+        let name = Notification.Name(rawValue: Constants.NotificationKeys.didChangeTF)
+        NotificationCenter.default.post(name: name, object: nil)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-//        if (inputTextView.textColor == .lightGray) {
-//            inputTextView.text = ""
-//            inputTextView.textColor = .black
-//        }
+        let name = Notification.Name(rawValue: Constants.NotificationKeys.beginEditingTF)
+        NotificationCenter.default.post(name: name, object: nil)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-//        if (inputTextView.text == "") {
-//            inputTextView.text = "Aa"
-//            inputTextView.textColor = .lightGray
-//        }
+        let name = Notification.Name(rawValue: Constants.NotificationKeys.endEditingTF)
+        NotificationCenter.default.post(name: name, object: nil)
     }
 }
 
@@ -153,4 +150,5 @@ extension ChatViewController {
         })
     }
 }
+
 
