@@ -26,7 +26,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.addDelegate(uiViewController: self)
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
-//        chatView.addNavigationBar(navigationController: self.navigationController)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -44,20 +43,14 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
             chatView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
-    
-    
-    func addNavigationBar() {
 
+    func addNavigationBar() {
         let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
         chatView.setupTitleNavBar(navItem: self.navigationItem)
-        
-//         self.navigationItem.titleView = titleButton
     }
-    
     
     private func registerCellId() {
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
@@ -119,7 +112,7 @@ extension ChatViewController: UITextViewDelegate {
 
 //MARK: Keyboards
 extension ChatViewController {
-    func setupKeyboardObservers() {
+    private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }

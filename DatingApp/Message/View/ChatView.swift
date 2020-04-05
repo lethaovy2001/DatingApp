@@ -16,12 +16,6 @@ class ChatView: UIView {
         container.layer.addShadow(withDirection: .top)
         return container
     }()
-    private let line: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear //Constants.Colors.lightGray
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     private let inputTextView = InputTextView()
     private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, addShadow: false, cornerRadius: nil)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
@@ -31,15 +25,12 @@ class ChatView: UIView {
         
         return button
     }()
-    
     private let containerView: UIView = {
         let containerView = UIView()
          containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
-    
     private let profileImageView = CircleImageView(cornerRadius: 20, imageName: "Vy")
-    
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Vy"
@@ -63,7 +54,6 @@ class ChatView: UIView {
         inputTextView.delegate = uiViewController as? UITextViewDelegate
     }
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
          setup()
@@ -79,7 +69,6 @@ class ChatView: UIView {
     private func addSubviews() {
         addSubview(collectionView)
         addSubview(inputContainerView)
-        addSubview(line)
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
     }
@@ -106,13 +95,6 @@ class ChatView: UIView {
             sendButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.inputContainerHeight),
             sendButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor),
             sendButton.topAnchor.constraint(equalTo: inputTextView.topAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
-            line.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor),
-            line.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor),
-            line.bottomAnchor.constraint(equalTo: inputContainerView.topAnchor),
-            line.heightAnchor.constraint(equalToConstant: 1.5)
         ])
         NSLayoutConstraint.activate([
             collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
