@@ -9,7 +9,7 @@
 import UIKit
 
 class UserDetailsView: UIView {
-    private let userImageView = CustomImageView(imageName: "Vy.jpg")
+    private let userImageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 10)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .bold)
     private let ageLabel = CustomLabel(text: ", 19", textColor: .darkGray, textSize: 28, textWeight: .medium)
     //nameContainerView
@@ -21,12 +21,18 @@ class UserDetailsView: UIView {
     //bioContainerView
     private let bioContainerView = CustomContainerView()
     private let bioLabel = CustomLabel(text: "BIO", textColor: .orange, textSize: 18, textWeight: .bold)
-    private let bioTextView = CustomTextView(text: "I don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that ")
+    private let bioTextView = CustomTextView(text: "I don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that ")
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
     
-    override init(frame: CGRect) {
+    init() {
         super.init(frame: .zero)
         setUp()
         self.backgroundColor = Constants.Colors.mainBackgroundColor
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
@@ -38,32 +44,38 @@ class UserDetailsView: UIView {
         addSubviews()
         setupConstraints()
     }
-    
+
     private func addSubviews() {
-        addSubview(userImageView)
-        addSubview(nameContainerView)
+        addSubview(scrollView)
+        scrollView.addSubview(userImageView)
+        scrollView.addSubview(nameContainerView)
         nameContainerView.addSubview(nameLabel)
         nameContainerView.addSubview(ageLabel)
         nameContainerView.addSubview(workButton)
         nameContainerView.addSubview(workLabel)
         nameContainerView.addSubview(locationLabel)
         nameContainerView.addSubview(locationButton)
-        
-        addSubview(bioContainerView)
+        scrollView.addSubview(bioContainerView)
         bioContainerView.addSubview(bioLabel)
         bioContainerView.addSubview(bioTextView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            userImageView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            userImageView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            userImageView.rightAnchor.constraint(equalTo: rightAnchor),
-            userImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1/2)
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            scrollView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
         NSLayoutConstraint.activate([
-            nameContainerView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 12),
-            nameContainerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12),
+            userImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
+            userImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12),
+            userImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
+            userImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1.75/3)
+        ])
+        NSLayoutConstraint.activate([
+            nameContainerView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 12),
+            nameContainerView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 12),
             nameContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
             nameContainerView.bottomAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 12)
         ])
@@ -94,10 +106,10 @@ class UserDetailsView: UIView {
             locationLabel.leftAnchor.constraint(equalTo: locationButton.rightAnchor, constant: 2),
         ])
         NSLayoutConstraint.activate([
-            bioContainerView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: nameContainerView.bottomAnchor, constant: 12),
-            bioContainerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12),
+            bioContainerView.topAnchor.constraint(equalTo: nameContainerView.bottomAnchor, constant: 12),
+            bioContainerView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 12),
             bioContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
-            bioContainerView.bottomAnchor.constraint(equalTo: bioTextView.bottomAnchor, constant: 12)
+            bioContainerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 12)
         ])
         NSLayoutConstraint.activate([
             bioLabel.leftAnchor.constraint(equalTo: bioContainerView.leftAnchor, constant: 12),
@@ -107,10 +119,8 @@ class UserDetailsView: UIView {
             bioTextView.topAnchor.constraint(equalTo: bioLabel.bottomAnchor),
             bioTextView.leftAnchor.constraint(equalTo: bioContainerView.leftAnchor, constant: 12),
             bioTextView.rightAnchor.constraint(equalTo: bioContainerView.rightAnchor, constant: -12),
-            bioTextView.heightAnchor.constraint(equalToConstant: 150)
+            bioTextView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -12)
         ])
-        
-        
     }
     
     

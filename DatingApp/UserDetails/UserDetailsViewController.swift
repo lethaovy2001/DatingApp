@@ -9,24 +9,20 @@
 import UIKit
 
 class UserDetailsViewController: UIViewController {
-   private let userDetailsView: UserDetailsView = {
-       let view = UserDetailsView(frame: .zero)
-       view.backgroundColor = .white
-       view.translatesAutoresizingMaskIntoConstraints = false
-       return view
-   }()
+   private let userDetailsView = UserDetailsView()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupUI()
     }
     
     private func setupUI() {
         view.addSubview(userDetailsView)
         NSLayoutConstraint.activate([
-            userDetailsView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            userDetailsView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            userDetailsView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            userDetailsView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            userDetailsView.topAnchor.constraint(equalTo: view.topAnchor),
+            userDetailsView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            userDetailsView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            userDetailsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         view.backgroundColor = .white
     }

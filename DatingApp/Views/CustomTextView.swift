@@ -14,6 +14,8 @@ class CustomTextView: UITextView {
         self.font = UIFont.systemFont(ofSize: 18.0)
         self.textColor = UIColor.darkGray
         self.text = text
+        self.isScrollEnabled = false
+        self.isEditable = false
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -22,17 +24,13 @@ class CustomTextView: UITextView {
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         calculateBestHeight()
     }
     
     func calculateBestHeight() {
         let size = CGSize(width: self.frame.width, height: .infinity)
         let estimatedSize = self.sizeThatFits(size)
-        if (estimatedSize.height > 150) {
-            self.isScrollEnabled = true;
-            self.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 6)
-            return
-        }
         self.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {
                 constraint.constant = estimatedSize.height
