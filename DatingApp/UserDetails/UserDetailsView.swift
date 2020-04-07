@@ -12,21 +12,20 @@ class UserDetailsView: UIView {
     private let userImageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 10)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .bold)
     private let ageLabel = CustomLabel(text: ", 19", textColor: .darkGray, textSize: 28, textWeight: .medium)
-    //nameContainerView
     private let nameContainerView = CustomContainerView()
-    private let workButton = CustomButton(imageName: "bag", size: 10, color: .lightGray, addShadow: false, cornerRadius: nil)
+    private let workButton = CustomButton(imageName: "bag", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil)
     private let workLabel = CustomLabel(text: "University of Wisconsin - Madison", textColor: .lightGray, textSize: 16, textWeight: .medium)
-    private let locationButton = CustomButton(imageName: "mappin", size: 10, color: .lightGray, addShadow: false, cornerRadius: nil)
+    private let locationButton = CustomButton(imageName: "mappin", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil)
     private let locationLabel = CustomLabel(text: "Less than a kilometer away", textColor: .lightGray, textSize: 16, textWeight: .medium)
-    //bioContainerView
     private let bioContainerView = CustomContainerView()
     private let bioLabel = CustomLabel(text: "BIO", textColor: .orange, textSize: 18, textWeight: .bold)
-    private let bioTextView = CustomTextView(text: "I don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that ")
+    private let bioTextView = CustomTextView(text: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that ")
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: .orange, cornerRadius: 50, shadowColor: UIColor.lightGray)
     
     init() {
         super.init(frame: .zero)
@@ -58,6 +57,7 @@ class UserDetailsView: UIView {
         scrollView.addSubview(bioContainerView)
         bioContainerView.addSubview(bioLabel)
         bioContainerView.addSubview(bioTextView)
+        addSubview(editButton)
     }
     
     private func setupConstraints() {
@@ -119,11 +119,17 @@ class UserDetailsView: UIView {
             bioTextView.topAnchor.constraint(equalTo: bioLabel.bottomAnchor),
             bioTextView.leftAnchor.constraint(equalTo: bioContainerView.leftAnchor, constant: 12),
             bioTextView.rightAnchor.constraint(equalTo: bioContainerView.rightAnchor, constant: -12),
-            bioTextView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -12)
+            bioTextView.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor, constant: -12)
+        ])
+        NSLayoutConstraint.activate([
+            editButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -36),
+            editButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
+            editButton.heightAnchor.constraint(equalToConstant: 60),
+            editButton.widthAnchor.constraint(equalToConstant: 60),
         ])
     }
     
-    
-    
-    
+    func setEditSelector(selector: Selector, target: UIViewController) {
+        editButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
 }

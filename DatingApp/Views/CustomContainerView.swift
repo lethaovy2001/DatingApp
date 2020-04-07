@@ -12,7 +12,7 @@ class CustomContainerView: UIView {
     init() {
         super.init(frame: .zero)
         self.backgroundColor = .white
-        self.addShadow()
+        self.addShadow(color: Constants.Colors.lightGray)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

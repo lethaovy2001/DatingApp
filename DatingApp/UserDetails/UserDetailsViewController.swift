@@ -14,6 +14,7 @@ class UserDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        userDetailsView.setEditSelector(selector: #selector(editButtonPressed), target: self)
     }
     
     private func setupUI() {
@@ -26,5 +27,9 @@ class UserDetailsViewController: UIViewController {
         ])
         view.backgroundColor = .white
     }
-
+    
+    //TODO: editButtonPressed
+    @objc func editButtonPressed() {
+        
+    }
 }
