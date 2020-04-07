@@ -30,6 +30,8 @@
 		384EDF39243A93B400001F7B /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF38243A93B400001F7B /* CustomLabel.swift */; };
 		384EDF3B243AD1D600001F7B /* CustomContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF3A243AD1D600001F7B /* CustomContainerView.swift */; };
 		384EDF3D243AE3C000001F7B /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF3C243AE3C000001F7B /* CustomTextView.swift */; };
+		384EDF42243C3FAC00001F7B /* EditUserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF41243C3FAC00001F7B /* EditUserDetailsViewController.swift */; };
+		384EDF44243C48AE00001F7B /* EditUserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
@@ -67,6 +69,8 @@
 		384EDF38243A93B400001F7B /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		384EDF3A243AD1D600001F7B /* CustomContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContainerView.swift; sourceTree = "<group>"; };
 		384EDF3C243AE3C000001F7B /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		384EDF41243C3FAC00001F7B /* EditUserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDetailsViewController.swift; sourceTree = "<group>"; };
+		384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDetailsView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 		384EDF30243A8BCC00001F7B /* UserDetails */ = {
 			isa = PBXGroup;
 			children = (
+				384EDF40243C3F6500001F7B /* EditUserDetails */,
 				384EDF31243A8BF200001F7B /* View */,
 				384EDF32243A8C1C00001F7B /* UserDetailsViewController.swift */,
 				384EDF36243A917100001F7B /* UserDetailsView.swift */,
@@ -206,6 +211,15 @@
 			children = (
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		384EDF40243C3F6500001F7B /* EditUserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				384EDF41243C3FAC00001F7B /* EditUserDetailsViewController.swift */,
+				384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */,
+			);
+			path = EditUserDetails;
 			sourceTree = "<group>";
 		};
 		3854F6442437C4EC00229E16 /* Message */ = {
@@ -424,6 +438,8 @@
 				384EDF37243A917100001F7B /* UserDetailsView.swift in Sources */,
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
 				384EDF39243A93B400001F7B /* CustomLabel.swift in Sources */,
+				384EDF42243C3FAC00001F7B /* EditUserDetailsViewController.swift in Sources */,
+				384EDF44243C48AE00001F7B /* EditUserDetailsView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
 				384EDF35243A8E0700001F7B /* CustomImageView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
