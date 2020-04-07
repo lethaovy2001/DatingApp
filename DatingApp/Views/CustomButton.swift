@@ -9,8 +9,7 @@
 import UIKit
 
 class CustomButton: UIButton {
-    
-    init(imageName: String, size: CGFloat, color: UIColor, cornerRadius: CGFloat?, shadowColor: UIColor?) {
+    init(imageName: String, size: CGFloat, color: UIColor, cornerRadius: CGFloat?, shadowColor: UIColor?, backgroundColor: UIColor) {
         super.init(frame: .zero)
         let configuration = UIImage.SymbolConfiguration(pointSize: size, weight: .black, scale: .large)
         let buttonImage = UIImage(systemName: imageName, withConfiguration: configuration)
@@ -18,15 +17,15 @@ class CustomButton: UIButton {
         self.setImage(buttonWithColor, for: .normal)
         self.backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = backgroundColor
         if let color = shadowColor {
             self.addShadow(color: color)
-            self.backgroundColor = .white
         }
         if let radius = cornerRadius {
             self.layer.cornerRadius = radius
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -25,7 +25,7 @@ class ChatViewController: UICollectionViewController {
     }()
     
     private let inputTextView = InputTextView()
-    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .red, cornerRadius: nil, shadowColor: nil)
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .red, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     
     

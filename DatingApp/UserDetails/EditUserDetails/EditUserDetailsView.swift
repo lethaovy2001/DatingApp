@@ -13,7 +13,7 @@ class EditUserDetailsView: UIView {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 20
+        stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .yellow
         return stackView
@@ -22,29 +22,26 @@ class EditUserDetailsView: UIView {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 20
+        stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .yellow
         return stackView
     }()
-    
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.backgroundColor = .red
         stackView.distribution = .fillEqually
-        stackView.spacing = 20
+        stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    private let image1 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: nil, shadowColor: .darkGray)
-    private let image2 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: nil, shadowColor: .darkGray)
-    private let image3 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: nil, shadowColor: .darkGray)
-    private let image4 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: nil, shadowColor: .darkGray)
-    private let image5 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: nil, shadowColor: .darkGray)
-    private let image6 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: nil, shadowColor: .darkGray)
-    
+    private let userImageButton1 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.lightGray)
+    private let userImageButton2 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.lightGray)
+    private let userImageButton3 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.lightGray)
+    private let userImageButton4 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.lightGray)
+    private let userImageButton5 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.lightGray)
+    private let userImageButton6 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.lightGray)
     init() {
         super.init(frame: .zero)
         setUp()
@@ -60,12 +57,12 @@ class EditUserDetailsView: UIView {
         self.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(horizontalStackView1)
         verticalStackView.addArrangedSubview(horizontalStackView2)
-        horizontalStackView1.addArrangedSubview(image1)
-        horizontalStackView1.addArrangedSubview(image2)
-        horizontalStackView1.addArrangedSubview(image3)
-        horizontalStackView2.addArrangedSubview(image4)
-        horizontalStackView2.addArrangedSubview(image5)
-        horizontalStackView2.addArrangedSubview(image6)
+        horizontalStackView1.addArrangedSubview(userImageButton1)
+        horizontalStackView1.addArrangedSubview(userImageButton2)
+        horizontalStackView1.addArrangedSubview(userImageButton3)
+        horizontalStackView2.addArrangedSubview(userImageButton4)
+        horizontalStackView2.addArrangedSubview(userImageButton5)
+        horizontalStackView2.addArrangedSubview(userImageButton6)
     }
     
     private func setUpConstraints() {
