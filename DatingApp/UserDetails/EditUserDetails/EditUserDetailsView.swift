@@ -49,7 +49,8 @@ class EditUserDetailsView: UIView {
     private let workTextField = CustomTextField()
     private let saveButton = RoundedButton(title: "Save", color: .orange)
     private let logoutButton = RoundedButton(title: "Logout", color: Constants.Colors.orangeRed)
-    
+    private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 60)
+    private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     init() {
         super.init(frame: .zero)
         setUp()
@@ -78,11 +79,23 @@ class EditUserDetailsView: UIView {
         self.addSubview(workTextField)
         self.addSubview(saveButton)
         self.addSubview(logoutButton)
+        self.addSubview(mainProfileImage)
+        self.addSubview(nameLabel)
     }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            bioLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
+            mainProfileImage.safeAreaLayoutGuide.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
+            mainProfileImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            mainProfileImage.heightAnchor.constraint(equalToConstant: 120),
+            mainProfileImage.widthAnchor.constraint(equalToConstant: 120)
+        ])
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: mainProfileImage.bottomAnchor, constant: 6),
+            nameLabel.centerXAnchor.constraint(equalTo: mainProfileImage.centerXAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            bioLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
             bioLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
         ])
         NSLayoutConstraint.activate([
