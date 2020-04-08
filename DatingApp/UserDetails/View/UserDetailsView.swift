@@ -18,7 +18,7 @@ class UserDetailsView: UIView {
     private let locationButton = CustomButton(imageName: "mappin", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let locationLabel = CustomLabel(text: "Less than a kilometer away", textColor: .lightGray, textSize: 16, textWeight: .medium)
     private let bioContainerView = CustomContainerView()
-    private let bioLabel = CustomLabel(text: "BIO", textColor: .orange, textSize: 18, textWeight: .bold)
+    private let bioLabel = SectionTitleLabel(title: "Bio")
     private let bioTextView = CustomTextView(text: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that ")
     private let scrollView = CustomScrollView()
     private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: .orange, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)

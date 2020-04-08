@@ -11,6 +11,7 @@ import UIKit
 class UserDetailsViewController: UIViewController {
    private let userDetailsView = UserDetailsView()
     
+    //MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBar()
@@ -23,6 +24,7 @@ class UserDetailsViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    //MARK: Setup
     private func setupUI() {
         view.addSubview(userDetailsView)
         NSLayoutConstraint.activate([
@@ -41,13 +43,9 @@ class UserDetailsViewController: UIViewController {
         navItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
     }
     
-    //TODO: editButtonPressed
+    //MARK: Actions
     @objc func editButtonPressed() {
         let vc = EditUserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func backPressed(){
-        self.navigationController?.popViewController(animated: true)
     }
 }
