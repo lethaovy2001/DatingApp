@@ -34,6 +34,7 @@
 		384EDF44243C48AE00001F7B /* EditUserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */; };
 		384EDF46243CF85800001F7B /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF45243CF85800001F7B /* CustomTextField.swift */; };
 		384EDF48243D198B00001F7B /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF47243D198B00001F7B /* CustomStackView.swift */; };
+		384EDF4A243E538100001F7B /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF49243E538100001F7B /* CircleImageView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
@@ -74,6 +75,7 @@
 		384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDetailsView.swift; sourceTree = "<group>"; };
 		384EDF45243CF85800001F7B /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		384EDF47243D198B00001F7B /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
+		384EDF49243E538100001F7B /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircleImageView.swift; path = ../../../../../Desktop/CircleImageView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				384EDF3C243AE3C000001F7B /* CustomTextView.swift */,
 				384EDF45243CF85800001F7B /* CustomTextField.swift */,
 				384EDF47243D198B00001F7B /* CustomStackView.swift */,
+				384EDF49243E538100001F7B /* CircleImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,
+				384EDF4A243E538100001F7B /* CircleImageView.swift in Sources */,
 				382CC79E23D5ECFC0043060E /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
