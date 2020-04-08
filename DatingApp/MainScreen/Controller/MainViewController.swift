@@ -67,7 +67,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func messagePressed() {
-        let vc = ChatViewController(); self.navigationController?.pushViewController(vc, animated: true)
+        let vc = ChatViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func profilePressed() {
