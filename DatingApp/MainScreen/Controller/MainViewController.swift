@@ -45,6 +45,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         mainView.setDataSource(uiViewController: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         if (!UserDefaults.standard.isLoggedIn()) {
             let vc = LoginViewController()
@@ -63,9 +67,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func messagePressed() {
-        let vc = ChatViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        let vc = ChatViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func profilePressed() {

@@ -25,6 +25,7 @@ struct Constants {
         //MARK: Input Container
         static let inputContainerHeight: CGFloat = 60
         static let inputPadding: CGFloat = 12
+        static let inputTextViewHeight: CGFloat = 36
         
         //MARK: Swipe
         static let swipeImageCornerRadius = CGFloat(20)

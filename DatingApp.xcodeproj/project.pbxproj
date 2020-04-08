@@ -19,11 +19,14 @@
 		382CC7A123D5EF650043060E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A023D5EF650043060E /* Constants.swift */; };
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
+		383E46BB243E5B270012977A /* UIView+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BA243E5B270012977A /* UIView+helpers.swift */; };
 		384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */; };
 		384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AF23E7A736006F6540 /* SwipeCardView.swift */; };
 		384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B123EA712A006F6540 /* SwipeCardModel.swift */; };
 		384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */; };
 		384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EA7B223D7AE0F00940681 /* CustomButton.swift */; };
+		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
+		384EDF1F2439453400001F7B /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1E2439453400001F7B /* CircleImageView.swift */; };
 		384EDF33243A8C1C00001F7B /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF32243A8C1C00001F7B /* UserDetailsViewController.swift */; };
 		384EDF35243A8E0700001F7B /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF34243A8E0700001F7B /* CustomImageView.swift */; };
 		384EDF37243A917100001F7B /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF36243A917100001F7B /* UserDetailsView.swift */; };
@@ -38,6 +41,7 @@
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
 		3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6512437DA7400229E16 /* UserDefaults+helper.swift */; };
+		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
@@ -59,11 +63,14 @@
 		382CC7A023D5EF650043060E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		383E46BA243E5B270012977A /* UIView+helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+helpers.swift"; sourceTree = "<group>"; };
 		384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCardDataSource.swift; sourceTree = "<group>"; };
 		384604AF23E7A736006F6540 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		384604B123EA712A006F6540 /* SwipeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardModel.swift; sourceTree = "<group>"; };
 		384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackContainer.swift; sourceTree = "<group>"; };
 		384EA7B223D7AE0F00940681 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		384EDF1E2439453400001F7B /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		384EDF32243A8C1C00001F7B /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		384EDF34243A8E0700001F7B /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		384EDF36243A917100001F7B /* UserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
@@ -78,6 +85,7 @@
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		3854F6512437DA7400229E16 /* UserDefaults+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+helper.swift"; sourceTree = "<group>"; };
+		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 				384EDF3C243AE3C000001F7B /* CustomTextView.swift */,
 				384EDF45243CF85800001F7B /* CustomTextField.swift */,
 				384EDF47243D198B00001F7B /* CustomStackView.swift */,
+				384EDF1E2439453400001F7B /* CircleImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -249,6 +258,8 @@
 			children = (
 				382CC7A023D5EF650043060E /* Constants.swift */,
 				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
+				3854F6542438092000229E16 /* CALayer+helpers.swift */,
+				383E46BA243E5B270012977A /* UIView+helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -278,6 +289,7 @@
 			children = (
 				3854F6472437C4EC00229E16 /* InputTextView.swift */,
 				3854F6482437C4EC00229E16 /* ChatCell.swift */,
+				384EDF1C2438DFFB00001F7B /* ChatView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -440,11 +452,13 @@
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				384EDF46243CF85800001F7B /* CustomTextField.swift in Sources */,
 				384EDF37243A917100001F7B /* UserDetailsView.swift in Sources */,
+				3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */,
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
 				384EDF39243A93B400001F7B /* CustomLabel.swift in Sources */,
 				384EDF42243C3FAC00001F7B /* EditUserDetailsViewController.swift in Sources */,
 				384EDF44243C48AE00001F7B /* EditUserDetailsView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
+				383E46BB243E5B270012977A /* UIView+helpers.swift in Sources */,
 				384EDF35243A8E0700001F7B /* CustomImageView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
@@ -453,10 +467,12 @@
 				384EDF33243A8C1C00001F7B /* UserDetailsViewController.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
+				384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */,
 				3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */,
 				2415F39B24381BB00090031D /* LoginMainView.swift in Sources */,
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,
 				384EDF3B243AD1D600001F7B /* CustomContainerView.swift in Sources */,
+				384EDF1F2439453400001F7B /* CircleImageView.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,

@@ -23,10 +23,6 @@ class InputTextView: UITextView {
         self.isScrollable = isScrollable
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.textContainerInset = UIEdgeInsets(top: Constants.PaddingValues.inputPadding, left: Constants.PaddingValues.inputPadding, bottom: Constants.PaddingValues.inputPadding, right: Constants.PaddingValues.inputPadding)
@@ -48,5 +44,9 @@ class InputTextView: UITextView {
                 constraint.constant = estimatedSize.height
             }
         }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
