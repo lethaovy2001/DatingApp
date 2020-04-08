@@ -12,43 +12,37 @@ class EditUserDetailsView: UIView {
     private let verticalStackView = CustomStackView(axis: .vertical)
     private let horizontalStackView1 = CustomStackView(axis: .horizontal)
     private let horizontalStackView2 = CustomStackView(axis: .horizontal)
-    private let userImageButton1 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
-    private let userImageButton2 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
-    private let userImageButton3 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
-    private let userImageButton4 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
-    private let userImageButton5 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
-    private let userImageButton6 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
-    private var featureLabel = CustomLabel(text: "Featured", textColor: .orange, textSize: 24, textWeight: .bold)
-    private let bioLabel = CustomLabel(text: "Bio", textColor: .orange, textSize: 24, textWeight: .bold)
+    private let addImageButton1 = AddImageButton()
+    private let addImageButton2 = AddImageButton()
+    private let addImageButton3 = AddImageButton()
+    private let addImageButton4 = AddImageButton()
+    private let addImageButton5 = AddImageButton()
+    private let addImageButton6 = AddImageButton()
+    private var featureLabel = SectionTitleLabel(title: "Featured")
+    private let bioLabel = SectionTitleLabel(title: "Bio")
+    private let detailsLabel = SectionTitleLabel(title: "Details")
     private let bioTextView = InputTextView(placeholder: "Describe Yourself...", cornerRadius: 10, isScrollable: false)
-    private let detailsLabel = CustomLabel(text: "Details", textColor: .orange, textSize: 24, textWeight: .bold)
     private let workTextField = CustomTextField()
     private let saveButton = RoundedButton(title: "Save", color: .orange)
     private let logoutButton = RoundedButton(title: "Logout", color: Constants.Colors.orangeRed)
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
+    
+    //MARK: Init
     init() {
         super.init(frame: .zero)
         setUp()
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    //MARK: Setup
     private func setUp() {
         addSubviews()
         setUpConstraints()
     }
     
     private func addSubviews() {
-        self.addSubview(featureLabel)
         self.addSubview(verticalStackView)
-        verticalStackView.addArrangedSubview(horizontalStackView1)
-        verticalStackView.addArrangedSubview(horizontalStackView2)
-        horizontalStackView1.addArrangedSubview(userImageButton1)
-        horizontalStackView1.addArrangedSubview(userImageButton2)
-        horizontalStackView1.addArrangedSubview(userImageButton3)
-        horizontalStackView2.addArrangedSubview(userImageButton4)
-        horizontalStackView2.addArrangedSubview(userImageButton5)
-        horizontalStackView2.addArrangedSubview(userImageButton6)
         self.addSubview(bioLabel)
         self.addSubview(bioTextView)
         self.addSubview(detailsLabel)
@@ -57,6 +51,15 @@ class EditUserDetailsView: UIView {
         self.addSubview(logoutButton)
         self.addSubview(mainProfileImage)
         self.addSubview(nameLabel)
+        self.addSubview(featureLabel)
+        verticalStackView.addArrangedSubview(horizontalStackView1)
+        verticalStackView.addArrangedSubview(horizontalStackView2)
+        horizontalStackView1.addArrangedSubview(addImageButton1)
+        horizontalStackView1.addArrangedSubview(addImageButton2)
+        horizontalStackView1.addArrangedSubview(addImageButton3)
+        horizontalStackView2.addArrangedSubview(addImageButton4)
+        horizontalStackView2.addArrangedSubview(addImageButton5)
+        horizontalStackView2.addArrangedSubview(addImageButton6)
     }
     
     private func setUpConstraints() {

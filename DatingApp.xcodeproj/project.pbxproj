@@ -21,6 +21,8 @@
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
 		383E46BB243E5B270012977A /* UIView+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BA243E5B270012977A /* UIView+helpers.swift */; };
 		383E46BD243E72920012977A /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BC243E72920012977A /* CustomScrollView.swift */; };
+		383E46BF243E76BD0012977A /* AddImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BE243E76BD0012977A /* AddImageView.swift */; };
+		383E46C2243E77FC0012977A /* SectionTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46C1243E77FC0012977A /* SectionTitleLabel.swift */; };
 		384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */; };
 		384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AF23E7A736006F6540 /* SwipeCardView.swift */; };
 		384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B123EA712A006F6540 /* SwipeCardModel.swift */; };
@@ -66,6 +68,8 @@
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		383E46BA243E5B270012977A /* UIView+helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+helpers.swift"; sourceTree = "<group>"; };
 		383E46BC243E72920012977A /* CustomScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
+		383E46BE243E76BD0012977A /* AddImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageView.swift; sourceTree = "<group>"; };
+		383E46C1243E77FC0012977A /* SectionTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleLabel.swift; sourceTree = "<group>"; };
 		384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCardDataSource.swift; sourceTree = "<group>"; };
 		384604AF23E7A736006F6540 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		384604B123EA712A006F6540 /* SwipeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardModel.swift; sourceTree = "<group>"; };
@@ -202,6 +206,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		383E46C0243E77D30012977A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				383E46BE243E76BD0012977A /* AddImageView.swift */,
+				383E46C1243E77FC0012977A /* SectionTitleLabel.swift */,
+				384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		384604AA23E7A308006F6540 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,8 +246,8 @@
 		384EDF40243C3F6500001F7B /* EditUserDetails */ = {
 			isa = PBXGroup;
 			children = (
+				383E46C0243E77D30012977A /* View */,
 				384EDF41243C3FAC00001F7B /* EditUserDetailsViewController.swift */,
-				384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */,
 			);
 			path = EditUserDetails;
 			sourceTree = "<group>";
@@ -452,6 +466,7 @@
 				384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
+				383E46C2243E77FC0012977A /* SectionTitleLabel.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				384EDF46243CF85800001F7B /* CustomTextField.swift in Sources */,
 				384EDF37243A917100001F7B /* UserDetailsView.swift in Sources */,
@@ -460,6 +475,7 @@
 				383E46BD243E72920012977A /* CustomScrollView.swift in Sources */,
 				384EDF39243A93B400001F7B /* CustomLabel.swift in Sources */,
 				384EDF42243C3FAC00001F7B /* EditUserDetailsViewController.swift in Sources */,
+				383E46BF243E76BD0012977A /* AddImageView.swift in Sources */,
 				384EDF44243C48AE00001F7B /* EditUserDetailsView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
 				383E46BB243E5B270012977A /* UIView+helpers.swift in Sources */,
