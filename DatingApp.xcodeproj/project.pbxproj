@@ -116,7 +116,6 @@
 		2415F39824381B890090031D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				382CC79D23D5ECFC0043060E /* RoundedButton.swift */,
 				2415F39A24381BB00090031D /* LoginMainView.swift */,
 			);
 			path = View;
@@ -187,6 +186,7 @@
 		382CC79B23D5ECBF0043060E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				382CC79D23D5ECFC0043060E /* RoundedButton.swift */,
 				384EA7B223D7AE0F00940681 /* CustomButton.swift */,
 				384EDF34243A8E0700001F7B /* CustomImageView.swift */,
 				384EDF38243A93B400001F7B /* CustomLabel.swift */,

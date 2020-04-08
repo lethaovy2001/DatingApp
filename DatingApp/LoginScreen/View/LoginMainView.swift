@@ -10,13 +10,11 @@ import Foundation
 import UIKit
 
 class LoginMainView: UIView {
-    
     private let fbLoginButton: RoundedButton = {
         let button = RoundedButton(title: "LOG IN WITH FACEBOOK", color: Constants.Colors.fbColor)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
     private let appLogo: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "giraffe"))
         iv.contentMode = .scaleAspectFill
@@ -51,7 +49,6 @@ class LoginMainView: UIView {
             appLogo.heightAnchor.constraint(equalToConstant: 120),
             appLogo.widthAnchor.constraint(equalToConstant: 120)
         ])
-        
         NSLayoutConstraint.activate([
             fbLoginButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             fbLoginButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
