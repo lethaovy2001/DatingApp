@@ -19,9 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
-//        window?.rootViewController = ChatViewController(collectionViewLayout: UICollectionViewFlowLayout())
-
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

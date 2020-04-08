@@ -72,7 +72,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func profilePressed() {
-        
+        let vc = UserDetailsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
