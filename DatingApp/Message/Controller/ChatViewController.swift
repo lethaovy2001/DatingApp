@@ -54,6 +54,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func addNavigationBar() {
         let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = UIColor.white
+        
         let boldConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .heavy, scale: .large)
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)

@@ -13,8 +13,14 @@ class UserDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addNavigationBar()
         setupUI()
         userDetailsView.setEditSelector(selector: #selector(editButtonPressed), target: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func setupUI() {
@@ -28,8 +34,20 @@ class UserDetailsViewController: UIViewController {
         view.backgroundColor = .white
     }
     
+    func addNavigationBar() {
+        let navBar = self.navigationController?.navigationBar
+        let navItem = self.navigationItem
+        navBar?.tintColor = UIColor.orange
+        navItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
+    }
+    
     //TODO: editButtonPressed
     @objc func editButtonPressed() {
-        
+        let vc = EditUserDetailsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func backPressed(){
+        self.navigationController?.popViewController(animated: true)
     }
 }

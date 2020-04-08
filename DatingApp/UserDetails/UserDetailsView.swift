@@ -68,7 +68,7 @@ class UserDetailsView: UIView {
             scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
         NSLayoutConstraint.activate([
-            userImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
+            userImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 12),
             userImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12),
             userImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
             userImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1.75/3)
