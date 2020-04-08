@@ -9,33 +9,9 @@
 import UIKit
 
 class EditUserDetailsView: UIView {
-    private let horizontalStackView1: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .yellow
-        return stackView
-    }()
-    private let horizontalStackView2: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .yellow
-        return stackView
-    }()
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.backgroundColor = .red
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+    private let verticalStackView = CustomStackView(axis: .vertical)
+    private let horizontalStackView1 = CustomStackView(axis: .horizontal)
+    private let horizontalStackView2 = CustomStackView(axis: .horizontal)
     private let userImageButton1 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
     private let userImageButton2 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
     private let userImageButton3 = CustomButton(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: Constants.Colors.inputContainerColor)
@@ -49,7 +25,7 @@ class EditUserDetailsView: UIView {
     private let workTextField = CustomTextField()
     private let saveButton = RoundedButton(title: "Save", color: .orange)
     private let logoutButton = RoundedButton(title: "Logout", color: Constants.Colors.orangeRed)
-    private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 60)
+    private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     init() {
         super.init(frame: .zero)
@@ -87,8 +63,8 @@ class EditUserDetailsView: UIView {
         NSLayoutConstraint.activate([
             mainProfileImage.safeAreaLayoutGuide.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
             mainProfileImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            mainProfileImage.heightAnchor.constraint(equalToConstant: 120),
-            mainProfileImage.widthAnchor.constraint(equalToConstant: 120)
+            mainProfileImage.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4),
+            mainProfileImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4)
         ])
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: mainProfileImage.bottomAnchor, constant: 6),

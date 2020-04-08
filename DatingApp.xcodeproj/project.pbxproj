@@ -33,6 +33,7 @@
 		384EDF42243C3FAC00001F7B /* EditUserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF41243C3FAC00001F7B /* EditUserDetailsViewController.swift */; };
 		384EDF44243C48AE00001F7B /* EditUserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */; };
 		384EDF46243CF85800001F7B /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF45243CF85800001F7B /* CustomTextField.swift */; };
+		384EDF48243D198B00001F7B /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF47243D198B00001F7B /* CustomStackView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
@@ -73,6 +74,7 @@
 		384EDF41243C3FAC00001F7B /* EditUserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDetailsViewController.swift; sourceTree = "<group>"; };
 		384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDetailsView.swift; sourceTree = "<group>"; };
 		384EDF45243CF85800001F7B /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		384EDF47243D198B00001F7B /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				384EDF3A243AD1D600001F7B /* CustomContainerView.swift */,
 				384EDF3C243AE3C000001F7B /* CustomTextView.swift */,
 				384EDF45243CF85800001F7B /* CustomTextField.swift */,
+				384EDF47243D198B00001F7B /* CustomStackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				384EDF48243D198B00001F7B /* CustomStackView.swift in Sources */,
 				384EDF3D243AE3C000001F7B /* CustomTextView.swift in Sources */,
 				384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
