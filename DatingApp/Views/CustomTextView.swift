@@ -28,6 +28,10 @@ class CustomTextView: UITextView {
         calculateBestHeight()
     }
     
+    func setText(text: String) {
+        self.text = text
+    }
+    
     func calculateBestHeight() {
         let size = CGSize(width: self.frame.width, height: .infinity)
         let estimatedSize = self.sizeThatFits(size)

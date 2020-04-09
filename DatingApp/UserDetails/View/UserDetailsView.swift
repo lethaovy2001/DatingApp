@@ -10,7 +10,7 @@ import UIKit
 
 class UserDetailsView: UIView {
     private let userImageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 10)
-    private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .bold)
+    private var nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .bold)
     private let ageLabel = CustomLabel(text: ", 19", textColor: .darkGray, textSize: 28, textWeight: .medium)
     private let nameContainerView = CustomContainerView()
     private let workButton = CustomButton(imageName: "bag", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
@@ -22,7 +22,14 @@ class UserDetailsView: UIView {
     private let bioTextView = CustomTextView(text: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that ")
     private let scrollView = CustomScrollView()
     private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: .orange, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
-    
+    var viewModel: UserDetailsViewModel! {
+        didSet {
+            nameLabel.setText(text: viewModel.name)
+            ageLabel.setText(text: ", \(viewModel.age)")
+            workLabel.setText(text: viewModel.work)
+            bioTextView.setText(text: viewModel.bio)
+        }
+    }
     init() {
         super.init(frame: .zero)
         setUp()
@@ -38,6 +45,7 @@ class UserDetailsView: UIView {
     private func setUp() {
         addSubviews()
         setupConstraints()
+//        nameLabel = CustomLabel(text: userDetailsViewModel.name, textColor: .orange, textSize: 25, textWeight: .bold)
     }
 
     private func addSubviews() {
@@ -129,3 +137,5 @@ class UserDetailsView: UIView {
         editButton.addTarget(target, action: selector, for: .touchUpInside)
     }
 }
+
+
