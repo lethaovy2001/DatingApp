@@ -27,6 +27,7 @@ class EditUserDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        editUserDetails.addTapGesture(target: self, selector: #selector(dismissKeyboard))
     }
     
     //MARK: Setup
@@ -39,5 +40,10 @@ class EditUserDetailsViewController: UIViewController {
             editUserDetails.rightAnchor.constraint(equalTo: view.rightAnchor),
             editUserDetails.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    //MARK: Actions
+    @objc func dismissKeyboard() {
+       view.endEditing(true)
     }
 }

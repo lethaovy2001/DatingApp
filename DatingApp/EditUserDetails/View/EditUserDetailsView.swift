@@ -143,6 +143,14 @@ class EditUserDetailsView: UIView {
         ])
     }
     
+    func addTapGesture(target: UIViewController, selector: Selector) {
+            let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+                target: target,
+                action: selector)
+            self.addGestureRecognizer(tapRecognizer)
+            self.isUserInteractionEnabled = true
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -135,7 +135,6 @@ class ChatView: UIView {
         ])
     }
     
-    //TODO: dismiss keyboard
     func addTapGesture(target: UIViewController, selector: Selector) {
             let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
                 target: target,

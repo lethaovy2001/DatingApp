@@ -17,7 +17,7 @@ class InputTextView: UITextView {
         self.layer.cornerRadius = cornerRadius 
         self.text = placeholder
         self.textColor = .lightGray
-        self.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        self.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         self.isScrollEnabled = false
         self.translatesAutoresizingMaskIntoConstraints = false
         self.isScrollable = isScrollable
@@ -31,6 +31,7 @@ class InputTextView: UITextView {
     
     func setText(text: String) {
         self.text = text
+        self.textColor = .darkGray
     }
     
     func calculateBestHeight() {
