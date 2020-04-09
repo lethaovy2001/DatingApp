@@ -19,7 +19,9 @@ class UserDetailsView: UIView {
     private let locationLabel = CustomLabel(text: "Less than a kilometer away", textColor: .lightGray, textSize: 16, textWeight: .medium)
     private let bioContainerView = CustomContainerView()
     private let bioLabel = SectionTitleLabel(title: "Bio")
-    private let bioTextView = CustomTextView(text: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that\nI would never drag you into that \nI don’t want a partner in crime.\nI commit all my crimes on my own.\nI would never drag you into that ")
+    private let bioTextView = CustomTextView(text: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\n")
+    private var cardImages: [String]?
+    private var currentImage = 0
     private let scrollView = CustomScrollView()
     private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: .orange, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
     var viewModel: UserDetailsViewModel! {
@@ -28,6 +30,8 @@ class UserDetailsView: UIView {
             ageLabel.setText(text: ", \(viewModel.age)")
             workLabel.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
+            userImageView.setName(name: viewModel.mainImageName)
+            cardImages = viewModel.images
         }
     }
     init() {
@@ -45,7 +49,7 @@ class UserDetailsView: UIView {
     private func setUp() {
         addSubviews()
         setupConstraints()
-//        nameLabel = CustomLabel(text: userDetailsViewModel.name, textColor: .orange, textSize: 25, textWeight: .bold)
+        addGestures()
     }
 
     private func addSubviews() {
@@ -136,6 +140,47 @@ class UserDetailsView: UIView {
     func setEditSelector(selector: Selector, target: UIViewController) {
         editButton.addTarget(target, action: selector, for: .touchUpInside)
     }
+    
+    //MARK: Gestures
+    private func addGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
+        let bounds = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+        if sender.state == .ended {
+            let position = sender.location(in: self)
+            if (position.x < bounds.x) {
+                self.nextImage(isLeft: true)
+            } else {
+                self.nextImage(isLeft: false)
+            }
+        }
+    }
+    
+    private func nextImage(isLeft: Bool) {
+        if let cardImages = cardImages {
+            if (isLeft) {
+                if (currentImage <= 0) {
+                    currentImage = cardImages.count - 1
+                } else {
+                    currentImage = currentImage - 1
+                }
+            } else {
+                if (currentImage == cardImages.count - 1) {
+                    currentImage = 0
+                } else {
+                    currentImage = currentImage + 1
+                }
+            }
+            userImageView.image = UIImage(named: cardImages[currentImage])
+        }
+    }
+    
 }
 
 

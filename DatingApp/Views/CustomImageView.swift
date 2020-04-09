@@ -9,7 +9,6 @@
 import UIKit
 
 class CustomImageView: UIImageView {
-    
     init(imageName: String, cornerRadius: CGFloat) {
         super.init(frame: .zero)
         self.image = UIImage(named: imageName)
@@ -17,6 +16,10 @@ class CustomImageView: UIImageView {
         self.layer.cornerRadius = cornerRadius
         self.layer.masksToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setName(name: String) {
+        self.image = UIImage(named: name)
     }
     
     required init?(coder: NSCoder) {
