@@ -183,6 +183,7 @@
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
 				384EDF30243A8BCC00001F7B /* UserDetails */,
+				384EDF40243C3F6500001F7B /* EditUserDetails */,
 				3854F6442437C4EC00229E16 /* Message */,
 				382CC79B23D5ECBF0043060E /* Views */,
 				246B76BD24382AE500FE1D40 /* Storyboards */,
@@ -241,7 +242,6 @@
 		384EDF30243A8BCC00001F7B /* UserDetails */ = {
 			isa = PBXGroup;
 			children = (
-				384EDF40243C3F6500001F7B /* EditUserDetails */,
 				383E46C3243E840F0012977A /* Model */,
 				384EDF31243A8BF200001F7B /* View */,
 				384EDF32243A8C1C00001F7B /* UserDetailsViewController.swift */,
