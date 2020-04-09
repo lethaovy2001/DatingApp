@@ -21,7 +21,7 @@
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
 		383E46BB243E5B270012977A /* UIView+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BA243E5B270012977A /* UIView+helpers.swift */; };
 		383E46BD243E72920012977A /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BC243E72920012977A /* CustomScrollView.swift */; };
-		383E46BF243E76BD0012977A /* AddImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BE243E76BD0012977A /* AddImageView.swift */; };
+		383E46BF243E76BD0012977A /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46BE243E76BD0012977A /* AddImageButton.swift */; };
 		383E46C2243E77FC0012977A /* SectionTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46C1243E77FC0012977A /* SectionTitleLabel.swift */; };
 		383E46C5243E84210012977A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46C4243E84210012977A /* UserModel.swift */; };
 		383E46C7243E861D0012977A /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46C6243E861D0012977A /* UserDetailsViewModel.swift */; };
@@ -70,7 +70,7 @@
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		383E46BA243E5B270012977A /* UIView+helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+helpers.swift"; sourceTree = "<group>"; };
 		383E46BC243E72920012977A /* CustomScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
-		383E46BE243E76BD0012977A /* AddImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageView.swift; sourceTree = "<group>"; };
+		383E46BE243E76BD0012977A /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
 		383E46C1243E77FC0012977A /* SectionTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleLabel.swift; sourceTree = "<group>"; };
 		383E46C4243E84210012977A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		383E46C6243E861D0012977A /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 		383E46C0243E77D30012977A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				383E46BE243E76BD0012977A /* AddImageView.swift */,
+				383E46BE243E76BD0012977A /* AddImageButton.swift */,
 				383E46C1243E77FC0012977A /* SectionTitleLabel.swift */,
 				384EDF43243C48AE00001F7B /* EditUserDetailsView.swift */,
 			);
@@ -490,7 +490,7 @@
 				383E46BD243E72920012977A /* CustomScrollView.swift in Sources */,
 				384EDF39243A93B400001F7B /* CustomLabel.swift in Sources */,
 				384EDF42243C3FAC00001F7B /* EditUserDetailsViewController.swift in Sources */,
-				383E46BF243E76BD0012977A /* AddImageView.swift in Sources */,
+				383E46BF243E76BD0012977A /* AddImageButton.swift in Sources */,
 				383E46C7243E861D0012977A /* UserDetailsViewModel.swift in Sources */,
 				384EDF44243C48AE00001F7B /* EditUserDetailsView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,

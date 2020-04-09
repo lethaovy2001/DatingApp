@@ -20,10 +20,10 @@ class UserDetailsView: UIView {
     private let bioContainerView = CustomContainerView()
     private let bioLabel = SectionTitleLabel(title: "Bio")
     private let bioTextView = CustomTextView(text: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\n")
-    private var cardImages: [String]?
-    private var currentImage = 0
     private let scrollView = CustomScrollView()
     private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: .orange, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
+    private var cardImages: [String]?
+    private var currentImage = 0
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameLabel.setText(text: viewModel.name)

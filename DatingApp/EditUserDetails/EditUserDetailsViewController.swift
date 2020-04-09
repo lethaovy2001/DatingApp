@@ -10,6 +10,18 @@ import UIKit
 
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetails = EditUserDetailsView()
+    private var viewModel: UserDetailsViewModel
+    
+    //MARK: Init
+    init(viewModel: UserDetailsViewModel) {
+        self.viewModel = viewModel
+        editUserDetails.viewModel = self.viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: Life Cycles
     override func viewDidLoad() {

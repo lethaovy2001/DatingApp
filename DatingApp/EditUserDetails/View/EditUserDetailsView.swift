@@ -18,6 +18,7 @@ class EditUserDetailsView: UIView {
     private let addImageButton4 = AddImageButton()
     private let addImageButton5 = AddImageButton()
     private let addImageButton6 = AddImageButton()
+    private var imageButtons: [AddImageButton] = []
     private var featureLabel = SectionTitleLabel(title: "Featured")
     private let bioLabel = SectionTitleLabel(title: "Bio")
     private let detailsLabel = SectionTitleLabel(title: "Details")
@@ -27,18 +28,45 @@ class EditUserDetailsView: UIView {
     private let logoutButton = RoundedButton(title: "Logout", color: Constants.Colors.orangeRed)
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
+    private var cardImages: [String]?
+    var viewModel: UserDetailsViewModel! {
+        didSet {
+            nameLabel.setText(text: viewModel.name)
+            workTextField.setText(text: viewModel.work)
+            bioTextView.setText(text: viewModel.bio)
+            mainProfileImage.setName(name: viewModel.mainImageName)
+            cardImages = viewModel.images
+            if let cardImages = cardImages {
+                var index = 0
+                for image in cardImages {
+                    imageButtons[index].setImage(name: image)
+                    index = index + 1
+                }
+            }
+        }
+    }
     
     //MARK: Init
     init() {
         super.init(frame: .zero)
         setUp()
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     //MARK: Setup
     private func setUp() {
+        setUpSelf()
         addSubviews()
         setUpConstraints()
+        appendImageButtons()
+    }
+    
+    private func setUpSelf() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = .white
+    }
+    
+    private func appendImageButtons() {
+        imageButtons = [addImageButton1, addImageButton2, addImageButton3, addImageButton4, addImageButton5, addImageButton6]
     }
     
     private func addSubviews() {
