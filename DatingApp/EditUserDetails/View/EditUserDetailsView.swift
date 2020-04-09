@@ -28,6 +28,7 @@ class EditUserDetailsView: UIView {
     private let logoutButton = RoundedButton(title: "Logout", color: Constants.Colors.orangeRed)
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
+    private let scrollView = CustomScrollView()
     private var cardImages: [String]?
     var viewModel: UserDetailsViewModel! {
         didSet {
@@ -70,16 +71,17 @@ class EditUserDetailsView: UIView {
     }
     
     private func addSubviews() {
-        self.addSubview(verticalStackView)
-        self.addSubview(bioLabel)
-        self.addSubview(bioTextView)
-        self.addSubview(detailsLabel)
-        self.addSubview(workTextField)
-        self.addSubview(saveButton)
-        self.addSubview(logoutButton)
-        self.addSubview(mainProfileImage)
-        self.addSubview(nameLabel)
-        self.addSubview(featureLabel)
+        self.addSubview(scrollView)
+        scrollView.addSubview(verticalStackView)
+        scrollView.addSubview(bioLabel)
+        scrollView.addSubview(bioTextView)
+        scrollView.addSubview(detailsLabel)
+        scrollView.addSubview(workTextField)
+        scrollView.addSubview(saveButton)
+        scrollView.addSubview(logoutButton)
+        scrollView.addSubview(mainProfileImage)
+        scrollView.addSubview(nameLabel)
+        scrollView.addSubview(featureLabel)
         verticalStackView.addArrangedSubview(horizontalStackView1)
         verticalStackView.addArrangedSubview(horizontalStackView2)
         horizontalStackView1.addArrangedSubview(addImageButton1)
@@ -92,7 +94,13 @@ class EditUserDetailsView: UIView {
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            mainProfileImage.safeAreaLayoutGuide.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            scrollView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
+        NSLayoutConstraint.activate([
+            mainProfileImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 12),
             mainProfileImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             mainProfileImage.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4),
             mainProfileImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4)
@@ -132,14 +140,16 @@ class EditUserDetailsView: UIView {
         NSLayoutConstraint.activate([
             saveButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             saveButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            saveButton.bottomAnchor.constraint(equalTo: logoutButton.topAnchor, constant: -12),
+            saveButton.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 36),
             saveButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
             logoutButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             logoutButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            logoutButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -36),
-            logoutButton.heightAnchor.constraint(equalToConstant: 60)
+            logoutButton.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 12),
+            logoutButton.heightAnchor.constraint(equalToConstant: 60),
+            logoutButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 12),
+            
         ])
     }
     
