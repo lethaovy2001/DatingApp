@@ -9,13 +9,13 @@
 import UIKit
 
 class EditUserDetailsViewController: UIViewController {
-    private let editUserDetails = EditUserDetailsView()
+    private let editUserDetailsView = EditUserDetailsView()
     private var viewModel: UserDetailsViewModel
     
     //MARK: Init
     init(viewModel: UserDetailsViewModel) {
         self.viewModel = viewModel
-        editUserDetails.viewModel = self.viewModel
+        editUserDetailsView.viewModel = self.viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,18 +27,18 @@ class EditUserDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        editUserDetails.addTapGesture(target: self, selector: #selector(dismissKeyboard))
+        editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
     }
     
     //MARK: Setup
     private func setupUI() {
-        view.addSubview(editUserDetails)
+        view.addSubview(editUserDetailsView)
         view.backgroundColor = .white
         NSLayoutConstraint.activate([
-            editUserDetails.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            editUserDetails.leftAnchor.constraint(equalTo: view.leftAnchor),
-            editUserDetails.rightAnchor.constraint(equalTo: view.rightAnchor),
-            editUserDetails.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            editUserDetailsView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            editUserDetailsView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            editUserDetailsView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            editUserDetailsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     

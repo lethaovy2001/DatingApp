@@ -12,6 +12,7 @@ class CustomScrollView: UIScrollView {
     init() {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.scrollIndicatorInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 2)
     }
     
     required init?(coder: NSCoder) {

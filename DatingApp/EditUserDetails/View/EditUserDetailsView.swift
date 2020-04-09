@@ -110,7 +110,7 @@ class EditUserDetailsView: UIView {
             nameLabel.centerXAnchor.constraint(equalTo: mainProfileImage.centerXAnchor)
         ])
         NSLayoutConstraint.activate([
-            bioLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
+            bioLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
             bioLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
         ])
         NSLayoutConstraint.activate([
@@ -119,7 +119,7 @@ class EditUserDetailsView: UIView {
             bioTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12),
         ])
         NSLayoutConstraint.activate([
-            detailsLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: bioTextView.bottomAnchor, constant: 12),
+            detailsLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: bioTextView.bottomAnchor, constant: 16),
             detailsLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
         ])
         NSLayoutConstraint.activate([
@@ -128,7 +128,7 @@ class EditUserDetailsView: UIView {
             workTextField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12),
         ])
         NSLayoutConstraint.activate([
-            featureLabel.topAnchor.constraint(equalTo: workTextField.bottomAnchor, constant: 12),
+            featureLabel.topAnchor.constraint(equalTo: workTextField.bottomAnchor, constant: 16),
             featureLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
         ])
         NSLayoutConstraint.activate([
@@ -149,7 +149,6 @@ class EditUserDetailsView: UIView {
             logoutButton.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 12),
             logoutButton.heightAnchor.constraint(equalToConstant: 60),
             logoutButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 12),
-            
         ])
     }
     

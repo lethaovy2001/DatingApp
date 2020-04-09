@@ -14,12 +14,12 @@ class UserDetailsView: UIView {
     private let ageLabel = CustomLabel(text: ", 19", textColor: .darkGray, textSize: 28, textWeight: .medium)
     private let nameContainerView = CustomContainerView()
     private let workButton = CustomButton(imageName: "bag", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let workLabel = CustomLabel(text: "University of Wisconsin - Madison", textColor: .lightGray, textSize: 16, textWeight: .medium)
+    private let workLabel = CustomLabel(text: "Unknown workplace", textColor: .lightGray, textSize: 16, textWeight: .medium)
     private let locationButton = CustomButton(imageName: "mappin", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let locationLabel = CustomLabel(text: "Less than a kilometer away", textColor: .lightGray, textSize: 16, textWeight: .medium)
     private let bioContainerView = CustomContainerView()
     private let bioLabel = SectionTitleLabel(title: "Bio")
-    private let bioTextView = CustomTextView(text: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.\n")
+    private let bioTextView = CustomTextView(text: "No bio")
     private let scrollView = CustomScrollView()
     private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: .orange, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
     private var cardImages: [String]?
@@ -180,7 +180,4 @@ class UserDetailsView: UIView {
             userImageView.image = UIImage(named: cardImages[currentImage])
         }
     }
-    
 }
-
-
