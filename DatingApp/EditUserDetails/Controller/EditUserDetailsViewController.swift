@@ -32,6 +32,7 @@ class EditUserDetailsViewController: UIViewController {
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
         editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
+        editUserDetailsView.setSaveSelector(selector: #selector(savePressed), target: self)
     }
     
     //MARK: Setup
@@ -62,6 +63,10 @@ class EditUserDetailsViewController: UIViewController {
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
+    }
+    
+    @objc func savePressed() {
+        self.navigationController?.popToRootViewController(animated: false)
     }
 }
 
