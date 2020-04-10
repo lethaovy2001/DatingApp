@@ -182,15 +182,4 @@ extension ChatView: KeyboardDelegate {
     }
 }
 
-protocol TextViewEditingDelegate {
-    func didChange()
-    func beginEditing()
-    func endEditing()
-}
-
-protocol KeyboardDelegate {
-    func showKeyboard()
-    func hideKeyboard()
-}
-
 
