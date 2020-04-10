@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class LoginViewController: UIViewController {
     
     // MARK: Life Cycles
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
         setupUI()
         mainView.setLoginSelector(selector: #selector(loginWithFacebook), target: self)
     }
@@ -37,10 +38,36 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
     }
     
+    private func calculateAge(birthday: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        if let date = dateFormatter.date(from: birthday) {
+            let now = Date()
+            let calendar = Calendar.current
+            let ageComponents = calendar.dateComponents([.year], from: date, to: now)
+            let age = ageComponents.year!
+            print(age)
+        }
+    }
+    
+    func getFBUserInfo() {
+        GraphRequest(graphPath: "/me", parameters: ["fields": "first_name, email, birthday, gender"]).start { (connection, result, err) in
+            if err != nil {
+                print("Failed to start graph request:", err)
+                return
+            }
+            let fbDetails = result as! NSDictionary
+            if let birthday = fbDetails["birthday"] as? String {
+                print(birthday)
+                self.calculateAge(birthday: birthday)
+            }
+        }
+    }
+    
     //TODO: Handle error
     @objc func loginWithFacebook() {
         let loginManager = LoginManager()
-        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+        loginManager.logIn(permissions: ["public_profile", "email", "user_birthday, user_gender"], from: self) { (result, error) in
             if error != nil {
                 print("***** Error: \(error!)")
             } else if result?.isCancelled == true {
@@ -50,11 +77,23 @@ class LoginViewController: UIViewController {
                 print("***** Log in with Facebook")
                 UserDefaults.standard.setIsLoggedIn(value: true)
                 UserDefaults.standard.synchronize()
-                let vc = MainViewController()
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true, completion: nil)
+                self.authenticateWithFirebase()
+                self.getFBUserInfo()
+//                let vc = MainViewController()
+//                vc.modalPresentationStyle = .fullScreen
+//                self.present(vc, animated: true, completion: nil)
             }
         }
     }
+    
+    private func authenticateWithFirebase() {
+        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if error != nil {
+                print("Error Auth \(error)")
+                return
+            }
+            print("Successfully log user into firebase")
+        }
+    }
 }
-
