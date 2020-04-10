@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Lottie
 
 class LoginMainView: UIView {
     
@@ -17,11 +18,14 @@ class LoginMainView: UIView {
         return button
     }()
     
-    private let appLogo: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "giraffe"))
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv;
+    private let appLogo: AnimationView = {
+        let animationView = AnimationView(name: Constants.loveAnimation)
+        animationView.contentMode = .scaleAspectFill
+        animationView.play()
+        animationView.loopMode = .repeat(.infinity)
+        animationView.animationSpeed = 3
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        return animationView
     }()
     
     override init(frame: CGRect) {
@@ -48,8 +52,8 @@ class LoginMainView: UIView {
         NSLayoutConstraint.activate([
             appLogo.centerXAnchor.constraint(equalTo: centerXAnchor),
             appLogo.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -200),
-            appLogo.heightAnchor.constraint(equalToConstant: 120),
-            appLogo.widthAnchor.constraint(equalToConstant: 120)
+            appLogo.heightAnchor.constraint(equalToConstant: 200),
+            appLogo.widthAnchor.constraint(equalToConstant: 200)
         ])
         
         NSLayoutConstraint.activate([

@@ -19,6 +19,7 @@
 		382CC7A123D5EF650043060E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A023D5EF650043060E /* Constants.swift */; };
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
+		383E46D32440E6A60012977A /* loveAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E46D22440E6A60012977A /* loveAnimation.json */; };
 		384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */; };
 		384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AF23E7A736006F6540 /* SwipeCardView.swift */; };
 		384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B123EA712A006F6540 /* SwipeCardModel.swift */; };
@@ -52,6 +53,7 @@
 		382CC7A023D5EF650043060E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		383E46D22440E6A60012977A /* loveAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveAnimation.json; sourceTree = "<group>"; };
 		384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCardDataSource.swift; sourceTree = "<group>"; };
 		384604AF23E7A736006F6540 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		384604B123EA712A006F6540 /* SwipeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardModel.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
+				383E46D12440E6950012977A /* Animations */,
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
@@ -168,6 +171,14 @@
 				384EDF1E2439453400001F7B /* CircleImageView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		383E46D12440E6950012977A /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				383E46D22440E6A60012977A /* loveAnimation.json */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		384604AA23E7A308006F6540 /* MainScreen */ = {
@@ -335,6 +346,7 @@
 				382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */,
 				382CC79023D3B0DF0043060E /* Assets.xcassets in Resources */,
 				382CC78E23D3B0DD0043060E /* Main.storyboard in Resources */,
+				383E46D32440E6A60012977A /* loveAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
