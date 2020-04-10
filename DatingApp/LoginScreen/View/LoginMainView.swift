@@ -11,12 +11,7 @@ import UIKit
 import Lottie
 
 class LoginMainView: UIView {
-    
-    private let fbLoginButton: RoundedButton = {
-        let button = RoundedButton(title: "LOG IN WITH FACEBOOK", color: Constants.Colors.fbColor)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: Constants.Colors.fbColor)
     
     private let appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
@@ -28,13 +23,10 @@ class LoginMainView: UIView {
         return animationView
     }()
     
+    //MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-    }
-    
-    func setLoginSelector(selector: Selector, target: UIViewController) {
-        fbLoginButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
     // MARK: Setup
@@ -62,6 +54,10 @@ class LoginMainView: UIView {
             fbLoginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
             fbLoginButton.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    func setLoginSelector(selector: Selector, target: UIViewController) {
+        fbLoginButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
