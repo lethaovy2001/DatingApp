@@ -152,6 +152,11 @@ class EditUserDetailsView: UIView {
         ])
     }
     
+    func addDelegate(viewController: EditUserDetailsViewController) {
+        bioTextView.delegate = viewController
+        viewController.textViewEditingDelegate = self
+    }
+    
     func addTapGesture(target: UIViewController, selector: Selector) {
             let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
                 target: target,
@@ -164,3 +169,24 @@ class EditUserDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension EditUserDetailsView: TextViewEditingDelegate {
+    func didChange() {
+         bioTextView.calculateBestHeight()
+    }
+    
+    func beginEditing() {
+        if (bioTextView.textColor == .lightGray) {
+            bioTextView.text = ""
+            bioTextView.textColor = .black
+        }
+    }
+    
+    func endEditing() {
+        if (bioTextView.text == "") {
+            bioTextView.text = "Describe Yourself..."
+            bioTextView.textColor = .lightGray
+        }
+    }
+}
+

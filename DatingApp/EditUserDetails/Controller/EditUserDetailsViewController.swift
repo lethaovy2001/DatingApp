@@ -11,6 +11,7 @@ import UIKit
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetailsView = EditUserDetailsView()
     private var viewModel: UserDetailsViewModel
+    var textViewEditingDelegate: TextViewEditingDelegate?
     
     //MARK: Init
     init(viewModel: UserDetailsViewModel) {
@@ -28,6 +29,7 @@ class EditUserDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
+        editUserDetailsView.addDelegate(viewController: self)
     }
     
     //MARK: Setup
@@ -45,5 +47,19 @@ class EditUserDetailsViewController: UIViewController {
     //MARK: Actions
     @objc func dismissKeyboard() {
        view.endEditing(true)
+    }
+}
+
+extension EditUserDetailsViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        textViewEditingDelegate?.didChange()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewEditingDelegate?.beginEditing()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+         textViewEditingDelegate?.endEditing()
     }
 }
