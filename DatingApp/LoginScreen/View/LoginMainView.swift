@@ -52,8 +52,8 @@ class LoginMainView: UIView {
         NSLayoutConstraint.activate([
             appLogo.centerXAnchor.constraint(equalTo: centerXAnchor),
             appLogo.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -200),
-            appLogo.heightAnchor.constraint(equalToConstant: 200),
-            appLogo.widthAnchor.constraint(equalToConstant: 200)
+            appLogo.heightAnchor.constraint(equalToConstant: 250),
+            appLogo.widthAnchor.constraint(equalToConstant: 250)
         ])
         
         NSLayoutConstraint.activate([
