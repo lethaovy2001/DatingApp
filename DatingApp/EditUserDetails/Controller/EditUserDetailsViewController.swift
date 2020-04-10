@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetailsView = EditUserDetailsView()
@@ -30,6 +31,7 @@ class EditUserDetailsViewController: UIViewController {
         setupUI()
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
+        editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
     }
     
     //MARK: Setup
@@ -47,6 +49,19 @@ class EditUserDetailsViewController: UIViewController {
     //MARK: Actions
     @objc func dismissKeyboard() {
        view.endEditing(true)
+    }
+    
+    @objc func logoutPressed() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            UserDefaults.standard.setIsLoggedIn(value: false)
+            UserDefaults.standard.synchronize()
+            let vc = LoginViewController()
+            self.navigationController?.pushViewController(vc, animated: false)
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
 }
 

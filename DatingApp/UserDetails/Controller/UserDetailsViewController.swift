@@ -57,6 +57,6 @@ class UserDetailsViewController: UIViewController {
     //MARK: Actions
     @objc func editButtonPressed() {
         let vc = EditUserDetailsViewController(viewModel: viewModel)
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: false)
     }
 }

@@ -44,15 +44,12 @@ class LoginViewController: UIViewController {
             if error != nil {
                 print("***** Error: \(error!)")
             } else if result?.isCancelled == true {
-                
                 print("***** Cancel")
             } else {
                 print("***** Log in with Facebook")
                 UserDefaults.standard.setIsLoggedIn(value: true)
                 UserDefaults.standard.synchronize()
-                let vc = MainViewController()
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true, completion: nil)
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }
     }

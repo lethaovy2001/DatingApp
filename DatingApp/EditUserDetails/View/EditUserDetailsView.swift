@@ -152,6 +152,10 @@ class EditUserDetailsView: UIView {
         ])
     }
     
+    func setLogoutSelector(selector: Selector, target: UIViewController) {
+        logoutButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
     func addDelegate(viewController: EditUserDetailsViewController) {
         bioTextView.delegate = viewController
         viewController.textViewEditingDelegate = self

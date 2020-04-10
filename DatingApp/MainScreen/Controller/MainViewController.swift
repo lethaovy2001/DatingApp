@@ -51,8 +51,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         if (!UserDefaults.standard.isLoggedIn()) {
             let vc = LoginViewController()
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            self.navigationController?.pushViewController(vc, animated: false)
         }
     }
     
