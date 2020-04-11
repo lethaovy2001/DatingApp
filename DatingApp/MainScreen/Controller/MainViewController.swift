@@ -15,7 +15,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
     private let modelController = MainModelController()
     
     // MARK: Setup
@@ -52,8 +51,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         if (!UserDefaults.standard.isLoggedIn()) {
             let vc = LoginViewController()
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            self.navigationController?.pushViewController(vc, animated: false)
         }
     }
     
@@ -72,7 +70,11 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func profilePressed() {
-        
+        //TODO: remove mock data
+        let model = UserModel(name: "Lan", age: 20, imageNames: modelController.getMockImageNames(), mainImageName: modelController.getMockImageNames()[0], work: "UW", bio: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.")
+        let viewModel = UserDetailsViewModel(model: model)
+        let vc = UserDetailsViewController(viewModel: viewModel)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -92,4 +94,3 @@ extension MainViewController: SwipeableCardDataSource {
         return nil
     }
 }
-

@@ -20,7 +20,7 @@ class ChatCell: UICollectionViewCell {
         return view
     }()
     
-    private let profileImageView = CircleImageView(cornerRadius: 16, imageName: "Vy")
+    private let profileImageView = CircleImageView(imageName: "Vy")
     
     let textView: UITextView = {
         let tv = UITextView()
