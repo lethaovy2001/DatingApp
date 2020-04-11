@@ -22,6 +22,7 @@ class MainView: UIView {
     private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

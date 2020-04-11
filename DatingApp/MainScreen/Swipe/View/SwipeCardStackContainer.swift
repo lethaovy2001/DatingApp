@@ -25,7 +25,7 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
         }
     }
     
-    //MARK: Init
+    //MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: .zero)
         configureSelf()
