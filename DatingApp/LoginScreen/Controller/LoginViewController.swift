@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
         ])
         view.backgroundColor = .white
     }
-    
+
     private func calculateAge(birthday: String) -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
@@ -75,7 +75,29 @@ class LoginViewController: UIViewController {
             "age": age,
             "gender": gender] as [String : AnyObject]
             self.registerUserIntoDatabaseWithUID(uid: userID, values: dictionary)
+            
+            self.fetchUser()
         }
+    }
+    
+    func fetchUser() {
+        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
+                print(snapshot)
+            
+            if let dictonary = snapshot.value as? [String: AnyObject] {
+                print(dictonary["first_name"])
+//                let user = User(dictionary: dictonary)
+//                user.id = snapshot.key
+//                user.setValuesForKeys(dictonary)
+//                self.users.append(user)
+
+                // This will crash because of background thread, so let's use DispatchQueue.main.async to fix
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+            }
+        }, withCancel: nil)
+        
     }
     
     //TODO: Handle error
