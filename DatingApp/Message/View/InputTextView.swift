@@ -9,16 +9,18 @@
 import UIKit
 
 class InputTextView: UITextView {
+    private var isScrollable: Bool!
     
-    init() {
+    init(placeholder: String, cornerRadius: CGFloat, isScrollable: Bool) {
         super.init(frame: .zero, textContainer: nil)
         self.backgroundColor = Constants.Colors.inputContainerColor
-        self.layer.cornerRadius = (Constants.PaddingValues.inputContainerHeight - Constants.PaddingValues.inputPadding*2)/2
-        self.text = "Aa"
+        self.layer.cornerRadius = cornerRadius
+        self.text = placeholder
         self.textColor = .lightGray
-        self.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        self.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         self.isScrollEnabled = false
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.isScrollable = isScrollable
     }
     
     override func layoutSubviews() {
@@ -27,13 +29,20 @@ class InputTextView: UITextView {
             calculateBestHeight()
     }
     
+    func setText(text: String) {
+        self.text = text
+        self.textColor = .darkGray
+    }
+    
     func calculateBestHeight() {
         let size = CGSize(width: self.frame.width, height: .infinity)
         let estimatedSize = self.sizeThatFits(size)
-        if (estimatedSize.height > 150) {
-            self.isScrollEnabled = true;
-            self.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 6)
-            return
+        if (self.isScrollable) {
+            if (estimatedSize.height > 150) {
+                self.isScrollEnabled = true
+                self.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 6)
+                return
+            }
         }
         self.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {

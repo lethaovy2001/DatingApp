@@ -9,12 +9,9 @@
 import UIKit
 
 class SwipeCardView: UIView {
-    
-    //MARK: Properties
     private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
     private let cardImageView = RoundedUserImage(imageName: "Vy.jpg")
     private var currentImage = 0
-    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -37,7 +34,7 @@ class SwipeCardView: UIView {
         }
     }
     
-    //MARK: Init
+    // MARK: Initializer
     init() {
         super.init(frame: .zero)
         setup()
@@ -47,7 +44,7 @@ class SwipeCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //MARK: Setup
+    // MARK: Setup
     private func setup() {
         addSubViews()
         setupConstraints()
@@ -84,7 +81,7 @@ class SwipeCardView: UIView {
         self.addGestureRecognizer(panGesture)
     }
     
-    //MARK: Gestures
+    // MARK: Gestures
     @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
         let bounds = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         if sender.state == .ended {
@@ -152,5 +149,4 @@ class SwipeCardView: UIView {
         }
         cardImageView.image = UIImage(named: cardImages[currentImage])
     }
-
 }

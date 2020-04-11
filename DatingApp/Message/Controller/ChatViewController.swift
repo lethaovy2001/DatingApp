@@ -18,7 +18,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
-    //MARK: Life Cycles
+    // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavigationBar()
@@ -40,7 +40,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func setupUI() {
         view.addSubview(chatView)
         NSLayoutConstraint.activate([
@@ -66,8 +66,8 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
     }
     
-    //TODO: Report User
-    //MARK: Actions
+    // TODO: Report User
+    // MARK: Actions
     @objc func reportPressed(){
         
     }
@@ -77,7 +77,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 }
 
-//MARK: UICollectionView
+// MARK: UICollectionView
 extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 15
@@ -103,7 +103,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//MARK: UITextViewDelegate
+// MARK: UITextViewDelegate
 extension ChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         textViewEditingDelegate?.didChange()
@@ -118,7 +118,7 @@ extension ChatViewController: UITextViewDelegate {
     }
 }
 
-//MARK: Keyboards
+// MARK: Keyboards
 extension ChatViewController {
     private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)

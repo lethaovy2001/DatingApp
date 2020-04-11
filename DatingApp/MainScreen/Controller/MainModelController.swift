@@ -15,7 +15,7 @@ class MainModelController {
         return users
     }
     
-    private func getMockImageNames() -> [String] {
+    func getMockImageNames() -> [String] {
         let userImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
         return userImages
     }

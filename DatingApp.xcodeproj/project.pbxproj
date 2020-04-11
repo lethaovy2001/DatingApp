@@ -15,18 +15,36 @@
 		382CC78E23D3B0DD0043060E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 382CC78C23D3B0DD0043060E /* Main.storyboard */; };
 		382CC79023D3B0DF0043060E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 382CC78F23D3B0DF0043060E /* Assets.xcassets */; };
 		382CC79323D3B0DF0043060E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 382CC79123D3B0DF0043060E /* LaunchScreen.storyboard */; };
-		382CC79E23D5ECFC0043060E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC79D23D5ECFC0043060E /* RoundedButton.swift */; };
 		382CC7A123D5EF650043060E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A023D5EF650043060E /* Constants.swift */; };
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
 		383E46D32440E6A60012977A /* loveAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E46D22440E6A60012977A /* loveAnimation.json */; };
+		383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46DE244265450012977A /* UserDetailsViewController.swift */; };
+		383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46E0244265450012977A /* UserDetailsViewModel.swift */; };
+		383E46E6244265450012977A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46E1244265450012977A /* UserModel.swift */; };
+		383E46E7244265450012977A /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46E3244265450012977A /* UserDetailsView.swift */; };
+		383E46EF244265570012977A /* EditUserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46EA244265570012977A /* EditUserDetailsViewController.swift */; };
+		383E46F0244265570012977A /* EditUserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46EC244265570012977A /* EditUserDetailsView.swift */; };
+		383E46F1244265570012977A /* SectionTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46ED244265570012977A /* SectionTitleLabel.swift */; };
+		383E46F2244265570012977A /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46EE244265570012977A /* AddImageButton.swift */; };
+		383E46FD244265990012977A /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F3244265970012977A /* CustomTextView.swift */; };
+		383E46FE244265990012977A /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F4244265980012977A /* RoundedButton.swift */; };
+		383E46FF244265990012977A /* CustomContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F5244265980012977A /* CustomContainerView.swift */; };
+		383E4700244265990012977A /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F6244265980012977A /* CircleImageView.swift */; };
+		383E4701244265990012977A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F7244265980012977A /* CustomTextField.swift */; };
+		383E4702244265990012977A /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F8244265980012977A /* CustomStackView.swift */; };
+		383E4703244265990012977A /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F9244265980012977A /* CustomImageView.swift */; };
+		383E4704244265990012977A /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46FA244265990012977A /* CustomScrollView.swift */; };
+		383E4705244265990012977A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46FB244265990012977A /* CustomButton.swift */; };
+		383E4706244265990012977A /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46FC244265990012977A /* CustomLabel.swift */; };
+		383E4708244266740012977A /* UIView+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E4707244266740012977A /* UIView+helpers.swift */; };
+		383E470C244267000012977A /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E470A244267000012977A /* KeyboardDelegate.swift */; };
+		383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E470B244267000012977A /* TextViewEditingDelegate.swift */; };
 		384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */; };
 		384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604AF23E7A736006F6540 /* SwipeCardView.swift */; };
 		384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B123EA712A006F6540 /* SwipeCardModel.swift */; };
 		384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */; };
-		384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EA7B223D7AE0F00940681 /* CustomButton.swift */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
-		384EDF1F2439453400001F7B /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1E2439453400001F7B /* CircleImageView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
@@ -49,18 +67,36 @@
 		382CC78F23D3B0DF0043060E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		382CC79223D3B0DF0043060E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		382CC79423D3B0DF0043060E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		382CC79D23D5ECFC0043060E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		382CC7A023D5EF650043060E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		383E46D22440E6A60012977A /* loveAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveAnimation.json; sourceTree = "<group>"; };
+		383E46DE244265450012977A /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
+		383E46E0244265450012977A /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
+		383E46E1244265450012977A /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		383E46E3244265450012977A /* UserDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
+		383E46EA244265570012977A /* EditUserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserDetailsViewController.swift; sourceTree = "<group>"; };
+		383E46EC244265570012977A /* EditUserDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserDetailsView.swift; sourceTree = "<group>"; };
+		383E46ED244265570012977A /* SectionTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionTitleLabel.swift; sourceTree = "<group>"; };
+		383E46EE244265570012977A /* AddImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
+		383E46F3244265970012977A /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		383E46F4244265980012977A /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		383E46F5244265980012977A /* CustomContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomContainerView.swift; sourceTree = "<group>"; };
+		383E46F6244265980012977A /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircleImageView.swift; path = "../../../../../Downloads/DatingApp-user-details-display-ui/DatingApp/Views/CircleImageView.swift"; sourceTree = "<group>"; };
+		383E46F7244265980012977A /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		383E46F8244265980012977A /* CustomStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
+		383E46F9244265980012977A /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		383E46FA244265990012977A /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
+		383E46FB244265990012977A /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = "../../../../../Downloads/DatingApp-user-details-display-ui/DatingApp/Views/CustomButton.swift"; sourceTree = "<group>"; };
+		383E46FC244265990012977A /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		383E4707244266740012977A /* UIView+helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+helpers.swift"; sourceTree = "<group>"; };
+		383E470A244267000012977A /* KeyboardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
+		383E470B244267000012977A /* TextViewEditingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewEditingDelegate.swift; sourceTree = "<group>"; };
 		384604AB23E7A339006F6540 /* SwipeableCardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCardDataSource.swift; sourceTree = "<group>"; };
 		384604AF23E7A736006F6540 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		384604B123EA712A006F6540 /* SwipeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardModel.swift; sourceTree = "<group>"; };
 		384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackContainer.swift; sourceTree = "<group>"; };
-		384EA7B223D7AE0F00940681 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
-		384EDF1E2439453400001F7B /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
@@ -96,7 +132,6 @@
 		2415F39824381B890090031D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				382CC79D23D5ECFC0043060E /* RoundedButton.swift */,
 				2415F39A24381BB00090031D /* LoginMainView.swift */,
 			);
 			path = View;
@@ -149,13 +184,16 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
-				383E46D12440E6950012977A /* Animations */,
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
+				383E46DC244265450012977A /* UserDetails */,
+				383E46E8244265570012977A /* EditUserDetails */,
 				3854F6442437C4EC00229E16 /* Message */,
 				382CC79B23D5ECBF0043060E /* Views */,
+				383E46D12440E6950012977A /* Animations */,
+				383E4709244267000012977A /* Protocols */,
 				246B76BD24382AE500FE1D40 /* Storyboards */,
 				246B76BE24382B1100FE1D40 /* SupportingFiles */,
 				3854F653243808FC00229E16 /* Helpers */,
@@ -167,8 +205,16 @@
 		382CC79B23D5ECBF0043060E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				384EA7B223D7AE0F00940681 /* CustomButton.swift */,
-				384EDF1E2439453400001F7B /* CircleImageView.swift */,
+				383E46F6244265980012977A /* CircleImageView.swift */,
+				383E46FB244265990012977A /* CustomButton.swift */,
+				383E46F5244265980012977A /* CustomContainerView.swift */,
+				383E46F9244265980012977A /* CustomImageView.swift */,
+				383E46FC244265990012977A /* CustomLabel.swift */,
+				383E46FA244265990012977A /* CustomScrollView.swift */,
+				383E46F8244265980012977A /* CustomStackView.swift */,
+				383E46F7244265980012977A /* CustomTextField.swift */,
+				383E46F3244265970012977A /* CustomTextView.swift */,
+				383E46F4244265980012977A /* RoundedButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,6 +225,77 @@
 				383E46D22440E6A60012977A /* loveAnimation.json */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		383E46DC244265450012977A /* UserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				383E46DD244265450012977A /* Controller */,
+				383E46DF244265450012977A /* Model */,
+				383E46E2244265450012977A /* View */,
+			);
+			path = UserDetails;
+			sourceTree = "<group>";
+		};
+		383E46DD244265450012977A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				383E46DE244265450012977A /* UserDetailsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		383E46DF244265450012977A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				383E46E0244265450012977A /* UserDetailsViewModel.swift */,
+				383E46E1244265450012977A /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		383E46E2244265450012977A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				383E46E3244265450012977A /* UserDetailsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		383E46E8244265570012977A /* EditUserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				383E46E9244265570012977A /* Controller */,
+				383E46EB244265570012977A /* View */,
+			);
+			path = EditUserDetails;
+			sourceTree = "<group>";
+		};
+		383E46E9244265570012977A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				383E46EA244265570012977A /* EditUserDetailsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		383E46EB244265570012977A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				383E46EC244265570012977A /* EditUserDetailsView.swift */,
+				383E46ED244265570012977A /* SectionTitleLabel.swift */,
+				383E46EE244265570012977A /* AddImageButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		383E4709244267000012977A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				383E470A244267000012977A /* KeyboardDelegate.swift */,
+				383E470B244267000012977A /* TextViewEditingDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		384604AA23E7A308006F6540 /* MainScreen */ = {
@@ -211,6 +328,7 @@
 		3854F653243808FC00229E16 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				383E4707244266740012977A /* UIView+helpers.swift */,
 				382CC7A023D5EF650043060E /* Constants.swift */,
 				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
 				3854F6542438092000229E16 /* CALayer+helpers.swift */,
@@ -399,7 +517,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				384EA7B323D7AE0F00940681 /* CustomButton.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
@@ -407,20 +524,39 @@
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
+				383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */,
+				383E4704244265990012977A /* CustomScrollView.swift in Sources */,
+				383E4700244265990012977A /* CircleImageView.swift in Sources */,
+				383E46E7244265450012977A /* UserDetailsView.swift in Sources */,
+				383E46EF244265570012977A /* EditUserDetailsViewController.swift in Sources */,
+				383E46F0244265570012977A /* EditUserDetailsView.swift in Sources */,
+				383E46F2244265570012977A /* AddImageButton.swift in Sources */,
+				383E46E6244265450012977A /* UserModel.swift in Sources */,
+				383E470C244267000012977A /* KeyboardDelegate.swift in Sources */,
+				383E4701244265990012977A /* CustomTextField.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
+				383E4708244266740012977A /* UIView+helpers.swift in Sources */,
 				384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */,
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
+				383E46F1244265570012977A /* SectionTitleLabel.swift in Sources */,
+				383E4703244265990012977A /* CustomImageView.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
+				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
+				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
+				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
+				383E4705244265990012977A /* CustomButton.swift in Sources */,
+				383E4702244265990012977A /* CustomStackView.swift in Sources */,
 				384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */,
 				3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */,
 				2415F39B24381BB00090031D /* LoginMainView.swift in Sources */,
+				383E4706244265990012977A /* CustomLabel.swift in Sources */,
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,
-				384EDF1F2439453400001F7B /* CircleImageView.swift in Sources */,
+				383E46FE244265990012977A /* RoundedButton.swift in Sources */,
+				383E46FF244265990012977A /* CustomContainerView.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,
-				382CC79E23D5ECFC0043060E /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

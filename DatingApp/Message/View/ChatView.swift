@@ -16,8 +16,8 @@ class ChatView: UIView {
         container.layer.addShadow(withDirection: .top)
         return container
     }()
-    private let inputTextView = InputTextView()
-    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, addShadow: false, cornerRadius: nil)
+    private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     private let titleButton: UIButton = {
         let button = UIButton()
@@ -29,7 +29,7 @@ class ChatView: UIView {
          containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
-    private let profileImageView = CircleImageView(cornerRadius: 20, imageName: "Vy")
+    private let profileImageView = CircleImageView(imageName: "Vy")
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Vy"
@@ -49,12 +49,13 @@ class ChatView: UIView {
         return cv
     }()
     
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func setup() {
         self.backgroundColor = .white
         addSubviews()
@@ -104,38 +105,6 @@ class ChatView: UIView {
         viewController.keyboardDelegate = self
     }
     
-    func setupTitleNavBar(navItem: UINavigationItem) {
-        addSubviewNavBar()
-        setupConstraintsForNavBarTitle()
-        navItem.titleView = titleButton
-    }
-    
-    private func addSubviewNavBar() {
-        titleButton.addSubview(containerView)
-        containerView.addSubview(profileImageView)
-        containerView.addSubview(nameLabel)
-    }
-    
-    private func setupConstraintsForNavBarTitle() {
-        NSLayoutConstraint.activate([
-            nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8),
-            nameLabel.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor),
-            nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 40),
-            profileImageView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            containerView.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor)
-        ])
-    }
-    
-    //TODO: dismiss keyboard
     func addTapGesture(target: UIViewController, selector: Selector) {
             let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
                 target: target,
@@ -153,6 +122,7 @@ class ChatView: UIView {
     }
 }
 
+// MARK: TextViewEditingDelegate
 extension ChatView: TextViewEditingDelegate {
     func didChange() {
          inputTextView.calculateBestHeight()
@@ -183,15 +153,38 @@ extension ChatView: KeyboardDelegate {
     }
 }
 
-protocol TextViewEditingDelegate {
-    func didChange()
-    func beginEditing()
-    func endEditing()
-}
-
-protocol KeyboardDelegate {
-    func showKeyboard()
-    func hideKeyboard()
+// MARK: Navigation
+extension ChatView {
+    func setupTitleNavBar(navItem: UINavigationItem) {
+        addSubviewNavBar()
+        setupConstraintsForNavBarTitle()
+        navItem.titleView = titleButton
+    }
+    
+    private func addSubviewNavBar() {
+        titleButton.addSubview(containerView)
+        containerView.addSubview(profileImageView)
+        containerView.addSubview(nameLabel)
+    }
+    
+    private func setupConstraintsForNavBarTitle() {
+        NSLayoutConstraint.activate([
+            nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8),
+            nameLabel.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor),
+            nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            nameLabel.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        NSLayoutConstraint.activate([
+            profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            profileImageView.widthAnchor.constraint(equalToConstant: 40),
+            profileImageView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        NSLayoutConstraint.activate([
+            containerView.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor)
+        ])
+    }
 }
 
 
