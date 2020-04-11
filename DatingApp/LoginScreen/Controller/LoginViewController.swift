@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -37,7 +38,44 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    // TODO: Handle error
+    private func calculateAge(birthday: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        if let date = dateFormatter.date(from: birthday) {
+            let now = Date()
+            let calendar = Calendar.current
+            let ageComponents = calendar.dateComponents([.year], from: date, to: now)
+            let age = ageComponents.year!
+            print(age)
+        }
+    }
+
+    private func getFBUserInfo() {
+        GraphRequest(graphPath: "/me", parameters: ["fields": "first_name, email, birthday, gender"]).start { (connection, result, err) in
+            if err != nil {
+                print("Failed to start graph request:", err)
+                return
+            }
+            let fbDetails = result as! NSDictionary
+            if let birthday = fbDetails["birthday"] as? String {
+                print(birthday)
+                self.calculateAge(birthday: birthday)
+            }
+        }
+    }
+    
+    private func authenticateWithFirebase() {
+        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if error != nil {
+                print(String(describing: error))
+                return
+            }
+            print("Successfully log user into firebase")
+        }
+    }
+    
+    //MARK: Actions
     @objc func loginWithFacebook() {
         let loginManager = LoginManager()
         loginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
@@ -49,6 +87,8 @@ class LoginViewController: UIViewController {
                 print("***** Log in with Facebook")
                 UserDefaults.standard.setIsLoggedIn(value: true)
                 UserDefaults.standard.synchronize()
+                self.authenticateWithFirebase()
+                self.getFBUserInfo()
                 self.navigationController?.popToRootViewController(animated: false)
             }
         }
