@@ -40,66 +40,40 @@ class LoginViewController: UIViewController {
     }
 
     private func calculateAge(birthday: String) -> Int {
+        let now = Date()
+        let calendar = Calendar.current
         let dateFormatter = DateFormatter()
+        var age = 0
         dateFormatter.dateFormat = "MM-dd-yyyy"
         if let date = dateFormatter.date(from: birthday) {
-            let now = Date()
-            let calendar = Calendar.current
             let ageComponents = calendar.dateComponents([.year], from: date, to: now)
-            let age = ageComponents.year!
-            print(age)
-            return age
+            age = ageComponents.year!
         }
-        return 0
+        return age
     }
     
-    func getFBUserInfo() {
+    private func getFBUserInfo() {
         GraphRequest(graphPath: "/me", parameters: ["fields": "first_name, email, birthday, gender"]).start { (connection, result, err) in
             if err != nil {
                 print("Failed to start graph request:", err)
                 return
             }
+            
             let fbDetails = result as! NSDictionary
             guard let userID = Auth.auth().currentUser?.uid else { return }
             guard let firstName = fbDetails["first_name"] else { return }
             guard let gender = fbDetails["gender"] else { return }
-            
             var age = 0
             if let birthday = fbDetails["birthday"] as? String {
-                print(birthday)
                 age = self.calculateAge(birthday: birthday)
             }
-            
-            let dictionary = ["uid": userID,
-            "first_name": firstName,
-            "age": age,
-            "gender": gender] as [String : AnyObject]
-            self.registerUserIntoDatabaseWithUID(uid: userID, values: dictionary)
-            
-            self.fetchUser()
+            let dictionary = ["uid": userID, "first_name": firstName, "age": age, "gender": gender] as [String : AnyObject]
+            self.updateDatabase(with: userID, values: dictionary)
+            self.fetchUserInfo()
         }
     }
     
-    func fetchUser() {
-        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-                print(snapshot)
-            
-            if let dictonary = snapshot.value as? [String: AnyObject] {
-                print(dictonary["first_name"])
-//                let user = User(dictionary: dictonary)
-//                user.id = snapshot.key
-//                user.setValuesForKeys(dictonary)
-//                self.users.append(user)
-
-                // This will crash because of background thread, so let's use DispatchQueue.main.async to fix
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-            }
-        }, withCancel: nil)
-        
-    }
-    
+    //MARK: Actions
     //TODO: Handle error
     @objc func loginWithFacebook() {
         let loginManager = LoginManager()
@@ -107,10 +81,8 @@ class LoginViewController: UIViewController {
             if error != nil {
                 print("***** Error: \(error!)")
             } else if result?.isCancelled == true {
-                
                 print("***** Cancel")
             } else {
-                print("***** Log in with Facebook")
                 UserDefaults.standard.setIsLoggedIn(value: true)
                 UserDefaults.standard.synchronize()
                 self.authenticateWithFirebase()
@@ -121,7 +93,14 @@ class LoginViewController: UIViewController {
             }
         }
     }
+}
+
+extension LoginViewController {
     
+}
+
+//MARK: Firebase
+extension LoginViewController {
     private func authenticateWithFirebase() {
         let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
         Auth.auth().signIn(with: credential) { (authResult, error) in
@@ -132,18 +111,25 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func registerUserIntoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
+    private func updateDatabase(with uid: String, values: [String: AnyObject]) {
         var ref: DatabaseReference!
         ref = Database.database().reference()
-
         let usersReference = ref.child("users").child(uid)
         usersReference.setValue(values, withCompletionBlock: { (err, ref) in
             if err != nil {
-                print("***** \(String(describing: err))")
+                print(String(describing: err))
                 return
             }
-            print("****** Successfully save user in Firebase")
             self.dismiss(animated: true, completion: nil)
         })
+    }
+    
+    private func fetchUserInfo() {
+        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
+                print(snapshot)
+            if let dictonary = snapshot.value as? [String: AnyObject] {
+                //TODO: display user info
+            }
+        }, withCancel: nil)
     }
 }
