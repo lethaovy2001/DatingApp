@@ -95,10 +95,6 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController {
-    
-}
-
 //MARK: Firebase
 extension LoginViewController {
     private func authenticateWithFirebase() {
