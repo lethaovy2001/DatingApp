@@ -11,8 +11,8 @@ import UIKit
 import Lottie
 
 class LoginMainView: UIView {
-    private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: Constants.Colors.fbColor)
     
+    private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: Constants.Colors.fbColor)
     private let appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
@@ -23,7 +23,7 @@ class LoginMainView: UIView {
         return animationView
     }()
     
-    //MARK: Init
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

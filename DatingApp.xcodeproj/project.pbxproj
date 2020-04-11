@@ -184,7 +184,6 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
-				383E46D12440E6950012977A /* Animations */,
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
@@ -193,6 +192,7 @@
 				383E46E8244265570012977A /* EditUserDetails */,
 				3854F6442437C4EC00229E16 /* Message */,
 				382CC79B23D5ECBF0043060E /* Views */,
+				383E46D12440E6950012977A /* Animations */,
 				383E4709244267000012977A /* Protocols */,
 				246B76BD24382AE500FE1D40 /* Storyboards */,
 				246B76BE24382B1100FE1D40 /* SupportingFiles */,
