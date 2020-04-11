@@ -45,7 +45,7 @@ class UserDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func setUp() {
         addSubviews()
         setupConstraints()
@@ -141,7 +141,7 @@ class UserDetailsView: UIView {
         editButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
-    //MARK: Gestures
+    // MARK: Gestures
     private func addGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1

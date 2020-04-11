@@ -14,7 +14,7 @@ class EditUserDetailsViewController: UIViewController {
     private var viewModel: UserDetailsViewModel
     var textViewEditingDelegate: TextViewEditingDelegate?
     
-    //MARK: Init
+    // MARK: Init
     init(viewModel: UserDetailsViewModel) {
         self.viewModel = viewModel
         editUserDetailsView.viewModel = self.viewModel
@@ -35,7 +35,7 @@ class EditUserDetailsViewController: UIViewController {
         editUserDetailsView.setSaveSelector(selector: #selector(savePressed), target: self)
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func setupUI() {
         view.addSubview(editUserDetailsView)
         view.backgroundColor = .white
@@ -47,7 +47,7 @@ class EditUserDetailsViewController: UIViewController {
         ])
     }
     
-    //MARK: Actions
+    // MARK: Actions
     @objc func dismissKeyboard() {
        view.endEditing(true)
     }

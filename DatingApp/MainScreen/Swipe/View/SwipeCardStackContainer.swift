@@ -10,7 +10,7 @@ import UIKit
 
 class SwipeCardStackContainer: UIView, SwipeCardDelegate {
     
-    //MARK: Properties
+    // MARK: Properties
     var numberOfCardsToShow: Int = 0
     var cardsToBeVisible: Int = 2
     var cardViews : [SwipeCardView] = []
@@ -25,7 +25,7 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
         }
     }
     
-    //MARK: Initializer
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: .zero)
         configureSelf()
@@ -35,7 +35,7 @@ class SwipeCardStackContainer: UIView, SwipeCardDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func configureSelf() {
         self.layer.cornerRadius =  Constants.PaddingValues.swipeImageCornerRadius
         self.layer.addShadow(withDirection: .bottom)

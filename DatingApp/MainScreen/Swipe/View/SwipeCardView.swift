@@ -34,7 +34,7 @@ class SwipeCardView: UIView {
         }
     }
     
-    //MARK: Initializer
+    // MARK: Initializer
     init() {
         super.init(frame: .zero)
         setup()
@@ -44,7 +44,7 @@ class SwipeCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //MARK: Setup
+    // MARK: Setup
     private func setup() {
         addSubViews()
         setupConstraints()
@@ -81,7 +81,7 @@ class SwipeCardView: UIView {
         self.addGestureRecognizer(panGesture)
     }
     
-    //MARK: Gestures
+    // MARK: Gestures
     @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
         let bounds = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         if sender.state == .ended {

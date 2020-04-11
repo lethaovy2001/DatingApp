@@ -54,7 +54,7 @@ class ChatView: UIView {
         setup()
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func setup() {
         self.backgroundColor = .white
         addSubviews()

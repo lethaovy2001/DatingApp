@@ -47,13 +47,13 @@ class EditUserDetailsView: UIView {
         }
     }
     
-    //MARK: Init
+    // MARK: Init
     init() {
         super.init(frame: .zero)
         setUp()
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func setUp() {
         setUpSelf()
         addSubviews()

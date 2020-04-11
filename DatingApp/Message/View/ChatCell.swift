@@ -43,7 +43,7 @@ class ChatCell: UICollectionViewCell {
         setup()
     }
     
-    //MARK: Setup
+    // MARK: Setup
     private func setup() {
         addSubviews()
         setupConstraints()

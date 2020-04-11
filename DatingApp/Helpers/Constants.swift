@@ -9,7 +9,7 @@
 import UIKit
 
 struct Constants {
-    //MARK: Colors
+    // MARK: Colors
     struct Colors {
         static let fbColor = UIColor(red: 65/225, green: 105/225, blue: 225/225, alpha: 1)
         static let mainBackgroundColor = UIColor(red: 220/225, green: 220/225, blue: 220/225, alpha: 1)
@@ -22,22 +22,22 @@ struct Constants {
     }
     
     struct PaddingValues {
-        //MARK: Input Container
+        // MARK: Input Container
         static let inputContainerHeight: CGFloat = 60
         static let inputPadding: CGFloat = 12
         static let inputTextViewHeight: CGFloat = 36
         
-        //MARK: Swipe
+        // MARK: Swipe
         static let swipeImageCornerRadius = CGFloat(20)
         
-        //MARK: Button
+        // MARK: Button
         static let likeButtonHeight = CGFloat(70)
     }
     
-    //MARK: ID
+    // MARK: ID
     static let cellId = "cellId"
     
-    //MARK: Animation Names
+    // MARK: Animation Names
     static let loveAnimation = "loveAnimation"
 }
 
