@@ -19,9 +19,7 @@ class ChatCell: UICollectionViewCell {
         view.layer.masksToBounds = true
         return view
     }()
-    
     private let profileImageView = CircleImageView(imageName: "Vy")
-    
     let textView: UITextView = {
         let tv = UITextView()
         tv.text = "I love you 3000 \n lala"
@@ -43,7 +41,7 @@ class ChatCell: UICollectionViewCell {
         setup()
     }
     
-    // MARK: Setup
+    //MARK: Setup
     private func setup() {
         addSubviews()
         setupConstraints()

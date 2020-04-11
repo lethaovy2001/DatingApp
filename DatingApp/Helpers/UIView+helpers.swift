@@ -15,6 +15,5 @@ extension UIView {
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 5.0
         self.layer.masksToBounds = false
-       
     }
 }

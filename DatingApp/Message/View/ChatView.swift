@@ -49,6 +49,7 @@ class ChatView: UIView {
         return cv
     }()
     
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -104,6 +105,56 @@ class ChatView: UIView {
         viewController.keyboardDelegate = self
     }
     
+    func addTapGesture(target: UIViewController, selector: Selector) {
+            let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+                target: target,
+                action: selector)
+            self.addGestureRecognizer(tapRecognizer)
+            self.isUserInteractionEnabled = true
+    }
+    
+    func getKeyboard(frame: CGRect) {
+        self.keyboardFrame = frame
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: TextViewEditingDelegate
+extension ChatView: TextViewEditingDelegate {
+    func didChange() {
+         inputTextView.calculateBestHeight()
+    }
+    
+    func beginEditing() {
+        if (inputTextView.textColor == .lightGray) {
+            inputTextView.text = ""
+            inputTextView.textColor = .black
+        }
+    }
+    
+    func endEditing() {
+        if (inputTextView.text == "") {
+            inputTextView.text = "Aa"
+            inputTextView.textColor = .lightGray
+        }
+    }
+}
+
+extension ChatView: KeyboardDelegate {
+    func showKeyboard() {
+        inputContainerBottomAnchor.constant = -self.keyboardFrame.height + Constants.PaddingValues.inputPadding*2
+    }
+    
+    func hideKeyboard() {
+        inputContainerBottomAnchor.constant = 0
+    }
+}
+
+// MARK: Navigation
+extension ChatView {
     func setupTitleNavBar(navItem: UINavigationItem) {
         addSubviewNavBar()
         setupConstraintsForNavBarTitle()
@@ -133,52 +184,6 @@ class ChatView: UIView {
             containerView.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor)
         ])
-    }
-    
-    func addTapGesture(target: UIViewController, selector: Selector) {
-            let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-                target: target,
-                action: selector)
-            self.addGestureRecognizer(tapRecognizer)
-            self.isUserInteractionEnabled = true
-    }
-    
-    func getKeyboard(frame: CGRect) {
-        self.keyboardFrame = frame
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension ChatView: TextViewEditingDelegate {
-    func didChange() {
-         inputTextView.calculateBestHeight()
-    }
-    
-    func beginEditing() {
-        if (inputTextView.textColor == .lightGray) {
-            inputTextView.text = ""
-            inputTextView.textColor = .black
-        }
-    }
-    
-    func endEditing() {
-        if (inputTextView.text == "") {
-            inputTextView.text = "Aa"
-            inputTextView.textColor = .lightGray
-        }
-    }
-}
-
-extension ChatView: KeyboardDelegate {
-    func showKeyboard() {
-        inputContainerBottomAnchor.constant = -self.keyboardFrame.height + Constants.PaddingValues.inputPadding*2
-    }
-    
-    func hideKeyboard() {
-        inputContainerBottomAnchor.constant = 0
     }
 }
 
