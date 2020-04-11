@@ -9,6 +9,7 @@ target 'DatingApp' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
   pod 'FBSDKLoginKit'
   pod 'lottie-ios'
 
