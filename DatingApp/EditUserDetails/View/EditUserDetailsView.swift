@@ -53,6 +53,10 @@ class EditUserDetailsView: UIView {
         setUp()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: Setup
     private func setUp() {
         setUpSelf()
@@ -152,14 +156,6 @@ class EditUserDetailsView: UIView {
         ])
     }
     
-    func setLogoutSelector(selector: Selector, target: UIViewController) {
-        logoutButton.addTarget(target, action: selector, for: .touchUpInside)
-    }
-    
-    func setSaveSelector(selector: Selector, target: UIViewController) {
-        saveButton.addTarget(target, action: selector, for: .touchUpInside)
-    }
-    
     func addDelegate(viewController: EditUserDetailsViewController) {
         bioTextView.delegate = viewController
         viewController.textViewEditingDelegate = self
@@ -173,11 +169,16 @@ class EditUserDetailsView: UIView {
             self.isUserInteractionEnabled = true
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setLogoutSelector(selector: Selector, target: UIViewController) {
+        logoutButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setSaveSelector(selector: Selector, target: UIViewController) {
+        saveButton.addTarget(target, action: selector, for: .touchUpInside)
     }
 }
 
+// MARK: TextViewEditingDelegate
 extension EditUserDetailsView: TextViewEditingDelegate {
     func didChange() {
          bioTextView.calculateBestHeight()
