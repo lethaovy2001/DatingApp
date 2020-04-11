@@ -10,6 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
+import FirebaseDatabase
 
 class LoginViewController: UIViewController {
     
@@ -38,7 +39,7 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    private func calculateAge(birthday: String) {
+    private func calculateAge(birthday: String) -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         if let date = dateFormatter.date(from: birthday) {
@@ -47,7 +48,9 @@ class LoginViewController: UIViewController {
             let ageComponents = calendar.dateComponents([.year], from: date, to: now)
             let age = ageComponents.year!
             print(age)
+            return age
         }
+        return 0
     }
     
     func getFBUserInfo() {
@@ -57,10 +60,21 @@ class LoginViewController: UIViewController {
                 return
             }
             let fbDetails = result as! NSDictionary
+            guard let userID = Auth.auth().currentUser?.uid else { return }
+            guard let firstName = fbDetails["first_name"] else { return }
+            guard let gender = fbDetails["gender"] else { return }
+            
+            var age = 0
             if let birthday = fbDetails["birthday"] as? String {
                 print(birthday)
-                self.calculateAge(birthday: birthday)
+                age = self.calculateAge(birthday: birthday)
             }
+            
+            let dictionary = ["uid": userID,
+            "first_name": firstName,
+            "age": age,
+            "gender": gender] as [String : AnyObject]
+            self.registerUserIntoDatabaseWithUID(uid: userID, values: dictionary)
         }
     }
     
@@ -90,10 +104,24 @@ class LoginViewController: UIViewController {
         let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if error != nil {
-                print("Error Auth \(error)")
+                print("Error Auth \(String(describing: error))")
                 return
             }
-            print("Successfully log user into firebase")
         }
+    }
+    
+    private func registerUserIntoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+
+        let usersReference = ref.child("users").child(uid)
+        usersReference.setValue(values, withCompletionBlock: { (err, ref) in
+            if err != nil {
+                print("***** \(String(describing: err))")
+                return
+            }
+            print("****** Successfully save user in Firebase")
+            self.dismiss(animated: true, completion: nil)
+        })
     }
 }
