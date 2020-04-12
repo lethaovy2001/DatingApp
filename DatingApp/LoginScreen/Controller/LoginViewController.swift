@@ -26,6 +26,10 @@ class LoginViewController: UIViewController {
         mainView.setLoginSelector(selector: #selector(loginWithFacebook), target: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     // MARK: Setup
     private func setupUI() {
         view.addSubview(mainView)
@@ -46,7 +50,6 @@ class LoginViewController: UIViewController {
             let calendar = Calendar.current
             let ageComponents = calendar.dateComponents([.year], from: date, to: now)
             let age = ageComponents.year!
-            print(age)
         }
     }
 
@@ -58,13 +61,14 @@ class LoginViewController: UIViewController {
             }
             let fbDetails = result as! NSDictionary
             if let birthday = fbDetails["birthday"] as? String {
-                print(birthday)
                 self.calculateAge(birthday: birthday)
             }
+            print(fbDetails)
+            self.navigationController?.popToRootViewController(animated: false)
         }
     }
     
-    private func authenticateWithFirebase() {
+    private func authenticateWithFirebase(_ completion : @escaping()->()) {
         let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if error != nil {
@@ -72,26 +76,27 @@ class LoginViewController: UIViewController {
                 return
             }
             print("Successfully log user into firebase")
+            completion()
         }
     }
     
     //MARK: Actions
     @objc func loginWithFacebook() {
         let loginManager = LoginManager()
-        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+        loginManager.logIn(permissions: ["public_profile", "email", "user_birthday, user_gender"], from: self) { (result, error) in
             if error != nil {
                 print("***** Error: \(error!)")
             } else if result?.isCancelled == true {
                 print("***** Cancel")
             } else {
-                print("***** Log in with Facebook")
                 UserDefaults.standard.setIsLoggedIn(value: true)
                 UserDefaults.standard.synchronize()
-                self.authenticateWithFirebase()
-                self.getFBUserInfo()
-                self.navigationController?.popToRootViewController(animated: false)
+                self.authenticateWithFirebase {
+                    self.getFBUserInfo()
+                }
             }
         }
     }
 }
+
 
