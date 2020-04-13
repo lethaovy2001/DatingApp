@@ -57,10 +57,7 @@ class FacebookAuthenticator {
             guard let gender = fbDetails["gender"] else { return }
             guard let birthday = fbDetails["birthday"] as? String else { return }
             let age = self.calculateAge(birthday: birthday)
-            dictionary = [
-            "first_name": firstName,
-            "age": age,
-            "gender": gender] as [String : AnyObject]
+            dictionary = ["first_name": firstName, "age": age, "gender": gender] as [String : AnyObject]
             if let dictionary = dictionary {
                 self.facebookLoginDelegate?.getUserInfo(values: dictionary)
             }
@@ -68,6 +65,4 @@ class FacebookAuthenticator {
     }
 }
 
-protocol FacebookLoginDelegate {
-    func getUserInfo(values: [String: AnyObject])
-}
+
