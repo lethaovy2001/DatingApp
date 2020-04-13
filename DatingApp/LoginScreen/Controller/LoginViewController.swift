@@ -17,13 +17,13 @@ class LoginViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private var db: Firestore!
+    private var database: Firestore!
     private var facebookAuth: FacebookAuthenticator!
     
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        db = Firestore.firestore()
+        database = Firestore.firestore()
         facebookAuth = FacebookAuthenticator(viewController: self)
         setupUI()
         mainView.setLoginSelector(selector: #selector(loginWithFacebook), target: self)
@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
     }
     
     private func updateDatabase(with uid: String, values: [String: AnyObject]) {
-        db.collection("users").document(uid).setData(values) { err in
+        database.collection("users").document(uid).setData(values) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
