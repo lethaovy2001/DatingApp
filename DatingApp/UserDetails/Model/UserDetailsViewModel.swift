@@ -9,12 +9,14 @@
 import UIKit
 
 class UserDetailsViewModel {
-    private let model: UserModel
+    private var model: UserModel
     
     init(model: UserModel) {
         self.model = model
     }
-    
+}
+
+extension UserDetailsViewModel {
     var name: String {
         return model.name
     }
@@ -51,7 +53,11 @@ extension UserDetailsViewModel {
         updatedModel.imageNames = changes.imageNames
         updatedModel.mainImageName = changes.mainImageName
         updatedModel.work = changes.work
-        
-        
+        print(updatedModel)
+        self.model = updatedModel
     }
+    
+//    func sync(viewModel: UserDetailsViewModel, _ completion : @escaping(UserDetailsViewModel)->()) {
+//        
+//    }
 }

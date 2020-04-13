@@ -72,7 +72,7 @@ class EditUserDetailsViewController: UIViewController {
     
     @objc func saveButtonPressed() {
         editUserDetailsView.savePressed()
-//        self.navigationController?.popToRootViewController(animated: false)
+        self.navigationController?.popToRootViewController(animated: false)
     }
     
     // MARK: Firebase
@@ -126,7 +126,16 @@ extension EditUserDetailsViewController: UITextViewDelegate {
 
 extension EditUserDetailsViewController: DatabaseDelegate {
     func didTapSaveButton(viewModel: UserDetailsViewModel) {
-        print(viewModel)
+//        let changes = (viewModel.name, viewModel.age, viewModel.images, viewModel.mainImageName, viewModel.work, viewModel.bio)
+//        viewModel.update(with: changes)
+        let dictionary: [String: AnyObject] = [
+            "first_name": viewModel.name as AnyObject,
+            "age": viewModel.age as AnyObject,
+            "bio": viewModel.bio as AnyObject,
+            "work": viewModel.work as AnyObject,
+        ]
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        updateDatabase(with: userID, values: dictionary)
     }
 }
 
