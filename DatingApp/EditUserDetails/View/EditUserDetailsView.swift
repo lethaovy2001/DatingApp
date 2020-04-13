@@ -29,6 +29,7 @@ class EditUserDetailsView: UIView {
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     private let scrollView = CustomScrollView()
+    
     private var cardImages: [String]?
     var viewModel: UserDetailsViewModel! {
         didSet {
@@ -46,6 +47,7 @@ class EditUserDetailsView: UIView {
             }
         }
     }
+      var databaseDelegate: DatabaseDelegate?
     
     // MARK: Init
     init() {
@@ -199,3 +201,12 @@ extension EditUserDetailsView: TextViewEditingDelegate {
     }
 }
 
+extension EditUserDetailsView {
+    func savePressed() {
+        print("LALA")
+        
+        let newModel = UserModel(name: viewModel.name, age: viewModel.age, imageNames: viewModel.images, mainImageName: viewModel.images[0], work: workTextField.text!, bio: bioTextView.text)
+        self.viewModel = UserDetailsViewModel(model: newModel)
+        databaseDelegate?.didTapSaveButton(viewModel: viewModel)
+    }
+}

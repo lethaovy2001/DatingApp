@@ -7,18 +7,23 @@
 //
 
 import UIKit
-import FirebaseAuth
+import Firebase
 
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetailsView = EditUserDetailsView()
     private var viewModel: UserDetailsViewModel
     var textViewEditingDelegate: TextViewEditingDelegate?
+    private var database: Firestore!
+    private let modelController = MainModelController()
     
     // MARK: Init
     init(viewModel: UserDetailsViewModel) {
         self.viewModel = viewModel
         editUserDetailsView.viewModel = self.viewModel
         super.init(nibName: nil, bundle: nil)
+        database = Firestore.firestore()
+        
+        editUserDetailsView.databaseDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -32,7 +37,7 @@ class EditUserDetailsViewController: UIViewController {
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
         editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
-        editUserDetailsView.setSaveSelector(selector: #selector(savePressed), target: self)
+        editUserDetailsView.setSaveSelector(selector: #selector(saveButtonPressed), target: self)
     }
     
     // MARK: Setup
@@ -65,8 +70,42 @@ class EditUserDetailsViewController: UIViewController {
         }
     }
     
-    @objc func savePressed() {
-        self.navigationController?.popToRootViewController(animated: false)
+    @objc func saveButtonPressed() {
+        editUserDetailsView.savePressed()
+//        self.navigationController?.popToRootViewController(animated: false)
+    }
+    
+    // MARK: Firebase
+    private func fetchUserInfo() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User Id is nil")
+            return
+        }
+        database.collection("users").document(userID)
+        .addSnapshotListener { documentSnapshot, error in
+          guard let document = documentSnapshot else {
+            print("Error fetching document: \(error!)")
+            return
+          }
+          guard let data = document.data() else {
+            print("Document data was empty.")
+            return
+          }
+            print("Current data: \(data)")
+            let model = UserModel(name: data["first_name"] as! String, age: data["age"] as! Int, imageNames: self.modelController.getMockImageNames(), mainImageName: self.modelController.getMockImageNames()[0], work: "", bio: "")
+            self.viewModel = UserDetailsViewModel(model: model)
+            self.editUserDetailsView.viewModel = self.viewModel
+        }
+    }
+    
+    private func updateDatabase(with uid: String, values: [String: AnyObject]) {
+        database.collection("users").document(uid).setData(values) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
     }
 }
 
@@ -83,4 +122,14 @@ extension EditUserDetailsViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
          textViewEditingDelegate?.endEditing()
     }
+}
+
+extension EditUserDetailsViewController: DatabaseDelegate {
+    func didTapSaveButton(viewModel: UserDetailsViewModel) {
+        print(viewModel)
+    }
+}
+
+protocol DatabaseDelegate {
+    func didTapSaveButton(viewModel: UserDetailsViewModel)
 }
