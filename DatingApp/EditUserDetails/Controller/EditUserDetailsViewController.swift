@@ -98,8 +98,9 @@ class EditUserDetailsViewController: UIViewController {
         }
     }
     
-    private func updateDatabase(with uid: String, values: [String: AnyObject]) {
-        database.collection("users").document(uid).setData(values) { err in
+    private func updateDatabaseWithUID(values: [String: AnyObject]) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        database.collection("users").document(userID).setData(values) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
@@ -126,16 +127,15 @@ extension EditUserDetailsViewController: UITextViewDelegate {
 
 extension EditUserDetailsViewController: DatabaseDelegate {
     func didTapSaveButton(viewModel: UserDetailsViewModel) {
-//        let changes = (viewModel.name, viewModel.age, viewModel.images, viewModel.mainImageName, viewModel.work, viewModel.bio)
-//        viewModel.update(with: changes)
+        let changes = (viewModel.name, viewModel.age, viewModel.images, viewModel.mainImageName, viewModel.work, viewModel.bio)
+        viewModel.update(with: changes)
         let dictionary: [String: AnyObject] = [
             "first_name": viewModel.name as AnyObject,
             "age": viewModel.age as AnyObject,
             "bio": viewModel.bio as AnyObject,
             "work": viewModel.work as AnyObject,
         ]
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        updateDatabase(with: userID, values: dictionary)
+        updateDatabaseWithUID(values: dictionary)
     }
 }
 

@@ -46,7 +46,6 @@ extension UserDetailsViewModel {
     typealias Changes = (name: String, age: Int, imageNames: [String], mainImageName: String, work: String, bio: String)
 
     func update(with changes: Changes) {
-        // Apply changes
         var updatedModel = model
         updatedModel.name = changes.name
         updatedModel.age = changes.age
@@ -56,8 +55,4 @@ extension UserDetailsViewModel {
         print(updatedModel)
         self.model = updatedModel
     }
-    
-//    func sync(viewModel: UserDetailsViewModel, _ completion : @escaping(UserDetailsViewModel)->()) {
-//        
-//    }
 }
