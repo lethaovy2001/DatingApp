@@ -15,7 +15,6 @@ class ListMessagesView: UIView {
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .yellow
         return tableView
     }()
     private let customNavigationView: UIView = {
@@ -24,10 +23,9 @@ class ListMessagesView: UIView {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
-    private let profileImageView = CircleImageView(imageName: "Vy")
     private let chatLabel = CustomLabel(text: "Chats", textColor: .darkGray, textSize: 30, textWeight: .heavy)
     private let newMessageButton = CustomButton(imageName: "plus.bubble.fill", size: 26, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    
+    private let backButton = CustomButton(imageName: "chevron.left", size: 26, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     
     // MARK: Initializer
     init() {
@@ -47,9 +45,9 @@ class ListMessagesView: UIView {
     
     private func addSubviews() {
         self.addSubview(customNavigationView)
-        customNavigationView.addSubview(profileImageView)
         customNavigationView.addSubview(chatLabel)
         customNavigationView.addSubview(newMessageButton)
+        customNavigationView.addSubview(backButton)
         self.addSubview(tableView)
     }
     
@@ -61,13 +59,7 @@ class ListMessagesView: UIView {
            customNavigationView.heightAnchor.constraint(equalToConstant: 80)
         ])
         NSLayoutConstraint.activate([
-            profileImageView.leftAnchor.constraint(equalTo: customNavigationView.leftAnchor, constant: 16),
-            profileImageView.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 40),
-            profileImageView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            chatLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 12),
+            chatLabel.centerXAnchor.constraint(equalTo: customNavigationView.centerXAnchor),
             chatLabel.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
         ])
         NSLayoutConstraint.activate([
@@ -75,11 +67,23 @@ class ListMessagesView: UIView {
             newMessageButton.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
         ])
         NSLayoutConstraint.activate([
+            backButton.leftAnchor.constraint(equalTo: customNavigationView.leftAnchor, constant: 16),
+            backButton.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
+        ])
+        NSLayoutConstraint.activate([
           tableView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor),
           tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
           tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
           tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+    }
+    
+    func setBackButtonSelector(selector: Selector, target: UIViewController) {
+        backButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setNewMessageSelector(selector: Selector, target: UIViewController) {
+        newMessageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
 }
 

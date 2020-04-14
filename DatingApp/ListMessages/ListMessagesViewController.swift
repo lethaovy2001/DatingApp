@@ -15,12 +15,13 @@ class ListMessagesViewController: UIViewController {
         return view
     }()
     
-    
     //MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         registerCellId()
+        listMessagesView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
+        listMessagesView.setNewMessageSelector(selector: #selector(newMessagePressed), target: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,14 +47,18 @@ class ListMessagesViewController: UIViewController {
         listMessagesView.tableView.dataSource = self
     }
     
-    
     // MARK: Actions
     @objc func newMessagePressed() {
         
     }
     
+    @objc func backButtonPressed() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
 }
 
+// MARK: UITableViewDataSource
 extension ListMessagesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
@@ -67,10 +72,15 @@ extension ListMessagesViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
 extension ListMessagesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ChatViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
