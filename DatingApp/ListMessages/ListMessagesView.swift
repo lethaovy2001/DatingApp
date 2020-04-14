@@ -1,0 +1,84 @@
+//
+//  ListMessagesView.swift
+//  DatingApp
+//
+//  Created by Vy Le on 4/14/20.
+//  Copyright © 2020 Vy Le. All rights reserved.
+//
+
+import UIKit
+
+class ListMessagesView: UIView {
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .yellow
+        return tableView
+    }()
+    private let customNavigationView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = .white
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
+    private let profileImageView = CircleImageView(imageName: "Vy")
+    private let chatLabel = CustomLabel(text: "Chats", textColor: .darkGray, textSize: 30, textWeight: .heavy)
+    private let newMessageButton = CustomButton(imageName: "plus.bubble.fill", size: 26, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    
+    
+    // MARK: Initializer
+    init() {
+        super.init(frame: .zero)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Setup
+    private func setup() {
+        addSubviews()
+        setupConstraints()
+    }
+    
+    private func addSubviews() {
+        self.addSubview(customNavigationView)
+        customNavigationView.addSubview(profileImageView)
+        customNavigationView.addSubview(chatLabel)
+        customNavigationView.addSubview(newMessageButton)
+        self.addSubview(tableView)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+           customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
+           customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
+           customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
+           customNavigationView.heightAnchor.constraint(equalToConstant: 80)
+        ])
+        NSLayoutConstraint.activate([
+            profileImageView.leftAnchor.constraint(equalTo: customNavigationView.leftAnchor, constant: 16),
+            profileImageView.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor),
+            profileImageView.widthAnchor.constraint(equalToConstant: 40),
+            profileImageView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        NSLayoutConstraint.activate([
+            chatLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 12),
+            chatLabel.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            newMessageButton.rightAnchor.constraint(equalTo: customNavigationView.rightAnchor, constant: -16),
+            newMessageButton.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
+        ])
+        NSLayoutConstraint.activate([
+          tableView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor),
+          tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
+          tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
+          tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+    }
+}
+

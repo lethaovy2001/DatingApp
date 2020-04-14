@@ -52,6 +52,8 @@
 		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
+		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
+		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +106,8 @@
 		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
+		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
+		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -190,6 +194,7 @@
 				384604AA23E7A308006F6540 /* MainScreen */,
 				383E46DC244265450012977A /* UserDetails */,
 				383E46E8244265570012977A /* EditUserDetails */,
+				38DFEA6B2445FF6D00F1BE0D /* ListMessages */,
 				3854F6442437C4EC00229E16 /* Message */,
 				382CC79B23D5ECBF0043060E /* Views */,
 				383E46D12440E6950012977A /* Animations */,
@@ -383,6 +388,15 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		38DFEA6B2445FF6D00F1BE0D /* ListMessages */ = {
+			isa = PBXGroup;
+			children = (
+				38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */,
+				38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */,
+			);
+			path = ListMessages;
+			sourceTree = "<group>";
+		};
 		38F1B52E23E25AF30003F6A9 /* LoginScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,6 +556,7 @@
 				383E4703244265990012977A /* CustomImageView.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
 				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
+				38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
 				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
@@ -554,6 +569,7 @@
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,
 				383E46FE244265990012977A /* RoundedButton.swift in Sources */,
 				383E46FF244265990012977A /* CustomContainerView.swift in Sources */,
+				38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,

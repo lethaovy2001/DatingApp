@@ -45,10 +45,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         if (!UserDefaults.standard.isLoggedIn()) {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
