@@ -9,7 +9,6 @@
 import UIKit
 
 class ListMessagesViewController: UIViewController {
-    
     private let listMessagesView: ListMessagesView = {
         let view = ListMessagesView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -21,6 +20,7 @@ class ListMessagesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        registerCellId()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,10 +40,37 @@ class ListMessagesViewController: UIViewController {
         ])
     }
     
+    private func registerCellId() {
+        listMessagesView.tableView.register(ListMessageCell.self, forCellReuseIdentifier: Constants.messageCellId)
+        listMessagesView.tableView.delegate = self
+        listMessagesView.tableView.dataSource = self
+    }
+    
     
     // MARK: Actions
     @objc func newMessagePressed() {
         
     }
+    
+}
+
+extension ListMessagesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.messageCellId, for: indexPath) as! ListMessageCell
+        cell.nameLabel.text = "Alex"
+        cell.chatLabel.text = "Sure!"
+        return cell
+    }
+}
+
+extension ListMessagesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
     
 }

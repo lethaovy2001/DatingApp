@@ -10,9 +10,10 @@ import UIKit
 
 class ListMessagesView: UIView {
     
-    private let tableView: UITableView = {
+    let tableView: UITableView = {
         let tableView = UITableView()
         tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .yellow
         return tableView

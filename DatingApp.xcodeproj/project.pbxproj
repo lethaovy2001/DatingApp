@@ -54,6 +54,7 @@
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
+		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
+		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -393,6 +395,7 @@
 			children = (
 				38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */,
 				38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */,
+				38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */,
 			);
 			path = ListMessages;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				383E46FE244265990012977A /* RoundedButton.swift in Sources */,
 				383E46FF244265990012977A /* CustomContainerView.swift in Sources */,
 				38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */,
+				38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,
