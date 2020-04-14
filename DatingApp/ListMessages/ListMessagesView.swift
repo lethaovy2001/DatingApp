@@ -24,8 +24,9 @@ class ListMessagesView: UIView {
         return containerView
     }()
     private let chatLabel = CustomLabel(text: "Chats", textColor: .darkGray, textSize: 30, textWeight: .heavy)
-    private let newMessageButton = CustomButton(imageName: "plus.bubble.fill", size: 26, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let backButton = CustomButton(imageName: "chevron.left", size: 26, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let profileImageView = CircleImageView(imageName: "Vy")
+    var tapDelegate: TapGestureDelegate?
     
     // MARK: Initializer
     init() {
@@ -41,12 +42,13 @@ class ListMessagesView: UIView {
     private func setup() {
         addSubviews()
         setupConstraints()
+        addTapGesture()
     }
     
     private func addSubviews() {
         self.addSubview(customNavigationView)
         customNavigationView.addSubview(chatLabel)
-        customNavigationView.addSubview(newMessageButton)
+        customNavigationView.addSubview(profileImageView)
         customNavigationView.addSubview(backButton)
         self.addSubview(tableView)
     }
@@ -63,10 +65,6 @@ class ListMessagesView: UIView {
             chatLabel.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
         ])
         NSLayoutConstraint.activate([
-            newMessageButton.rightAnchor.constraint(equalTo: customNavigationView.rightAnchor, constant: -16),
-            newMessageButton.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
-        ])
-        NSLayoutConstraint.activate([
             backButton.leftAnchor.constraint(equalTo: customNavigationView.leftAnchor, constant: 16),
             backButton.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
         ])
@@ -76,14 +74,28 @@ class ListMessagesView: UIView {
           tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
           tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+        NSLayoutConstraint.activate([
+            profileImageView.rightAnchor.constraint(equalTo: customNavigationView.rightAnchor, constant: -16),
+            profileImageView.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor),
+            profileImageView.widthAnchor.constraint(equalToConstant: 40),
+            profileImageView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+               tapGesture.numberOfTapsRequired = 1
+               tapGesture.numberOfTouchesRequired = 1
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTapGesture() {
+        tapDelegate?.didTap()
     }
     
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
         backButton.addTarget(target, action: selector, for: .touchUpInside)
-    }
-    
-    func setNewMessageSelector(selector: Selector, target: UIViewController) {
-        newMessageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
 }
 
