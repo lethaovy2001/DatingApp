@@ -70,7 +70,8 @@ class EditUserDetailsViewController: UIViewController {
     
     @objc func saveButtonPressed() {
         editUserDetailsView.savePressed()
-        self.navigationController?.popToRootViewController(animated: false)
+        let vc =  UserDetailsViewController()
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     private func updateDatabaseWithUID(values: [String: AnyObject]) {
@@ -101,7 +102,7 @@ extension EditUserDetailsViewController: UITextViewDelegate {
 }
 
 extension EditUserDetailsViewController: DatabaseDelegate {
-    func didTapSaveButton(viewModel: UserDetailsViewModel) {
+    func shouldUpdateDatabase(viewModel: UserDetailsViewModel) {
         let changes = (viewModel.name, viewModel.age, viewModel.images, viewModel.mainImageName, viewModel.work, viewModel.bio)
         viewModel.update(with: changes)
         let dictionary: [String: AnyObject] = [
@@ -112,8 +113,4 @@ extension EditUserDetailsViewController: DatabaseDelegate {
         ]
         updateDatabaseWithUID(values: dictionary)
     }
-}
-
-protocol DatabaseDelegate {
-    func didTapSaveButton(viewModel: UserDetailsViewModel)
 }

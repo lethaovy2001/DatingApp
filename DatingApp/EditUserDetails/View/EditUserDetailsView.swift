@@ -178,6 +178,18 @@ class EditUserDetailsView: UIView {
     func setSaveSelector(selector: Selector, target: UIViewController) {
         saveButton.addTarget(target, action: selector, for: .touchUpInside)
     }
+    
+    // MARK: Actions
+    func savePressed() {
+        let newModel = UserModel(name: viewModel.name,
+                                 age: viewModel.age,
+                                 imageNames: viewModel.images,
+                                 mainImageName: viewModel.images[0],
+                                 work: workTextField.text!,
+                                 bio: bioTextView.text)
+        self.viewModel = UserDetailsViewModel(model: newModel)
+        databaseDelegate?.shouldUpdateDatabase(viewModel: viewModel)
+    }
 }
 
 // MARK: TextViewEditingDelegate
@@ -198,15 +210,5 @@ extension EditUserDetailsView: TextViewEditingDelegate {
             bioTextView.text = "Describe Yourself..."
             bioTextView.textColor = .lightGray
         }
-    }
-}
-
-extension EditUserDetailsView {
-    func savePressed() {
-        print("LALA")
-        
-        let newModel = UserModel(name: viewModel.name, age: viewModel.age, imageNames: viewModel.images, mainImageName: viewModel.images[0], work: workTextField.text!, bio: bioTextView.text)
-        self.viewModel = UserDetailsViewModel(model: newModel)
-        databaseDelegate?.didTapSaveButton(viewModel: viewModel)
     }
 }
