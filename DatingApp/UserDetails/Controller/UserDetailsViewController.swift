@@ -7,25 +7,18 @@
 //
 
 import UIKit
+import Firebase
 
 class UserDetailsViewController: UIViewController {
     private let userDetailsView = UserDetailsView()
-    private var viewModel: UserDetailsViewModel
-    
-    // MARK: Initializer
-    init(viewModel: UserDetailsViewModel) {
-        self.viewModel = viewModel
-        userDetailsView.viewModel = self.viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var viewModel: UserDetailsViewModel!
+    private var database: Firestore!
+    private let modelController = MainModelController()
     
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        database = Firestore.firestore()
         addNavigationBar()
         setupUI()
         userDetailsView.setEditSelector(selector: #selector(editButtonPressed), target: self)
@@ -34,6 +27,35 @@ class UserDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        fetchUserInfo()
+    }
+    
+    // MARK: Firebase
+    private func fetchUserInfo() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User ID is nil")
+            return
+        }
+        database.collection("users").document(userID)
+        .addSnapshotListener { documentSnapshot, error in
+          guard let document = documentSnapshot else {
+            print("Error fetching document: \(error!)")
+            return
+          }
+          guard let data = document.data() else {
+            print("Document data was empty.")
+            return
+          }
+            print("Current data: \(data)")
+            let model = UserModel(name: data["first_name"] as! String,
+                                  age: data["age"] as! Int,
+                                  imageNames: self.modelController.getMockImageNames(),
+                                  mainImageName: self.modelController.getMockImageNames()[0],
+                                  work: data["work"] as! String,
+                                  bio: data["bio"] as! String)
+            self.viewModel = UserDetailsViewModel(model: model)
+            self.userDetailsView.viewModel = self.viewModel
+        }
     }
     
     // MARK: Setup

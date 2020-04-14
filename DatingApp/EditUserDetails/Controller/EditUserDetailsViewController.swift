@@ -14,16 +14,12 @@ class EditUserDetailsViewController: UIViewController {
     private var viewModel: UserDetailsViewModel
     var textViewEditingDelegate: TextViewEditingDelegate?
     private var database: Firestore!
-    private let modelController = MainModelController()
     
     // MARK: Init
     init(viewModel: UserDetailsViewModel) {
         self.viewModel = viewModel
         editUserDetailsView.viewModel = self.viewModel
         super.init(nibName: nil, bundle: nil)
-        database = Firestore.firestore()
-        
-        editUserDetailsView.databaseDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +29,9 @@ class EditUserDetailsViewController: UIViewController {
     //MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        database = Firestore.firestore()
         setupUI()
+        editUserDetailsView.databaseDelegate = self
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
         editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
@@ -73,29 +71,6 @@ class EditUserDetailsViewController: UIViewController {
     @objc func saveButtonPressed() {
         editUserDetailsView.savePressed()
         self.navigationController?.popToRootViewController(animated: false)
-    }
-    
-    // MARK: Firebase
-    private func fetchUserInfo() {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User Id is nil")
-            return
-        }
-        database.collection("users").document(userID)
-        .addSnapshotListener { documentSnapshot, error in
-          guard let document = documentSnapshot else {
-            print("Error fetching document: \(error!)")
-            return
-          }
-          guard let data = document.data() else {
-            print("Document data was empty.")
-            return
-          }
-            print("Current data: \(data)")
-            let model = UserModel(name: data["first_name"] as! String, age: data["age"] as! Int, imageNames: self.modelController.getMockImageNames(), mainImageName: self.modelController.getMockImageNames()[0], work: "", bio: "")
-            self.viewModel = UserDetailsViewModel(model: model)
-            self.editUserDetailsView.viewModel = self.viewModel
-        }
     }
     
     private func updateDatabaseWithUID(values: [String: AnyObject]) {

@@ -70,10 +70,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func profilePressed() {
-        //TODO: remove mock data
-        let model = UserModel(name: "Lan", age: 20, imageNames: modelController.getMockImageNames(), mainImageName: modelController.getMockImageNames()[0], work: "UW", bio: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.")
-        let viewModel = UserDetailsViewModel(model: model)
-        let vc = UserDetailsViewController(viewModel: viewModel)
+        let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
