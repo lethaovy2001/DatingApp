@@ -36,6 +36,7 @@ struct Constants {
     
     // MARK: ID
     static let cellId = "cellId"
+    static let messageCellId = "messageCellId"
     
     // MARK: Animation Names
     static let loveAnimation = "loveAnimation"
