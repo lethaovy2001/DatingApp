@@ -181,13 +181,11 @@ class EditUserDetailsView: UIView {
     
     // MARK: Actions
     func savePressed() {
-        let newModel = UserModel(name: nameLabel.text!,
-                                 age: 23,
-                                 imageNames: modelController.getMockImageNames(),
-                                 mainImageName: modelController.getMockImageNames()[0],
-                                 work: workTextField.text!,
-                                 bio: bioTextView.text)
-        databaseDelegate?.shouldUpdateDatabase(model: newModel)
+        let dictionary: [String: AnyObject] = [
+            "bio": bioTextView.text as AnyObject,
+            "work": workTextField.text as AnyObject,
+        ]
+        databaseDelegate?.shouldUpdateDatabase(values: dictionary)
     }
 }
 
