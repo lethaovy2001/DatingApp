@@ -30,34 +30,6 @@ class UserDetailsViewController: UIViewController {
         fetchUserInfo()
     }
     
-    // MARK: Firebase
-    private func fetchUserInfo() {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User ID is nil")
-            return
-        }
-        database.collection("users").document(userID)
-        .addSnapshotListener { documentSnapshot, error in
-          guard let document = documentSnapshot else {
-            print("Error fetching document: \(error!)")
-            return
-          }
-          guard let data = document.data() else {
-            print("Document data was empty.")
-            return
-          }
-            print("Current data: \(data)")
-            let model = UserModel(name: data["first_name"] as! String,
-                                  age: data["age"] as! Int,
-                                  imageNames: self.modelController.getMockImageNames(),
-                                  mainImageName: self.modelController.getMockImageNames()[0],
-                                  work: data["work"] as! String,
-                                  bio: data["bio"] as! String)
-            self.viewModel = UserDetailsViewModel(model: model)
-            self.userDetailsView.viewModel = self.viewModel
-        }
-    }
-    
     // MARK: Setup
     private func setupUI() {
         view.addSubview(userDetailsView)
@@ -81,5 +53,33 @@ class UserDetailsViewController: UIViewController {
     @objc func editButtonPressed() {
         let vc = EditUserDetailsViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    // MARK: Firebase
+    private func fetchUserInfo() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User ID is nil")
+            return
+        }
+        database.collection("users").document(userID).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            print("Current data: \(data)")
+            let model = UserModel(name: data["first_name"] as! String,
+                                  age: data["age"] as! Int,
+                                  imageNames: self.modelController.getMockImageNames(),
+                                  mainImageName: self.modelController.getMockImageNames()[0],
+                                  work: data["work"] as! String,
+                                  bio: data["bio"] as! String)
+            self.viewModel = UserDetailsViewModel(model: model)
+            self.userDetailsView.viewModel = self.viewModel
+        }
     }
 }

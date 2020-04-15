@@ -102,14 +102,12 @@ extension EditUserDetailsViewController: UITextViewDelegate {
 }
 
 extension EditUserDetailsViewController: DatabaseDelegate {
-    func shouldUpdateDatabase(viewModel: UserDetailsViewModel) {
-        let changes = (viewModel.name, viewModel.age, viewModel.images, viewModel.mainImageName, viewModel.work, viewModel.bio)
-        viewModel.update(with: changes)
+    func shouldUpdateDatabase(model: UserModel) {
         let dictionary: [String: AnyObject] = [
-            "first_name": viewModel.name as AnyObject,
-            "age": viewModel.age as AnyObject,
-            "bio": viewModel.bio as AnyObject,
-            "work": viewModel.work as AnyObject,
+            "first_name": model.name as AnyObject,
+            "age": model.age as AnyObject,
+            "bio": model.bio as AnyObject,
+            "work": model.work as AnyObject,
         ]
         updateDatabaseWithUID(values: dictionary)
     }

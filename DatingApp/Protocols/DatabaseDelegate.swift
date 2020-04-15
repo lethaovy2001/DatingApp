@@ -9,5 +9,5 @@
 import UIKit
 
 protocol DatabaseDelegate {
-    func shouldUpdateDatabase(viewModel: UserDetailsViewModel)
+    func shouldUpdateDatabase(model: UserModel)
 }

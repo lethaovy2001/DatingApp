@@ -41,18 +41,3 @@ extension UserDetailsViewModel {
         return model.bio
     }
 }
-
-extension UserDetailsViewModel {
-    typealias Changes = (name: String, age: Int, imageNames: [String], mainImageName: String, work: String, bio: String)
-
-    func update(with changes: Changes) {
-        var updatedModel = model
-        updatedModel.name = changes.name
-        updatedModel.age = changes.age
-        updatedModel.imageNames = changes.imageNames
-        updatedModel.mainImageName = changes.mainImageName
-        updatedModel.work = changes.work
-        print(updatedModel)
-        self.model = updatedModel
-    }
-}

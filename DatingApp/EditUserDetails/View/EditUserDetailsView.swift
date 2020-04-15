@@ -29,8 +29,8 @@ class EditUserDetailsView: UIView {
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     private let scrollView = CustomScrollView()
-    
     private var cardImages: [String]?
+    var databaseDelegate: DatabaseDelegate?
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameLabel.setText(text: viewModel.name)
@@ -47,7 +47,6 @@ class EditUserDetailsView: UIView {
             }
         }
     }
-      var databaseDelegate: DatabaseDelegate?
     
     // MARK: Init
     init() {
@@ -187,8 +186,7 @@ class EditUserDetailsView: UIView {
                                  mainImageName: viewModel.images[0],
                                  work: workTextField.text!,
                                  bio: bioTextView.text)
-        self.viewModel = UserDetailsViewModel(model: newModel)
-        databaseDelegate?.shouldUpdateDatabase(viewModel: viewModel)
+        databaseDelegate?.shouldUpdateDatabase(model: newModel)
     }
 }
 
