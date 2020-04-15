@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol FacebookLoginDelegate {
+protocol FacebookUserDataDelegate {
     func getUserInfo(values: [String: AnyObject])
 }

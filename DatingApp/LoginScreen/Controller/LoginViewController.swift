@@ -70,7 +70,7 @@ class LoginViewController: UIViewController {
     
     //MARK: Actions
     @objc func loginWithFacebook() {
-        facebookAuth.facebookLoginDelegate = self
+        facebookAuth.facebookUserDataDelegate = self
         facebookAuth.loginPressed {
             self.authenticateWithFirebase {
                 self.facebookAuth.getFBUserInfo()
@@ -84,7 +84,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: FacebookLoginDelegate {
+extension LoginViewController: FacebookUserDataDelegate {
     func getUserInfo(values: [String: AnyObject]) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         self.updateDatabase(with: userID, values: values)

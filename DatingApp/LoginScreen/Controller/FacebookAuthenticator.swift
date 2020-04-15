@@ -12,7 +12,7 @@ import FBSDKCoreKit
 
 class FacebookAuthenticator {
     private let viewController: UIViewController
-    var facebookLoginDelegate: FacebookLoginDelegate?
+    var facebookUserDataDelegate: FacebookUserDataDelegate?
     
     init(viewController: UIViewController) {
         self.viewController = viewController
@@ -59,7 +59,7 @@ class FacebookAuthenticator {
             let age = self.calculateAge(birthday: birthday)
             dictionary = ["first_name": firstName, "age": age, "gender": gender] as [String : AnyObject]
             if let dictionary = dictionary {
-                self.facebookLoginDelegate?.getUserInfo(values: dictionary)
+                self.facebookUserDataDelegate?.getUserInfo(values: dictionary)
             }
         }
     }
