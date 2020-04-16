@@ -56,6 +56,8 @@
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
 		38DFEA712446647D00F1BE0D /* TapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */; };
+		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
+		38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +114,8 @@
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
 		38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureDelegate.swift; sourceTree = "<group>"; };
+		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
+		38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUserDataDelegate.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				382CC78A23D3B0DD0043060E /* LoginViewController.swift */,
+				38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 				383E470A244267000012977A /* KeyboardDelegate.swift */,
 				383E470B244267000012977A /* TextViewEditingDelegate.swift */,
 				38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */,
+				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -569,8 +575,10 @@
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				383E4705244265990012977A /* CustomButton.swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
+				38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */,
 				384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */,
 				3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */,
+				38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */,
 				2415F39B24381BB00090031D /* LoginMainView.swift in Sources */,
 				383E4706244265990012977A /* CustomLabel.swift in Sources */,
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,

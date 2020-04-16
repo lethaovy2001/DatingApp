@@ -8,13 +8,22 @@
 
 import UIKit
 
-struct UserModel {
-    var name: String
-    var age: Int
-    var work: String
-    var bio: String
-    var imageNames : [String]
-    var mainImageName: String
+struct UserModel: Encodable {
+    let name: String
+    let age: Int?
+    let work: String?
+    let bio: String?
+    let imageNames : [String]?
+    let mainImageName: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "first_name"
+        case age
+        case work
+        case bio
+        case imageNames
+        case mainImageName
+    }
      
     init(name: String, age: Int, imageNames: [String], mainImageName: String, work: String, bio: String) {
         self.name = name
