@@ -16,26 +16,26 @@ class UserDetailsViewModel {
     }
     
     var name: String {
-        return model.name
+        return model.name ?? "Unknown"
     }
     
     var age: Int {
-        return model.age
+        return model.age ?? 0
     }
     
     var work: String {
-        return model.work
+        return model.work ?? "Unknown workplace"
     }
     
     var mainImageName: String {
-        return model.mainImageName
+        return model.mainImageName ?? ""
     }
     
     var images: [String] {
-        return model.imageNames
+        return model.imageNames ?? [""]
     }
     
     var bio: String {
-        return model.bio
+        return model.bio ?? "No bio"
     }
 }

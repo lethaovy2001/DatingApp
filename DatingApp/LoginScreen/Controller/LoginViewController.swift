@@ -10,6 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
+import FirebaseFirestoreSwift
 
 class LoginViewController: UIViewController {
     private let mainView:LoginMainView = {
@@ -58,13 +59,11 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func updateDatabase(with uid: String, values: [String: AnyObject]) {
-        database.collection("users").document(uid).setData(values) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
+    private func updateDatabase(with uid: String, user: UserModel) {
+        do {
+            try database.collection("users").document(uid).setData(from: user)
+        } catch let error {
+            print("Error writing user to Firestore: \(error)")
         }
     }
     
@@ -85,9 +84,9 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: FacebookUserDataDelegate {
-    func getUserInfo(values: [String: AnyObject]) {
+    func didGetUserInfo(user: UserModel) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        self.updateDatabase(with: userID, values: values)
+        self.updateDatabase(with: userID, user: user)
     }
 }
 

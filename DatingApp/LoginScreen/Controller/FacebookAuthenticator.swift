@@ -13,6 +13,7 @@ import FBSDKCoreKit
 class FacebookAuthenticator {
     private let viewController: UIViewController
     var facebookUserDataDelegate: FacebookUserDataDelegate?
+    private let modelController = MainModelController()
     
     init(viewController: UIViewController) {
         self.viewController = viewController
@@ -46,21 +47,18 @@ class FacebookAuthenticator {
     }
     
     func getFBUserInfo() {
-        var dictionary: [String: AnyObject]? = nil
         GraphRequest(graphPath: "/me", parameters: ["fields": "first_name, birthday, gender"]).start { (connection, result, err) in
             if err != nil {
                 print("Failed to start graph request:", err!)
                 return
             }
             let fbDetails = result as! NSDictionary
-            guard let firstName = fbDetails["first_name"] else { return }
-            guard let gender = fbDetails["gender"] else { return }
+            guard let firstName = fbDetails["first_name"] as? String else { return }
+            //guard let gender = fbDetails["gender"] as? String else { return }
             guard let birthday = fbDetails["birthday"] as? String else { return }
             let age = self.calculateAge(birthday: birthday)
-            dictionary = ["first_name": firstName, "age": age, "gender": gender] as [String : AnyObject]
-            if let dictionary = dictionary {
-                self.facebookUserDataDelegate?.getUserInfo(values: dictionary)
-            }
+            let user = UserModel(name: firstName, age: age, imageNames: self.modelController.getMockImageNames(), mainImageName: self.modelController.getMockImageNames()[0], work: "UW-Madison", bio: "")
+            self.facebookUserDataDelegate?.didGetUserInfo(user: user)
         }
     }
 }
