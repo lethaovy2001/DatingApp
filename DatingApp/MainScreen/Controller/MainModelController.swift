@@ -10,9 +10,18 @@ import Foundation
 
 class MainModelController {
     private var users = [SwipeCardModel]()
-    
+    private var user: UserModel?
+
     func getUsers() -> [SwipeCardModel] {
         return users
+    }
+    
+    func getUserInfo() -> UserModel {
+        return user ?? getDefaultUserInfo()
+    }
+    
+    private func getDefaultUserInfo() -> UserModel {
+        return UserModel(name: "Unknown", age: 0, imageNames: [""], mainImageName: "", work: "Unknown workplace", bio: "No bio")
     }
     
     func getMockImageNames() -> [String] {
@@ -32,5 +41,15 @@ class MainModelController {
         SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
         SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
         SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]])]
+    }
+    
+    func updateNewData(data: [String: Any]) {
+        let model = UserModel(name: data["first_name"] as! String,
+        age: data["age"] as? Int,
+        imageNames: self.getMockImageNames(),
+        mainImageName: self.getMockImageNames()[0],
+        work: data["work"] as? String,
+        bio: data["bio"] as? String)
+        self.user = model
     }
 }

@@ -25,7 +25,7 @@ struct UserModel: Encodable {
         case mainImageName
     }
      
-    init(name: String, age: Int, imageNames: [String], mainImageName: String, work: String, bio: String) {
+    init(name: String, age: Int?, imageNames: [String]?, mainImageName: String?, work: String?, bio: String?) {
         self.name = name
         self.age = age
         self.imageNames = imageNames

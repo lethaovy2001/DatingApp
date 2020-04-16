@@ -57,12 +57,10 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Firebase
     private func fetchUserInfo() {
-//        guard let userID = Auth.auth().currentUser?.uid else {
-//            print("User ID is nil")
-//            return
-//        }
-        //TODO: remove mock user ID when successfully get Auth.auth().currentUser?.uid
-        let userID = "bXnAu8WwQkfvrJhp2hjzsx1tAfw2"
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User ID is nil")
+            return
+        }
         database.collection("users").document(userID).addSnapshotListener {
             documentSnapshot, error in
             guard let document = documentSnapshot else {
@@ -74,13 +72,8 @@ class UserDetailsViewController: UIViewController {
                 return
             }
             print("Current data: \(data)")
-            let model = UserModel(name: data["first_name"] as! String,
-                                  age: data["age"] as! Int,
-                                  imageNames: self.modelController.getMockImageNames(),
-                                  mainImageName: self.modelController.getMockImageNames()[0],
-                                  work: data["work"] as! String,
-                                  bio: data["bio"] as! String)
-            self.viewModel = UserDetailsViewModel(model: model)
+            self.modelController.updateNewData(data: data)
+            self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo())
             self.userDetailsView.viewModel = self.viewModel
         }
     }
