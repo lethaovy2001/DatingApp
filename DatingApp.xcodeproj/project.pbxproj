@@ -52,6 +52,8 @@
 		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
+		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
+		38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
@@ -108,6 +110,8 @@
 		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
+		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
+		38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUserDataDelegate.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				382CC78A23D3B0DD0043060E /* LoginViewController.swift */,
+				38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 			children = (
 				383E470A244267000012977A /* KeyboardDelegate.swift */,
 				383E470B244267000012977A /* TextViewEditingDelegate.swift */,
+				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
 				38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */,
 			);
 			path = Protocols;
@@ -569,8 +575,10 @@
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				383E4705244265990012977A /* CustomButton.swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
+				38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */,
 				384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */,
 				3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */,
+				38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */,
 				2415F39B24381BB00090031D /* LoginMainView.swift in Sources */,
 				383E4706244265990012977A /* CustomLabel.swift in Sources */,
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,
