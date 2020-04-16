@@ -24,7 +24,7 @@ class EditUserDetailsView: UIView {
     private let detailsLabel = SectionTitleLabel(title: "Details")
     private let bioTextView = InputTextView(placeholder: "Describe Yourself...", cornerRadius: 10, isScrollable: false)
     private let workTextField = CustomTextField()
-    private let saveButton = RoundedButton(title: "Save", color: .orange)
+    private let saveButton = RoundedButton(title: "Save", color: Constants.Colors.amour)
     private let logoutButton = RoundedButton(title: "Logout", color: Constants.Colors.orangeRed)
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)

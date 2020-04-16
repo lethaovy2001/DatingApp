@@ -58,8 +58,8 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let boldConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .heavy, scale: .large)
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill", withConfiguration: boldConfig)?.withTintColor(.orange, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(reportPressed))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left", withConfiguration: boldConfig)?.withTintColor(.orange, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill", withConfiguration: boldConfig)?.withTintColor(Constants.Colors.amour, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(reportPressed))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left", withConfiguration: boldConfig)?.withTintColor(Constants.Colors.amour, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backPressed))
         chatView.setupTitleNavBar(navItem: self.navigationItem)
     }
     

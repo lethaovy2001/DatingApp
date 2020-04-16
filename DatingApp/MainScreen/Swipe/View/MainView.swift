@@ -12,11 +12,11 @@ class MainView: UIView {
     private let cardView = SwipeCardView()
     private var swipeStackContainer = SwipeCardStackContainer()
     private let likeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.fill", size: 25, color: .cyan, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.fill", size: 25, color: Constants.Colors.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
         return button
     }()
     private let dislikeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: .red, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: Constants.Colors.orangeRed, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
         return button
     }()
     private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
