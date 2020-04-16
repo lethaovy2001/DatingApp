@@ -12,8 +12,9 @@ import Firebase
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetailsView = EditUserDetailsView()
     private var viewModel: UserDetailsViewModel
-    var textViewEditingDelegate: TextViewEditingDelegate?
     private var database: Firestore!
+    var textViewEditingDelegate: TextViewEditingDelegate?
+    var imageTapGestureDelegate: ImageTapGestureDelegate?
     
     // MARK: Init
     init(viewModel: UserDetailsViewModel) {
@@ -36,6 +37,7 @@ class EditUserDetailsViewController: UIViewController {
         editUserDetailsView.addDelegate(viewController: self)
         editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
         editUserDetailsView.setSaveSelector(selector: #selector(saveButtonPressed), target: self)
+        editUserDetailsView.setAddImageSelector(selector: #selector(addImageButtonPressed), target: self)
     }
     
     // MARK: Setup
@@ -52,7 +54,7 @@ class EditUserDetailsViewController: UIViewController {
     
     // MARK: Actions
     @objc func dismissKeyboard() {
-       view.endEditing(true)
+        view.endEditing(true)
     }
     
     @objc func logoutPressed() {
@@ -72,6 +74,14 @@ class EditUserDetailsViewController: UIViewController {
         editUserDetailsView.savePressed()
         let vc =  UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    @objc func addImageButtonPressed(sender: UIButton) {
+        editUserDetailsView.setSelectedButton(sender: sender)
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self 
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
     }
     
     private func updateDatabaseWithUID(values: [String: Any]) {
@@ -97,12 +107,31 @@ extension EditUserDetailsViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-         textViewEditingDelegate?.endEditing()
+        textViewEditingDelegate?.endEditing()
     }
 }
 
 extension EditUserDetailsViewController: DatabaseDelegate {
     func shouldUpdateDatabase(values: [String : Any]) {
         updateDatabaseWithUID(values: values)
+    }
+}
+
+extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        if let selectedImage = selectedImageFromPicker {
+            imageTapGestureDelegate?.setImage(image: selectedImage)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

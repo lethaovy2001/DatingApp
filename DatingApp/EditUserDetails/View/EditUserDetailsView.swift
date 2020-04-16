@@ -18,6 +18,7 @@ class EditUserDetailsView: UIView {
     private let addImageButton4 = AddImageButton()
     private let addImageButton5 = AddImageButton()
     private let addImageButton6 = AddImageButton()
+    private var selectedButton = AddImageButton()
     private var imageButtons: [AddImageButton] = []
     private var featureLabel = SectionTitleLabel(title: "Featured")
     private let bioLabel = SectionTitleLabel(title: "Bio")
@@ -65,6 +66,7 @@ class EditUserDetailsView: UIView {
         addSubviews()
         setUpConstraints()
         appendImageButtons()
+        addTagForButtons()
     }
     
     private func setUpSelf() {
@@ -74,6 +76,12 @@ class EditUserDetailsView: UIView {
     
     private func appendImageButtons() {
         imageButtons = [addImageButton1, addImageButton2, addImageButton3, addImageButton4, addImageButton5, addImageButton6]
+    }
+    
+    private func addTagForButtons() {
+        for i in 1...6 {
+            imageButtons[i-1].tag = i
+        }
     }
     
     private func addSubviews() {
@@ -161,14 +169,13 @@ class EditUserDetailsView: UIView {
     func addDelegate(viewController: EditUserDetailsViewController) {
         bioTextView.delegate = viewController
         viewController.textViewEditingDelegate = self
+        viewController.imageTapGestureDelegate = self
     }
     
     func addTapGesture(target: UIViewController, selector: Selector) {
-            let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-                target: target,
-                action: selector)
-            self.addGestureRecognizer(tapRecognizer)
-            self.isUserInteractionEnabled = true
+        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: target, action: selector)
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
     }
     
     func setLogoutSelector(selector: Selector, target: UIViewController) {
@@ -177,6 +184,34 @@ class EditUserDetailsView: UIView {
     
     func setSaveSelector(selector: Selector, target: UIViewController) {
         saveButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setAddImageSelector(selector: Selector, target: UIViewController) {
+        addImageButton1.addTarget(target, action: selector, for: .touchUpInside)
+        addImageButton2.addTarget(target, action: selector, for: .touchUpInside)
+        addImageButton3.addTarget(target, action: selector, for: .touchUpInside)
+        addImageButton4.addTarget(target, action: selector, for: .touchUpInside)
+        addImageButton5.addTarget(target, action: selector, for: .touchUpInside)
+        addImageButton6.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setSelectedButton(sender: UIButton) {
+        switch sender.tag {
+        case 1:
+            selectedButton = addImageButton1
+        case 2:
+            selectedButton = addImageButton2
+        case 3:
+            selectedButton = addImageButton3
+        case 4:
+            selectedButton = addImageButton4
+        case 5:
+            selectedButton = addImageButton5
+        case 6:
+            selectedButton = addImageButton6
+        default:
+            break
+        }
     }
     
     // MARK: Actions
@@ -192,7 +227,7 @@ class EditUserDetailsView: UIView {
 // MARK: TextViewEditingDelegate
 extension EditUserDetailsView: TextViewEditingDelegate {
     func didChange() {
-         bioTextView.calculateBestHeight()
+        bioTextView.calculateBestHeight()
     }
     
     func beginEditing() {
@@ -207,5 +242,15 @@ extension EditUserDetailsView: TextViewEditingDelegate {
             bioTextView.text = "Describe Yourself..."
             bioTextView.textColor = .lightGray
         }
+    }
+}
+
+// MARK: TapGestureDelegate
+extension EditUserDetailsView: ImageTapGestureDelegate {
+    func setImage(image: UIImage) {
+        if (selectedButton == addImageButton1) {
+            mainProfileImage.image = image
+        }
+        selectedButton.setImage(image: image)
     }
 }

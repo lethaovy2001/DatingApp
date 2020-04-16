@@ -26,7 +26,7 @@ class ListMessagesView: UIView {
     private let chatLabel = CustomLabel(text: "Chats", textColor: .darkGray, textSize: 30, textWeight: .heavy)
     private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let profileImageView = CircleImageView(imageName: "Vy")
-    var tapDelegate: TapGestureDelegate?
+    var tapDelegate: ImageTapGestureDelegate?
     
     // MARK: Initializer
     init() {
