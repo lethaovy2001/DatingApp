@@ -9,5 +9,5 @@
 import UIKit
 
 protocol DatabaseDelegate {
-    func shouldUpdateDatabase(values: [String: AnyObject])
+    func shouldUpdateDatabase(values: [String: Any])
 }

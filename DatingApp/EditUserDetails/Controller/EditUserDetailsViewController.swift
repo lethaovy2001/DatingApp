@@ -74,10 +74,8 @@ class EditUserDetailsViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
-    private func updateDatabaseWithUID(values: [String: AnyObject]) {
-//        guard let userID = Auth.auth().currentUser?.uid else { return }
-        //TODO: remove mock user ID when successfully get Auth.auth().currentUser?.uid
-        let userID = "bXnAu8WwQkfvrJhp2hjzsx1tAfw2"
+    private func updateDatabaseWithUID(values: [String: Any]) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         database.collection("users").document(userID).updateData(values) { err in
             if let err = err {
                 print("Error writing document: \(err)")
@@ -104,7 +102,7 @@ extension EditUserDetailsViewController: UITextViewDelegate {
 }
 
 extension EditUserDetailsViewController: DatabaseDelegate {
-    func shouldUpdateDatabase(values: [String : AnyObject]) {
+    func shouldUpdateDatabase(values: [String : Any]) {
         updateDatabaseWithUID(values: values)
     }
 }

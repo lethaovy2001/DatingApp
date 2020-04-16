@@ -18,7 +18,7 @@ class UserDetailsViewModel {
 
 extension UserDetailsViewModel {
     var name: String {
-        return model.name ?? "Unknown"
+        return model.name
     }
     
     var age: Int {

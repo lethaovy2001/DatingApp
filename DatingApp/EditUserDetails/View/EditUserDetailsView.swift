@@ -181,9 +181,9 @@ class EditUserDetailsView: UIView {
     
     // MARK: Actions
     func savePressed() {
-        let dictionary: [String: AnyObject] = [
-            "bio": bioTextView.text as AnyObject,
-            "work": workTextField.text as AnyObject,
+        let dictionary: [String: Any] = [
+            "bio": bioTextView.text!,
+            "work": workTextField.text!,
         ]
         databaseDelegate?.shouldUpdateDatabase(values: dictionary)
     }
