@@ -322,9 +322,9 @@
 		384604AA23E7A308006F6540 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				3854F64E2437C93300229E16 /* Swipe */,
+				38DACAF0244A145C00F4E60E /* View */,
 				3854F65A24384F8F00229E16 /* Controller */,
-				38DFEA742449166C00F1BE0D /* CustomAlertView.swift */,
+				3854F64E2437C93300229E16 /* Swipe */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -364,7 +364,6 @@
 				38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */,
 				384604AF23E7A736006F6540 /* SwipeCardView.swift */,
 				384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */,
-				3854F65B2438526B00229E16 /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -403,6 +402,15 @@
 				246B76C32438D73A00FE1D40 /* MainModelController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		38DACAF0244A145C00F4E60E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3854F65B2438526B00229E16 /* MainView.swift */,
+				38DFEA742449166C00F1BE0D /* CustomAlertView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		38DFEA6B2445FF6D00F1BE0D /* ListMessages */ = {
