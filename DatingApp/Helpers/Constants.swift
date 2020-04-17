@@ -40,5 +40,6 @@ struct Constants {
     
     // MARK: Animation Names
     static let loveAnimation = "loveAnimation"
+    static let searchLocationAnimation = "searchLocationAnimation"
 }
 

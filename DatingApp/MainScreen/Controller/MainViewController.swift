@@ -7,8 +7,19 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
+    private var locationManager: CLLocationManager?
+    
+    func getUserLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        locationManager?.startUpdatingLocation()
+        locationManager?.allowsBackgroundLocationUpdates = true
+        locationManager?.requestWhenInUseAuthorization()
+    }
     
     private let mainView: MainView = {
         let view = MainView(frame: .zero)
@@ -42,11 +53,15 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        getUserLocation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,7 +74,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: Actions
     @objc func likePressed() {
-       
+        
     }
     
     @objc func dislikePressed() {
@@ -83,9 +98,9 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 // MARK: SwipeableCardDataSource
 extension MainViewController: SwipeableCardDataSource {
     func card(forItemAt index: Int) -> SwipeCardView {
-            let card = SwipeCardView()
-            card.dataSource = modelController.getMockUsers()[index]
-            return card
+        let card = SwipeCardView()
+        card.dataSource = modelController.getMockUsers()[index]
+        return card
     }
     
     func numberOfCards() -> Int {
@@ -94,5 +109,58 @@ extension MainViewController: SwipeableCardDataSource {
     
     func viewForEmptyCards() -> UIView? {
         return nil
+    }
+}
+
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            print(location.coordinate.latitude)
+            print(location.coordinate.longitude)
+        }
+    }
+    
+    func presentAlert() {
+        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style {
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+            default:
+                break
+            }}))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways:
+            print("user allow app to get location data when app is active or in background")
+            presentAlert()
+        case .authorizedWhenInUse:
+            print("user allow app to get location data only when app is active")
+        case .denied:
+            print("user tap 'disallow' on the permission dialog, cant get location data")
+            presentAlert()
+        case .restricted:
+            print("parental control setting disallow location data")
+        case .notDetermined:
+            print("the location permission dialog haven't shown before, user haven't tap allow/disallow")
+        default:
+            break
+        }
+        if status == .authorizedAlways {
+            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+                if CLLocationManager.isRangingAvailable() {
+                    // do stuff
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,14 @@ class CustomContainerView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    init(cornerRadius: CGFloat) {
+        super.init(frame: .zero)
+        self.backgroundColor = .white
+        self.addShadow(color: Constants.Colors.lightGray)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = cornerRadius
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
