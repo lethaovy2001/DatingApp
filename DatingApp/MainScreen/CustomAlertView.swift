@@ -36,8 +36,14 @@ class CustomAlertView: UIView {
     
     // MARK: Setup
     private func setup() {
+        setupSelf()
         addSubviews()
         setupConstraints()
+    }
+    
+    private func setupSelf() {
+        self.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func addSubviews() {
@@ -53,7 +59,7 @@ class CustomAlertView: UIView {
             containerView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             containerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-            containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16)
         ])
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
@@ -80,4 +86,8 @@ class CustomAlertView: UIView {
         ])
     }
     
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        doneButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+
 }

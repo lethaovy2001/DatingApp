@@ -45,6 +45,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
         mainView.setProfileSelector(selector: #selector(profilePressed), target: self)
         mainView.setMessageSelector(selector: #selector(messagePressed), target: self)
+        mainView.setDoneSelector(selector: #selector(doneAlertPressed), target: self)
     }
     
     // MARK: Life Cycles
@@ -53,14 +54,11 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        
         getUserLocation()
     }
     
@@ -74,7 +72,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: Actions
     @objc func likePressed() {
-        
+        mainView.showAlert()
     }
     
     @objc func dislikePressed() {
@@ -92,6 +90,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         let viewModel = UserDetailsViewModel(model: model)
         let vc = UserDetailsViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func doneAlertPressed() {
+        mainView.hideAlert()
     }
 }
 
@@ -120,34 +122,15 @@ extension MainViewController: CLLocationManagerDelegate {
         }
     }
     
-    func presentAlert() {
-        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            switch action.style {
-            case .default:
-                print("default")
-                
-            case .cancel:
-                print("cancel")
-                
-            case .destructive:
-                print("destructive")
-            default:
-                break
-            }}))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways:
             print("user allow app to get location data when app is active or in background")
-            presentAlert()
         case .authorizedWhenInUse:
             print("user allow app to get location data only when app is active")
         case .denied:
             print("user tap 'disallow' on the permission dialog, cant get location data")
-            presentAlert()
+            
         case .restricted:
             print("parental control setting disallow location data")
         case .notDetermined:

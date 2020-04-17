@@ -58,7 +58,6 @@
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
 		38DFEA712446647D00F1BE0D /* TapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */; };
-		38DFEA732449163600F1BE0D /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA722449163600F1BE0D /* CustomAlertViewController.swift */; };
 		38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA742449166C00F1BE0D /* CustomAlertView.swift */; };
 		38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
@@ -119,7 +118,6 @@
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
 		38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureDelegate.swift; sourceTree = "<group>"; };
-		38DFEA722449163600F1BE0D /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		38DFEA742449166C00F1BE0D /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchLocationAnimation.json; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -326,7 +324,6 @@
 			children = (
 				3854F64E2437C93300229E16 /* Swipe */,
 				3854F65A24384F8F00229E16 /* Controller */,
-				38DFEA722449163600F1BE0D /* CustomAlertViewController.swift */,
 				38DFEA742449166C00F1BE0D /* CustomAlertView.swift */,
 			);
 			path = MainScreen;
@@ -564,7 +561,6 @@
 				383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */,
 				383E4704244265990012977A /* CustomScrollView.swift in Sources */,
 				383E4700244265990012977A /* CircleImageView.swift in Sources */,
-				38DFEA732449163600F1BE0D /* CustomAlertViewController.swift in Sources */,
 				383E46E7244265450012977A /* UserDetailsView.swift in Sources */,
 				383E46EF244265570012977A /* EditUserDetailsViewController.swift in Sources */,
 				383E46F0244265570012977A /* EditUserDetailsView.swift in Sources */,
