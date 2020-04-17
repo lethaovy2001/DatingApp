@@ -133,12 +133,5 @@ extension MainViewController: CLLocationManagerDelegate {
         default:
             break
         }
-        if status == .authorizedAlways {
-            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
-                if CLLocationManager.isRangingAvailable() {
-                    // do stuff
-                }
-            }
-        }
     }
 }
