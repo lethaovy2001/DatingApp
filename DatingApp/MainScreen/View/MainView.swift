@@ -21,7 +21,7 @@ class MainView: UIView {
     }()
     private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let customAlertView = CustomAlertView()
+    private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -38,7 +38,6 @@ class MainView: UIView {
         backgroundColor = Constants.Colors.mainBackgroundColor
         addSubViews()
         setupConstraints()
-        showAlert()
     }
     
     private func addSubViews() {
