@@ -21,17 +21,25 @@ class UserDetailsView: UIView {
     private let bioLabel = SectionTitleLabel(title: "Bio")
     private let bioTextView = CustomTextView(text: "No bio")
     private let scrollView = CustomScrollView()
-    private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: .orange, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
     private var cardImages: [String]?
     private var currentImage = 0
+    private let customNavigationView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = .white
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
+    private let profileLabel = CustomLabel(text: "Profile", textColor: .darkGray, textSize: 30, textWeight: .heavy)
+    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let editButton = CustomButton(imageName: "pencil", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameLabel.setText(text: viewModel.name)
             ageLabel.setText(text: ", \(viewModel.ageText)")
             workLabel.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
-//            userImageView.setName(name: viewModel.mainImageName)
-//            cardImages = viewModel.images
+            //            userImageView.setName(name: viewModel.mainImageName)
+            //            cardImages = viewModel.images
         }
     }
     init() {
@@ -53,6 +61,11 @@ class UserDetailsView: UIView {
     }
     
     private func addSubviews() {
+        self.addSubview(customNavigationView)
+        customNavigationView.addSubview(profileLabel)
+        customNavigationView.addSubview(editButton)
+        customNavigationView.addSubview(backButton)
+        
         addSubview(scrollView)
         scrollView.addSubview(userImageView)
         scrollView.addSubview(nameContainerView)
@@ -65,12 +78,29 @@ class UserDetailsView: UIView {
         scrollView.addSubview(bioContainerView)
         bioContainerView.addSubview(bioLabel)
         bioContainerView.addSubview(bioTextView)
-        addSubview(editButton)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            customNavigationView.heightAnchor.constraint(equalToConstant: 100)
+        ])
+        NSLayoutConstraint.activate([
+            profileLabel.centerXAnchor.constraint(equalTo: customNavigationView.centerXAnchor),
+            profileLabel.bottomAnchor.constraint(equalTo: customNavigationView.bottomAnchor, constant: -12)
+        ])
+        NSLayoutConstraint.activate([
+            backButton.leftAnchor.constraint(equalTo: customNavigationView.leftAnchor, constant: 16),
+            backButton.bottomAnchor.constraint(equalTo: customNavigationView.bottomAnchor, constant: -12)
+        ])
+        NSLayoutConstraint.activate([
+            editButton.rightAnchor.constraint(equalTo: customNavigationView.rightAnchor, constant: -16),
+            editButton.bottomAnchor.constraint(equalTo: customNavigationView.bottomAnchor, constant: -12)
+        ])
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor),
             scrollView.leftAnchor.constraint(equalTo: self.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: self.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -129,16 +159,14 @@ class UserDetailsView: UIView {
             bioTextView.rightAnchor.constraint(equalTo: bioContainerView.rightAnchor, constant: -12),
             bioTextView.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor, constant: -12)
         ])
-        NSLayoutConstraint.activate([
-            editButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -36),
-            editButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
-            editButton.heightAnchor.constraint(equalToConstant: 60),
-            editButton.widthAnchor.constraint(equalToConstant: 60),
-        ])
     }
     
     func setEditSelector(selector: Selector, target: UIViewController) {
         editButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setBackButtonSelector(selector: Selector, target: UIViewController) {
+        backButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
     // MARK: Gestures

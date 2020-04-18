@@ -37,7 +37,7 @@ class FirebaseService {
         return timestamp.dateValue()
     }
     
-    func updateDatabase(user: UserModel) {
+    func setDataToDatabase(user: UserModel) {
         if let uid = Auth.auth().currentUser?.uid {
             do {
                 try database.collection("users").document(uid).setData(from: user, merge: true)

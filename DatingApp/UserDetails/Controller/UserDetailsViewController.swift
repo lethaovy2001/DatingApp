@@ -20,11 +20,12 @@ class UserDetailsViewController: UIViewController {
         addNavigationBar()
         setupUI()
         userDetailsView.setEditSelector(selector: #selector(editButtonPressed), target: self)
+        userDetailsView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchUserInfo()
     }
     
@@ -51,6 +52,10 @@ class UserDetailsViewController: UIViewController {
     @objc func editButtonPressed() {
         let vc = EditUserDetailsViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    @objc func backButtonPressed() {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     // MARK: Firebase
