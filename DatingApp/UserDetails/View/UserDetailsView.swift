@@ -23,13 +23,7 @@ class UserDetailsView: UIView {
     private let scrollView = CustomScrollView()
     private var cardImages: [String]?
     private var currentImage = 0
-    private let customNavigationView: UIView = {
-        let containerView = UIView()
-        containerView.addShadow(color: Constants.Colors.lightGray, radius: 3.0)
-        containerView.backgroundColor = .white
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        return containerView
-    }()
+    private let customNavigationView = CustomNavigationView(type: .userDetails)
     private let profileLabel = CustomLabel(text: "Profile", textColor: .darkGray, textSize: 30, textWeight: .heavy)
     private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let editButton = CustomButton(imageName: "pencil", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
@@ -67,9 +61,6 @@ class UserDetailsView: UIView {
         scrollView.addSubview(userImageView)
         scrollView.addSubview(nameContainerView)
         scrollView.addSubview(bioContainerView)
-        customNavigationView.addSubview(profileLabel)
-        customNavigationView.addSubview(editButton)
-        customNavigationView.addSubview(backButton)
         nameContainerView.addSubview(nameLabel)
         nameContainerView.addSubview(ageLabel)
         nameContainerView.addSubview(workButton)
@@ -87,18 +78,6 @@ class UserDetailsView: UIView {
             customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
             customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
             customNavigationView.heightAnchor.constraint(equalToConstant: 100),
-        ])
-        NSLayoutConstraint.activate([
-            profileLabel.centerXAnchor.constraint(equalTo: customNavigationView.centerXAnchor),
-            profileLabel.bottomAnchor.constraint(equalTo: customNavigationView.bottomAnchor, constant: -12)
-        ])
-        NSLayoutConstraint.activate([
-            backButton.leftAnchor.constraint(equalTo: customNavigationView.leftAnchor, constant: 16),
-            backButton.bottomAnchor.constraint(equalTo: customNavigationView.bottomAnchor, constant: -12)
-        ])
-        NSLayoutConstraint.activate([
-            editButton.rightAnchor.constraint(equalTo: customNavigationView.rightAnchor, constant: -16),
-            editButton.bottomAnchor.constraint(equalTo: customNavigationView.bottomAnchor, constant: -12)
         ])
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
@@ -163,11 +142,11 @@ class UserDetailsView: UIView {
     }
     
     func setEditSelector(selector: Selector, target: UIViewController) {
-        editButton.addTarget(target, action: selector, for: .touchUpInside)
+        customNavigationView.setRightButtonSelector(selector: selector, target: target)
     }
     
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
-        backButton.addTarget(target, action: selector, for: .touchUpInside)
+        customNavigationView.setleftButtonSelector(selector: selector, target: target)
     }
     
     // MARK: Gestures
