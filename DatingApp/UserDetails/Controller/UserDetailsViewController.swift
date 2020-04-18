@@ -17,10 +17,7 @@ class UserDetailsViewController: UIViewController {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNavigationBar()
-        setupUI()
-        userDetailsView.setEditSelector(selector: #selector(editButtonPressed), target: self)
-        userDetailsView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
+        setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +27,12 @@ class UserDetailsViewController: UIViewController {
     }
     
     // MARK: Setup
+    private func setup() {
+        addNavigationBar()
+        setupUI()
+        setSelectors()
+    }
+    
     private func setupUI() {
         view.addSubview(userDetailsView)
         view.backgroundColor = .white
@@ -39,6 +42,11 @@ class UserDetailsViewController: UIViewController {
             userDetailsView.rightAnchor.constraint(equalTo: view.rightAnchor),
             userDetailsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func setSelectors() {
+        userDetailsView.setEditSelector(selector: #selector(editButtonPressed), target: self)
+        userDetailsView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
     }
     
     func addNavigationBar() {
@@ -61,7 +69,6 @@ class UserDetailsViewController: UIViewController {
     // MARK: Firebase
     private func fetchUserInfo() {
         modelController.getData { model in
-            print(model)
             self.viewModel = UserDetailsViewModel(model: model)
             self.userDetailsView.viewModel = self.viewModel
         }

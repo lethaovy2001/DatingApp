@@ -55,10 +55,10 @@ class ListMessagesView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-           customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
-           customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
-           customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
-           customNavigationView.heightAnchor.constraint(equalToConstant: 80)
+            customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            customNavigationView.heightAnchor.constraint(equalToConstant: 80)
         ])
         NSLayoutConstraint.activate([
             chatLabel.centerXAnchor.constraint(equalTo: customNavigationView.centerXAnchor),
@@ -69,10 +69,10 @@ class ListMessagesView: UIView {
             backButton.centerYAnchor.constraint(equalTo: customNavigationView.centerYAnchor)
         ])
         NSLayoutConstraint.activate([
-          tableView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor),
-          tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
-          tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
-          tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         NSLayoutConstraint.activate([
             profileImageView.rightAnchor.constraint(equalTo: customNavigationView.rightAnchor, constant: -16),
@@ -84,8 +84,8 @@ class ListMessagesView: UIView {
     
     private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-               tapGesture.numberOfTapsRequired = 1
-               tapGesture.numberOfTouchesRequired = 1
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(tapGesture)
     }

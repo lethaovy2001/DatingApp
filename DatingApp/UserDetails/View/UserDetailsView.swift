@@ -62,24 +62,22 @@ class UserDetailsView: UIView {
     }
     
     private func addSubviews() {
-        self.addSubview(customNavigationView)
-        customNavigationView.addSubview(profileLabel)
-        customNavigationView.addSubview(editButton)
-        customNavigationView.addSubview(backButton)
-        
+        addSubview(customNavigationView)
         addSubview(scrollView)
         scrollView.addSubview(userImageView)
         scrollView.addSubview(nameContainerView)
+        scrollView.addSubview(bioContainerView)
+        customNavigationView.addSubview(profileLabel)
+        customNavigationView.addSubview(editButton)
+        customNavigationView.addSubview(backButton)
         nameContainerView.addSubview(nameLabel)
         nameContainerView.addSubview(ageLabel)
         nameContainerView.addSubview(workButton)
         nameContainerView.addSubview(workLabel)
         nameContainerView.addSubview(locationLabel)
         nameContainerView.addSubview(locationButton)
-        scrollView.addSubview(bioContainerView)
         bioContainerView.addSubview(bioLabel)
         bioContainerView.addSubview(bioTextView)
-        
         bringSubviewToFront(customNavigationView)
     }
     
