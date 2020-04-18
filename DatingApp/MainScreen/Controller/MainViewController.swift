@@ -16,6 +16,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         return view
     }()
     private let modelController = MainModelController()
+    private var firebaseService: FirebaseService!
     
     // MARK: Setup
     private func setupUI() {
@@ -39,6 +40,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
@@ -51,7 +53,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if (!UserDefaults.standard.isLoggedIn()) {
+        if (!UserDefaults.standard.isLoggedIn() || firebaseService.getUserID() == nil) {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
         }

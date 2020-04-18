@@ -7,18 +7,16 @@
 //
 
 import UIKit
-import Firebase
 
 class UserDetailsViewController: UIViewController {
     private let userDetailsView = UserDetailsView()
     private var viewModel: UserDetailsViewModel!
-    private var database: Firestore!
     private let modelController = MainModelController()
+    private let firebaseService = FirebaseService()
     
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        database = Firestore.firestore()
         addNavigationBar()
         setupUI()
         userDetailsView.setEditSelector(selector: #selector(editButtonPressed), target: self)
@@ -57,23 +55,9 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Firebase
     private func fetchUserInfo() {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User ID is nil")
-            return
-        }
-        database.collection("users").document(userID).addSnapshotListener {
-            documentSnapshot, error in
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
-            print("Current data: \(data)")
-            self.modelController.update(data: data)
-            self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo())
+        modelController.getData { model in
+            print(model)
+            self.viewModel = UserDetailsViewModel(model: model)
             self.userDetailsView.viewModel = self.viewModel
         }
     }

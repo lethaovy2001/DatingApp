@@ -12,9 +12,15 @@ import FirebaseFirestoreSwift
 
 class FirebaseService {
     private var database: Firestore!
+    private var uid: String?
     
     init() {
         database = Firestore.firestore()
+        uid = Auth.auth().currentUser?.uid
+    }
+    
+    func getUserID() -> String? {
+        return uid
     }
     
     func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
@@ -30,21 +36,35 @@ class FirebaseService {
     }
     
     func updateDatabase(user: UserModel) {
-        if let uid = getUserID() {
+        if let uid = uid {
             do {
                 try database.collection("users").document(uid).setData(from: user, merge: true)
                 print("Document successfully written!")
             } catch let error {
                 print("Error writing user to Firestore: \(error)")
             }
+        } else {
+            print("*** FirebaseService: User ID is nil")
         }
     }
     
-    private func getUserID() -> String? {
-        if let userID = Auth.auth().currentUser?.uid {
-            return userID
+    func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
+        if let uid = uid {
+            database.collection("users").document(uid).addSnapshotListener {
+                documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                }
+                print("Current data: \(data)")
+                completion(data)
+            }
+        } else {
+            print("*** FirebaseService: User ID is nil")
         }
-        return nil
     }
-    
 }

@@ -57,4 +57,19 @@ class MainModelController {
             print("*** MainModelController: Unable to update()")
         }
     }
+    
+    func getData(_ completion : @escaping(UserModel)->()) {
+        firebaseService.getUserInfoFromDatabase({ values in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM-dd-yyyy"
+            //if let birthday = values["birthday"] as? TimeInterval {
+                
+//               
+                    let user = UserModel(name: values["first_name"] as! String, birthday: Date(), work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String)
+                    self.user = user
+                    completion(user)
+                
+            //}
+        })
+    }
 }
