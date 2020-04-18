@@ -23,54 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "536723D8-9B7A-4535-B866-BD83ECC454EA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DatingApp/UserDetails/Controller/UserDetailsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "fetchUserInfo()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "536723D8-9B7A-4535-B866-BD83ECC454EA - 8b0ca4e5a8e4337b"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DatingApp.UserDetailsViewController.(fetchUserInfo in _8EB6B6BF1E1E462B67BAB66E8C9E88B8)() -&gt; ()"
-                  moduleName = "DatingApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vyle/Documents/Projects/DatingApp/DatingApp/UserDetails/Controller/UserDetailsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
-                  offsetFromSymbolStart = "22">
-               </Location>
-               <Location
-                  uuid = "536723D8-9B7A-4535-B866-BD83ECC454EA - 9f6d5ba9680c9fcc"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (DatingApp.UserModel) -&gt; () in DatingApp.UserDetailsViewController.(fetchUserInfo in _8EB6B6BF1E1E462B67BAB66E8C9E88B8)() -&gt; ()"
-                  moduleName = "DatingApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vyle/Documents/Projects/DatingApp/DatingApp/UserDetails/Controller/UserDetailsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "94">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "315FF5F8-D82F-4EE3-A26B-B9F25E3FCF24"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -78,73 +30,9 @@
             filePath = "DatingApp/MainScreen/Controller/MainModelController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "getUserInfo()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A058EAF3-08A0-470C-A98E-2429F8F6C298"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DatingApp/MainScreen/Controller/MainModelController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "getData(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C92B3941-EE6C-4A4B-8100-6FB38992D8F2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DatingApp/MainScreen/Controller/MainModelController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "getData(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2D196643-F9F6-427C-A819-F81F3B5D19EB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DatingApp/UserDetails/Controller/UserDetailsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "fetchUserInfo()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3E63DE6C-2FFE-4662-A7DA-799771CC2C84"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DatingApp/MainScreen/Controller/MainModelController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "getData(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

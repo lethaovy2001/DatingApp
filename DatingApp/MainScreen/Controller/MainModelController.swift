@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class MainModelController {
     private var firebaseService = FirebaseService()
@@ -60,16 +61,12 @@ class MainModelController {
     
     func getData(_ completion : @escaping(UserModel)->()) {
         firebaseService.getUserInfoFromDatabase({ values in
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM-dd-yyyy"
-            //if let birthday = values["birthday"] as? TimeInterval {
-                
-//               
-                    let user = UserModel(name: values["first_name"] as! String, birthday: Date(), work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String)
-                    self.user = user
-                    completion(user)
-                
-            //}
+            if let birthday = values["birthday"] as? Timestamp {
+                let date = birthday.dateValue()
+                let user = UserModel(name: values["first_name"] as! String, birthday: date, work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String)
+                self.user = user
+                completion(user)
+            }
         })
     }
 }
