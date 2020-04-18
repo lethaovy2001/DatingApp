@@ -53,9 +53,11 @@ class LoginViewController: UIViewController {
             self.firebaseService.authenticateWithFirebase(accessToken: self.facebookAuth.getFBAccessToken(), {
                 self.facebookAuth.getFBUserInfo({ data in
                     self.modelController.update(data: data)
+                    self.goToMainViewController()
                 })
             })
         }
+       
     }
     
     private func goToMainViewController() {

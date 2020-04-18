@@ -50,10 +50,12 @@ class MainModelController {
             let gender = dictionary["gender"] as? String,
             let birthday = dictionary["birthday"] as? String {
             if let date = dateFormatter.date(from: birthday) {
-                let user = UserModel(name: firstName, birthday: date, work: "UW", bio: "", gender: gender)
-                self.user = user
+//                let user = UserModel(name: firstName, birthday: date, work: "UW", bio: "", gender: gender)
+//                self.user = user
+                let data: [String: Any] = ["first_name": firstName, "gender": gender, "birthday": date]
+                firebaseService.updateDatabase(with: data)
             }
-            firebaseService.updateDatabase(user: user)
+            
         } else {
             print("*** MainModelController: Unable to update()")
         }
