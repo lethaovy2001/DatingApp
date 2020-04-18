@@ -35,9 +35,7 @@ class EditUserDetailsViewController: UIViewController {
         editUserDetailsView.databaseDelegate = self
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
-        editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
-        editUserDetailsView.setSaveSelector(selector: #selector(saveButtonPressed), target: self)
-        editUserDetailsView.setAddImageSelector(selector: #selector(addImageButtonPressed), target: self)
+        setSelectors()
     }
     
     // MARK: Setup
@@ -52,9 +50,20 @@ class EditUserDetailsViewController: UIViewController {
         ])
     }
     
+    private func setSelectors() {
+        editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
+        editUserDetailsView.setSaveSelector(selector: #selector(saveButtonPressed), target: self)
+        editUserDetailsView.setBackSelector(selector: #selector(backPressed), target: self)
+        editUserDetailsView.setAddImageSelector(selector: #selector(addImageButtonPressed), target: self)
+    }
+    
     // MARK: Actions
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func backPressed() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func logoutPressed() {

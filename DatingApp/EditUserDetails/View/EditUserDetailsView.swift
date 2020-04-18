@@ -30,6 +30,7 @@ class EditUserDetailsView: UIView {
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     private let scrollView = CustomScrollView()
+    private let customNavigationView = CustomNavigationView(type: .editUserDetails)
     private var cardImages: [String]?
     var databaseDelegate: DatabaseDelegate?
     var viewModel: UserDetailsViewModel! {
@@ -85,7 +86,8 @@ class EditUserDetailsView: UIView {
     }
     
     private func addSubviews() {
-        self.addSubview(scrollView)
+        addSubview(customNavigationView)
+        addSubview(scrollView)
         scrollView.addSubview(verticalStackView)
         scrollView.addSubview(bioLabel)
         scrollView.addSubview(bioTextView)
@@ -104,11 +106,18 @@ class EditUserDetailsView: UIView {
         horizontalStackView2.addArrangedSubview(addImageButton4)
         horizontalStackView2.addArrangedSubview(addImageButton5)
         horizontalStackView2.addArrangedSubview(addImageButton6)
+        bringSubviewToFront(customNavigationView)
     }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            customNavigationView.heightAnchor.constraint(equalToConstant: 100),
+        ])
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
             scrollView.leftAnchor.constraint(equalTo: self.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: self.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -184,6 +193,10 @@ class EditUserDetailsView: UIView {
     
     func setSaveSelector(selector: Selector, target: UIViewController) {
         saveButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setBackSelector(selector: Selector, target: UIViewController) {
+        customNavigationView.setleftButtonSelector(selector: selector, target: target)
     }
     
     func setAddImageSelector(selector: Selector, target: UIViewController) {

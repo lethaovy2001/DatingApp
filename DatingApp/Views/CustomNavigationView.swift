@@ -33,8 +33,11 @@ class CustomNavigationView: CustomContainerView {
             setupLeftButton(imageName: "chevron.left")
             setupRightButton(imageName: "pencil")
             setupTitleLabel(title: "Profile")
+        case .editUserDetails:
+            setupLeftButton(imageName: "chevron.left")
+            setupTitleLabel(title: "Edit")
         default:
-            break
+            setupLeftButton(imageName: "chevron.left")
         }
     }
     
@@ -76,4 +79,5 @@ class CustomNavigationView: CustomContainerView {
 
 enum NavigationType {
     case userDetails
+    case editUserDetails
 }
