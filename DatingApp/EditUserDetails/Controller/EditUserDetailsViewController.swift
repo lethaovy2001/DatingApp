@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import Firebase
 
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetailsView = EditUserDetailsView()
     private var viewModel: UserDetailsViewModel
-    private var database: Firestore!
+    private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var imageTapGestureDelegate: ImageTapGestureDelegate?
     
@@ -30,9 +29,7 @@ class EditUserDetailsViewController: UIViewController {
     //MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        database = Firestore.firestore()
         setupUI()
-        editUserDetailsView.databaseDelegate = self
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
         setSelectors()
@@ -67,20 +64,18 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func logoutPressed() {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            UserDefaults.standard.setIsLoggedIn(value: false)
-            UserDefaults.standard.synchronize()
-            let vc = LoginViewController()
-            self.navigationController?.pushViewController(vc, animated: false)
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
+        firebaseService.logout()
+        let vc = LoginViewController()
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     @objc func saveButtonPressed() {
-        editUserDetailsView.savePressed()
+        let dictionary: [String: Any] = [
+            "bio": editUserDetailsView.getBioText(),
+            "work": editUserDetailsView.getWorkText(),
+        ]
+        firebaseService.updateDatabase(with: dictionary)
+        
         let vc =  UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: false)
     }
@@ -93,15 +88,8 @@ class EditUserDetailsViewController: UIViewController {
         present(imagePicker, animated: true, completion: nil)
     }
     
-    private func updateDatabaseWithUID(values: [String: Any]) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        database.collection("users").document(userID).updateData(values) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
-        }
+    private func updateDatabase(values: [String: Any]) {
+        firebaseService.updateDatabase(with: values)
     }
 }
 
@@ -117,12 +105,6 @@ extension EditUserDetailsViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textViewEditingDelegate?.endEditing()
-    }
-}
-
-extension EditUserDetailsViewController: DatabaseDelegate {
-    func shouldUpdateDatabase(values: [String : Any]) {
-        updateDatabaseWithUID(values: values)
     }
 }
 

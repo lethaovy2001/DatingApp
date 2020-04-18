@@ -33,6 +33,18 @@ class FirebaseService {
         }
     }
     
+    func logout() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            UserDefaults.standard.setIsLoggedIn(value: false)
+            UserDefaults.standard.synchronize()
+            print("Successfully logout of Firebase")
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+    }
+    
     func convertToDate(timestamp: Timestamp) -> Date {
         return timestamp.dateValue()
     }

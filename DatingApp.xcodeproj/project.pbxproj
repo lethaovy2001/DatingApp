@@ -59,7 +59,6 @@
 		38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */; };
 		38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFD244BAB9000F4E60E /* BioContainerView.swift */; };
 		38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */; };
-		38DFEA66244539EA00F1BE0D /* DatabaseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA65244539EA00F1BE0D /* DatabaseDelegate.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
@@ -123,7 +122,6 @@
 		38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameContainerView.swift; sourceTree = "<group>"; };
 		38DACAFD244BAB9000F4E60E /* BioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioContainerView.swift; sourceTree = "<group>"; };
 		38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonsContainerView.swift; sourceTree = "<group>"; };
-		38DFEA65244539EA00F1BE0D /* DatabaseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseDelegate.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -325,7 +323,6 @@
 			children = (
 				383E470A244267000012977A /* KeyboardDelegate.swift */,
 				383E470B244267000012977A /* TextViewEditingDelegate.swift */,
-				38DFEA65244539EA00F1BE0D /* DatabaseDelegate.swift */,
 				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
 				38DFEA702446647D00F1BE0D /* ImageTapGestureDelegate.swift */,
 			);
@@ -593,7 +590,6 @@
 				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
 				38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
-				38DFEA66244539EA00F1BE0D /* DatabaseDelegate.swift in Sources */,
 				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				383E4705244265990012977A /* CustomButton.swift in Sources */,

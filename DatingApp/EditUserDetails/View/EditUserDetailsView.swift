@@ -22,7 +22,6 @@ class EditUserDetailsView: UIView {
     private let scrollView = CustomScrollView()
     private let customNavigationView = CustomNavigationView(type: .editUserDetails)
     private var cardImages: [String]?
-    var databaseDelegate: DatabaseDelegate?
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameLabel.setText(text: viewModel.name)
@@ -177,13 +176,12 @@ class EditUserDetailsView: UIView {
         imageButtonsContainerView.setSelectedButton(sender: sender)
     }
     
-    // MARK: Actions
-    func savePressed() {
-        let dictionary: [String: Any] = [
-            "bio": bioTextView.text!,
-            "work": workTextField.text!,
-        ]
-        databaseDelegate?.shouldUpdateDatabase(values: dictionary)
+    func getBioText() -> String {
+        return bioTextView.text
+    }
+    
+    func getWorkText() -> String {
+        return workTextField.text ?? "Unknown workplace"
     }
 }
 
