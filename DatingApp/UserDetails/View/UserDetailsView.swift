@@ -25,6 +25,7 @@ class UserDetailsView: UIView {
     private var currentImage = 0
     private let customNavigationView: UIView = {
         let containerView = UIView()
+        containerView.addShadow(color: Constants.Colors.lightGray, radius: 3.0)
         containerView.backgroundColor = .white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
@@ -78,6 +79,8 @@ class UserDetailsView: UIView {
         scrollView.addSubview(bioContainerView)
         bioContainerView.addSubview(bioLabel)
         bioContainerView.addSubview(bioTextView)
+        
+        bringSubviewToFront(customNavigationView)
     }
     
     private func setupConstraints() {
@@ -85,7 +88,7 @@ class UserDetailsView: UIView {
             customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
             customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
             customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            customNavigationView.heightAnchor.constraint(equalToConstant: 100)
+            customNavigationView.heightAnchor.constraint(equalToConstant: 100),
         ])
         NSLayoutConstraint.activate([
             profileLabel.centerXAnchor.constraint(equalTo: customNavigationView.centerXAnchor),
@@ -100,14 +103,14 @@ class UserDetailsView: UIView {
             editButton.bottomAnchor.constraint(equalTo: customNavigationView.bottomAnchor, constant: -12)
         ])
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
             scrollView.leftAnchor.constraint(equalTo: self.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: self.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
         NSLayoutConstraint.activate([
             userImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 12),
-            userImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12),
+            userImageView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 12),
             userImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
             userImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1.75/3)
         ])
