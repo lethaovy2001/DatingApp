@@ -35,6 +35,10 @@ class FirebaseService {
         }
     }
     
+    func convertToDate(timestamp: Timestamp) -> Date {
+        return timestamp.dateValue()
+    }
+    
     func updateDatabase(user: UserModel) {
         if let uid = uid {
             do {
