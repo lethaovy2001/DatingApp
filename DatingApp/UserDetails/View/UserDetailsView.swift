@@ -27,11 +27,11 @@ class UserDetailsView: UIView {
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameLabel.setText(text: viewModel.name)
-            ageLabel.setText(text: ", \(viewModel.age)")
+            ageLabel.setText(text: ", \(viewModel.ageText)")
             workLabel.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
-            userImageView.setName(name: viewModel.mainImageName)
-            cardImages = viewModel.images
+//            userImageView.setName(name: viewModel.mainImageName)
+//            cardImages = viewModel.images
         }
     }
     init() {
@@ -51,7 +51,7 @@ class UserDetailsView: UIView {
         setupConstraints()
         addGestures()
     }
-
+    
     private func addSubviews() {
         addSubview(scrollView)
         scrollView.addSubview(userImageView)

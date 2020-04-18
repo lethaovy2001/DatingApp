@@ -72,7 +72,7 @@ class UserDetailsViewController: UIViewController {
                 return
             }
             print("Current data: \(data)")
-            self.modelController.updateNewData(data: data)
+            self.modelController.update(data: data)
             self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo())
             self.userDetailsView.viewModel = self.viewModel
         }

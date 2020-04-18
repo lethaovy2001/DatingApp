@@ -10,27 +10,28 @@ import UIKit
 
 struct UserModel: Encodable {
     let name: String
-    let age: Int?
-    let work: String?
-    let bio: String?
-    let imageNames : [String]?
-    let mainImageName: String?
+    let birthday: Date
+    let work: String
+    let bio: String
+    let gender: String
+//    let imageNames : [String]
+//    let mainImageName: String
     
     enum CodingKeys: String, CodingKey {
         case name = "first_name"
-        case age
+        case birthday
         case work
         case bio
-        case imageNames
-        case mainImageName
+        case gender
+//        case imageNames
+//        case mainImageName
     }
-     
-    init(name: String, age: Int?, imageNames: [String]?, mainImageName: String?, work: String?, bio: String?) {
+    
+    init(name: String, birthday: Date, work: String, bio: String, gender: String) {
         self.name = name
-        self.age = age
-        self.imageNames = imageNames
-        self.mainImageName = mainImageName
+        self.birthday = birthday
         self.work = work
         self.bio = bio
+        self.gender = gender
     }
 }

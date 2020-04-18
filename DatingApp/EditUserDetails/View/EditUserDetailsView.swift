@@ -37,15 +37,15 @@ class EditUserDetailsView: UIView {
             nameLabel.setText(text: viewModel.name)
             workTextField.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
-            mainProfileImage.setName(name: viewModel.mainImageName)
-            cardImages = viewModel.images
-            if let cardImages = cardImages {
-                var index = 0
-                for image in cardImages {
-                    imageButtons[index].setImage(name: image)
-                    index = index + 1
-                }
-            }
+//            mainProfileImage.setName(name: viewModel.mainImageName)
+//            cardImages = viewModel.images
+//            if let cardImages = cardImages {
+//                var index = 0
+//                for image in cardImages {
+//                    imageButtons[index].setImage(name: image)
+//                    index = index + 1
+//                }
+//            }
         }
     }
     private var modelController = MainModelController()

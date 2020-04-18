@@ -9,19 +9,16 @@
 import Foundation
 
 class MainModelController {
+    private var firebaseService = FirebaseService()
     private var users = [SwipeCardModel]()
-    private var user: UserModel?
-
+    private var user = UserModel(name: "Unknown", birthday: Date(), work: "Unknown workplace", bio: "No bio", gender: "Female")
+    
     func getUsers() -> [SwipeCardModel] {
         return users
     }
     
     func getUserInfo() -> UserModel {
-        return user ?? getDefaultUserInfo()
-    }
-    
-    private func getDefaultUserInfo() -> UserModel {
-        return UserModel(name: "Unknown", age: 0, imageNames: [""], mainImageName: "", work: "Unknown workplace", bio: "No bio")
+        return user
     }
     
     func getMockImageNames() -> [String] {
@@ -33,23 +30,31 @@ class MainModelController {
         let userImages = getMockImageNames()
         
         return [
-        SwipeCardModel(name: "Vy", age: 18, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
-        SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]]),
-        SwipeCardModel(name: "Vy", age: 18, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
-        SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
-        SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]])]
+            SwipeCardModel(name: "Vy", age: 18, imageName: [userImages[1], userImages[2]]),
+            SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
+            SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
+            SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]]),
+            SwipeCardModel(name: "Vy", age: 18, imageName: [userImages[1], userImages[2]]),
+            SwipeCardModel(name: "Ha", age: 36, imageName: [userImages[2], userImages[0]]),
+            SwipeCardModel(name: "An", age: 24, imageName: [userImages[1], userImages[2]]),
+            SwipeCardModel(name: "Andrew", age: 21, imageName: [userImages[2], userImages[0]])]
     }
     
-    func updateNewData(data: [String: Any]) {
-        let model = UserModel(name: data["first_name"] as! String,
-        age: data["age"] as? Int,
-        imageNames: self.getMockImageNames(),
-        mainImageName: self.getMockImageNames()[0],
-        work: data["work"] as? String,
-        bio: data["bio"] as? String)
-        self.user = model
+    func update(data: Any?) {
+        let dictionary = data as! NSDictionary
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        
+        if let firstName = dictionary["first_name"] as? String,
+            let gender = dictionary["gender"] as? String,
+            let birthday = dictionary["birthday"] as? String {
+            if let date = dateFormatter.date(from: birthday) {
+                let user = UserModel(name: firstName, birthday: date, work: "UW", bio: "", gender: gender)
+                self.user = user
+            }
+            firebaseService.updateDatabase(user: user)
+        } else {
+            print("*** MainModelController: Unable to update()")
+        }
     }
 }
