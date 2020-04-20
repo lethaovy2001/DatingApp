@@ -13,7 +13,7 @@ class ChatCell: UICollectionViewCell {
     //TODO: Create a custom class for container
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constants.Colors.amour
+        view.backgroundColor = UIColor.amour
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
         view.layer.masksToBounds = true

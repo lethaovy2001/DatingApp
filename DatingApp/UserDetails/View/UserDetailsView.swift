@@ -21,7 +21,7 @@ class UserDetailsView: UIView {
     private let bioLabel = SectionTitleLabel(title: "Bio")
     private let bioTextView = CustomTextView(text: "No bio")
     private let scrollView = CustomScrollView()
-    private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: Constants.Colors.amour, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
+    private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: UIColor.amour, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
     private var cardImages: [String]?
     private var currentImage = 0
     var viewModel: UserDetailsViewModel! {
@@ -37,7 +37,7 @@ class UserDetailsView: UIView {
     init() {
         super.init(frame: .zero)
         setUp()
-        self.backgroundColor = Constants.Colors.mainBackgroundColor
+        self.backgroundColor = UIColor.mainBackgroundColor
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

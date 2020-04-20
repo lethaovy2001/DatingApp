@@ -13,7 +13,7 @@ class CustomTextField: UITextField {
     
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = Constants.Colors.inputContainerColor
+        self.backgroundColor = UIColor.inputContainerColor
         self.placeholder = "Where do you work?"
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 10
