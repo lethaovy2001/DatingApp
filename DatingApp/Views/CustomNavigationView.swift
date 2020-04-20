@@ -17,6 +17,7 @@ class CustomNavigationView: CustomContainerView {
     enum NavigationType {
         case userDetails
         case editUserDetails
+        case chatMessage
     }
     
     // MARK: Initializer
@@ -41,6 +42,9 @@ class CustomNavigationView: CustomContainerView {
         case .editUserDetails:
             setupLeftButton(imageName: "chevron.left")
             setupTitleLabel(title: "Edit")
+        case .chatMessage:
+            setupLeftButton(imageName: "chevron.left")
+            setupTitleLabel(title: "Vy")
         default:
             setupLeftButton(imageName: "chevron.left")
         }
