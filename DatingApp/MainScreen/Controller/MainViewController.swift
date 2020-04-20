@@ -10,16 +10,8 @@ import UIKit
 import CoreLocation
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
-    private var locationManager: CLLocationManager?
-    
-    func getUserLocation() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestAlwaysAuthorization()
-        locationManager?.startUpdatingLocation()
-        locationManager?.allowsBackgroundLocationUpdates = true
-        locationManager?.requestWhenInUseAuthorization()
-    }
+
+    private var locationService: LocationService!
     
     private let mainView: MainView = {
         let view = MainView(frame: .zero)
@@ -54,12 +46,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
+        locationService = LocationService(viewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        getUserLocation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,6 +87,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func doneAlertPressed() {
         mainView.hideAlert()
     }
+    
+    func showAlert() {
+        mainView.showAlert()
+    }
 }
 
 // MARK: SwipeableCardDataSource
@@ -116,22 +112,10 @@ extension MainViewController: SwipeableCardDataSource {
 
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            print(location.coordinate.latitude)
-            print(location.coordinate.longitude)
-        }
+        locationService.didUpdateLocations(locations: locations)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedAlways:
-            print("user allow app to get location data when app is active or in background")
-        case .authorizedWhenInUse:
-            print("user allow app to get location data only when app is active")
-        case .denied, .restricted, .notDetermined:
-            mainView.showAlert()
-        default:
-            break
-        }
+        locationService.didChangeAuthorization(status: status)
     }
 }

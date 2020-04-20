@@ -52,6 +52,7 @@
 		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
+		38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */; };
 		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
 		38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
@@ -112,6 +113,7 @@
 		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
+		38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
 		38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUserDataDelegate.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				382CC7A023D5EF650043060E /* Constants.swift */,
 				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
 				3854F6542438092000229E16 /* CALayer+helpers.swift */,
+				38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */,
 				383E4704244265990012977A /* CustomScrollView.swift in Sources */,
+				38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */,
 				383E4700244265990012977A /* CircleImageView.swift in Sources */,
 				383E46E7244265450012977A /* UserDetailsView.swift in Sources */,
 				383E46EF244265570012977A /* EditUserDetailsViewController.swift in Sources */,

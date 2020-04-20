@@ -20,6 +20,10 @@ class CustomAlertView: UIView {
     private var message: String!
     private var animationName: String!
     
+    enum AlertType {
+        case deniedLocationAccess
+    }
+    
     // MARK: Initializer
     init(type: AlertType) {
         super.init(frame: .zero)
@@ -114,8 +118,4 @@ class CustomAlertView: UIView {
     func setDoneSelector(selector: Selector, target: UIViewController) {
         doneButton.addTarget(target, action: selector, for: .touchUpInside)
     }
-}
-
-enum AlertType {
-    case deniedLocationAccess
 }
