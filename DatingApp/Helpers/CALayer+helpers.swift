@@ -8,6 +8,11 @@
 
 import UIKit
 extension CALayer {
+    enum shadowDirection {
+        case top
+        case bottom
+    }
+    
     func addShadow(withDirection direction: shadowDirection) {
         switch direction {
         case .top:
@@ -27,7 +32,4 @@ extension CALayer {
     }
 }
 
-enum shadowDirection {
-    case top
-    case bottom
-}
+

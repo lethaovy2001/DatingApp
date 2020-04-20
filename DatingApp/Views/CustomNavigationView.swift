@@ -14,6 +14,11 @@ class CustomNavigationView: CustomContainerView {
     private var rightButton: CustomButton!
     private var type: NavigationType!
     
+    enum NavigationType {
+        case userDetails
+        case editUserDetails
+    }
+    
     // MARK: Initializer
     init(type: NavigationType) {
         super.init()
@@ -75,9 +80,4 @@ class CustomNavigationView: CustomContainerView {
     func setRightButtonSelector(selector: Selector, target: UIViewController) {
         rightButton.addTarget(target, action: selector, for: .touchUpInside)
     }
-}
-
-enum NavigationType {
-    case userDetails
-    case editUserDetails
 }
