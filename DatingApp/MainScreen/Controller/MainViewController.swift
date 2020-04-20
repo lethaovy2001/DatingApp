@@ -16,6 +16,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         return view
     }()
     private let modelController = MainModelController()
+    private var firebaseService: FirebaseService!
     
     // MARK: Setup
     private func setupUI() {
@@ -39,6 +40,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
@@ -51,7 +53,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if (!UserDefaults.standard.isLoggedIn()) {
+        if (!UserDefaults.standard.isLoggedIn() || firebaseService.getUserID() == nil) {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
         }
@@ -72,10 +74,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func profilePressed() {
-        //TODO: remove mock data
-        let model = UserModel(name: "Lan", age: 20, imageNames: modelController.getMockImageNames(), mainImageName: modelController.getMockImageNames()[0], work: "UW", bio: "I don’t want a partner in crime. I commit all my crimes on my own.\nI would never drag you into that \nI don’t want a partner in crime.")
-        let viewModel = UserDetailsViewModel(model: model)
-        let vc = UserDetailsViewController(viewModel: viewModel)
+        let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

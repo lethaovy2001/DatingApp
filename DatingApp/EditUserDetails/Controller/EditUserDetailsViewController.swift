@@ -7,12 +7,13 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetailsView = EditUserDetailsView()
     private var viewModel: UserDetailsViewModel
+    private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
+    var imageTapGestureDelegate: ImageTapGestureDelegate?
     
     // MARK: Init
     init(viewModel: UserDetailsViewModel) {
@@ -31,8 +32,7 @@ class EditUserDetailsViewController: UIViewController {
         setupUI()
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
-        editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
-        editUserDetailsView.setSaveSelector(selector: #selector(savePressed), target: self)
+        setSelectors()
     }
     
     // MARK: Setup
@@ -47,26 +47,49 @@ class EditUserDetailsViewController: UIViewController {
         ])
     }
     
+    private func setSelectors() {
+        editUserDetailsView.setLogoutSelector(selector: #selector(logoutPressed), target: self)
+        editUserDetailsView.setSaveSelector(selector: #selector(saveButtonPressed), target: self)
+        editUserDetailsView.setBackSelector(selector: #selector(backPressed), target: self)
+        editUserDetailsView.setAddImageSelector(selector: #selector(addImageButtonPressed), target: self)
+    }
+    
     // MARK: Actions
     @objc func dismissKeyboard() {
-       view.endEditing(true)
+        view.endEditing(true)
+    }
+    
+    @objc func backPressed() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func logoutPressed() {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            UserDefaults.standard.setIsLoggedIn(value: false)
-            UserDefaults.standard.synchronize()
-            let vc = LoginViewController()
-            self.navigationController?.pushViewController(vc, animated: false)
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
+        firebaseService.logout()
+        let vc = LoginViewController()
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
-    @objc func savePressed() {
-        self.navigationController?.popToRootViewController(animated: false)
+    @objc func saveButtonPressed() {
+        let dictionary: [String: Any] = [
+            "bio": editUserDetailsView.getBioText(),
+            "work": editUserDetailsView.getWorkText(),
+        ]
+        firebaseService.updateDatabase(with: dictionary)
+        
+        let vc =  UserDetailsViewController()
+        self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    @objc func addImageButtonPressed(sender: UIButton) {
+        editUserDetailsView.setSelectedButton(sender: sender)
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self 
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func updateDatabase(values: [String: Any]) {
+        firebaseService.updateDatabase(with: values)
     }
 }
 
@@ -81,6 +104,25 @@ extension EditUserDetailsViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-         textViewEditingDelegate?.endEditing()
+        textViewEditingDelegate?.endEditing()
+    }
+}
+
+extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        if let selectedImage = selectedImageFromPicker {
+            imageTapGestureDelegate?.setImage(image: selectedImage)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

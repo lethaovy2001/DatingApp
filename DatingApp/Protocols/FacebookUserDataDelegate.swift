@@ -9,6 +9,5 @@
 import UIKit
 
 protocol FacebookUserDataDelegate {
-    //func getUserInfo(values: [String: AnyObject])
     func didGetUserInfo(user: UserModel)
 }
