@@ -21,7 +21,7 @@ class ListMessagesViewController: UIViewController {
         setupUI()
         registerCellId()
         listMessagesView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
-        listMessagesView.tapDelegate = self
+        listMessagesView.addDelegate(viewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +49,7 @@ class ListMessagesViewController: UIViewController {
     
     // MARK: Actions
     @objc func backButtonPressed() {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
@@ -83,8 +83,8 @@ extension ListMessagesViewController: UITableViewDelegate {
 }
 
 extension ListMessagesViewController: ImageTapGestureDelegate {
-    //TODO: pushVC to UserDetailsVC
     func didTap() {
-        print("DID TAP")
+        let vc = UserDetailsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

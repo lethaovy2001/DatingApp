@@ -63,7 +63,7 @@ class UserDetailsViewController: UIViewController {
     }
     
     @objc func backButtonPressed() {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: Firebase
