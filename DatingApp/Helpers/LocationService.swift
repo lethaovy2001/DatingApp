@@ -21,7 +21,7 @@ class LocationService {
         locationManager?.delegate = viewController as? CLLocationManagerDelegate
         locationManager?.allowsBackgroundLocationUpdates = false
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.distanceFilter = 1609
+        locationManager?.distanceFilter = Constants.meterToMile
     }
     
     func didUpdateLocations(locations: [CLLocation]) {

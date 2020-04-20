@@ -41,5 +41,9 @@ struct Constants {
     // MARK: Animation Names
     static let loveAnimation = "loveAnimation"
     static let searchLocationAnimation = "searchLocationAnimation"
+    
+    static let meterToMile: Double = 1609
+    
+    
 }
 
