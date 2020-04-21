@@ -17,6 +17,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }()
     private let modelController = MainModelController()
     private var firebaseService: FirebaseService!
+    var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: Setup
     private func setupUI() {
@@ -44,6 +45,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
+        mainView.addDelegate(viewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,11 +63,11 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: Actions
     @objc func likePressed() {
-       
+        autoSwipeDelegate?.swipe(direction: .right)
     }
     
     @objc func dislikePressed() {
-        
+        autoSwipeDelegate?.swipe(direction: .left)
     }
     
     @objc func messagePressed() {
@@ -82,9 +84,9 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 // MARK: SwipeableCardDataSource
 extension MainViewController: SwipeableCardDataSource {
     func card(forItemAt index: Int) -> SwipeCardView {
-            let card = SwipeCardView()
-            card.dataSource = modelController.getMockUsers()[index]
-            return card
+        let card = SwipeCardView()
+        card.dataSource = modelController.getMockUsers()[index]
+        return card
     }
     
     func numberOfCards() -> Int {

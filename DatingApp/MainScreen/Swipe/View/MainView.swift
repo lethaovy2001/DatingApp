@@ -9,7 +9,6 @@
 import UIKit
 
 class MainView: UIView {
-    private let cardView = SwipeCardView()
     private var swipeStackContainer = SwipeCardStackContainer()
     private let likeButton: CustomButton = {
         let button = CustomButton(imageName: "heart.fill", size: 25, color: .cyan, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
@@ -52,20 +51,17 @@ class MainView: UIView {
             profileButton.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
             profileButton.safeAreaLayoutGuide.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 6)
         ])
-        
         NSLayoutConstraint.activate([
             messageButton.heightAnchor.constraint(equalToConstant: 60),
             messageButton.widthAnchor.constraint(equalToConstant: 60),
             messageButton.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
             messageButton.safeAreaLayoutGuide.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 6)
         ])
-        
         NSLayoutConstraint.activate([
             likeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
             likeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
             likeButton.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -12),
             likeButton.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 64)
-            
         ])
         NSLayoutConstraint.activate([
             dislikeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
@@ -73,7 +69,6 @@ class MainView: UIView {
             dislikeButton.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -12),
             dislikeButton.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -64)
         ])
-        
         NSLayoutConstraint.activate([
             swipeStackContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 12),
             swipeStackContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
@@ -100,6 +95,10 @@ class MainView: UIView {
     
     func setMessageSelector(selector: Selector, target: UIViewController) {
         messageButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func addDelegate(viewController: MainViewController) {
+        swipeStackContainer.addDelegate(viewController: viewController)
     }
 
     required init?(coder: NSCoder) {
