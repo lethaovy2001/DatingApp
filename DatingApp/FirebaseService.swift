@@ -51,18 +51,18 @@ class FirebaseService {
         return timestamp.dateValue()
     }
     
-    func setDataToDatabase(user: UserModel) {
-        if let uid = Auth.auth().currentUser?.uid {
-            do {
-                try database.collection("users").document(uid).setData(from: user, merge: true)
-                print("Document successfully written!")
-            } catch let error {
-                print("Error writing user to Firestore: \(error)")
-            }
-        } else {
-            print("*** FirebaseService: User ID is nil")
-        }
-    }
+    //    func setDataToDatabase(user: UserModel) {
+    //        if let uid = Auth.auth().currentUser?.uid {
+    //            do {
+    //                try database.collection("users").document(uid).setData(from: user, merge: true)
+    //                print("Document successfully written!")
+    //            } catch let error {
+    //                print("Error writing user to Firestore: \(error)")
+    //            }
+    //        } else {
+    //            print("*** FirebaseService: User ID is nil")
+    //        }
+    //    }
     
     func updateDatabase(with data: [String: Any]) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -109,6 +109,19 @@ class FirebaseService {
                     let data = ["profileImageUrl": downloadURL]
                     self.updateDatabase(with: data)
                 }
+            }
+        }
+    }
+    
+    func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
+        let httpsReference = storage.reference(forURL: url)
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                print("FirebaseService: downloadImage \(error)")
+            } else {
+                let image = UIImage(data: data!)!
+                completion(image)
             }
         }
     }

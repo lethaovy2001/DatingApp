@@ -23,6 +23,7 @@ class UserDetailsView: UIView {
         didSet {
             nameContainerView.viewModel = viewModel
             bioContainerView.viewModel = viewModel
+            userImageView.setImage(image: viewModel.mainImage)
             //            userImageView.setName(name: viewModel.mainImageName)
             //            cardImages = viewModel.images
         }

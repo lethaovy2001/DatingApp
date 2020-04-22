@@ -37,9 +37,9 @@ extension UserDetailsViewModel {
         return model.work
     }
     
-//    var mainImageName: String {
-//        return model.mainImageName
-//    }
+    var mainImage: UIImage {
+        return model.mainImage
+    }
 //
 //    var images: [String] {
 //        return model.imageNames
