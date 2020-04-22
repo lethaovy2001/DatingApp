@@ -100,6 +100,10 @@ class MainView: UIView {
     func addDelegate(viewController: MainViewController) {
         swipeStackContainer.addDelegate(viewController: viewController)
     }
+    
+    func reloadSwipeViews() {
+        swipeStackContainer.reloadData()
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

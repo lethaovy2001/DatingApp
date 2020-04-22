@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SwipeCardView: UIView {
     private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
@@ -24,13 +25,24 @@ class SwipeCardView: UIView {
     }()
     
     var delegate: SwipeCardDelegate?
-    var dataSource : SwipeCardModel? {
+    var dataSource: UserModel? {
         didSet {
             guard let name = dataSource?.name else { return }
-            guard let age = dataSource?.age else { return }
-            guard let image = dataSource?.imageName[0] else { return }
-            self.nameLabel.text = "\(name), \(age)"
-            cardImageView.image = UIImage(named: image)
+            guard let birthday = dataSource?.birthday else { return }
+            let calendar = Calendar(identifier: .gregorian)
+            var ageText: String {
+                let today = calendar.startOfDay(for: Date())
+                let birthday = calendar.startOfDay(for: birthday)
+                let components = calendar.dateComponents([.year],
+                                                         from: birthday,
+                                                         to: today)
+                let age = components.year!
+                return "\(age)"
+            }
+//            guard let age = dataSource?.age else { return }
+//            guard let image = dataSource?.imageName[0] else { return }
+            self.nameLabel.text = "\(name), \(ageText)"
+            //cardImageView.image = UIImage(named: image)
         }
     }
     
