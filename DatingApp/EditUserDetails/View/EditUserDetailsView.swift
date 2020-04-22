@@ -27,6 +27,7 @@ class EditUserDetailsView: UIView {
             nameLabel.setText(text: viewModel.name)
             workTextField.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
+            mainProfileImage.setImage(image: viewModel.mainImage)
             //            mainProfileImage.setName(name: viewModel.mainImageName)
             //            cardImages = viewModel.images
             //            if let cardImages = cardImages {
@@ -184,8 +185,8 @@ class EditUserDetailsView: UIView {
         return workTextField.text ?? "Unknown workplace"
     }
     
-    func getImage() -> UIImage {
-        return imageButtonsContainerView.getImage()
+    func getImages() -> [UIImage] {
+        return imageButtonsContainerView.getImages()
     }
 }
 

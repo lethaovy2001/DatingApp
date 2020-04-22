@@ -76,6 +76,12 @@ class FirebaseService {
         }
     }
     
+    func updateImageDatabase(with data: [String: Any]) {
+        if let uid = Auth.auth().currentUser?.uid {
+            database.collection("profile_images").document(uid).setData(data, merge: true)
+        }
+    }
+    
     func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("users").document(uid).addSnapshotListener {
@@ -96,9 +102,19 @@ class FirebaseService {
         }
     }
     
-    func uploadImageOntoStorage(image: UIImage) {
+    func uploadImages(images: [UIImage]){
+        if let uid = Auth.auth().currentUser?.uid {
+            var index = 0
+            for image in images {
+                uploadImageOntoStorage(image: image, uid: uid, index: index)
+                index += 1
+            }
+        }
+    }
+    
+    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int) {
         let imageName = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("profile_images").child("\(imageName).jpg")
+        let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
         if let uploadData = image.jpegData(compressionQuality: 0.1) {
             storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
@@ -106,8 +122,8 @@ class FirebaseService {
                         print("FirebaseService: error in downloadURL")
                         return
                     }
-                    let data = ["profileImageUrl": downloadURL]
-                    self.updateDatabase(with: data)
+                    let data = ["image\(index)": downloadURL]
+                    self.updateImageDatabase(with: data)
                 }
             }
         }
@@ -115,7 +131,6 @@ class FirebaseService {
     
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("FirebaseService: downloadImage \(error)")
@@ -125,5 +140,4 @@ class FirebaseService {
             }
         }
     }
-    
 }

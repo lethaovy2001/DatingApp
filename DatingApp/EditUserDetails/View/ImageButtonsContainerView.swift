@@ -104,8 +104,16 @@ class ImageButtonsContainerView: UIView {
         }
     }
     
-    func getImage() -> UIImage {
-        return selectedButton.currentImage ?? UIImage(named: "Vy")!
+    func getImages() -> [UIImage] {
+        var images: [UIImage] = []
+        for image in imageButtons {
+            if image.checkIfHasImage() {
+                if let currentImage = image.currentImage {
+                    images.append(currentImage)
+                }
+            }
+        }
+        return images
     }
 }
 
