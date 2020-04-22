@@ -70,6 +70,7 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func saveButtonPressed() {
+        firebaseService.uploadImageOntoStorage(image: editUserDetailsView.getImage())
         let dictionary: [String: Any] = [
             "bio": editUserDetailsView.getBioText(),
             "work": editUserDetailsView.getWorkText(),

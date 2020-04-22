@@ -183,6 +183,10 @@ class EditUserDetailsView: UIView {
     func getWorkText() -> String {
         return workTextField.text ?? "Unknown workplace"
     }
+    
+    func getImage() -> UIImage {
+        return imageButtonsContainerView.getImage()
+    }
 }
 
 // MARK: TextViewEditingDelegate

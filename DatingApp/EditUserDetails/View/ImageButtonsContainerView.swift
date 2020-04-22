@@ -103,6 +103,10 @@ class ImageButtonsContainerView: UIView {
             imageButtons[i-1].tag = i
         }
     }
+    
+    func getImage() -> UIImage {
+        return selectedButton.currentImage ?? UIImage(named: "Vy")!
+    }
 }
 
 // MARK: TapGestureDelegate

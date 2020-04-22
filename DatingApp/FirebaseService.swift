@@ -12,9 +12,11 @@ import FirebaseFirestoreSwift
 
 class FirebaseService {
     private var database: Firestore!
+    private var storage: Storage!
     
     init() {
         database = Firestore.firestore()
+        storage = Storage.storage()
     }
     
     func getUserID() -> String? {
@@ -93,4 +95,22 @@ class FirebaseService {
             print("*** FirebaseService: User ID is nil")
         }
     }
+    
+    func uploadImageOntoStorage(image: UIImage) {
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("profile_images").child("\(imageName).jpg")
+        if let uploadData = image.jpegData(compressionQuality: 0.1) {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    let data = ["profileImageUrl": downloadURL]
+                    self.updateDatabase(with: data)
+                }
+            }
+        }
+    }
+    
 }
