@@ -45,12 +45,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setSelectors()
         mainView.setDataSource(uiViewController: self)
         mainView.addDelegate(viewController: self)
+        fetchAllUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        fetchAllUsers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
