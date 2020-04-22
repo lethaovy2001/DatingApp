@@ -39,10 +39,10 @@ class SwipeCardView: UIView {
                 let age = components.year!
                 return "\(age)"
             }
-//            guard let age = dataSource?.age else { return }
-//            guard let image = dataSource?.imageName[0] else { return }
             self.nameLabel.text = "\(name), \(ageText)"
-            //cardImageView.image = UIImage(named: image)
+            //            guard let age = dataSource?.age else { return }
+            //            guard let image = dataSource?.imageName[0] else { return }
+            //            cardImageView.image = UIImage(named: image)
         }
     }
     
