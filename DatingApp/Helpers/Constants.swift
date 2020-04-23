@@ -28,10 +28,10 @@ struct Constants {
         static let inputTextViewHeight: CGFloat = 36
         
         // MARK: Swipe
-        static let swipeImageCornerRadius = CGFloat(20)
+        static let swipeImageCornerRadius: CGFloat = 20
         
         // MARK: Button
-        static let likeButtonHeight = CGFloat(70)
+        static let likeButtonHeight: CGFloat = 70
     }
     
     // MARK: ID
@@ -45,5 +45,9 @@ struct Constants {
     static let meterToMile: Double = 1609
     
     
+    
+    struct NotificationKeys {
+        static let selectAddImage = "selectAddImage"
+    }
 }
 

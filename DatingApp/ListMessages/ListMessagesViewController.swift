@@ -82,7 +82,7 @@ extension ListMessagesViewController: UITableViewDelegate {
     
 }
 
-extension ListMessagesViewController: TapGestureDelegate {
+extension ListMessagesViewController: ImageTapGestureDelegate {
     //TODO: pushVC to UserDetailsVC
     func didTap() {
         print("DID TAP")

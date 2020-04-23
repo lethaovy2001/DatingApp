@@ -55,10 +55,15 @@
 		38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */; };
 		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
 		38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */; };
+		38DACAF6244A68B600F4E60E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAF5244A68B600F4E60E /* FirebaseService.swift */; };
+		38DACAFA244B89E300F4E60E /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */; };
+		38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */; };
+		38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFD244BAB9000F4E60E /* BioContainerView.swift */; };
+		38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
-		38DFEA712446647D00F1BE0D /* TapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */; };
+		38DFEA712446647D00F1BE0D /* ImageTapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA702446647D00F1BE0D /* ImageTapGestureDelegate.swift */; };
 		38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA742449166C00F1BE0D /* CustomAlertView.swift */; };
 		38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
@@ -116,6 +121,11 @@
 		38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
 		38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUserDataDelegate.swift; sourceTree = "<group>"; };
+		38DACAF5244A68B600F4E60E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
+		38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameContainerView.swift; sourceTree = "<group>"; };
+		38DACAFD244BAB9000F4E60E /* BioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioContainerView.swift; sourceTree = "<group>"; };
+		38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonsContainerView.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -205,6 +215,7 @@
 			children = (
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
+				38DACAF5244A68B600F4E60E /* FirebaseService.swift */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
 				383E46DC244265450012977A /* UserDetails */,
@@ -235,6 +246,7 @@
 				383E46F7244265980012977A /* CustomTextField.swift */,
 				383E46F3244265970012977A /* CustomTextView.swift */,
 				383E46F4244265980012977A /* RoundedButton.swift */,
+				38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,6 +291,8 @@
 			isa = PBXGroup;
 			children = (
 				383E46E3244265450012977A /* UserDetailsView.swift */,
+				38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */,
+				38DACAFD244BAB9000F4E60E /* BioContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,6 +320,7 @@
 				383E46EC244265570012977A /* EditUserDetailsView.swift */,
 				383E46ED244265570012977A /* SectionTitleLabel.swift */,
 				383E46EE244265570012977A /* AddImageButton.swift */,
+				38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -316,7 +331,7 @@
 				383E470A244267000012977A /* KeyboardDelegate.swift */,
 				383E470B244267000012977A /* TextViewEditingDelegate.swift */,
 				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
-				38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */,
+				38DFEA702446647D00F1BE0D /* ImageTapGestureDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -562,12 +577,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
+				38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
-				38DFEA712446647D00F1BE0D /* TapGestureDelegate.swift in Sources */,
+				38DFEA712446647D00F1BE0D /* ImageTapGestureDelegate.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */,
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
+				38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */,
 				383E4704244265990012977A /* CustomScrollView.swift in Sources */,
@@ -578,6 +595,7 @@
 				383E46F0244265570012977A /* EditUserDetailsView.swift in Sources */,
 				383E46F2244265570012977A /* AddImageButton.swift in Sources */,
 				383E46E6244265450012977A /* UserModel.swift in Sources */,
+				38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */,
 				383E470C244267000012977A /* KeyboardDelegate.swift in Sources */,
 				383E4701244265990012977A /* CustomTextField.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
@@ -586,6 +604,7 @@
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
 				383E46F1244265570012977A /* SectionTitleLabel.swift in Sources */,
 				383E4703244265990012977A /* CustomImageView.swift in Sources */,
+				38DACAFA244B89E300F4E60E /* CustomNavigationView.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
 				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
 				38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */,
@@ -596,6 +615,7 @@
 				383E4705244265990012977A /* CustomButton.swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
 				38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */,
+				38DACAF6244A68B600F4E60E /* FirebaseService.swift in Sources */,
 				384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */,
 				3854F6522437DA7400229E16 /* UserDefaults+helper.swift in Sources */,
 				38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */,
