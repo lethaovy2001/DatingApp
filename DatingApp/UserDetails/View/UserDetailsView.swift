@@ -10,28 +10,21 @@ import UIKit
 
 class UserDetailsView: UIView {
     private let userImageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 10)
-    private var nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .bold)
-    private let ageLabel = CustomLabel(text: ", 19", textColor: .darkGray, textSize: 28, textWeight: .medium)
-    private let nameContainerView = CustomContainerView()
-    private let workButton = CustomButton(imageName: "bag", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let workLabel = CustomLabel(text: "Unknown workplace", textColor: .lightGray, textSize: 16, textWeight: .medium)
-    private let locationButton = CustomButton(imageName: "mappin", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let locationLabel = CustomLabel(text: "Less than a kilometer away", textColor: .lightGray, textSize: 16, textWeight: .medium)
-    private let bioContainerView = CustomContainerView()
-    private let bioLabel = SectionTitleLabel(title: "Bio")
-    private let bioTextView = CustomTextView(text: "No bio")
+    private let nameContainerView = NameContainerView()
+    private let bioContainerView = BioContainerView()
     private let scrollView = CustomScrollView()
-    private let editButton = CustomButton(imageName: "pencil.circle.fill", size: 100, color: UIColor.amour, cornerRadius: 50, shadowColor: UIColor.lightGray, backgroundColor: .white)
     private var cardImages: [String]?
     private var currentImage = 0
+    private let customNavigationView = CustomNavigationView(type: .userDetails)
+    private let profileLabel = CustomLabel(text: "Profile", textColor: .darkGray, textSize: 30, textWeight: .heavy)
+    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let editButton = CustomButton(imageName: "pencil", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     var viewModel: UserDetailsViewModel! {
         didSet {
-            nameLabel.setText(text: viewModel.name)
-            ageLabel.setText(text: ", \(viewModel.age)")
-            workLabel.setText(text: viewModel.work)
-            bioTextView.setText(text: viewModel.bio)
-            userImageView.setName(name: viewModel.mainImageName)
-            cardImages = viewModel.images
+            nameContainerView.viewModel = viewModel
+            bioContainerView.viewModel = viewModel
+            //            userImageView.setName(name: viewModel.mainImageName)
+            //            cardImages = viewModel.images
         }
     }
     init() {
@@ -51,33 +44,32 @@ class UserDetailsView: UIView {
         setupConstraints()
         addGestures()
     }
-
+    
     private func addSubviews() {
+        addSubview(customNavigationView)
         addSubview(scrollView)
         scrollView.addSubview(userImageView)
         scrollView.addSubview(nameContainerView)
-        nameContainerView.addSubview(nameLabel)
-        nameContainerView.addSubview(ageLabel)
-        nameContainerView.addSubview(workButton)
-        nameContainerView.addSubview(workLabel)
-        nameContainerView.addSubview(locationLabel)
-        nameContainerView.addSubview(locationButton)
         scrollView.addSubview(bioContainerView)
-        bioContainerView.addSubview(bioLabel)
-        bioContainerView.addSubview(bioTextView)
-        addSubview(editButton)
+        bringSubviewToFront(customNavigationView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            customNavigationView.heightAnchor.constraint(equalToConstant: 100),
+        ])
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
             scrollView.leftAnchor.constraint(equalTo: self.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: self.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
         NSLayoutConstraint.activate([
             userImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 12),
-            userImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12),
+            userImageView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 12),
             userImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
             userImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1.75/3)
         ])
@@ -85,33 +77,7 @@ class UserDetailsView: UIView {
             nameContainerView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 12),
             nameContainerView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 12),
             nameContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
-            nameContainerView.bottomAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 12)
-        ])
-        NSLayoutConstraint.activate([
-            nameLabel.leftAnchor.constraint(equalTo: nameContainerView.leftAnchor, constant: 12),
-            nameLabel.topAnchor.constraint(equalTo: nameContainerView.topAnchor, constant: 6),
-        ])
-        NSLayoutConstraint.activate([
-            ageLabel.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            ageLabel.leftAnchor.constraint(equalTo: nameLabel.rightAnchor),
-        ])
-        NSLayoutConstraint.activate([
-            workButton.leftAnchor.constraint(equalTo: nameContainerView.leftAnchor, constant: 12),
-            workButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 6),
-            workButton.widthAnchor.constraint(equalToConstant: 14)
-        ])
-        NSLayoutConstraint.activate([
-            workLabel.bottomAnchor.constraint(equalTo: workButton.bottomAnchor),
-            workLabel.leftAnchor.constraint(equalTo: workButton.rightAnchor, constant: 2),
-        ])
-        NSLayoutConstraint.activate([
-            locationButton.leftAnchor.constraint(equalTo: nameContainerView.leftAnchor, constant: 12),
-            locationButton.topAnchor.constraint(equalTo: workLabel.bottomAnchor, constant: 6),
-            locationButton.widthAnchor.constraint(equalToConstant: 14)
-        ])
-        NSLayoutConstraint.activate([
-            locationLabel.bottomAnchor.constraint(equalTo: locationButton.bottomAnchor),
-            locationLabel.leftAnchor.constraint(equalTo: locationButton.rightAnchor, constant: 2),
+            nameContainerView.heightAnchor.constraint(equalToConstant: 120)
         ])
         NSLayoutConstraint.activate([
             bioContainerView.topAnchor.constraint(equalTo: nameContainerView.bottomAnchor, constant: 12),
@@ -119,26 +85,14 @@ class UserDetailsView: UIView {
             bioContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
             bioContainerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 12)
         ])
-        NSLayoutConstraint.activate([
-            bioLabel.leftAnchor.constraint(equalTo: bioContainerView.leftAnchor, constant: 12),
-            bioLabel.topAnchor.constraint(equalTo: bioContainerView.topAnchor, constant: 6),
-        ])
-        NSLayoutConstraint.activate([
-            bioTextView.topAnchor.constraint(equalTo: bioLabel.bottomAnchor),
-            bioTextView.leftAnchor.constraint(equalTo: bioContainerView.leftAnchor, constant: 12),
-            bioTextView.rightAnchor.constraint(equalTo: bioContainerView.rightAnchor, constant: -12),
-            bioTextView.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor, constant: -12)
-        ])
-        NSLayoutConstraint.activate([
-            editButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -36),
-            editButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
-            editButton.heightAnchor.constraint(equalToConstant: 60),
-            editButton.widthAnchor.constraint(equalToConstant: 60),
-        ])
     }
     
     func setEditSelector(selector: Selector, target: UIViewController) {
-        editButton.addTarget(target, action: selector, for: .touchUpInside)
+        customNavigationView.setRightButtonSelector(selector: selector, target: target)
+    }
+    
+    func setBackButtonSelector(selector: Selector, target: UIViewController) {
+        customNavigationView.setleftButtonSelector(selector: selector, target: target)
     }
     
     // MARK: Gestures

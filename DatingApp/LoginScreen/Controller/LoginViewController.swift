@@ -7,10 +7,6 @@
 //
 
 import UIKit
-import FBSDKLoginKit
-import FBSDKCoreKit
-import Firebase
-import FirebaseFirestoreSwift
 
 class LoginViewController: UIViewController {
     private let mainView:LoginMainView = {
@@ -18,16 +14,17 @@ class LoginViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private var database: Firestore!
     private var facebookAuth: FacebookAuthenticator!
+    private var firebaseService: FirebaseService!
+    private var modelController = MainModelController()
     
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        database = Firestore.firestore()
         facebookAuth = FacebookAuthenticator(viewController: self)
+        firebaseService = FirebaseService()
         setupUI()
-        mainView.setLoginSelector(selector: #selector(loginWithFacebook), target: self)
+        setSelectors()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,47 +43,25 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    // MARK: Firebase
-    private func authenticateWithFirebase(_ completion : @escaping()->()) {
-        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if error != nil {
-                print(String(describing: error))
-                return
-            }
-            print("Successfully log user into firebase")
-            completion()
-        }
-    }
-    
-    private func updateDatabase(with uid: String, user: UserModel) {
-        do {
-            try database.collection("users").document(uid).setData(from: user)
-        } catch let error {
-            print("Error writing user to Firestore: \(error)")
-        }
+    private func setSelectors() {
+        mainView.setLoginSelector(selector: #selector(loginWithFacebook), target: self)
     }
     
     //MARK: Actions
     @objc func loginWithFacebook() {
-        facebookAuth.facebookUserDataDelegate = self
         facebookAuth.loginPressed {
-            self.authenticateWithFirebase {
-                self.facebookAuth.getFBUserInfo()
-                self.goToMainViewController()
-            }
+            self.firebaseService.authenticateWithFirebase(accessToken: self.facebookAuth.getFBAccessToken(), {
+                self.facebookAuth.getFBUserInfo({ data in
+                    self.modelController.update(data: data)
+                    self.goToMainViewController()
+                })
+            })
         }
+       
     }
     
     private func goToMainViewController() {
         self.navigationController?.popToRootViewController(animated: false)
-    }
-}
-
-extension LoginViewController: FacebookUserDataDelegate {
-    func didGetUserInfo(user: UserModel) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        self.updateDatabase(with: userID, user: user)
     }
 }
 

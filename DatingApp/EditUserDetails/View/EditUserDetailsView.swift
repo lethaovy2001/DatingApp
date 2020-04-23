@@ -9,16 +9,7 @@
 import UIKit
 
 class EditUserDetailsView: UIView {
-    private let verticalStackView = CustomStackView(axis: .vertical)
-    private let horizontalStackView1 = CustomStackView(axis: .horizontal)
-    private let horizontalStackView2 = CustomStackView(axis: .horizontal)
-    private let addImageButton1 = AddImageButton()
-    private let addImageButton2 = AddImageButton()
-    private let addImageButton3 = AddImageButton()
-    private let addImageButton4 = AddImageButton()
-    private let addImageButton5 = AddImageButton()
-    private let addImageButton6 = AddImageButton()
-    private var imageButtons: [AddImageButton] = []
+    private let imageButtonsContainerView = ImageButtonsContainerView()
     private var featureLabel = SectionTitleLabel(title: "Featured")
     private let bioLabel = SectionTitleLabel(title: "Bio")
     private let detailsLabel = SectionTitleLabel(title: "Details")
@@ -29,23 +20,25 @@ class EditUserDetailsView: UIView {
     private let mainProfileImage = CustomImageView(imageName: "Vy.jpg", cornerRadius: 50)
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     private let scrollView = CustomScrollView()
+    private let customNavigationView = CustomNavigationView(type: .editUserDetails)
     private var cardImages: [String]?
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameLabel.setText(text: viewModel.name)
             workTextField.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
-            mainProfileImage.setName(name: viewModel.mainImageName)
-            cardImages = viewModel.images
-            if let cardImages = cardImages {
-                var index = 0
-                for image in cardImages {
-                    imageButtons[index].setImage(name: image)
-                    index = index + 1
-                }
-            }
+            //            mainProfileImage.setName(name: viewModel.mainImageName)
+            //            cardImages = viewModel.images
+            //            if let cardImages = cardImages {
+            //                var index = 0
+            //                for image in cardImages {
+            //                    imageButtons[index].setImage(name: image)
+            //                    index = index + 1
+            //                }
+            //            }
         }
     }
+    private var modelController = MainModelController()
     
     // MARK: Init
     init() {
@@ -62,7 +55,6 @@ class EditUserDetailsView: UIView {
         setUpSelf()
         addSubviews()
         setUpConstraints()
-        appendImageButtons()
     }
     
     private func setUpSelf() {
@@ -70,13 +62,9 @@ class EditUserDetailsView: UIView {
         self.backgroundColor = .white
     }
     
-    private func appendImageButtons() {
-        imageButtons = [addImageButton1, addImageButton2, addImageButton3, addImageButton4, addImageButton5, addImageButton6]
-    }
-    
     private func addSubviews() {
-        self.addSubview(scrollView)
-        scrollView.addSubview(verticalStackView)
+        addSubview(customNavigationView)
+        addSubview(scrollView)
         scrollView.addSubview(bioLabel)
         scrollView.addSubview(bioTextView)
         scrollView.addSubview(detailsLabel)
@@ -86,25 +74,25 @@ class EditUserDetailsView: UIView {
         scrollView.addSubview(mainProfileImage)
         scrollView.addSubview(nameLabel)
         scrollView.addSubview(featureLabel)
-        verticalStackView.addArrangedSubview(horizontalStackView1)
-        verticalStackView.addArrangedSubview(horizontalStackView2)
-        horizontalStackView1.addArrangedSubview(addImageButton1)
-        horizontalStackView1.addArrangedSubview(addImageButton2)
-        horizontalStackView1.addArrangedSubview(addImageButton3)
-        horizontalStackView2.addArrangedSubview(addImageButton4)
-        horizontalStackView2.addArrangedSubview(addImageButton5)
-        horizontalStackView2.addArrangedSubview(addImageButton6)
+        scrollView.addSubview(imageButtonsContainerView)
+        bringSubviewToFront(customNavigationView)
     }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            customNavigationView.heightAnchor.constraint(equalToConstant: 100),
+        ])
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
             scrollView.leftAnchor.constraint(equalTo: self.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: self.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
         NSLayoutConstraint.activate([
-            mainProfileImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 12),
+            mainProfileImage.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
             mainProfileImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             mainProfileImage.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4),
             mainProfileImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4)
@@ -136,15 +124,15 @@ class EditUserDetailsView: UIView {
             featureLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
         ])
         NSLayoutConstraint.activate([
-            verticalStackView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: featureLabel.bottomAnchor, constant: 12),
-            verticalStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-            verticalStackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
-            verticalStackView.heightAnchor.constraint(equalTo: verticalStackView.widthAnchor, multiplier: 2/3)
+            imageButtonsContainerView.topAnchor.constraint(equalTo: featureLabel.bottomAnchor, constant: 12),
+            imageButtonsContainerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
+            imageButtonsContainerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            imageButtonsContainerView.heightAnchor.constraint(equalTo: imageButtonsContainerView.widthAnchor, multiplier: 2/3)
         ])
         NSLayoutConstraint.activate([
             saveButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             saveButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            saveButton.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 36),
+            saveButton.topAnchor.constraint(equalTo: imageButtonsContainerView.bottomAnchor, constant: 36),
             saveButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
@@ -159,14 +147,13 @@ class EditUserDetailsView: UIView {
     func addDelegate(viewController: EditUserDetailsViewController) {
         bioTextView.delegate = viewController
         viewController.textViewEditingDelegate = self
+        imageButtonsContainerView.addDelegate(viewController: viewController)
     }
     
     func addTapGesture(target: UIViewController, selector: Selector) {
-            let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-                target: target,
-                action: selector)
-            self.addGestureRecognizer(tapRecognizer)
-            self.isUserInteractionEnabled = true
+        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: target, action: selector)
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
     }
     
     func setLogoutSelector(selector: Selector, target: UIViewController) {
@@ -176,12 +163,32 @@ class EditUserDetailsView: UIView {
     func setSaveSelector(selector: Selector, target: UIViewController) {
         saveButton.addTarget(target, action: selector, for: .touchUpInside)
     }
+    
+    func setBackSelector(selector: Selector, target: UIViewController) {
+        customNavigationView.setleftButtonSelector(selector: selector, target: target)
+    }
+    
+    func setAddImageSelector(selector: Selector, target: UIViewController) {
+        imageButtonsContainerView.setAddImageSelector(selector: selector, target: target)
+    }
+    
+    func setSelectedButton(sender: UIButton) {
+        imageButtonsContainerView.setSelectedButton(sender: sender)
+    }
+    
+    func getBioText() -> String {
+        return bioTextView.text
+    }
+    
+    func getWorkText() -> String {
+        return workTextField.text ?? "Unknown workplace"
+    }
 }
 
 // MARK: TextViewEditingDelegate
 extension EditUserDetailsView: TextViewEditingDelegate {
     func didChange() {
-         bioTextView.calculateBestHeight()
+        bioTextView.calculateBestHeight()
     }
     
     func beginEditing() {
@@ -198,4 +205,3 @@ extension EditUserDetailsView: TextViewEditingDelegate {
         }
     }
 }
-

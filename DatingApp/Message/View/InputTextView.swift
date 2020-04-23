@@ -19,6 +19,7 @@ class InputTextView: UITextView {
         self.textColor = .lightGray
         self.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         self.isScrollEnabled = false
+        self.autocorrectionType = .no
         self.translatesAutoresizingMaskIntoConstraints = false
         self.isScrollable = isScrollable
     }
