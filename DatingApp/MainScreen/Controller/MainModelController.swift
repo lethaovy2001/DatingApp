@@ -12,7 +12,7 @@ import Firebase
 class MainModelController {
     private var firebaseService = FirebaseService()
     private var users = [SwipeCardModel]()
-    private var user = UserModel(name: "Unknown", birthday: Date(), work: "Unknown workplace", bio: "No bio", gender: "Female", mainImage: UIImage(named: "Vy")!)
+    private var user = UserModel(name: "Unknown", birthday: Date(), work: "Unknown workplace", bio: "No bio", gender: "Female", images: [UIImage()])
     
     func getUsers() -> [SwipeCardModel] {
         return users
@@ -50,12 +50,9 @@ class MainModelController {
             let gender = dictionary["gender"] as? String,
             let birthday = dictionary["birthday"] as? String {
             if let date = dateFormatter.date(from: birthday) {
-                //                let user = UserModel(name: firstName, birthday: date, work: "UW", bio: "", gender: gender)
-                //                self.user = user
                 let data: [String: Any] = ["first_name": firstName, "gender": gender, "birthday": date]
                 firebaseService.updateDatabase(with: data)
             }
-            
         } else {
             print("*** MainModelController: Unable to update()")
         }
@@ -63,14 +60,14 @@ class MainModelController {
     
     func getData(_ completion : @escaping(UserModel)->()) {
         firebaseService.getUserInfoFromDatabase({ values in
-            if let birthday = values["birthday"] as? Timestamp, let imageURL = values["profileImageUrl"] as? String {
-                let date = self.firebaseService.convertToDate(timestamp: birthday)
-                self.firebaseService.downloadImageFromStorage(url: imageURL, { image in
-                    let user = UserModel(name: values["first_name"] as! String, birthday: date, work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String, mainImage: image)
+            self.firebaseService.getUserImagesFromDatabase({ images in
+                if let birthday = values["birthday"] as? Timestamp {
+                    let date = self.firebaseService.convertToDate(timestamp: birthday)
+                    let user = UserModel(name: values["first_name"] as! String, birthday: date, work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String, images: images)
                     self.user = user
                     completion(user)
-                })
-            }
+                }
+            })
         })
     }
 }

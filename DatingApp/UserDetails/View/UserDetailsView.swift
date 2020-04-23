@@ -13,7 +13,7 @@ class UserDetailsView: UIView {
     private let nameContainerView = NameContainerView()
     private let bioContainerView = BioContainerView()
     private let scrollView = CustomScrollView()
-    private var cardImages: [String]?
+    private var cardImages: [UIImage]?
     private var currentImage = 0
     private let customNavigationView = CustomNavigationView(type: .userDetails)
     private let profileLabel = CustomLabel(text: "Profile", textColor: .darkGray, textSize: 30, textWeight: .heavy)
@@ -23,9 +23,8 @@ class UserDetailsView: UIView {
         didSet {
             nameContainerView.viewModel = viewModel
             bioContainerView.viewModel = viewModel
-            userImageView.setImage(image: viewModel.mainImage)
-            //            userImageView.setName(name: viewModel.mainImageName)
-            //            cardImages = viewModel.images
+            cardImages = viewModel.images
+            userImageView.setImage(image: viewModel.images[0])
         }
     }
     init() {
@@ -132,7 +131,7 @@ class UserDetailsView: UIView {
                     currentImage = currentImage + 1
                 }
             }
-            userImageView.image = UIImage(named: cardImages[currentImage])
+            userImageView.setImage(image: cardImages[currentImage])
         }
     }
 }

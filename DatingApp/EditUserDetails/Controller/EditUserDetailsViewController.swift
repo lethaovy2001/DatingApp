@@ -70,14 +70,12 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func saveButtonPressed() {
-        var urls: [String] = []
         let dictionary: [String: Any] = [
             "bio": editUserDetailsView.getBioText(),
             "work": editUserDetailsView.getWorkText(),
         ]
         self.firebaseService.uploadImages(images: editUserDetailsView.getImages())
         self.firebaseService.updateDatabase(with: dictionary)
-        
         
         let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: false)
