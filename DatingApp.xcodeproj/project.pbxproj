@@ -63,9 +63,9 @@
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
-		38DFEA712446647D00F1BE0D /* ImageTapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA702446647D00F1BE0D /* ImageTapGestureDelegate.swift */; };
 		38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA742449166C00F1BE0D /* CustomAlertView.swift */; };
 		38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */; };
+		38F7672524525BE900B49F62 /* ImageTapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -129,9 +129,9 @@
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
-		38DFEA702446647D00F1BE0D /* TapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureDelegate.swift; sourceTree = "<group>"; };
 		38DFEA742449166C00F1BE0D /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchLocationAnimation.json; sourceTree = "<group>"; };
+		38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTapGestureDelegate.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -331,7 +331,7 @@
 				383E470A244267000012977A /* KeyboardDelegate.swift */,
 				383E470B244267000012977A /* TextViewEditingDelegate.swift */,
 				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
-				38DFEA702446647D00F1BE0D /* ImageTapGestureDelegate.swift */,
+				38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -579,7 +579,6 @@
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
-				38DFEA712446647D00F1BE0D /* ImageTapGestureDelegate.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */,
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
@@ -594,6 +593,7 @@
 				383E46EF244265570012977A /* EditUserDetailsViewController.swift in Sources */,
 				383E46F0244265570012977A /* EditUserDetailsView.swift in Sources */,
 				383E46F2244265570012977A /* AddImageButton.swift in Sources */,
+				38F7672524525BE900B49F62 /* ImageTapGestureDelegate.swift in Sources */,
 				383E46E6244265450012977A /* UserModel.swift in Sources */,
 				38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */,
 				383E470C244267000012977A /* KeyboardDelegate.swift in Sources */,
