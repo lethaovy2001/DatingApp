@@ -23,7 +23,7 @@ struct Constants {
     
     struct PaddingValues {
         // MARK: Input Container
-        static let inputContainerHeight: CGFloat = 60
+        static let inputContainerHeight: CGFloat = 54
         static let inputPadding: CGFloat = 12
         static let inputTextViewHeight: CGFloat = 36
         

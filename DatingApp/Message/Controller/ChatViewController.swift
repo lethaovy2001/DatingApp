@@ -27,6 +27,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.addDelegate(viewController: self)
         chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
+        chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
     }
@@ -56,8 +57,16 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
     }
     
+    // MARK: Actions
     @objc func backPressed(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func addImageButtonPressed() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
     }
 }
 
@@ -130,6 +139,25 @@ extension ChatViewController {
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+}
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        if let selectedImage = selectedImageFromPicker {
+            //imageTapGestureDelegate?.setImage(image: selectedImage)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
