@@ -7,17 +7,14 @@
 //
 
 import UIKit
-import Firebase
 
 class ChatViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
     private let chatView: ChatView = {
         let view = ChatView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let firebaseService = FirebaseService()
-    private var messages = [Message]()
+    private let modelController = ChatModelController()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
@@ -67,23 +64,13 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func getMessages() {
-        firebaseService.getMessages(toId: "2", { data in
-            for messageId in data {
-                self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
-                    if let birthday = messageData["time"] as? Timestamp {
-                        let date = self.firebaseService.convertToDate(timestamp: birthday)
-                        let message = Message(fromId: messageData["fromId"] as! String, toId: messageData["toId"] as! String, text: messageData["text"] as! String, time: date as! Date)
-                        self.messages.append(message)
-                        
-                        DispatchQueue.main.async {
-                            self.chatView.collectionView.reloadData()
-                            let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
-                            self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
-                        }
-                    }
-                })
+        modelController.getMessagesFromDatabase {
+            DispatchQueue.main.async {
+                self.chatView.collectionView.reloadData()
+                let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
+                self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
-        })
+        }
     }
     
     // MARK: Actions
@@ -94,14 +81,11 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @objc func sendButtonPressed(){
         //TODO: Remove mock data
         let message: [String: Any] = [
-            "fromId": firebaseService.getUserID()!,
             "toId": "2",
             "time": Date(),
             "text": chatView.getInputText()
         ]
-        firebaseService.saveMessageToDatabase(with: message, { messageId in
-            self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)
-        })
+        modelController.updateMessageToDatabase(message: message)
         chatView.setEmptyInputText()
     }
     
@@ -116,20 +100,19 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
 // MARK: UICollectionView
 extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count
+        return modelController.getMessages().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        
-        let message = messages[indexPath.item]
+        let message = modelController.getMessages()[indexPath.item]
         cell.textView.text = message.text
         cell.message = message
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let message = messages[indexPath.item]
+        let message = modelController.getMessages()[indexPath.item]
         let text = message.text
         let width = UIScreen.main.bounds.width
         let height = estimatedFrameForText(text: text).height + 20
