@@ -69,7 +69,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private func getMessages() {
         firebaseService.getMessages(toId: "2", { data in
             for messageId in data {
-                self.firebaseService.getUserMessage(with: messageId.key, { messageData in
+                self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
                     if let birthday = messageData["time"] as? Timestamp {
                         let date = self.firebaseService.convertToDate(timestamp: birthday)
                         let message = Message(fromId: messageData["fromId"] as! String, toId: messageData["toId"] as! String, text: messageData["text"] as! String, time: date as! Date)

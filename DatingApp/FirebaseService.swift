@@ -104,13 +104,12 @@ class FirebaseService {
                 completion(ref!.documentID)
             }
         })
-        
     }
     
     func updateMessageReference(toId: String, messageId: String) {
         if let fromId = Auth.auth().currentUser?.uid {
             let data = [messageId: 1]
-            database.collection("user-messages").document(fromId).collection(toId).document("message-list").setData(data, merge: true, completion: { error in
+            database.collection("user-messages").document(fromId).collection(toId).document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
@@ -122,23 +121,24 @@ class FirebaseService {
     
     func getMessages(toId: String, _ completion : @escaping([String: Any])->()) {
         if let fromId = Auth.auth().currentUser?.uid {
-            database.collection("user-messages").document(fromId).collection(toId).document("message-list").addSnapshotListener {
-                documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
+            database.collection("user-messages").document(fromId).collection(toId).addSnapshotListener() {
+                querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching documents: \(error!)")
                     return
                 }
-                guard let data = document.data() else {
-                    print("Document data was empty.")
-                    return
+                
+                for diff in snapshot.documentChanges {
+                    print(diff.document.data())
+                    if (diff.type == .added) {
+                        completion(diff.document.data())
+                    }
                 }
-                print("Current data: \(data)")
-                completion(data)
             }
         }
     }
     
-    func getUserMessage(with messageId: String, _ completion : @escaping([String: Any])->()) {
+    func getMessageDetails(with messageId: String, _ completion : @escaping([String: Any])->()) {
         database.collection("messages").document(messageId).getDocument { (documentSnapshot, error) in
             guard let document = documentSnapshot else {
                 print("Error fetching document: \(error!)")
