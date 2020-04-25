@@ -93,4 +93,30 @@ class FirebaseService {
             print("*** FirebaseService: User ID is nil")
         }
     }
+    
+    func saveMessageToDatabase(with data: [String: Any],_ completion : @escaping(String)->()) {
+        var ref: DocumentReference? = nil
+        ref = database.collection("messages").addDocument(data: data, completion: { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+                completion(ref!.documentID)
+            }
+        })
+        
+    }
+    
+    func updateMessageReference(toId: String, messageId: String) {
+        if let fromId = Auth.auth().currentUser?.uid {
+            let data = [messageId: 1]
+            database.collection("user-messages").document(fromId).collection(toId).document(messageId).setData(data, completion: { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Successfully update message reference")
+                }
+            })
+        }
+    }
 }

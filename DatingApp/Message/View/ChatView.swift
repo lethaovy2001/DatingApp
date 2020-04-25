@@ -145,6 +145,14 @@ class ChatView: UIView {
     func setAddImageButtonSelector(selector: Selector, target: UIViewController) {
         addImageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
+
+    func setSendButtonSelector(selector: Selector, target: UIViewController) {
+        sendButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func getInputText() -> String {
+        return inputTextView.text
+    }
     
 }
 

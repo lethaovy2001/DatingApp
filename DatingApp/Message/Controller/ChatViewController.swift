@@ -17,6 +17,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
+    private let firebaseService = FirebaseService()
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -24,10 +25,9 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setupUI()
         setupKeyboardObservers()
         registerCellId()
+        setupSelectors()
         chatView.addDelegate(viewController: self)
         chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
-        chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
-        chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
     }
@@ -57,9 +57,28 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
     }
     
+    func setupSelectors() {
+        chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
+        chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
+        chatView.setSendButtonSelector(selector: #selector(sendButtonPressed), target: self)
+    }
+    
     // MARK: Actions
     @objc func backPressed(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func sendButtonPressed(){
+        //TODO: Remove mock data
+        let message: [String: Any] = [
+            "fromId": firebaseService.getUserID()!,
+            "toId": "2",
+            "time": Date(),
+            "text": chatView.getInputText()
+        ]
+        firebaseService.saveMessageToDatabase(with: message, { messageId in
+            self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)
+        })
     }
     
     @objc func addImageButtonPressed() {
