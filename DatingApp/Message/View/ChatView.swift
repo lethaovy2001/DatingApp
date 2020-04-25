@@ -154,6 +154,10 @@ class ChatView: UIView {
         return inputTextView.text
     }
     
+    func setEmptyInputText() {
+        inputTextView.text = nil
+    }
+    
 }
 
 // MARK: TextViewEditingDelegate

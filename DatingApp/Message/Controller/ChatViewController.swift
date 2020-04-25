@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ChatViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -15,9 +16,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private let firebaseService = FirebaseService()
+    private var messages = [Message]()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
-    private let firebaseService = FirebaseService()
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -30,6 +32,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
+        getMessages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +66,26 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.setSendButtonSelector(selector: #selector(sendButtonPressed), target: self)
     }
     
+    private func getMessages() {
+        firebaseService.getMessages(toId: "2", { data in
+            for messageId in data {
+                self.firebaseService.getUserMessage(with: messageId.key, { messageData in
+                    if let birthday = messageData["time"] as? Timestamp {
+                        let date = self.firebaseService.convertToDate(timestamp: birthday)
+                        let message = Message(fromId: messageData["fromId"] as! String, toId: messageData["toId"] as! String, text: messageData["text"] as! String, time: date as! Date)
+                        self.messages.append(message)
+                        
+                        DispatchQueue.main.async {
+                            self.chatView.collectionView.reloadData()
+                            let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
+                            self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+                        }
+                    }
+                })
+            }
+        })
+    }
+    
     // MARK: Actions
     @objc func backPressed(){
         self.navigationController?.popViewController(animated: true)
@@ -79,6 +102,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         firebaseService.saveMessageToDatabase(with: message, { messageId in
             self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)
         })
+        chatView.setEmptyInputText()
     }
     
     @objc func addImageButtonPressed() {
@@ -92,17 +116,21 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
 // MARK: UICollectionView
 extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return messages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        cell.textView.text = "I love you 3000 \n lala"
+        
+        let message = messages[indexPath.item]
+        cell.textView.text = message.text
+        cell.message = message
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let text = "I love you 3000 \n lala"
+        let message = messages[indexPath.item]
+        let text = message.text
         let width = UIScreen.main.bounds.width
         let height = estimatedFrameForText(text: text).height + 20
         return CGSize(width: width, height: height)
@@ -170,7 +198,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             selectedImageFromPicker = originalImage
         }
         if let selectedImage = selectedImageFromPicker {
-            //imageTapGestureDelegate?.setImage(image: selectedImage)
+            
         }
         dismiss(animated: true, completion: nil)
     }

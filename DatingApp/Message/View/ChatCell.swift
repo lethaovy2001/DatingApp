@@ -31,10 +31,10 @@ class ChatCell: UICollectionViewCell {
         tv.isScrollEnabled = false
         return tv
     }()
-    
     private var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!
+    var message: Message?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

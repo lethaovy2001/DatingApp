@@ -110,13 +110,45 @@ class FirebaseService {
     func updateMessageReference(toId: String, messageId: String) {
         if let fromId = Auth.auth().currentUser?.uid {
             let data = [messageId: 1]
-            database.collection("user-messages").document(fromId).collection(toId).document(messageId).setData(data, completion: { error in
+            database.collection("user-messages").document(fromId).collection(toId).document("message-list").setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
                     print("Successfully update message reference")
                 }
             })
+        }
+    }
+    
+    func getMessages(toId: String, _ completion : @escaping([String: Any])->()) {
+        if let fromId = Auth.auth().currentUser?.uid {
+            database.collection("user-messages").document(fromId).collection(toId).document("message-list").addSnapshotListener {
+                documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                }
+                print("Current data: \(data)")
+                completion(data)
+            }
+        }
+    }
+    
+    func getUserMessage(with messageId: String, _ completion : @escaping([String: Any])->()) {
+        database.collection("messages").document(messageId).getDocument { (documentSnapshot, error) in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            completion(data)
         }
     }
 }
