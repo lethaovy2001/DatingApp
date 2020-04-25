@@ -14,6 +14,9 @@ class ChatModelController {
     private var messages = [Message]()
     
     func getMessages() -> [Message] {
+        self.messages.sort( by: { (message1, message2) -> Bool in
+            return (message1.time) < (message2.time)
+        })
         return messages
     }
     
@@ -21,12 +24,11 @@ class ChatModelController {
         firebaseService.getMessages(toId: "2", { data in
             for messageId in data {
                 self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
-                    if let birthday = messageData["time"] as? Timestamp {
-                        let date = self.firebaseService.convertToDate(timestamp: birthday)
-                        let message = Message(fromId: messageData["fromId"] as! String, toId: messageData["toId"] as! String, text: messageData["text"] as! String, time: date as! Date)
-                        self.messages.append(message)
-                        completion()
-                    }
+                    guard let time = messageData["time"] as? Timestamp else { return }
+                    let convertedTime = self.firebaseService.convertToDate(timestamp: time)
+                    let message = Message(fromId: messageData["fromId"] as! String, toId: messageData["toId"] as! String, text: messageData["text"] as! String, time: convertedTime)
+                    self.messages.append(message)
+                    completion()
                 })
             }
         })

@@ -57,12 +57,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
     }
     
-    func setupSelectors() {
-        chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
-        chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
-        chatView.setSendButtonSelector(selector: #selector(sendButtonPressed), target: self)
-    }
-    
     private func getMessages() {
         modelController.getMessagesFromDatabase {
             DispatchQueue.main.async {
@@ -71,6 +65,12 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
         }
+    }
+    
+    func setupSelectors() {
+        chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
+        chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
+        chatView.setSendButtonSelector(selector: #selector(sendButtonPressed), target: self)
     }
     
     // MARK: Actions
@@ -106,8 +106,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
         let message = modelController.getMessages()[indexPath.item]
-        cell.textView.text = message.text
-        cell.message = message
+        cell.viewModel = MessageViewModel(model: message)
         return cell
     }
     

@@ -22,7 +22,6 @@ class ChatCell: UICollectionViewCell {
     private let profileImageView = CircleImageView(imageName: "Vy")
     let textView: UITextView = {
         let tv = UITextView()
-        tv.text = "I love you 3000 \n lala"
         tv.font = UIFont.boldSystemFont(ofSize: 16)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor.clear
@@ -34,11 +33,20 @@ class ChatCell: UICollectionViewCell {
     private var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!
-    var message: Message?
+    var viewModel: MessageViewModel! {
+        didSet {
+            textView.text = viewModel.text
+        }
+    }
     
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: Setup
@@ -60,7 +68,6 @@ class ChatCell: UICollectionViewCell {
             profileImageView.widthAnchor.constraint(equalToConstant: 32),
             profileImageView.heightAnchor.constraint(equalToConstant: 32)
         ])
-
         containerViewRightAnchor = containerView.rightAnchor.constraint(equalTo: self.centerXAnchor, constant: 60)
         containerViewLeftAnchor = containerView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
         NSLayoutConstraint.activate([
@@ -69,16 +76,11 @@ class ChatCell: UICollectionViewCell {
             containerView.topAnchor.constraint(equalTo: self.topAnchor),
             containerView.heightAnchor.constraint(equalTo: self.heightAnchor)
         ])
-        
         NSLayoutConstraint.activate([
             textView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8),
             textView.topAnchor.constraint(equalTo: self.topAnchor),
             textView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
             textView.heightAnchor.constraint(equalTo: self.heightAnchor)
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

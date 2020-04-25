@@ -53,6 +53,7 @@
 		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		3889EB502454C942009B63C2 /* ChatModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB4F2454C942009B63C2 /* ChatModelController.swift */; };
+		3889EB522454D02E009B63C2 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB512454D02E009B63C2 /* MessageViewModel.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
 		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
 		38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */; };
@@ -118,6 +119,7 @@
 		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3889EB4F2454C942009B63C2 /* ChatModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModelController.swift; sourceTree = "<group>"; };
+		3889EB512454D02E009B63C2 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
 		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
 		38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUserDataDelegate.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				3838C0572453E30C00092341 /* Message.swift */,
+				3889EB512454D02E009B63C2 /* MessageViewModel.swift */,
 				3854F65924384F6A00229E16 /* Controller */,
 				3854F65824384F6100229E16 /* View */,
 			);
@@ -610,6 +613,7 @@
 				2415F39B24381BB00090031D /* LoginMainView.swift in Sources */,
 				383E4706244265990012977A /* CustomLabel.swift in Sources */,
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,
+				3889EB522454D02E009B63C2 /* MessageViewModel.swift in Sources */,
 				383E46FE244265990012977A /* RoundedButton.swift in Sources */,
 				383E46FF244265990012977A /* CustomContainerView.swift in Sources */,
 				38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */,
