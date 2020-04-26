@@ -18,8 +18,8 @@ class CustomImageView: UIImageView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setName(name: String) {
-        self.image = UIImage(named: name)
+    func setImage(image: UIImage) {
+        self.image = image
     }
     
     required init?(coder: NSCoder) {
