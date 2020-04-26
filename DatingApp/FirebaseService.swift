@@ -61,41 +61,6 @@ class FirebaseService {
         }
     }
     
-    func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
-        if let uid = Auth.auth().currentUser?.uid {
-            database.collection("users").document(uid).addSnapshotListener {
-                documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                guard let data = document.data() else {
-                    print("Document data was empty.")
-                    return
-                }
-                print("Current data: \(data)")
-                completion(data)
-            }
-        } else {
-            print("*** FirebaseService: User ID is nil")
-        }
-    }
-    
-    func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
-        database.collection("users").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var data: [String: [String: Any]] = [:]
-                for document in querySnapshot!.documents {
-                    data.updateValue(document.data(), forKey: document.documentID)
-                }
-                print("Sucessful get users document!")
-                completion(data)
-            }
-        }
-    }
-    
     func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
         Auth.auth().signIn(with: credential) { (authResult, error) in
@@ -193,7 +158,6 @@ extension FirebaseService {
         }
     }
     
-    
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
         httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
@@ -254,24 +218,6 @@ extension FirebaseService {
             })
         }
     }
-    
-    func downloadImages(data: [String: Any], _ completion : @escaping([UIImage])->()) {
-        var imageTemp: [UIImage] = []
-        var index = 0
-        for imageName in data {
-            if let url = data[imageName.key] as? String {
-                self.downloadImageFromStorage(url: url, { downloadedImage in
-                    imageTemp.append(downloadedImage)
-                    index += 1
-                    if (index == data.count) {
-                        completion(imageTemp)
-                    }
-                })
-                
-            }
-        }
-    }
-    
     
     func getMessageDetails(with messageId: String, _ completion : @escaping([String: Any])->()) {
         database.collection("messages").document(messageId).getDocument { (documentSnapshot, error) in
