@@ -22,7 +22,7 @@ class ChatCell: UICollectionViewCell {
     private let profileImageView = CircleImageView(imageName: "Vy")
     private let textView: UITextView = {
         let tv = UITextView()
-        tv.font = UIFont.boldSystemFont(ofSize: 20)
+        tv.font = UIFont.boldSystemFont(ofSize: Constants.textSize)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor.clear
         tv.textColor = UIColor.white
@@ -30,25 +30,17 @@ class ChatCell: UICollectionViewCell {
         tv.isScrollEnabled = false
         return tv
     }()
+    private var messageImageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 16)
     private var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!
     var viewModel: MessageViewModel! {
         didSet {
             textView.text = viewModel.text
-            switch viewModel.style {
-            case .currentUser:
-                containerView.backgroundColor = UIColor.amour
-                textView.textColor = UIColor.white
-                containerViewRightAnchor.isActive = true
-                containerViewLeftAnchor.isActive = false
-                profileImageView.isHidden = true
-            case .otherPerson:
-                containerView.backgroundColor = UIColor.inputContainerColor
-                textView.textColor = UIColor.black
-                containerViewRightAnchor.isActive = false
-                containerViewLeftAnchor.isActive = true
-                profileImageView.isHidden = false
+            setUpMessageRelationshipStyle()
+            setUpMessageType()
+            if let image = viewModel.image {
+                messageImageView.setImage(image: image)
             }
         }
     }
@@ -72,6 +64,7 @@ class ChatCell: UICollectionViewCell {
     private func addSubviews() {
         addSubview(containerView)
         addSubview(textView)
+        addSubview(messageImageView)
         addSubview(profileImageView)
     }
     
@@ -84,6 +77,8 @@ class ChatCell: UICollectionViewCell {
         ])
         containerViewRightAnchor = containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
         containerViewLeftAnchor = containerView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
+        containerViewWidthAnchor = containerView.widthAnchor.constraint(equalToConstant: 200)
+        containerViewWidthAnchor.isActive = true
         NSLayoutConstraint.activate([
             containerViewRightAnchor,
             containerViewLeftAnchor,
@@ -96,5 +91,41 @@ class ChatCell: UICollectionViewCell {
             textView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8),
             textView.heightAnchor.constraint(equalTo: self.heightAnchor)
         ])
+        NSLayoutConstraint.activate([
+            messageImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            messageImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            messageImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            messageImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor)
+        ])
+    }
+    
+    private func setUpMessageRelationshipStyle() {
+        switch viewModel.style {
+        case .currentUser:
+            containerView.backgroundColor = UIColor.amour
+            textView.textColor = UIColor.white
+            containerViewRightAnchor.isActive = true
+            containerViewLeftAnchor.isActive = false
+            profileImageView.isHidden = true
+        case .otherPerson:
+            containerView.backgroundColor = UIColor.inputContainerColor
+            textView.textColor = UIColor.black
+            containerViewRightAnchor.isActive = false
+            containerViewLeftAnchor.isActive = true
+            profileImageView.isHidden = false
+        }
+    }
+    
+    private func setUpMessageType() {
+        switch viewModel.messageType {
+        case .text:
+            containerViewWidthAnchor.constant = textView.estimatedFrameForText(text: viewModel.text).width + 36
+            textView.isHidden = false
+            messageImageView.isHidden = true
+        case .image:
+            containerViewWidthAnchor.constant = 200
+            textView.isHidden = true
+            messageImageView.isHidden = false
+        }
     }
 }

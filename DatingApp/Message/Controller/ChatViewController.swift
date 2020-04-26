@@ -15,6 +15,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return view
     }()
     private let modelController = ChatModelController()
+    private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
@@ -82,7 +83,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //TODO: Remove mock data
         let message: [String: Any] = [
             "toId": "2",
-            "time": Date(),
             "text": chatView.getInputText()
         ]
         modelController.updateMessageToDatabase(message: message)
@@ -118,16 +118,20 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let message = modelController.getMessages()[indexPath.item]
-        let text = message.text
+        var height: CGFloat = 80
+        if let text = message.text {
+            height = estimatedFrameForText(text: text).height + 20
+        } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
+            height = CGFloat(imageHeight) / CGFloat(imageWidth) * 200
+        }
         let width = UIScreen.main.bounds.width
-        let height = estimatedFrameForText(text: text).height + 20
         return CGSize(width: width, height: height)
     }
     
     private func estimatedFrameForText(text: String) -> CGRect {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textSize)], context: nil)
     }
 }
 
@@ -211,7 +215,12 @@ extension ChatViewController {
             selectedImageFromPicker = originalImage
         }
         if let selectedImage = selectedImageFromPicker {
-            
+            firebaseService.uploadMessageImageOntoStorage(image: selectedImage, { message in
+                var values: [String: Any] = message
+                //TODO: remove mock id
+                values.updateValue("2", forKey: "toId")
+                self.modelController.updateMessageToDatabase(message: values)
+            })
         }
     }
 }

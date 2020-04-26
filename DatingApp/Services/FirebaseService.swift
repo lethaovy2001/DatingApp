@@ -104,6 +104,7 @@ class FirebaseService {
 
 // MARK: Storage
 extension FirebaseService {
+    // MARK: User Profile Images
     func updateImageDatabase(with data: [String: Any]) {
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("profile_images").document(uid).setData(data, merge: true)
@@ -123,7 +124,7 @@ extension FirebaseService {
     func uploadImageOntoStorage(image: UIImage, uid: String, index: Int) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
-        if let uploadData = image.jpegData(compressionQuality: 0.1) {
+        if let uploadData = image.jpegData(compressionQuality: 1.0) {
             storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
                     guard let downloadURL = url?.absoluteString else {
@@ -132,6 +133,23 @@ extension FirebaseService {
                     }
                     let data = ["image\(index)": downloadURL]
                     self.updateImageDatabase(with: data)
+                }
+            }
+        }
+    }
+    
+    func uploadMessageImageOntoStorage(image: UIImage, _ completion: @escaping ([String: Any]) -> ()) {
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-images").child("\(imageName).jpg")
+        if let uploadData = image.jpegData(compressionQuality: 1.0) {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    let properties: [String: Any] = ["imageUrl": downloadURL as String, "imageWidth": image.size.width, "imageHeight": image.size.height]
+                    completion(properties)
                 }
             }
         }
@@ -191,10 +209,10 @@ extension FirebaseService {
 extension FirebaseService {
     func saveMessageToDatabase(with data: [String: Any],_ completion : @escaping(String)->()) {
         if let uid = Auth.auth().currentUser?.uid {
-            var updateData = data
-            updateData.updateValue(uid, forKey: "fromId")
+            var values: [String: Any] = ["fromId": uid, "time": Date()]
+            data.forEach({values[$0] = $1})
             var ref: DocumentReference? = nil
-            ref = database.collection("messages").addDocument(data: updateData, completion: { error in
+            ref = database.collection("messages").addDocument(data: values, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {

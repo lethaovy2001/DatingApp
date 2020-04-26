@@ -18,6 +18,7 @@
 		382CC7A123D5EF650043060E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A023D5EF650043060E /* Constants.swift */; };
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
+		3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD5F24562701007B4297 /* UITextView+helper.swift */; };
 		3838C0582453E30C00092341 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838C0572453E30C00092341 /* Message.swift */; };
 		383E46D32440E6A60012977A /* loveAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E46D22440E6A60012977A /* loveAnimation.json */; };
 		383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46DE244265450012977A /* UserDetailsViewController.swift */; };
@@ -89,6 +90,7 @@
 		382CC7A023D5EF650043060E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		3837CD5F24562701007B4297 /* UITextView+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+helper.swift"; sourceTree = "<group>"; };
 		3838C0572453E30C00092341 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		383E46D22440E6A60012977A /* loveAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveAnimation.json; sourceTree = "<group>"; };
 		383E46DE244265450012977A /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
 				3854F6542438092000229E16 /* CALayer+helpers.swift */,
 				38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */,
+				3837CD5F24562701007B4297 /* UITextView+helper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				383E46FF244265990012977A /* CustomContainerView.swift in Sources */,
 				38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */,
 				38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */,
+				3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,

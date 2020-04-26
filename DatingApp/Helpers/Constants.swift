@@ -31,11 +31,11 @@ struct Constants {
     static let searchLocationAnimation = "searchLocationAnimation"
     
     static let meterToMile: Double = 1609
-    
-    
-    
     struct NotificationKeys {
         static let selectAddImage = "selectAddImage"
     }
+    
+    //MARK: Font size
+    static let textSize: CGFloat = 20
 }
 
