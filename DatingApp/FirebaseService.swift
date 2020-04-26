@@ -167,7 +167,6 @@ extension FirebaseService {
                 let image = UIImage(data: data!)!
                 completion(image)
             }
-            
         }
     }
     
@@ -248,7 +247,6 @@ extension FirebaseService {
                         completion(diff.document.data())
                     }
                 }
-                
             }
         }
     }

@@ -181,8 +181,29 @@ extension ChatViewController {
     }
 }
 
+// MARK: UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+            handleVideoSelectedForUrl(videoUrl)
+        } else {
+            handleImageSelectedForInfo(info)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: Images and Videos
+extension ChatViewController {
+    private func handleVideoSelectedForUrl(_ url: URL) {
+        
+    }
+    
+    private func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]) {
         var selectedImageFromPicker: UIImage?
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             selectedImageFromPicker = editedImage
@@ -192,11 +213,6 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         if let selectedImage = selectedImageFromPicker {
             
         }
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
     }
 }
 
