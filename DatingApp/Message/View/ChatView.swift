@@ -17,7 +17,7 @@ class ChatView: UIView {
         return container
     }()
     private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
-    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     private let titleButton: UIButton = {
         let button = UIButton()
@@ -26,7 +26,7 @@ class ChatView: UIView {
     }()
     private let containerView: UIView = {
         let containerView = UIView()
-         containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
     private let profileImageView = CircleImageView(imageName: "Vy")
@@ -48,11 +48,16 @@ class ChatView: UIView {
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
+    private let customNavigationView = CustomNavigationView(type: .chatMessage)
     
     // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Setup
@@ -63,13 +68,22 @@ class ChatView: UIView {
     }
     
     private func addSubviews() {
+        addSubview(customNavigationView)
+        
         addSubview(collectionView)
         addSubview(inputContainerView)
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
+        bringSubviewToFront(customNavigationView)
     }
     
     private func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
+            customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            customNavigationView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            customNavigationView.heightAnchor.constraint(equalToConstant: 100),
+        ])
         NSLayoutConstraint.activate([
             inputContainerView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             inputContainerView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
@@ -78,7 +92,7 @@ class ChatView: UIView {
         
         inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: inputContainerView.safeAreaLayoutGuide.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding))
         inputContainerBottomAnchor.isActive = true
-
+        
         NSLayoutConstraint.activate([
             inputTextView.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: Constants.PaddingValues.inputPadding),
             inputTextView.rightAnchor.constraint(equalTo: sendButton.leftAnchor),
@@ -95,7 +109,7 @@ class ChatView: UIView {
             collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor)
+            collectionView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor)
         ])
     }
     
@@ -106,26 +120,27 @@ class ChatView: UIView {
     }
     
     func addTapGesture(target: UIViewController, selector: Selector) {
-            let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-                target: target,
-                action: selector)
-            self.addGestureRecognizer(tapRecognizer)
-            self.isUserInteractionEnabled = true
+        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: target,
+            action: selector)
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
     }
     
     func getKeyboard(frame: CGRect) {
         self.keyboardFrame = frame
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setBackButtonSelector(selector: Selector, target: UIViewController) {
+        customNavigationView.setleftButtonSelector(selector: selector, target: target)
     }
+    
 }
 
 // MARK: TextViewEditingDelegate
 extension ChatView: TextViewEditingDelegate {
     func didChange() {
-         inputTextView.calculateBestHeight()
+        inputTextView.calculateBestHeight()
     }
     
     func beginEditing() {
@@ -153,38 +168,6 @@ extension ChatView: KeyboardDelegate {
     }
 }
 
-// MARK: Navigation
-extension ChatView {
-    func setupTitleNavBar(navItem: UINavigationItem) {
-        addSubviewNavBar()
-        setupConstraintsForNavBarTitle()
-        navItem.titleView = titleButton
-    }
-    
-    private func addSubviewNavBar() {
-        titleButton.addSubview(containerView)
-        containerView.addSubview(profileImageView)
-        containerView.addSubview(nameLabel)
-    }
-    
-    private func setupConstraintsForNavBarTitle() {
-        NSLayoutConstraint.activate([
-            nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8),
-            nameLabel.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor),
-            nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 40),
-            profileImageView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        NSLayoutConstraint.activate([
-            containerView.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor)
-        ])
-    }
-}
+
 
 

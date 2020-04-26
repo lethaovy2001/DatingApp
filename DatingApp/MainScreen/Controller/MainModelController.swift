@@ -46,12 +46,14 @@ class MainModelController {
     
     func getData(_ completion : @escaping(UserModel)->()) {
         firebaseService.getUserInfoFromDatabase({ values in
-            if let birthday = values["birthday"] as? Timestamp {
-                let date = self.firebaseService.convertToDate(timestamp: birthday)
-                let user = UserModel(name: values["first_name"] as! String, birthday: date, work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String)
-                self.user = user
-                completion(user)
-            }
+            self.firebaseService.getUserImagesFromDatabase({ images in
+                if let birthday = values["birthday"] as? Timestamp {
+                    let date = self.firebaseService.convertToDate(timestamp: birthday)
+                    let user = UserModel(name: values["first_name"] as! String, birthday: date, work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String, images: images)
+                    self.user = user
+                    completion(user)
+                }
+            })
         })
     }
     

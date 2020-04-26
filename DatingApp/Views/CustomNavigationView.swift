@@ -13,18 +13,23 @@ class CustomNavigationView: CustomContainerView {
     private var leftButton: CustomButton!
     private var rightButton: CustomButton!
     private var type: NavigationType!
+    private var profileImageView: CircleImageView!
+    var tapDelegate: ImageTapGestureDelegate?
     
     enum NavigationType {
         case userDetails
         case editUserDetails
+        case listMessages
+        case chatMessage
     }
     
     // MARK: Initializer
     init(type: NavigationType) {
         super.init()
         self.type = type
-        self.addShadow(color: Constants.Colors.lightGray, radius: 3.0)
+        self.addShadow(color: UIColor.lightGray, radius: 3.0)
         setup()
+        addTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -36,18 +41,25 @@ class CustomNavigationView: CustomContainerView {
         switch type {
         case .userDetails:
             setupLeftButton(imageName: "chevron.left")
-            setupRightButton(imageName: "pencil")
+            setupRightButton(symbolName: "pencil")
             setupTitleLabel(title: "Profile")
         case .editUserDetails:
             setupLeftButton(imageName: "chevron.left")
             setupTitleLabel(title: "Edit")
+        case .chatMessage:
+            setupLeftButton(imageName: "chevron.left")
+            setupTitleLabel(title: "Vy")
+        case .listMessages:
+            setupLeftButton(imageName: "chevron.left")
+            setupRightButton(imageName: "Vy.jpg")
+            setupTitleLabel(title: "Chats")
         default:
             setupLeftButton(imageName: "chevron.left")
         }
     }
     
     private func setupLeftButton(imageName: String) {
-        leftButton = CustomButton(imageName: imageName, size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+        leftButton = CustomButton(imageName: imageName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
         self.addSubview(leftButton)
         NSLayoutConstraint.activate([
             leftButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
@@ -55,12 +67,23 @@ class CustomNavigationView: CustomContainerView {
         ])
     }
     
-    private func setupRightButton(imageName: String) {
-        rightButton = CustomButton(imageName: imageName, size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private func setupRightButton(symbolName: String) {
+        rightButton = CustomButton(imageName: symbolName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
         self.addSubview(rightButton)
         NSLayoutConstraint.activate([
             rightButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             rightButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
+        ])
+    }
+    
+    private func setupRightButton(imageName: String) {
+        profileImageView = CircleImageView(imageName: imageName)
+        self.addSubview(profileImageView)
+        NSLayoutConstraint.activate([
+            profileImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            profileImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            profileImageView.widthAnchor.constraint(equalToConstant: 40),
+            profileImageView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -79,5 +102,19 @@ class CustomNavigationView: CustomContainerView {
     
     func setRightButtonSelector(selector: Selector, target: UIViewController) {
         rightButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        if let profileImageView = profileImageView {
+            profileImageView.isUserInteractionEnabled = true
+            profileImageView.addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    @objc func handleTapGesture() {
+        tapDelegate?.didTap()
     }
 }

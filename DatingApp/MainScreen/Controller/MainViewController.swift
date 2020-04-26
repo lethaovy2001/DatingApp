@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
+
+    private var locationService: LocationService!
+    
     private let mainView: MainView = {
         let view = MainView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +39,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
         mainView.setProfileSelector(selector: #selector(profilePressed), target: self)
         mainView.setMessageSelector(selector: #selector(messagePressed), target: self)
+        mainView.setDoneSelector(selector: #selector(doneAlertPressed), target: self)
     }
     
     // MARK: Life Cycles
@@ -45,6 +50,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setSelectors()
         mainView.setDataSource(uiViewController: self)
         mainView.addDelegate(viewController: self)
+        locationService = LocationService(viewController: self)
         fetchAllUsers()
     }
     
@@ -85,6 +91,14 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func doneAlertPressed() {
+        mainView.hideAlert()
+    }
+    
+    func showAlert() {
+        mainView.showAlert()
+    }
 }
 
 // MARK: SwipeableCardDataSource
@@ -101,5 +115,15 @@ extension MainViewController: SwipeableCardDataSource {
     
     func viewForEmptyCards() -> UIView? {
         return nil
+    }
+}
+
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationService.didUpdateLocations(locations: locations)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationService.didChangeAuthorization(status: status)
     }
 }

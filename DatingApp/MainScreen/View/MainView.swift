@@ -11,32 +11,37 @@ import UIKit
 class MainView: UIView {
     private var swipeStackContainer = SwipeCardStackContainer()
     private let likeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.fill", size: 25, color: .cyan, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.fill", size: 25, color: UIColor.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: UIColor.lightGray, backgroundColor: .white)
         return button
     }()
     private let dislikeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: .red, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: UIColor.orangeRed, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: UIColor.lightGray, backgroundColor: .white)
         return button
     }()
-    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+
+    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
     
     // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        addSubViews()
-        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Setup
     private func setup() {
-        backgroundColor = Constants.Colors.mainBackgroundColor
+        backgroundColor = UIColor.mainBackgroundColor
         addSubViews()
         setupConstraints()
     }
     
     private func addSubViews() {
+        addSubview(customAlertView)
         addSubview(profileButton)
         addSubview(messageButton)
         addSubview(swipeStackContainer)
@@ -45,6 +50,12 @@ class MainView: UIView {
     }
     
     private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            customAlertView.topAnchor.constraint(equalTo: topAnchor),
+            customAlertView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            customAlertView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            customAlertView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
         NSLayoutConstraint.activate([
             profileButton.heightAnchor.constraint(equalToConstant: 60),
             profileButton.widthAnchor.constraint(equalToConstant: 60),
@@ -77,6 +88,7 @@ class MainView: UIView {
         ])
     }
     
+    // MARK: Selectors
     func setDataSource(uiViewController: UIViewController) {
         swipeStackContainer.dataSource = uiViewController as? SwipeableCardDataSource
     }
@@ -105,7 +117,19 @@ class MainView: UIView {
         swipeStackContainer.reloadData()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        customAlertView.setDoneSelector(selector: selector, target: target)
+    }
+}
+
+// MARK: AlertView
+extension MainView {
+    func showAlert() {
+        customAlertView.isHidden = false
+        bringSubviewToFront(customAlertView)
+    }
+    
+    func hideAlert() {
+        customAlertView.isHidden = true
     }
 }

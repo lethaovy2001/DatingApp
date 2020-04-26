@@ -12,7 +12,7 @@ import Lottie
 
 class LoginMainView: UIView {
     
-    private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: Constants.Colors.fbColor)
+    private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: UIColor.fbColor)
     private let appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
