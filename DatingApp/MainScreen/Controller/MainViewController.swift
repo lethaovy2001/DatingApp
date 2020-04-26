@@ -51,6 +51,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         mainView.setDataSource(uiViewController: self)
         mainView.addDelegate(viewController: self)
         locationService = LocationService(viewController: self)
+        fetchAllUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +64,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         if (!UserDefaults.standard.isLoggedIn() || firebaseService.getUserID() == nil) {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
+        }
+    }
+    
+    private func fetchAllUsers() {
+        modelController.getAllUsers {
+            self.mainView.reloadSwipeViews()
         }
     }
     
@@ -98,12 +105,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 extension MainViewController: SwipeableCardDataSource {
     func card(forItemAt index: Int) -> SwipeCardView {
         let card = SwipeCardView()
-        card.dataSource = modelController.getMockUsers()[index]
+        card.dataSource = modelController.getUsers()[index]
         return card
     }
     
     func numberOfCards() -> Int {
-        return modelController.getMockUsers().count
+        return modelController.getUsers().count
     }
     
     func viewForEmptyCards() -> UIView? {

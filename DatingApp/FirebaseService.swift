@@ -23,6 +23,41 @@ class FirebaseService {
         return Auth.auth().currentUser?.uid
     }
     
+    func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
+        if let uid = Auth.auth().currentUser?.uid {
+            database.collection("users").document(uid).addSnapshotListener {
+                documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                }
+                print("Current data: \(data)")
+                completion(data)
+            }
+        } else {
+            print("*** FirebaseService: User ID is nil")
+        }
+    }
+    
+    func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
+        database.collection("users").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var data: [String: [String: Any]] = [:]
+                for document in querySnapshot!.documents {
+                    data.updateValue(document.data(), forKey: document.documentID)
+                }
+                print("Sucessful get users document!")
+                completion(data)
+            }
+        }
+    }
+    
     func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
         Auth.auth().signIn(with: credential) { (authResult, error) in
@@ -60,26 +95,6 @@ class FirebaseService {
                     print("Document successfully updated")
                 }
             })
-        }
-    }
-    
-    func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
-        if let uid = Auth.auth().currentUser?.uid {
-            database.collection("users").document(uid).addSnapshotListener {
-                documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                guard let data = document.data() else {
-                    print("Document data was empty.")
-                    return
-                }
-                print("Current data: \(data)")
-                completion(data)
-            }
-        } else {
-            print("*** FirebaseService: User ID is nil")
         }
     }
 }
