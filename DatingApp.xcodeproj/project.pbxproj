@@ -55,9 +55,9 @@
 		3889EB502454C942009B63C2 /* ChatModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB4F2454C942009B63C2 /* ChatModelController.swift */; };
 		3889EB522454D02E009B63C2 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB512454D02E009B63C2 /* MessageViewModel.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
-		38BFFAEA244EBF9500AC6B5E /* AutoSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */; };
-		38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */; };
 		38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */; };
+		38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */; };
+		38BFFAEA244EBF9500AC6B5E /* AutoSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */; };
 		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
 		38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */; };
 		38DACAF6244A68B600F4E60E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAF5244A68B600F4E60E /* FirebaseService.swift */; };
@@ -126,9 +126,9 @@
 		3889EB4F2454C942009B63C2 /* ChatModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModelController.swift; sourceTree = "<group>"; };
 		3889EB512454D02E009B63C2 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
-		38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSwipeDelegate.swift; sourceTree = "<group>"; };
-		38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension .swift"; sourceTree = "<group>"; };
+		38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSwipeDelegate.swift; sourceTree = "<group>"; };
 		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
 		38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUserDataDelegate.swift; sourceTree = "<group>"; };
 		38DACAF5244A68B600F4E60E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
@@ -223,9 +223,9 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
+				3889EB5524560042009B63C2 /* Services */,
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
-				38DACAF5244A68B600F4E60E /* FirebaseService.swift */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
 				383E46DC244265450012977A /* UserDetails */,
@@ -384,7 +384,6 @@
 				382CC7A023D5EF650043060E /* Constants.swift */,
 				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
 				3854F6542438092000229E16 /* CALayer+helpers.swift */,
-				38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */,
 				38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */,
 			);
 			path = Helpers;
@@ -435,6 +434,15 @@
 				246B76C32438D73A00FE1D40 /* MainModelController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		3889EB5524560042009B63C2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				38DACAF5244A68B600F4E60E /* FirebaseService.swift */,
+				38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		38DACAF0244A145C00F4E60E /* View */ = {
