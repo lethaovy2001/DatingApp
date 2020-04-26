@@ -16,9 +16,6 @@ class UserDetailsView: UIView {
     private var cardImages: [UIImage]?
     private var currentImage = 0
     private let customNavigationView = CustomNavigationView(type: .userDetails)
-//    private let profileLabel = CustomLabel(text: "Profile", textColor: .darkGray, textSize: 30, textWeight: .heavy)
-//    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-//    private let editButton = CustomButton(imageName: "pencil", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameContainerView.viewModel = viewModel

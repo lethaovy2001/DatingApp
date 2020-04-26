@@ -27,7 +27,7 @@ class CustomNavigationView: CustomContainerView {
     init(type: NavigationType) {
         super.init()
         self.type = type
-        self.addShadow(color: UIColor.lightGray, radius: 3.0)
+        self.addShadow(color: UIColor.customLightGray, radius: 3.0)
         setup()
         addTapGesture()
     }

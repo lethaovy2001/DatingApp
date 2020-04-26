@@ -144,7 +144,7 @@ extension ChatView: TextViewEditingDelegate {
     }
     
     func beginEditing() {
-        if (inputTextView.textColor == .lightGray) {
+        if (inputTextView.textColor == .customLightGray) {
             inputTextView.text = ""
             inputTextView.textColor = .black
         }
@@ -153,7 +153,7 @@ extension ChatView: TextViewEditingDelegate {
     func endEditing() {
         if (inputTextView.text == "") {
             inputTextView.text = "Aa"
-            inputTextView.textColor = .lightGray
+            inputTextView.textColor = .customLightGray
         }
     }
 }

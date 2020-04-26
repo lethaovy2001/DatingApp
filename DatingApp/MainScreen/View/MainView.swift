@@ -11,16 +11,16 @@ import UIKit
 class MainView: UIView {
     private var swipeStackContainer = SwipeCardStackContainer()
     private let likeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.fill", size: 25, color: UIColor.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: UIColor.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.fill", size: 25, color: UIColor.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: UIColor.customLightGray, backgroundColor: .white)
         return button
     }()
     private let dislikeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: UIColor.orangeRed, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: UIColor.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: UIColor.orangeRed, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: UIColor.customLightGray, backgroundColor: .white)
         return button
     }()
 
-    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
     
     // MARK: Initializer

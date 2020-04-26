@@ -196,7 +196,7 @@ extension EditUserDetailsView: TextViewEditingDelegate {
     }
     
     func beginEditing() {
-        if (bioTextView.textColor == .lightGray) {
+        if (bioTextView.textColor == .customLightGray) {
             bioTextView.text = ""
             bioTextView.textColor = .black
         }
@@ -205,7 +205,7 @@ extension EditUserDetailsView: TextViewEditingDelegate {
     func endEditing() {
         if (bioTextView.text == "") {
             bioTextView.text = "Describe Yourself..."
-            bioTextView.textColor = .lightGray
+            bioTextView.textColor = .customLightGray
         }
     }
 }
