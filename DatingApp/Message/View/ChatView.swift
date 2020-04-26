@@ -17,7 +17,7 @@ class ChatView: UIView {
         return container
     }()
     private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
-    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     private let titleButton: UIButton = {
         let button = UIButton()

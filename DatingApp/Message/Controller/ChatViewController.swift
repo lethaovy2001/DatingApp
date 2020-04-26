@@ -51,6 +51,17 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
             chatView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+
+    func addNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = UIColor.white
+        let boldConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold, scale: .large)
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill", withConfiguration: boldConfig)?.withTintColor(UIColor.amour, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(reportPressed))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left", withConfiguration: boldConfig)?.withTintColor(UIColor.amour, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backPressed))
+        chatView.setupTitleNavBar(navItem: self.navigationItem)
+    }
     
     private func registerCellId() {
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)

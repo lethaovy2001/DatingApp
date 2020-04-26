@@ -27,7 +27,7 @@ class CustomNavigationView: CustomContainerView {
     init(type: NavigationType) {
         super.init()
         self.type = type
-        self.addShadow(color: Constants.Colors.lightGray, radius: 3.0)
+        self.addShadow(color: UIColor.lightGray, radius: 3.0)
         setup()
         addTapGesture()
     }
@@ -59,7 +59,7 @@ class CustomNavigationView: CustomContainerView {
     }
     
     private func setupLeftButton(imageName: String) {
-        leftButton = CustomButton(imageName: imageName, size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+        leftButton = CustomButton(imageName: imageName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
         self.addSubview(leftButton)
         NSLayoutConstraint.activate([
             leftButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
@@ -67,8 +67,8 @@ class CustomNavigationView: CustomContainerView {
         ])
     }
     
-    private func setupRightButton(symbolName: String) {
-        rightButton = CustomButton(imageName: symbolName, size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private func setupRightButton(imageName: String) {
+        rightButton = CustomButton(imageName: imageName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
         self.addSubview(rightButton)
         NSLayoutConstraint.activate([
             rightButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
