@@ -155,6 +155,37 @@ extension FirebaseService {
         }
     }
     
+    func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
+        let httpsReference = storage.reference(forURL: url)
+        httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                print("FirebaseService: downloadImage \(error)")
+            } else {
+                let image = UIImage(data: data!)!
+                completion(image)
+            }
+        }
+    }
+    
+    func downloadImages(data: [String: Any], _ completion : @escaping([UIImage])->()) {
+        var imageTemp: [UIImage] = []
+        var index = 0
+        for imageName in data {
+            if let url = data[imageName.key] as? String {
+                self.downloadImageFromStorage(url: url, { downloadedImage in
+                    imageTemp.append(downloadedImage)
+                    index += 1
+                    if (index == data.count) {
+                        completion(imageTemp)
+                    }
+                })
+            }
+        }
+    }
+}
+
+// MARK: Messages
+extension FirebaseService {
     func saveMessageToDatabase(with data: [String: Any],_ completion : @escaping(String)->()) {
         if let uid = Auth.auth().currentUser?.uid {
             var updateData = data
@@ -184,6 +215,20 @@ extension FirebaseService {
         }
     }
     
+    func getMessageDetails(with messageId: String, _ completion : @escaping([String: Any])->()) {
+        database.collection("messages").document(messageId).getDocument { (documentSnapshot, error) in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            completion(data)
+        }
+    }
+    
     func getMessages(toId: String, _ completion : @escaping([String: Any])->()) {
         if let fromId = Auth.auth().currentUser?.uid {
             database.collection("user-messages").document(fromId).collection(toId).addSnapshotListener() {
@@ -197,43 +242,10 @@ extension FirebaseService {
                     print(diff.document.data())
                     if (diff.type == .added) {
                         completion(diff.document.data())
-    func downloadImages(data: [String: Any], _ completion : @escaping([UIImage])->()) {
-        var imageTemp: [UIImage] = []
-        var index = 0
-        for imageName in data {
-            if let url = data[imageName.key] as? String {
-                self.downloadImageFromStorage(url: url, { downloadedImage in
-                    imageTemp.append(downloadedImage)
-                    index += 1
-                    if (index == data.count) {
-                        completion(imageTemp)
                     }
                 }
-                })
-            }
-        }
-    }
-    
-    func getMessageDetails(with messageId: String, _ completion : @escaping([String: Any])->()) {
-        database.collection("messages").document(messageId).getDocument { (documentSnapshot, error) in
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
-            completion(data)
-    func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
-        let httpsReference = storage.reference(forURL: url)
-        httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {
-                print("FirebaseService: downloadImage \(error)")
-            } else {
-                let image = UIImage(data: data!)!
-                completion(image)
             }
         }
     }
 }
+
