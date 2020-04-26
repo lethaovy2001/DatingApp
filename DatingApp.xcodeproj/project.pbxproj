@@ -52,6 +52,7 @@
 		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
+		38BFFAEA244EBF9500AC6B5E /* AutoSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */; };
 		38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */; };
 		38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */; };
 		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
@@ -119,6 +120,7 @@
 		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
+		38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSwipeDelegate.swift; sourceTree = "<group>"; };
 		38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension .swift"; sourceTree = "<group>"; };
 		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				383E470A244267000012977A /* KeyboardDelegate.swift */,
 				383E470B244267000012977A /* TextViewEditingDelegate.swift */,
 				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
+				38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */,
 				38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */,
 			);
 			path = Protocols;
@@ -584,6 +587,7 @@
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */,
+				38BFFAEA244EBF9500AC6B5E /* AutoSwipeDelegate.swift in Sources */,
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
 				38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */,

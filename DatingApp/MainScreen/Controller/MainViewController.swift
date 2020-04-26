@@ -20,6 +20,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }()
     private let modelController = MainModelController()
     private var firebaseService: FirebaseService!
+    var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: Setup
     private func setupUI() {
@@ -48,6 +49,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
+        mainView.addDelegate(viewController: self)
         locationService = LocationService(viewController: self)
     }
     
@@ -66,11 +68,11 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: Actions
     @objc func likePressed() {
-        
+        autoSwipeDelegate?.swipe(direction: .right)
     }
     
     @objc func dislikePressed() {
-        
+        autoSwipeDelegate?.swipe(direction: .left)
     }
     
     @objc func messagePressed() {

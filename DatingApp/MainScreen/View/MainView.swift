@@ -9,7 +9,6 @@
 import UIKit
 
 class MainView: UIView {
-    private let cardView = SwipeCardView()
     private var swipeStackContainer = SwipeCardStackContainer()
     private let likeButton: CustomButton = {
         let button = CustomButton(imageName: "heart.fill", size: 25, color: UIColor.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: UIColor.lightGray, backgroundColor: .white)
@@ -110,6 +109,10 @@ class MainView: UIView {
         messageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func addDelegate(viewController: MainViewController) {
+        swipeStackContainer.addDelegate(viewController: viewController)
+    }
+
     func setDoneSelector(selector: Selector, target: UIViewController) {
         customAlertView.setDoneSelector(selector: selector, target: target)
     }
