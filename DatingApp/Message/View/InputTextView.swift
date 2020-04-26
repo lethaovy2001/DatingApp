@@ -13,10 +13,10 @@ class InputTextView: UITextView {
     
     init(placeholder: String, cornerRadius: CGFloat, isScrollable: Bool) {
         super.init(frame: .zero, textContainer: nil)
-        self.backgroundColor = Constants.Colors.inputContainerColor
+        self.backgroundColor = UIColor.inputContainerColor
         self.layer.cornerRadius = cornerRadius
         self.text = placeholder
-        self.textColor = .lightGray
+        self.textColor = .customLightGray
         self.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         self.isScrollEnabled = false
         self.autocorrectionType = .no

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SwipeCardView: UIView {
     private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
@@ -24,13 +25,24 @@ class SwipeCardView: UIView {
     }()
     
     var delegate: SwipeCardDelegate?
-    var dataSource : SwipeCardModel? {
+    var dataSource: UserModel? {
         didSet {
             guard let name = dataSource?.name else { return }
-            guard let age = dataSource?.age else { return }
-            guard let image = dataSource?.imageName[0] else { return }
-            self.nameLabel.text = "\(name), \(age)"
-            cardImageView.image = UIImage(named: image)
+            guard let birthday = dataSource?.birthday else { return }
+            let calendar = Calendar(identifier: .gregorian)
+            var ageText: String {
+                let today = calendar.startOfDay(for: Date())
+                let birthday = calendar.startOfDay(for: birthday)
+                let components = calendar.dateComponents([.year],
+                                                         from: birthday,
+                                                         to: today)
+                let age = components.year!
+                return "\(age)"
+            }
+            self.nameLabel.text = "\(name), \(ageText)"
+            //            guard let age = dataSource?.age else { return }
+            //            guard let image = dataSource?.imageName[0] else { return }
+            //            cardImageView.image = UIImage(named: image)
         }
     }
     
@@ -43,7 +55,7 @@ class SwipeCardView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: Setup
     private func setup() {
         addSubViews()
@@ -98,39 +110,39 @@ class SwipeCardView: UIView {
         let card = sender.view as! SwipeCardView
         let point = sender.translation(in: self)
         let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
+        card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
+        
         switch sender.state {
         case .ended:
-        if (card.center.x) > centerOfParentContainer.x + 40 {
-             self.delegate?.swipeDidEnd(on: card)
+            if (card.center.x) > centerOfParentContainer.x + 40 {
+                self.delegate?.swipeDidEnd(on: card)
+                UIView.animate(withDuration: 0.2) {
+                    card.center = CGPoint(x: centerOfParentContainer.x + point.x + 400, y: centerOfParentContainer.y + point.y + 75)
+                    card.alpha = 0
+                    self.layoutIfNeeded()
+                }
+                return
+            } else if card.center.x < centerOfParentContainer.x - 40 {
+                delegate?.swipeDidEnd(on: card)
+                UIView.animate(withDuration: 0.2) {
+                    card.center = CGPoint(x: centerOfParentContainer.x + point.x - 400, y: centerOfParentContainer.y + point.y + 75)
+                    card.alpha = 0
+                    self.layoutIfNeeded()
+                }
+                return
+            }
+            // neither swipe left or right
             UIView.animate(withDuration: 0.2) {
-                card.center = CGPoint(x: centerOfParentContainer.x + point.x + 400, y: centerOfParentContainer.y + point.y + 75)
-                 card.alpha = 0
-                 self.layoutIfNeeded()
-             }
-             return
-         } else if card.center.x < centerOfParentContainer.x - 40 {
-             delegate?.swipeDidEnd(on: card)
-             UIView.animate(withDuration: 0.2) {
-                card.center = CGPoint(x: centerOfParentContainer.x + point.x - 400, y: centerOfParentContainer.y + point.y + 75)
-                 card.alpha = 0
+                card.transform = .identity
+                card.center = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
                 self.layoutIfNeeded()
-                 
-             }
-             return
-         }
-         // neither swipe left or right
-         UIView.animate(withDuration: 0.2) {
-             card.transform = .identity
-             card.center = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-             self.layoutIfNeeded()
-         }
-         case .changed:
-             let rotation = tan(point.x / (self.frame.width * 2.0))
-             card.transform = CGAffineTransform(rotationAngle: rotation)
-         default:
-             break
-         }
+            }
+        case .changed:
+            let rotation = tan(point.x / (self.frame.width * 2.0))
+            card.transform = CGAffineTransform(rotationAngle: rotation)
+        default:
+            break
+        }
     }
     
     private func nextImage(isLeft: Bool) {

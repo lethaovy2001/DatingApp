@@ -19,7 +19,7 @@ class ChatView: UIView {
     }()
     private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
     private let addImageButton = CustomButton(imageName: "photo", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     private let titleButton: UIButton = {
         let button = UIButton()
@@ -168,7 +168,7 @@ extension ChatView: TextViewEditingDelegate {
     }
     
     func beginEditing() {
-        if (inputTextView.textColor == .lightGray) {
+        if (inputTextView.textColor == .customLightGray) {
             inputTextView.text = ""
             inputTextView.textColor = .black
         }
@@ -177,7 +177,7 @@ extension ChatView: TextViewEditingDelegate {
     func endEditing() {
         if (inputTextView.text == "") {
             inputTextView.text = "Aa"
-            inputTextView.textColor = .lightGray
+            inputTextView.textColor = .customLightGray
         }
     }
 }

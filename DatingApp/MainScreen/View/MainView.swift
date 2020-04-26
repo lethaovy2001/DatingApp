@@ -9,35 +9,39 @@
 import UIKit
 
 class MainView: UIView {
-    private let cardView = SwipeCardView()
     private var swipeStackContainer = SwipeCardStackContainer()
     private let likeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.fill", size: 25, color: .cyan, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.fill", size: 25, color: UIColor.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: UIColor.customLightGray, backgroundColor: .white)
         return button
     }()
     private let dislikeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: .red, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: UIColor.orangeRed, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: UIColor.customLightGray, backgroundColor: .white)
         return button
     }()
-    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+
+    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
     
     // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        addSubViews()
-        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Setup
     private func setup() {
-        backgroundColor = Constants.Colors.mainBackgroundColor
+        backgroundColor = UIColor.mainBackgroundColor
         addSubViews()
         setupConstraints()
     }
     
     private func addSubViews() {
+        addSubview(customAlertView)
         addSubview(profileButton)
         addSubview(messageButton)
         addSubview(swipeStackContainer)
@@ -47,25 +51,28 @@ class MainView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            customAlertView.topAnchor.constraint(equalTo: topAnchor),
+            customAlertView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            customAlertView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            customAlertView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        NSLayoutConstraint.activate([
             profileButton.heightAnchor.constraint(equalToConstant: 60),
             profileButton.widthAnchor.constraint(equalToConstant: 60),
             profileButton.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
             profileButton.safeAreaLayoutGuide.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 6)
         ])
-        
         NSLayoutConstraint.activate([
             messageButton.heightAnchor.constraint(equalToConstant: 60),
             messageButton.widthAnchor.constraint(equalToConstant: 60),
             messageButton.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20),
             messageButton.safeAreaLayoutGuide.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 6)
         ])
-        
         NSLayoutConstraint.activate([
             likeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
             likeButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
             likeButton.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -12),
             likeButton.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 64)
-            
         ])
         NSLayoutConstraint.activate([
             dislikeButton.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.likeButtonHeight),
@@ -73,7 +80,6 @@ class MainView: UIView {
             dislikeButton.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -12),
             dislikeButton.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -64)
         ])
-        
         NSLayoutConstraint.activate([
             swipeStackContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 12),
             swipeStackContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
@@ -82,6 +88,7 @@ class MainView: UIView {
         ])
     }
     
+    // MARK: Selectors
     func setDataSource(uiViewController: UIViewController) {
         swipeStackContainer.dataSource = uiViewController as? SwipeableCardDataSource
     }
@@ -101,8 +108,28 @@ class MainView: UIView {
     func setMessageSelector(selector: Selector, target: UIViewController) {
         messageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
+    
+    func addDelegate(viewController: MainViewController) {
+        swipeStackContainer.addDelegate(viewController: viewController)
+    }
+    
+    func reloadSwipeViews() {
+        swipeStackContainer.reloadData()
+    }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        customAlertView.setDoneSelector(selector: selector, target: target)
+    }
+}
+
+// MARK: AlertView
+extension MainView {
+    func showAlert() {
+        customAlertView.isHidden = false
+        bringSubviewToFront(customAlertView)
+    }
+    
+    func hideAlert() {
+        customAlertView.isHidden = true
     }
 }

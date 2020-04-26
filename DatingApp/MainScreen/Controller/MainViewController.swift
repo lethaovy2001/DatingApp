@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
+
+    private var locationService: LocationService!
     
     private let mainView: MainView = {
         let view = MainView(frame: .zero)
@@ -17,6 +20,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }()
     private let modelController = MainModelController()
     private var firebaseService: FirebaseService!
+    var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: Setup
     private func setupUI() {
@@ -35,6 +39,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
         mainView.setProfileSelector(selector: #selector(profilePressed), target: self)
         mainView.setMessageSelector(selector: #selector(messagePressed), target: self)
+        mainView.setDoneSelector(selector: #selector(doneAlertPressed), target: self)
     }
     
     // MARK: Life Cycles
@@ -44,6 +49,9 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
+        mainView.addDelegate(viewController: self)
+        locationService = LocationService(viewController: self)
+        fetchAllUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,13 +67,19 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    private func fetchAllUsers() {
+        modelController.getAllUsers {
+            self.mainView.reloadSwipeViews()
+        }
+    }
+    
     // MARK: Actions
     @objc func likePressed() {
-       
+        autoSwipeDelegate?.swipe(direction: .right)
     }
     
     @objc func dislikePressed() {
-        
+        autoSwipeDelegate?.swipe(direction: .left)
     }
     
     @objc func messagePressed() {
@@ -77,21 +91,39 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func doneAlertPressed() {
+        mainView.hideAlert()
+    }
+    
+    func showAlert() {
+        mainView.showAlert()
+    }
 }
 
 // MARK: SwipeableCardDataSource
 extension MainViewController: SwipeableCardDataSource {
     func card(forItemAt index: Int) -> SwipeCardView {
-            let card = SwipeCardView()
-            card.dataSource = modelController.getMockUsers()[index]
-            return card
+        let card = SwipeCardView()
+        card.dataSource = modelController.getUsers()[index]
+        return card
     }
     
     func numberOfCards() -> Int {
-        return modelController.getMockUsers().count
+        return modelController.getUsers().count
     }
     
     func viewForEmptyCards() -> UIView? {
         return nil
+    }
+}
+
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationService.didUpdateLocations(locations: locations)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationService.didChangeAuthorization(status: status)
     }
 }

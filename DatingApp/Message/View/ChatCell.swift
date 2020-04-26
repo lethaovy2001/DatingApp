@@ -13,7 +13,7 @@ class ChatCell: UICollectionViewCell {
     //TODO: Create a custom class for container
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .orange
+        view.backgroundColor = UIColor.amour
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
         view.layer.masksToBounds = true
@@ -38,13 +38,13 @@ class ChatCell: UICollectionViewCell {
             textView.text = viewModel.text
             switch viewModel.style {
             case .currentUser:
-                containerView.backgroundColor = Constants.Colors.amour
+                containerView.backgroundColor = UIColor.amour
                 textView.textColor = UIColor.white
                 containerViewRightAnchor.isActive = true
                 containerViewLeftAnchor.isActive = false
                 profileImageView.isHidden = true
             case .otherPerson:
-                containerView.backgroundColor = Constants.Colors.inputContainerColor
+                containerView.backgroundColor = UIColor.inputContainerColor
                 textView.textColor = UIColor.black
                 containerViewRightAnchor.isActive = false
                 containerViewLeftAnchor.isActive = true
