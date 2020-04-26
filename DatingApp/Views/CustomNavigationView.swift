@@ -67,8 +67,8 @@ class CustomNavigationView: CustomContainerView {
         ])
     }
     
-    private func setupRightButton(imageName: String) {
-        rightButton = CustomButton(imageName: imageName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private func setupRightButton(symbolName: String) {
+        rightButton = CustomButton(imageName: symbolName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
         self.addSubview(rightButton)
         NSLayoutConstraint.activate([
             rightButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
