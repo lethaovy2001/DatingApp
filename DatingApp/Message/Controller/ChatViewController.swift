@@ -167,6 +167,10 @@ extension ChatViewController {
         chatView.getKeyboard(frame: keyboardFrame)
         keyboardDelegate?.showKeyboard()
         performKeyboardAnimation(notification: notification)
+        if self.modelController.getMessages().count > 0 {
+            let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
+            chatView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
     }
     
     private func performKeyboardAnimation(notification: NSNotification) {

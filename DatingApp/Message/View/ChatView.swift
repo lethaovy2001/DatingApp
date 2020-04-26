@@ -18,7 +18,7 @@ class ChatView: UIView {
         return container
     }()
     private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
-    private let addImageButton = CustomButton(imageName: "photo", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let addImageButton = CustomButton(imageName: "photo", size: 20, color: .amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     private let titleButton: UIButton = {
@@ -48,6 +48,7 @@ class ChatView: UIView {
         cv.isScrollEnabled = true
         cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.keyboardDismissMode = .interactive
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
