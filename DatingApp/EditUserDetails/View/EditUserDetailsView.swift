@@ -21,21 +21,21 @@ class EditUserDetailsView: UIView {
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     private let scrollView = CustomScrollView()
     private let customNavigationView = CustomNavigationView(type: .editUserDetails)
-    private var cardImages: [String]?
+    private var cardImages: [UIImage]?
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameLabel.setText(text: viewModel.name)
             workTextField.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
-            //            mainProfileImage.setName(name: viewModel.mainImageName)
-            //            cardImages = viewModel.images
-            //            if let cardImages = cardImages {
-            //                var index = 0
-            //                for image in cardImages {
-            //                    imageButtons[index].setImage(name: image)
-            //                    index = index + 1
-            //                }
-            //            }
+            mainProfileImage.setImage(image: viewModel.images[0])
+            cardImages = viewModel.images
+            if let cardImages = cardImages {
+                var index = 0
+                for image in cardImages.reversed() {
+                    imageButtonsContainerView.setImage(image: image, index: index)
+                    index = index + 1
+                }
+            }
         }
     }
     private var modelController = MainModelController()
@@ -182,6 +182,10 @@ class EditUserDetailsView: UIView {
     
     func getWorkText() -> String {
         return workTextField.text ?? "Unknown workplace"
+    }
+    
+    func getImages() -> [UIImage] {
+        return imageButtonsContainerView.getImages()
     }
 }
 

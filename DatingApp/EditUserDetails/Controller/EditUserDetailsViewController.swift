@@ -74,11 +74,13 @@ class EditUserDetailsViewController: UIViewController {
             "bio": editUserDetailsView.getBioText(),
             "work": editUserDetailsView.getWorkText(),
         ]
-        firebaseService.updateDatabase(with: dictionary)
+        self.firebaseService.uploadImages(images: editUserDetailsView.getImages())
+        self.firebaseService.updateDatabase(with: dictionary)
         
-        let vc =  UserDetailsViewController()
+        let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: false)
     }
+    
     
     @objc func addImageButtonPressed(sender: UIButton) {
         editUserDetailsView.setSelectedButton(sender: sender)

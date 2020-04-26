@@ -23,7 +23,7 @@ class UserDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        fetchUserInfo()
+        reloadUserInfo()
     }
     
     // MARK: Setup
@@ -63,12 +63,12 @@ class UserDetailsViewController: UIViewController {
     }
     
     @objc func backButtonPressed() {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: Firebase
-    private func fetchUserInfo() {
-        modelController.getData { model in
+    func reloadUserInfo() {
+        self.modelController.getData { model in
             self.viewModel = UserDetailsViewModel(model: model)
             self.userDetailsView.viewModel = self.viewModel
         }

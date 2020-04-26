@@ -9,8 +9,10 @@
 import UIKit
 
 class AddImageButton: CustomButton {
+    private var isDefaultImage: Bool!
     init() {
         super.init(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: UIColor.inputContainerColor)
+        isDefaultImage = false
     }
     
     func setImage(name: String) {
@@ -25,6 +27,11 @@ class AddImageButton: CustomButton {
         self.layer.cornerRadius = 10
         self.contentMode = .scaleAspectFill
         self.clipsToBounds = true
+        isDefaultImage = true
+    }
+    
+    func checkIfHasImage() -> Bool {
+        return isDefaultImage
     }
     
     required init?(coder: NSCoder) {

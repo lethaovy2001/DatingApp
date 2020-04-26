@@ -9,7 +9,6 @@
 import UIKit
 
 class ImageButtonsContainerView: UIView {
-    
     private let verticalStackView = CustomStackView(axis: .vertical)
     private let horizontalStackView1 = CustomStackView(axis: .horizontal)
     private let horizontalStackView2 = CustomStackView(axis: .horizontal)
@@ -62,6 +61,16 @@ class ImageButtonsContainerView: UIView {
         ])
     }
     
+    private func appendImageButtons() {
+        imageButtons = [addImageButton1, addImageButton2, addImageButton3, addImageButton4, addImageButton5, addImageButton6]
+    }
+    
+    private func addTagForButtons() {
+        for i in 1...6 {
+            imageButtons[i-1].tag = i
+        }
+    }
+    
     func setAddImageSelector(selector: Selector, target: UIViewController) {
         addImageButton1.addTarget(target, action: selector, for: .touchUpInside)
         addImageButton2.addTarget(target, action: selector, for: .touchUpInside)
@@ -69,6 +78,10 @@ class ImageButtonsContainerView: UIView {
         addImageButton4.addTarget(target, action: selector, for: .touchUpInside)
         addImageButton5.addTarget(target, action: selector, for: .touchUpInside)
         addImageButton6.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func addDelegate(viewController: EditUserDetailsViewController) {
+        viewController.imageTapGestureDelegate = self
     }
     
     func setSelectedButton(sender: UIButton) {
@@ -90,18 +103,20 @@ class ImageButtonsContainerView: UIView {
         }
     }
     
-    func addDelegate(viewController: EditUserDetailsViewController) {
-        viewController.imageTapGestureDelegate = self
-    }
-    
-    private func appendImageButtons() {
-        imageButtons = [addImageButton1, addImageButton2, addImageButton3, addImageButton4, addImageButton5, addImageButton6]
-    }
-    
-    private func addTagForButtons() {
-        for i in 1...6 {
-            imageButtons[i-1].tag = i
+    func getImages() -> [UIImage] {
+        var images: [UIImage] = []
+        for image in imageButtons {
+            if image.checkIfHasImage() {
+                if let currentImage = image.currentImage {
+                    images.append(currentImage)
+                }
+            }
         }
+        return images
+    }
+    
+    func setImage(image: UIImage, index: Int) {
+        imageButtons[index].setImage(image: image)
     }
 }
 
