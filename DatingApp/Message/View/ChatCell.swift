@@ -34,6 +34,7 @@ class ChatCell: UICollectionViewCell {
     private var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!
+    var tapDelegate: ZoomTapDelegate?
     var viewModel: MessageViewModel! {
         didSet {
             textView.text = viewModel.text
@@ -59,6 +60,7 @@ class ChatCell: UICollectionViewCell {
     private func setup() {
         addSubviews()
         setupConstraints()
+        addTapGesture()
     }
     
     private func addSubviews() {
@@ -99,6 +101,18 @@ class ChatCell: UICollectionViewCell {
         ])
     }
     
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        messageImageView.isUserInteractionEnabled = true
+        messageImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTapGesture() {
+        tapDelegate?.didTap(on: messageImageView)
+    }
+    
     private func setUpMessageRelationshipStyle() {
         switch viewModel.style {
         case .currentUser:
@@ -128,4 +142,6 @@ class ChatCell: UICollectionViewCell {
             messageImageView.isHidden = false
         }
     }
+    
+    
 }

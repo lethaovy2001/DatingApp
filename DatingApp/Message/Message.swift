@@ -34,7 +34,5 @@ struct Message {
         self.imageWidth = dictionary["imageWidth"] as? Int
         self.imageHeight = dictionary["imageHeight"] as? Int
     }
-    
-    
 }
 

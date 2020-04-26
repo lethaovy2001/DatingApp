@@ -19,6 +19,7 @@
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
 		3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD5F24562701007B4297 /* UITextView+helper.swift */; };
+		3837CD6224564404007B4297 /* ZoomTapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD6124564404007B4297 /* ZoomTapDelegate.swift */; };
 		3838C0582453E30C00092341 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838C0572453E30C00092341 /* Message.swift */; };
 		383E46D32440E6A60012977A /* loveAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E46D22440E6A60012977A /* loveAnimation.json */; };
 		383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46DE244265450012977A /* UserDetailsViewController.swift */; };
@@ -91,6 +92,7 @@
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3837CD5F24562701007B4297 /* UITextView+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+helper.swift"; sourceTree = "<group>"; };
+		3837CD6124564404007B4297 /* ZoomTapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTapDelegate.swift; sourceTree = "<group>"; };
 		3838C0572453E30C00092341 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		383E46D22440E6A60012977A /* loveAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveAnimation.json; sourceTree = "<group>"; };
 		383E46DE244265450012977A /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
 				38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */,
 				38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */,
+				3837CD6124564404007B4297 /* ZoomTapDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -635,6 +638,7 @@
 				383E4703244265990012977A /* CustomImageView.swift in Sources */,
 				38DACAFA244B89E300F4E60E /* CustomNavigationView.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
+				3837CD6224564404007B4297 /* ZoomTapDelegate.swift in Sources */,
 				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
 				38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,

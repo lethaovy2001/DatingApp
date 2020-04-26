@@ -19,6 +19,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
+    var startingFrame: CGRect?
+    var blackBackgroundView: UIView?
+    var startingImageView: UIImageView?
+    
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +117,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
+        cell.tapDelegate = self
         return cell
     }
     
@@ -194,6 +199,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             handleImageSelectedForInfo(info)
         }
         dismiss(animated: true, completion: nil)
+        self.view.layoutIfNeeded()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -220,6 +226,67 @@ extension ChatViewController {
                 //TODO: remove mock id
                 values.updateValue("2", forKey: "toId")
                 self.modelController.updateMessageToDatabase(message: values)
+            })
+        }
+    }
+}
+
+// MARK: ImageTapGestureDelegate
+extension ChatViewController: ZoomTapDelegate {
+    func didTap(on imageView: UIImageView) {
+        handleZoomTap(on: imageView)
+    }
+    
+    private func handleZoomTap(on imageView: UIImageView) {
+        self.startingImageView = imageView
+        self.startingImageView?.isHidden = true
+        startingFrame = imageView.superview?.convert(imageView.frame, to: nil)
+        self.chatView.alpha = 0
+        
+        let zoomingImageView = UIImageView(frame: startingFrame!)
+        zoomingImageView.backgroundColor = UIColor.red
+        zoomingImageView.image = imageView.image
+        zoomingImageView.isUserInteractionEnabled = true
+        zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
+        
+        if let keyWindow = UIApplication.shared.keyWindow {
+            blackBackgroundView = UIView(frame: keyWindow.frame)
+            blackBackgroundView?.backgroundColor = UIColor.black
+            blackBackgroundView?.alpha = 0
+            keyWindow.addSubview(blackBackgroundView!)
+            keyWindow.addSubview(zoomingImageView)
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                self.blackBackgroundView?.alpha = 1
+                self.chatView.alpha = 0
+                let height = self.startingFrame!.height / self.startingFrame!.width * keyWindow.frame.width
+                
+                zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                
+                zoomingImageView.center = keyWindow.center
+                
+            }, completion: { (completed) in
+
+            })
+        }
+    }
+    
+    @objc func handleZoomOut(_ tapGesture: UITapGestureRecognizer) {
+        if let zoomOutImageView = tapGesture.view {
+            zoomOutImageView.layer.cornerRadius = 16
+            zoomOutImageView.clipsToBounds = true
+            self.chatView.alpha = 1
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                zoomOutImageView.frame = self.startingFrame!
+                self.blackBackgroundView?.alpha = 0
+                self.chatView.alpha = 1
+                
+            }, completion: { (completed) in
+                zoomOutImageView.removeFromSuperview()
+                self.startingImageView?.isHidden = false
             })
         }
     }
