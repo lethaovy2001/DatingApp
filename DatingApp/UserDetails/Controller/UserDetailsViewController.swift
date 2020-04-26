@@ -23,7 +23,7 @@ class UserDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        fetchUserInfo()
+        reloadUserInfo()
     }
     
     // MARK: Setup
@@ -52,7 +52,7 @@ class UserDetailsViewController: UIViewController {
     func addNavigationBar() {
         let navBar = self.navigationController?.navigationBar
         let navItem = self.navigationItem
-        navBar?.tintColor = UIColor.orange
+        navBar?.tintColor = UIColor.amour
         navItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
     }
     
@@ -67,8 +67,8 @@ class UserDetailsViewController: UIViewController {
     }
     
     // MARK: Firebase
-    private func fetchUserInfo() {
-        modelController.getData { model in
+    func reloadUserInfo() {
+        self.modelController.getData { model in
             self.viewModel = UserDetailsViewModel(model: model)
             self.userDetailsView.viewModel = self.viewModel
         }

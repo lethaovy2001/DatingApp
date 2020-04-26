@@ -13,24 +13,21 @@ class UserDetailsView: UIView {
     private let nameContainerView = NameContainerView()
     private let bioContainerView = BioContainerView()
     private let scrollView = CustomScrollView()
-    private var cardImages: [String]?
+    private var cardImages: [UIImage]?
     private var currentImage = 0
     private let customNavigationView = CustomNavigationView(type: .userDetails)
-    private let profileLabel = CustomLabel(text: "Profile", textColor: .darkGray, textSize: 30, textWeight: .heavy)
-    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let editButton = CustomButton(imageName: "pencil", size: 22, color: Constants.Colors.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameContainerView.viewModel = viewModel
             bioContainerView.viewModel = viewModel
-            //            userImageView.setName(name: viewModel.mainImageName)
-            //            cardImages = viewModel.images
+            cardImages = viewModel.images
+            userImageView.setImage(image: viewModel.images[0])
         }
     }
     init() {
         super.init(frame: .zero)
         setUp()
-        self.backgroundColor = Constants.Colors.mainBackgroundColor
+        self.backgroundColor = UIColor.mainBackgroundColor
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -131,7 +128,7 @@ class UserDetailsView: UIView {
                     currentImage = currentImage + 1
                 }
             }
-            userImageView.image = UIImage(named: cardImages[currentImage])
+            userImageView.setImage(image: cardImages[currentImage])
         }
     }
 }
