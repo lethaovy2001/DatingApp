@@ -112,6 +112,10 @@ class MainView: UIView {
     func addDelegate(viewController: MainViewController) {
         swipeStackContainer.addDelegate(viewController: viewController)
     }
+    
+    func reloadSwipeViews() {
+        swipeStackContainer.reloadData()
+    }
 
     func setDoneSelector(selector: Selector, target: UIViewController) {
         customAlertView.setDoneSelector(selector: selector, target: target)
