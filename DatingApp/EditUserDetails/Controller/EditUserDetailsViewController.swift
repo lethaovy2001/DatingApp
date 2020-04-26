@@ -128,3 +128,4 @@ extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavi
         dismiss(animated: true, completion: nil)
     }
 }
+

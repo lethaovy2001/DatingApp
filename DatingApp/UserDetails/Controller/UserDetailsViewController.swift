@@ -52,7 +52,7 @@ class UserDetailsViewController: UIViewController {
     func addNavigationBar() {
         let navBar = self.navigationController?.navigationBar
         let navItem = self.navigationItem
-        navBar?.tintColor = UIColor.orange
+        navBar?.tintColor = UIColor.amour
         navItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
     }
     
