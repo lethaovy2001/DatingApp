@@ -20,9 +20,9 @@ class ChatCell: UICollectionViewCell {
         return view
     }()
     private let profileImageView = CircleImageView(imageName: "Vy")
-    let textView: UITextView = {
+    private let textView: UITextView = {
         let tv = UITextView()
-        tv.font = UIFont.boldSystemFont(ofSize: 16)
+        tv.font = UIFont.boldSystemFont(ofSize: 20)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor.clear
         tv.textColor = UIColor.white
@@ -36,6 +36,20 @@ class ChatCell: UICollectionViewCell {
     var viewModel: MessageViewModel! {
         didSet {
             textView.text = viewModel.text
+            switch viewModel.style {
+            case .currentUser:
+                containerView.backgroundColor = Constants.Colors.amour
+                textView.textColor = UIColor.white
+                containerViewRightAnchor.isActive = true
+                containerViewLeftAnchor.isActive = false
+                profileImageView.isHidden = true
+            case .otherPerson:
+                containerView.backgroundColor = Constants.Colors.inputContainerColor
+                textView.textColor = UIColor.black
+                containerViewRightAnchor.isActive = false
+                containerViewLeftAnchor.isActive = true
+                profileImageView.isHidden = false
+            }
         }
     }
     
@@ -68,7 +82,7 @@ class ChatCell: UICollectionViewCell {
             profileImageView.widthAnchor.constraint(equalToConstant: 32),
             profileImageView.heightAnchor.constraint(equalToConstant: 32)
         ])
-        containerViewRightAnchor = containerView.rightAnchor.constraint(equalTo: self.centerXAnchor, constant: 60)
+        containerViewRightAnchor = containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
         containerViewLeftAnchor = containerView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
         NSLayoutConstraint.activate([
             containerViewRightAnchor,
@@ -79,7 +93,7 @@ class ChatCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             textView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8),
             textView.topAnchor.constraint(equalTo: self.topAnchor),
-            textView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            textView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8),
             textView.heightAnchor.constraint(equalTo: self.heightAnchor)
         ])
     }

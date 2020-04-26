@@ -18,7 +18,10 @@ class FirebaseService {
     }
     
     func getUserID() -> String? {
-        return Auth.auth().currentUser?.uid
+        if let uid = Auth.auth().currentUser?.uid {
+            return uid
+        }
+        return nil
     }
     
     func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {

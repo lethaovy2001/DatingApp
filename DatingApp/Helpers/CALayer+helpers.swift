@@ -16,7 +16,7 @@ extension CALayer {
     func addShadow(withDirection direction: shadowDirection) {
         switch direction {
         case .top:
-            addShadow(offsetHeight: -10.0, offsetWidth: 0.0, shadowRadius: 6.0)
+            addShadow(offsetHeight: -5.0, offsetWidth: 0.0, shadowRadius: 3.0)
         case .bottom:
             addShadow(offsetHeight: 3.0, offsetWidth: 0.0, shadowRadius: 5.0)
         }

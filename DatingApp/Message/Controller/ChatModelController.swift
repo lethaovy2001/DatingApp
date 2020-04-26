@@ -20,6 +20,11 @@ class ChatModelController {
         return messages
     }
     
+    func getCurrentUserId() -> String? {
+        
+        return firebaseService.getUserID()
+    }
+    
     func getMessagesFromDatabase(_ completion : @escaping()->()) {
         firebaseService.getMessages(toId: "2", { data in
             for messageId in data {

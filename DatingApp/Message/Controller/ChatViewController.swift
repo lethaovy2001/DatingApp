@@ -105,8 +105,14 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        let message = modelController.getMessages()[indexPath.item]
-        cell.viewModel = MessageViewModel(model: message)
+        if let uid = modelController.getCurrentUserId() {
+            let message = modelController.getMessages()[indexPath.item]
+            cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
+        } else {
+            //TODO: Alert error
+            let vc = LoginViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         return cell
     }
     
@@ -121,7 +127,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     private func estimatedFrameForText(text: String) -> CGRect {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)], context: nil)
     }
 }
 
