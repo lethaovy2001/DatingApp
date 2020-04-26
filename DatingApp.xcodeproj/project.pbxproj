@@ -52,6 +52,7 @@
 		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
+		38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */; };
 		38C1EA032443AE1300CEA9B2 /* FacebookAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */; };
 		38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */; };
 		38DACAF6244A68B600F4E60E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAF5244A68B600F4E60E /* FirebaseService.swift */; };
@@ -115,6 +116,7 @@
 		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
+		38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension .swift"; sourceTree = "<group>"; };
 		38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticator.swift; sourceTree = "<group>"; };
 		38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUserDataDelegate.swift; sourceTree = "<group>"; };
 		38DACAF5244A68B600F4E60E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				382CC7A023D5EF650043060E /* Constants.swift */,
 				3854F6512437DA7400229E16 /* UserDefaults+helper.swift */,
 				3854F6542438092000229E16 /* CALayer+helpers.swift */,
+				38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				383E4705244265990012977A /* CustomButton.swift in Sources */,
+				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
 				38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */,
 				38DACAF6244A68B600F4E60E /* FirebaseService.swift in Sources */,
