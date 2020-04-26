@@ -1,8 +1,8 @@
 //
-//  TapGestureDelegate.swift
+//  ImageTapGestureDelegate.swift
 //  DatingApp
 //
-//  Created by Vy Le on 4/14/20.
+//  Created by Vy Le on 4/23/20.
 //  Copyright © 2020 Vy Le. All rights reserved.
 //
 
@@ -22,4 +22,3 @@ extension ImageTapGestureDelegate {
         print("Set Image...")
     }
 }
-
