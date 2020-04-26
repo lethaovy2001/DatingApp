@@ -24,12 +24,4 @@ struct UserModel {
         self.gender = gender
         self.images = images
     }
-    
-    init(info: [String: Any], birthday: Date) {
-        self.name = info["first_name"] as! String
-        self.birthday = birthday
-        self.work = info["work"] as! String
-        self.bio = info["bio"] as! String
-        self.gender = info["gender"] as! String
-    }
 }

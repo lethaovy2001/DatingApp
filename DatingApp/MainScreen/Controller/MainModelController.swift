@@ -12,7 +12,7 @@ import Firebase
 class MainModelController {
     private var firebaseService = FirebaseService()
     private var users = [UserModel]()
-    private var user = UserModel(name: "Unknown", birthday: Date(), work: "Unknown workplace", bio: "No bio", gender: "Female")
+    private var user = UserModel(name: "Unknown", birthday: Date(), work: "Unknown workplace", bio: "No bio", gender: "Female", images: [UIImage()])
     
     func getUsers() -> [UserModel] {
         return users
@@ -24,6 +24,14 @@ class MainModelController {
     
     func getMockImageNames() -> [String] {
         let userImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
+        return userImages
+    }
+    
+    func getMockImage() -> [UIImage] {
+        var userImages: [UIImage] = []
+        for imageName in getMockImageNames() {
+            userImages.append(UIImage(named: imageName)!)
+        }
         return userImages
     }
     
@@ -61,13 +69,18 @@ class MainModelController {
         var usersData: [UserModel] = []
         firebaseService.getAllUsersFromDatabase { users in
             for user in users {
-                if let bithday = user.value["birthday"] as? Timestamp {
-                    let date = self.firebaseService.convertToDate(timestamp: bithday)
-                    usersData.append(UserModel(info: user.value, birthday: date))
-                }
+                guard let bithday = user.value["birthday"] as? Timestamp else { return }
+                guard let name = user.value["first_name"] as? String else { return }
+                guard let work = user.value["work"] as? String else {return }
+                guard let bio = user.value["bio"] as? String else { return }
+                guard let gender = user.value["gender"] as? String else { return }
+                guard let images = [UIImage(named: "Vy.jpg")] as? [UIImage] else { return }
+                let date = self.firebaseService.convertToDate(timestamp: bithday)
+                let userModel = UserModel(name: name, birthday: date, work: work, bio: bio, gender: gender, images: images)
+                usersData.append(userModel)
+                self.users = usersData
+                completion()
             }
-            self.users = usersData
-            completion()
         }
     }
 }
