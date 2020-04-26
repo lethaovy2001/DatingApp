@@ -12,14 +12,14 @@ class CustomContainerView: UIView {
     init() {
         super.init(frame: .zero)
         self.backgroundColor = .white
-        self.addShadow(color: Constants.Colors.lightGray)
+        self.addShadow(color: UIColor.lightGray)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     init(cornerRadius: CGFloat) {
         super.init(frame: .zero)
         self.backgroundColor = .white
-        self.addShadow(color: Constants.Colors.lightGray)
+        self.addShadow(color: UIColor.lightGray)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = cornerRadius
     }

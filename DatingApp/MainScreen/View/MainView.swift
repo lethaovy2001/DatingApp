@@ -12,15 +12,16 @@ class MainView: UIView {
     private let cardView = SwipeCardView()
     private var swipeStackContainer = SwipeCardStackContainer()
     private let likeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.fill", size: 25, color: .cyan, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.fill", size: 25, color: UIColor.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: UIColor.lightGray, backgroundColor: .white)
         return button
     }()
     private let dislikeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: .red, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: Constants.Colors.lightGray, backgroundColor: .white)
+        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: UIColor.orangeRed, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: UIColor.lightGray, backgroundColor: .white)
         return button
     }()
-    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: Constants.Colors.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+
+    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
     
     // MARK: Initializer
@@ -35,7 +36,7 @@ class MainView: UIView {
     
     // MARK: Setup
     private func setup() {
-        backgroundColor = Constants.Colors.mainBackgroundColor
+        backgroundColor = UIColor.mainBackgroundColor
         addSubViews()
         setupConstraints()
     }

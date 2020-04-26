@@ -14,7 +14,7 @@ class CustomAlertView: UIView {
     private var titleLabel: CustomLabel!
     private var descriptionTextView: CustomTextView!
     private var animationView: AnimationView!
-    private let doneButton = CustomButton(title: "DONE", color: Constants.Colors.amour, cornerRadius: 5)
+    private let doneButton = CustomButton(title: "DONE", color: UIColor.amour, cornerRadius: 5)
     private var type: AlertType!
     private var title: String!
     private var message: String!
