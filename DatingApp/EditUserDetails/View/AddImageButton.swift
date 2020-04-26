@@ -13,7 +13,6 @@ class AddImageButton: CustomButton {
     init() {
         super.init(imageName: "plus.circle", size: 20, color: .darkGray, cornerRadius: 10, shadowColor: nil, backgroundColor: UIColor.inputContainerColor)
         isDefaultImage = false
-
     }
     
     func setImage(name: String) {
