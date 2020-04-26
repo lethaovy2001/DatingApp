@@ -21,19 +21,19 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        addNavigationBar()
         setupUI()
         setupKeyboardObservers()
         registerCellId()
         chatView.addDelegate(viewController: self)
         chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
+        chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -51,26 +51,9 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
             chatView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
-    func addNavigationBar() {
-        let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = UIColor.white
-        let boldConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold, scale: .large)
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.layer.addShadow(withDirection: .bottom)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "flag.fill", withConfiguration: boldConfig)?.withTintColor(UIColor.amour, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(reportPressed))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left", withConfiguration: boldConfig)?.withTintColor(UIColor.amour, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(backPressed))
-        chatView.setupTitleNavBar(navItem: self.navigationItem)
-    }
     
     private func registerCellId() {
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
-    }
-    
-    // TODO: Report User
-    // MARK: Actions
-    @objc func reportPressed(){
-        
     }
     
     @objc func backPressed(){
@@ -115,7 +98,7 @@ extension ChatViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-         textViewEditingDelegate?.endEditing()
+        textViewEditingDelegate?.endEditing()
     }
 }
 
@@ -127,7 +110,7 @@ extension ChatViewController {
     }
     
     @objc func dismissKeyboard() {
-       view.endEditing(true)
+        view.endEditing(true)
     }
     
     @objc func handleKeyboardWillHide(notification: NSNotification) {
