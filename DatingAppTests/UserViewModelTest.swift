@@ -9,7 +9,7 @@
 import XCTest
 @testable import DatingApp
 
-class UserViewModel: XCTestCase {
+class UserViewModelTest: XCTestCase {
     
     func testViewModel() {
         let model = UserModel(name: "Vy", birthday: Date(), work: "UW Hospital", bio: "Sweet but psycho", gender: "female", images: [UIImage(named: "Vy.jpg")!])

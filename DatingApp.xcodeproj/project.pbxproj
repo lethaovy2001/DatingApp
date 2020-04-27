@@ -63,7 +63,8 @@
 		38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFD244BAB9000F4E60E /* BioContainerView.swift */; };
 		38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */; };
 		38DB157E24574FCA00748B1B /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB157D24574FCA00748B1B /* DatingAppTests.swift */; };
-		38DB1586245752CD00748B1B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB1585245752CD00748B1B /* UserViewModel.swift */; };
+		38DB1586245752CD00748B1B /* UserViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB1585245752CD00748B1B /* UserViewModelTest.swift */; };
+		38DB158A24579E6F00748B1B /* MainModelControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB158924579E6F00748B1B /* MainModelControllerTest.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
@@ -146,7 +147,8 @@
 		38DB157B24574FCA00748B1B /* DatingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DB157D24574FCA00748B1B /* DatingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppTests.swift; sourceTree = "<group>"; };
 		38DB157F24574FCA00748B1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		38DB1585245752CD00748B1B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		38DB1585245752CD00748B1B /* UserViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTest.swift; sourceTree = "<group>"; };
+		38DB158924579E6F00748B1B /* MainModelControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModelControllerTest.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -474,7 +476,8 @@
 			children = (
 				38DB157D24574FCA00748B1B /* DatingAppTests.swift */,
 				38DB157F24574FCA00748B1B /* Info.plist */,
-				38DB1585245752CD00748B1B /* UserViewModel.swift */,
+				38DB1585245752CD00748B1B /* UserViewModelTest.swift */,
+				38DB158924579E6F00748B1B /* MainModelControllerTest.swift */,
 			);
 			path = DatingAppTests;
 			sourceTree = "<group>";
@@ -758,8 +761,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38DB158A24579E6F00748B1B /* MainModelControllerTest.swift in Sources */,
 				38DB157E24574FCA00748B1B /* DatingAppTests.swift in Sources */,
-				38DB1586245752CD00748B1B /* UserViewModel.swift in Sources */,
+				38DB1586245752CD00748B1B /* UserViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
