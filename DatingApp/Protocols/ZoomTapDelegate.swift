@@ -9,5 +9,5 @@
 import UIKit
 
 protocol ZoomTapDelegate {
-    func didTap(on imageView: UIImageView)
+    func didTap(on imageView: UIImageView, id: String)
 }

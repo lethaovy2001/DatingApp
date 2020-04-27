@@ -45,6 +45,11 @@ class ChatCell: UICollectionViewCell {
             }
         }
     }
+    var transitionId: String! {
+        didSet {
+            self.hero.id = transitionId
+        }
+    }
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -110,7 +115,8 @@ class ChatCell: UICollectionViewCell {
     }
     
     @objc func handleTapGesture() {
-        tapDelegate?.didTap(on: messageImageView)
+        messageImageView.hero.id = "greenView"
+        tapDelegate?.didTap(on: messageImageView, id: transitionId)
     }
     
     private func setUpMessageRelationshipStyle() {

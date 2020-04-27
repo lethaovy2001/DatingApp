@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 class ScrollingImageViewController: UIViewController {
     var imageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 0)
@@ -21,6 +22,8 @@ class ScrollingImageViewController: UIViewController {
         setup()
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
+        self.hero.isEnabled = true
+        imageView.hero.id = "greenView"
     }
     
     private func setup() {
