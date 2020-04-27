@@ -20,6 +20,7 @@
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
 		3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD5F24562701007B4297 /* UITextView+helper.swift */; };
 		3837CD6224564404007B4297 /* ZoomTapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD6124564404007B4297 /* ZoomTapDelegate.swift */; };
+		3837CD6424566428007B4297 /* ScrollingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD6324566428007B4297 /* ScrollingImageViewController.swift */; };
 		3838C0582453E30C00092341 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838C0572453E30C00092341 /* Message.swift */; };
 		383E46D32440E6A60012977A /* loveAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E46D22440E6A60012977A /* loveAnimation.json */; };
 		383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46DE244265450012977A /* UserDetailsViewController.swift */; };
@@ -93,6 +94,7 @@
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3837CD5F24562701007B4297 /* UITextView+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+helper.swift"; sourceTree = "<group>"; };
 		3837CD6124564404007B4297 /* ZoomTapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTapDelegate.swift; sourceTree = "<group>"; };
+		3837CD6324566428007B4297 /* ScrollingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingImageViewController.swift; sourceTree = "<group>"; };
 		3838C0572453E30C00092341 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		383E46D22440E6A60012977A /* loveAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveAnimation.json; sourceTree = "<group>"; };
 		383E46DE244265450012977A /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			children = (
 				3854F6452437C4EC00229E16 /* ChatViewController.swift */,
 				3889EB4F2454C942009B63C2 /* ChatModelController.swift */,
+				3837CD6324566428007B4297 /* ScrollingImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				2415F39B24381BB00090031D /* LoginMainView.swift in Sources */,
 				383E4706244265990012977A /* CustomLabel.swift in Sources */,
 				384604B023E7A736006F6540 /* SwipeCardView.swift in Sources */,
+				3837CD6424566428007B4297 /* ScrollingImageViewController.swift in Sources */,
 				3889EB522454D02E009B63C2 /* MessageViewModel.swift in Sources */,
 				383E46FE244265990012977A /* RoundedButton.swift in Sources */,
 				383E46FF244265990012977A /* CustomContainerView.swift in Sources */,
