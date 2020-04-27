@@ -13,5 +13,6 @@ target 'DatingApp' do
   pod 'Firebase/Storage'
   pod 'FBSDKLoginKit'
   pod 'lottie-ios'
+  pod 'Hero'
 
 end
