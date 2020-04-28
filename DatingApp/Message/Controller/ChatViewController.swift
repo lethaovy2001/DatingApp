@@ -19,10 +19,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
-    var startingFrame: CGRect?
-    var blackBackgroundView: UIView?
-    var startingImageView: UIImageView?
-    
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +110,6 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
             cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
         }
         cell.tapDelegate = self
-        cell.backgroundColor = .black
         return cell
     }
     
@@ -239,7 +234,11 @@ extension ChatViewController: ZoomTapDelegate {
     }
     
     private func handleZoomTap(on imageView: UIImageView) {
-    
+        let vc = ScrollingImageViewController()
+        if let image = imageView.image {
+            vc.image = image
+        }
+        self.navigationController?.pushViewController(vc, animated: false)
     }
 }
 

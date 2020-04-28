@@ -43,13 +43,13 @@ class ChatView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.backgroundColor = UIColor.yellow
         cv.alwaysBounceVertical = true
         cv.isScrollEnabled = true
         cv.allowsSelection = true
         cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.keyboardDismissMode = .interactive
+        cv.backgroundColor = .white
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)

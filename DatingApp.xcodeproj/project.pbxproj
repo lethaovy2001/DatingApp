@@ -67,6 +67,7 @@
 		38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */; };
 		38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFD244BAB9000F4E60E /* BioContainerView.swift */; };
 		38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */; };
+		38DB158E2457FE2F00748B1B /* ScrollingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB158D2457FE2F00748B1B /* ScrollingImageViewController.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
@@ -140,6 +141,7 @@
 		38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameContainerView.swift; sourceTree = "<group>"; };
 		38DACAFD244BAB9000F4E60E /* BioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioContainerView.swift; sourceTree = "<group>"; };
 		38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonsContainerView.swift; sourceTree = "<group>"; };
+		38DB158D2457FE2F00748B1B /* ScrollingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingImageViewController.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			children = (
 				3854F6452437C4EC00229E16 /* ChatViewController.swift */,
 				3889EB4F2454C942009B63C2 /* ChatModelController.swift */,
+				38DB158D2457FE2F00748B1B /* ScrollingImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38DB158E2457FE2F00748B1B /* ScrollingImageViewController.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
