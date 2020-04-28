@@ -14,12 +14,13 @@ class ChatCell: UICollectionViewCell {
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .medium)
+        aiv.color = UIColor.amour
         aiv.translatesAutoresizingMaskIntoConstraints = false
         aiv.hidesWhenStopped = true
         return aiv
     }()
     
-    private let playButton = CustomButton(imageName: "play.fill", size: 20, color: .black, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var playerLayer: AVPlayerLayer?
     private var player: AVPlayer?
     private var isPlaying: Bool!
