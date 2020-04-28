@@ -81,12 +81,14 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @objc func sendButtonPressed(){
         //TODO: Remove mock data
-        let message: [String: Any] = [
-            "toId": "2",
-            "text": chatView.getInputText()
-        ]
-        modelController.updateMessageToDatabase(message: message)
-        chatView.setEmptyInputText()
+        if chatView.getInputText() != nil {
+            let message: [String: Any] = [
+                "toId": "2",
+                "text": chatView.getInputText()
+            ]
+            modelController.updateMessageToDatabase(message: message)
+            chatView.setEmptyInputText()
+        }
     }
     
     @objc func addImageButtonPressed() {

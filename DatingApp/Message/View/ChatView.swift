@@ -153,8 +153,11 @@ class ChatView: UIView {
         sendButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
-    func getInputText() -> String {
-        return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+    func getInputText() -> String? {
+        if (inputTextView.hasText()) {
+            return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return nil
     }
     
     func setEmptyInputText() {
