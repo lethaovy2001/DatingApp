@@ -105,8 +105,10 @@ class ChatCell: UICollectionViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
+        tapGesture.cancelsTouchesInView = false
         messageImageView.isUserInteractionEnabled = true
         messageImageView.addGestureRecognizer(tapGesture)
+        
     }
     
     @objc func handleTapGesture() {

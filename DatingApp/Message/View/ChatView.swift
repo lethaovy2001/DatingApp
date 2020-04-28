@@ -43,9 +43,10 @@ class ChatView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.backgroundColor = UIColor.white
+        cv.backgroundColor = UIColor.yellow
         cv.alwaysBounceVertical = true
         cv.isScrollEnabled = true
+        cv.allowsSelection = true
         cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.keyboardDismissMode = .interactive
@@ -132,8 +133,8 @@ class ChatView: UIView {
         let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
             target: target,
             action: selector)
+        tapRecognizer.cancelsTouchesInView = false
         self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
     }
     
     func getKeyboard(frame: CGRect) {

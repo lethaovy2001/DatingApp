@@ -112,18 +112,15 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         if let uid = modelController.getCurrentUserId() {
             let message = modelController.getMessages()[indexPath.item]
             cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
-        } else {
-            //TODO: Alert error
-            let vc = LoginViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
         }
         cell.tapDelegate = self
+        cell.backgroundColor = .black
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let message = modelController.getMessages()[indexPath.item]
         var height: CGFloat = 80
+        let message = modelController.getMessages()[indexPath.item]
         if let text = message.text {
             height = estimatedFrameForText(text: text).height + 20
         } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
@@ -137,6 +134,10 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textSize)], context: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -238,57 +239,7 @@ extension ChatViewController: ZoomTapDelegate {
     }
     
     private func handleZoomTap(on imageView: UIImageView) {
-        self.startingImageView = imageView
-        self.startingImageView?.isHidden = true
-        startingFrame = imageView.superview?.convert(imageView.frame, to: nil)
-        self.chatView.alpha = 0
-        
-        let zoomingImageView = UIImageView(frame: startingFrame!)
-        zoomingImageView.backgroundColor = UIColor.red
-        zoomingImageView.image = imageView.image
-        zoomingImageView.isUserInteractionEnabled = true
-        zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
-        
-        if let keyWindow = UIApplication.shared.keyWindow {
-            blackBackgroundView = UIView(frame: keyWindow.frame)
-            blackBackgroundView?.backgroundColor = UIColor.black
-            blackBackgroundView?.alpha = 0
-            keyWindow.addSubview(blackBackgroundView!)
-            keyWindow.addSubview(zoomingImageView)
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                
-                self.blackBackgroundView?.alpha = 1
-                self.chatView.alpha = 0
-                let height = self.startingFrame!.height / self.startingFrame!.width * keyWindow.frame.width
-                
-                zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
-                
-                zoomingImageView.center = keyWindow.center
-                
-            }, completion: { (completed) in
-
-            })
-        }
-    }
     
-    @objc func handleZoomOut(_ tapGesture: UITapGestureRecognizer) {
-        if let zoomOutImageView = tapGesture.view {
-            zoomOutImageView.layer.cornerRadius = 16
-            zoomOutImageView.clipsToBounds = true
-            self.chatView.alpha = 1
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                
-                zoomOutImageView.frame = self.startingFrame!
-                self.blackBackgroundView?.alpha = 0
-                self.chatView.alpha = 1
-                
-            }, completion: { (completed) in
-                zoomOutImageView.removeFromSuperview()
-                self.startingImageView?.isHidden = false
-            })
-        }
     }
 }
 
