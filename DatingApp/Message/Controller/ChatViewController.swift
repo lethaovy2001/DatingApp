@@ -234,7 +234,7 @@ extension ChatViewController: ZoomTapDelegate {
     }
     
     private func handleZoomTap(on imageView: UIImageView) {
-        let vc = ScrollingImageViewController()
+        let vc = ImageDetailViewController()
         if let image = imageView.image {
             vc.image = image
         }
