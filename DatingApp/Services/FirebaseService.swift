@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import AVFoundation
 
 class FirebaseService {
     private var database: Firestore!
@@ -136,6 +137,50 @@ extension FirebaseService {
                 }
             }
         }
+    }
+    
+    func uploadMessageVideoOntoStorage(url: URL, completion: @escaping ([String: Any]) -> ()) {
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-videos").child("\(imageName).mov")
+         if let videoData = NSData(contentsOf: url) as Data? {
+            let uploadTask = storageRef.putData(videoData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    guard let fileUrl = url else {
+                        print("FirebaseService: error in fileUrl")
+                        return
+                    }
+                    
+                    if let thumbnailImage = self.thumbnailImageForFileUrl(fileUrl) {
+                        self.uploadMessageImageOntoStorage(image: thumbnailImage, { imageData in
+                            var data = imageData
+                            data.updateValue(downloadURL, forKey: "videoUrl")
+                            completion(data)
+                        })
+                    }
+                }
+            }
+            uploadTask.observe(.success) { (snapshot) in
+                print("Success")
+            }
+        }
+    }
+    
+    private func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
+        let asset = AVAsset(url: fileUrl)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        do {
+            let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60), actualTime: nil)
+            return UIImage(cgImage: thumbnailCGImage)
+            
+        } catch let err {
+            print(err)
+        }
+        
+        return nil
     }
     
     func uploadMessageImageOntoStorage(image: UIImage, _ completion: @escaping ([String: Any]) -> ()) {

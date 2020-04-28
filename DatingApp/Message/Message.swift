@@ -17,6 +17,7 @@ struct Message {
     var imageWidth: Int?
     var imageHeight: Int?
     var image: UIImage?
+    var videoUrl: String?
 
     init(dictionary: [String: Any]) {
         self.fromId = dictionary["fromId"] as? String
@@ -33,6 +34,7 @@ struct Message {
         self.imageUrl = dictionary["imageUrl"] as? String
         self.imageWidth = dictionary["imageWidth"] as? Int
         self.imageHeight = dictionary["imageHeight"] as? Int
+        self.videoUrl = dictionary["videoUrl"] as? String
     }
 }
 

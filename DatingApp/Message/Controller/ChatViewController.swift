@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MobileCoreServices
+import AVFoundation
 
 class ChatViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private let chatView: ChatView = {
@@ -84,7 +86,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if chatView.getInputText() != nil {
             let message: [String: Any] = [
                 "toId": "2",
-                "text": chatView.getInputText()
+                "text": chatView.getInputText()!
             ]
             modelController.updateMessageToDatabase(message: message)
             chatView.setEmptyInputText()
@@ -95,6 +97,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
+        imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
         present(imagePicker, animated: true, completion: nil)
     }
 }
@@ -208,7 +211,12 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 // MARK: Images and Videos
 extension ChatViewController {
     private func handleVideoSelectedForUrl(_ url: URL) {
-        
+        firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
+            var values: [String: Any] = message
+            //TODO: remove mock id
+            values.updateValue("2", forKey: "toId")
+            self.modelController.updateMessageToDatabase(message: values)
+        })
     }
     
     private func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]) {
