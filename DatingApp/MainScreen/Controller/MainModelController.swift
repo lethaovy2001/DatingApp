@@ -71,7 +71,7 @@ class MainModelController {
             for user in users {
                 guard let bithday = user.value["birthday"] as? Timestamp else { return }
                 guard let name = user.value["first_name"] as? String else { return }
-                guard let work = user.value["work"] as? String else {return }
+                guard let work = user.value["work"] as? String else { return }
                 guard let bio = user.value["bio"] as? String else { return }
                 guard let gender = user.value["gender"] as? String else { return }
                 guard let images = [UIImage(named: "Vy.jpg")] as? [UIImage] else { return }

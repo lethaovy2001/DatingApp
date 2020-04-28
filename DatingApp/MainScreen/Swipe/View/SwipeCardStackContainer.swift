@@ -91,6 +91,9 @@ extension SwipeCardStackContainer: SwipeCardDelegate {
 // MARK: AutoSwipeDelegate
 extension SwipeCardStackContainer: AutoSwipeDelegate {
     func swipe(direction: SwipeDirection) {
+        if (cardViews.isEmpty) {
+            return
+        }
         let card = cardViews[0]
         let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         var point = CGPoint(x: 0, y: 0)

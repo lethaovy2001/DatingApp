@@ -14,41 +14,25 @@
             filePath = "DatingApp/MainScreen/Controller/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "card(forItemAt:)"
-            landmarkType = "7">
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "MainViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "21EB018E-CBF8-412E-B35A-9D5CE7A9BCE9"
-            shouldBeEnabled = "No"
+            uuid = "4CA9F8B5-1E19-4E0B-89BD-3A01ADEC1876"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DatingApp/MainScreen/Controller/MainViewController.swift"
+            filePath = "DatingApp/Services/FirebaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "numberOfCards()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BFC39F16-AE3B-49D0-A3B9-4445B5CA4127"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DatingApp/MainScreen/Controller/MainViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "fetchAllUsers()"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "uploadMessageVideoOntoStorage(url:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
