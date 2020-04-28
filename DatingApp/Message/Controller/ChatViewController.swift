@@ -9,7 +9,7 @@
 import UIKit
 import Hero
 
-class ChatViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ChatViewController: UIViewController {
     private let chatView: ChatView = {
         let view = ChatView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -20,6 +20,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
+    var startingFrame: CGRect?
+    var blackBackgroundView: UIView?
+    var startingImageView: UIImageView?
+    
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +33,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setupSelectors()
         chatView.addDelegate(viewController: self)
         chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
-        chatView.collectionView.delegate = self
-        chatView.collectionView.dataSource = self
+        //        chatView.collectionView.delegate = self
+        //        chatView.collectionView.dataSource = self
+        chatView.tableView.delegate = self
+        chatView.tableView.dataSource = self
         getMessages()
     }
     
@@ -56,15 +62,16 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func registerCellId() {
-        chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
+        chatView.tableView.register(ChatCell.self, forCellReuseIdentifier: Constants.cellId)
+        //        chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
     }
     
     private func getMessages() {
         modelController.getMessagesFromDatabase {
             DispatchQueue.main.async {
-                self.chatView.collectionView.reloadData()
-                let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
-                self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+                //                self.chatView.collectionView.reloadData()
+                //                let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
+                //                self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
         }
     }
@@ -98,48 +105,137 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 }
 
-// MARK: UICollectionView
-extension ChatViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+// MARK: UITableViewDataSource
+extension ChatViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modelController.getMessages().count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellId, for: indexPath) as! ChatCell
         if let uid = modelController.getCurrentUserId() {
             let message = modelController.getMessages()[indexPath.item]
             cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
-            cell.hero.isEnabled = true
-//            cell..heroID = "chat\(indexPath.item)"
-            cell.transitionId = "chat\(indexPath.item)"
-            cell.heroModifiers = [.useGlobalCoordinateSpace]
         } else {
             //TODO: Alert error
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        cell.tapDelegate = self
+        //cell.tapDelegate = self
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let message = modelController.getMessages()[indexPath.item]
-        var height: CGFloat = 80
-        if let text = message.text {
-            height = estimatedFrameForText(text: text).height + 20
-        } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
-            height = CGFloat(imageHeight) / CGFloat(imageWidth) * 200
-        }
-        let width = UIScreen.main.bounds.width
-        return CGSize(width: width, height: height)
-    }
-    
-    private func estimatedFrameForText(text: String) -> CGRect {
-        let size = CGSize(width: 200, height: 1000)
-        let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textSize)], context: nil)
-    }
 }
+
+// MARK: UITableViewDelegate
+extension ChatViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //        let vc = ChatViewController()
+        //        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+//extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return modelController.getMessages().count
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let message = modelController.getMessages()[indexPath.item]
+//        var height: CGFloat = 80
+//        if let text = message.text {
+//            height = estimatedFrameForText(text: text).height + 20
+//        } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
+//            height = CGFloat(imageHeight) / CGFloat(imageWidth) * 200
+//        }
+//        //        let width = UIScreen.main.bounds.width
+//        return height
+//        return 80
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let vc = ChatViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
+//
+//    private func estimatedFrameForText(text: String) -> CGRect {
+//        let size = CGSize(width: 200, height: 1000)
+//        let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+//        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textSize)], context: nil)
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellId, for: indexPath) as! ChatCell
+//        if let uid = modelController.getCurrentUserId() {
+//            let message = modelController.getMessages()[indexPath.item]
+//            cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
+//        } else {
+//            //TODO: Alert error
+//            let vc = LoginViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+//        cell.backgroundColor = .black
+//        //cell.tapDelegate = self
+//        return cell
+//    }
+//
+//}
+
+
+//// MARK: UICollectionView
+//extension ChatViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return modelController.getMessages().count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
+//        if let uid = modelController.getCurrentUserId() {
+//            let message = modelController.getMessages()[indexPath.item]
+//            cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
+//        } else {
+//            //TODO: Alert error
+//            let vc = LoginViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+//        //cell.tapDelegate = self
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let message = modelController.getMessages()[indexPath.item]
+//        var height: CGFloat = 80
+//        if let text = message.text {
+//            height = estimatedFrameForText(text: text).height + 20
+//        } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
+//            height = CGFloat(imageHeight) / CGFloat(imageWidth) * 200
+//        }
+//        let width = UIScreen.main.bounds.width
+//        return CGSize(width: width, height: height)
+//    }
+//
+//    private func estimatedFrameForText(text: String) -> CGRect {
+//        let size = CGSize(width: 200, height: 1000)
+//        let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+//        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textSize)], context: nil)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print(indexPath)
+////        let message = modelController.getMessages()[indexPath.item]
+////        if message.imageUrl != nil {
+////            let vc = ScrollingImageViewController()
+////            if let image = message.image {
+////                vc.image = image
+////            }
+////            self.navigationController?.pushViewController(vc, animated: false)
+////        }
+//    }
+//}
 
 // MARK: UITextViewDelegate
 extension ChatViewController: UITextViewDelegate {
@@ -179,7 +275,8 @@ extension ChatViewController {
         performKeyboardAnimation(notification: notification)
         if self.modelController.getMessages().count > 0 {
             let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
-            chatView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            chatView.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            //            chatView.tableView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
     }
     
@@ -232,25 +329,36 @@ extension ChatViewController {
     }
 }
 
-// MARK: ImageTapGestureDelegate
-extension ChatViewController: ZoomTapDelegate {
-    
-    func didTap(on imageView: UIImageView, id: String) {
-        handleZoom(on: imageView, id: id)
-        self.navigationController?.hero.isEnabled = true
-        self.navigationController?.heroNavigationAnimationType = .zoom
-        
-    }
-    
-    private func handleZoom(on imageView: UIImageView, id: String) {
-        let vc = ScrollingImageViewController()
-        if let image = imageView.image {
-            vc.image = image
-        }
-        vc.imageView.heroID = id
-        print(vc.imageView.heroID)
-        self.navigationController?.pushViewController(vc, animated: false)
-    }
-}
+//// MARK: ImageTapGestureDelegate
+//extension ChatViewController: ZoomTapDelegate {
+//
+//    func didTap(on imageView: UIImageView, id: String) {
+////        handleZoom(on: imageView, id: id)
+////        self.navigationController?.hero.isEnabled = true
+////        self.navigationController?.heroNavigationAnimationType = .zoom
+//
+//    }
+//
+//    private func handleZoom(on imageView: UIImageView, id: String) {
+//        self.startingImageView = imageView
+//        startingImageView?.heroID = "image"
+////        startingFrame = imageView.superview?.convert(imageView.frame, to: nil)
+////
+////        self.startingImageView
+//
+////        let zoomingImageView = UIImageView(frame: startingFrame!)
+////        zoomingImageView.backgroundColor = UIColor.red
+////        zoomingImageView.image = imageView.image
+////        zoomingImageView.isUserInteractionEnabled = true
+////        zoomingImageView
+//        //zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
+//
+//        let vc = ScrollingImageViewController()
+//        if let image = imageView.image {
+//            vc.image = image
+//        }
+//        self.navigationController?.pushViewController(vc, animated: false)
+//    }
+//}
 
 

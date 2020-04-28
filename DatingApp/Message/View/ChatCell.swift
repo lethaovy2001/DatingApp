@@ -9,8 +9,7 @@
 import UIKit
 import Hero
 
-class ChatCell: UICollectionViewCell {
-    
+class ChatCell: UITableViewCell {
     //TODO: Create a custom class for container
     private let containerView: UIView = {
         let view = UIView()
@@ -38,27 +37,34 @@ class ChatCell: UICollectionViewCell {
     var tapDelegate: ZoomTapDelegate?
     var viewModel: MessageViewModel! {
         didSet {
-            textView.text = viewModel.text
-            setUpMessageRelationshipStyle()
-            setUpMessageType()
-            if let image = viewModel.image {
-                messageImageView.setImage(image: image)
-            }
+//            textView.text = viewModel.text
+//            setUpMessageRelationshipStyle()
+//            setUpMessageType()
+//            if let image = viewModel.image {
+//                messageImageView.setImage(image: image)
+//            }
         }
     }
     var transitionId: String! {
         didSet {
-            messageImageView.heroID = "image"
-            messageImageView.heroModifiers = [.arc]
+            
         }
     }
     
     // MARK: Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setup()
-        self.isHeroEnabled = true
     }
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+////        setup()
+////        self.isHeroEnabled = true
+////        messageImageView.heroID = "image"
+////        messageImageView.heroModifiers = [.arc]
+//        self.backgroundColor = .black
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -68,14 +74,17 @@ class ChatCell: UICollectionViewCell {
     private func setup() {
         addSubviews()
         setupConstraints()
-        addTapGesture()
+        //addTapGesture()
     }
     
     private func addSubviews() {
+        
         addSubview(containerView)
         addSubview(textView)
         addSubview(messageImageView)
         addSubview(profileImageView)
+      
+        messageImageView.isUserInteractionEnabled = true
     }
     
     private func setupConstraints() {
@@ -109,17 +118,20 @@ class ChatCell: UICollectionViewCell {
         ])
     }
     
-    private func addTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        messageImageView.isUserInteractionEnabled = true
-        messageImageView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func handleTapGesture() {
-        tapDelegate?.didTap(on: messageImageView, id: transitionId)
-    }
+//    private func addTapGesture() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+//        tapGesture.numberOfTapsRequired = 1
+//        tapGesture.numberOfTouchesRequired = 1
+//        messageImageView.isUserInteractionEnabled = true
+//        messageImageView.addGestureRecognizer(tapGesture)
+//        tapGesture.cancelsTouchesInView = false
+//    }
+//
+//    @objc func handleTapGesture() {
+////        messageImageView.heroID = "image"
+////        messageImageView.heroModifiers = [.arc]
+////        tapDelegate?.didTap(on: messageImageView, id: transitionId)
+//    }
     
     private func setUpMessageRelationshipStyle() {
         switch viewModel.style {

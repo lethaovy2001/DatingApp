@@ -18,7 +18,7 @@ class CustomImageView: UIImageView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setImage(image: UIImage) {
+    func setImage(image: UIImage?) {
         self.image = image
     }
     

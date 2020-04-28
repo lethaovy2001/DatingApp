@@ -39,17 +39,25 @@ class ChatView: UIView {
         return nameLabel
     }()
     private var keyboardFrame = CGRect()
-    var collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.backgroundColor = UIColor.white
-        cv.alwaysBounceVertical = true
-        cv.isScrollEnabled = true
-        cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.keyboardDismissMode = .interactive
-        return cv
+//    var collectionView: UICollectionView = {
+//        let flowLayout = UICollectionViewFlowLayout()
+//        flowLayout.scrollDirection = .vertical
+//        let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+//        cv.backgroundColor = UIColor.white
+//        cv.alwaysBounceVertical = true
+//        cv.isScrollEnabled = true
+//        cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+//        cv.translatesAutoresizingMaskIntoConstraints = false
+//        //cv.keyboardDismissMode = .interactive
+//        return cv
+//    }()
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
     
@@ -72,7 +80,8 @@ class ChatView: UIView {
     
     private func addSubviews() {
         addSubview(customNavigationView)
-        addSubview(collectionView)
+//        addSubview(collectionView)
+        addSubview(tableView)
         addSubview(inputContainerView)
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
@@ -114,12 +123,18 @@ class ChatView: UIView {
             addImageButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor),
             addImageButton.topAnchor.constraint(equalTo: inputTextView.topAnchor)
         ])
+//        NSLayoutConstraint.activate([
+//            collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
+//            collectionView.rightAnchor.constraint(equalTo: self.rightAnchor),
+//            collectionView.bottomAnchor.constraint(equalTo: inputContainerView.topAnchor),
+//            collectionView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor)
+//        ])
         NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: inputContainerView.topAnchor),
-            collectionView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor)
-        ])
+                   tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
+                   tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
+                   tableView.bottomAnchor.constraint(equalTo: inputContainerView.topAnchor),
+                   tableView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor)
+               ])
     }
     
     func addDelegate(viewController: ChatViewController) {
