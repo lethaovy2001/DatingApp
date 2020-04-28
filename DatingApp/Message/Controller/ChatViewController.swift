@@ -110,7 +110,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
             let message = modelController.getMessages()[indexPath.item]
             cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
             cell.hero.isEnabled = true
-            cell.hero.id = "chat\(indexPath.item)"
+//            cell..heroID = "chat\(indexPath.item)"
             cell.transitionId = "chat\(indexPath.item)"
             cell.heroModifiers = [.useGlobalCoordinateSpace]
         } else {
@@ -238,6 +238,8 @@ extension ChatViewController: ZoomTapDelegate {
     func didTap(on imageView: UIImageView, id: String) {
         handleZoom(on: imageView, id: id)
         self.navigationController?.hero.isEnabled = true
+        self.navigationController?.heroNavigationAnimationType = .zoom
+        
     }
     
     private func handleZoom(on imageView: UIImageView, id: String) {
@@ -245,6 +247,8 @@ extension ChatViewController: ZoomTapDelegate {
         if let image = imageView.image {
             vc.image = image
         }
+        vc.imageView.heroID = id
+        print(vc.imageView.heroID)
         self.navigationController?.pushViewController(vc, animated: false)
     }
 }

@@ -20,10 +20,11 @@ class ScrollingImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        self.hero.isEnabled = true
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
-        self.hero.isEnabled = true
-        imageView.hero.id = "greenView"
+        imageView.heroID = "image"
+        imageView.heroModifiers = [.arc]
     }
     
     private func setup() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 class ChatCell: UICollectionViewCell {
     
@@ -47,7 +48,8 @@ class ChatCell: UICollectionViewCell {
     }
     var transitionId: String! {
         didSet {
-            self.hero.id = transitionId
+            messageImageView.heroID = "image"
+            messageImageView.heroModifiers = [.arc]
         }
     }
     
@@ -55,6 +57,7 @@ class ChatCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+        self.isHeroEnabled = true
     }
     
     required init?(coder: NSCoder) {
@@ -115,7 +118,6 @@ class ChatCell: UICollectionViewCell {
     }
     
     @objc func handleTapGesture() {
-        messageImageView.hero.id = "greenView"
         tapDelegate?.didTap(on: messageImageView, id: transitionId)
     }
     
