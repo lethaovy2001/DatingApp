@@ -12,7 +12,7 @@ import Firebase
 class MainModelController {
     private var firebaseService = FirebaseService()
     private var users = [UserModel]()
-    private var user = UserModel(name: "Unknown", birthday: Date(), work: "Unknown workplace", bio: "No bio", gender: "Female", images: [UIImage()])
+    private var user = UserModel(info: ["":""])
     
     func getUsers() -> [UserModel] {
         return users
@@ -52,14 +52,21 @@ class MainModelController {
         }
     }
     
-    func getData(_ completion : @escaping(UserModel)->()) {
+    func getData(_ completion : @escaping()->()) {
         firebaseService.getUserInfoFromDatabase({ values in
             self.firebaseService.getUserImagesFromDatabase({ images in
                 if let birthday = values["birthday"] as? Timestamp {
                     let date = self.firebaseService.convertToDate(timestamp: birthday)
-                    let user = UserModel(name: values["first_name"] as! String, birthday: date, work: values["work"] as! String, bio: values["bio"] as! String, gender: values["gender"] as! String, images: images)
+                    let data: [String: Any?] =
+                        ["first_name": values["first_name"],
+                         "work": values["work"],
+                         "bio": values["bio"],
+                         "gender": values["gender"],
+                         "birthday": date,
+                         "images": images]
+                    let user = UserModel(info: data)
                     self.user = user
-                    completion(user)
+                    completion()
                 }
             })
         })
@@ -69,14 +76,7 @@ class MainModelController {
         var usersData: [UserModel] = []
         firebaseService.getAllUsersFromDatabase { users in
             for user in users {
-                guard let bithday = user.value["birthday"] as? Timestamp else { return }
-                guard let name = user.value["first_name"] as? String else { return }
-                guard let work = user.value["work"] as? String else { return }
-                guard let bio = user.value["bio"] as? String else { return }
-                guard let gender = user.value["gender"] as? String else { return }
-                guard let images = [UIImage(named: "Vy.jpg")] as? [UIImage] else { return }
-                let date = self.firebaseService.convertToDate(timestamp: bithday)
-                let userModel = UserModel(name: name, birthday: date, work: work, bio: bio, gender: gender, images: images)
+                let userModel = UserModel(info: user.value)
                 usersData.append(userModel)
                 self.users = usersData
                 completion()

@@ -134,7 +134,7 @@ extension FirebaseService {
         }
     }
     
-    func getUserImagesFromDatabase(_ completion : @escaping([UIImage])->()) {
+    func getUserImagesFromDatabase(_ completion : @escaping([UIImage?])->()) {
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("profile_images").document(uid).addSnapshotListener {
                 documentSnapshot, error in
@@ -145,6 +145,9 @@ extension FirebaseService {
                 guard let data = document.data() else {
                     print("Document data was empty.")
                     return
+                }
+                if (data.isEmpty) {
+                    completion([])
                 }
                 self.downloadImages(data: data, { images in
                     completion(images)
