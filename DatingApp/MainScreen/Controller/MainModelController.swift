@@ -84,8 +84,11 @@ class MainModelController {
                     self.users = usersData
                     completion()
                 })
-                
             }
         }
+    }
+    
+    func checkIfUserExist() -> Bool {
+        return firebaseService.getUserID() != nil
     }
 }

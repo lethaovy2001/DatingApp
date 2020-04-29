@@ -19,7 +19,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         return view
     }()
     private let modelController = MainModelController()
-    private var firebaseService: FirebaseService!
     var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: Setup
@@ -45,7 +44,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
@@ -61,7 +59,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if (firebaseService.getUserID() == nil) {
+        if (!modelController.checkIfUserExist()) {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
         }
@@ -76,6 +74,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Actions
     @objc func likePressed() {
         autoSwipeDelegate?.swipe(direction: .right)
+        
     }
     
     @objc func dislikePressed() {
