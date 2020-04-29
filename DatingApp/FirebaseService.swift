@@ -58,30 +58,6 @@ class FirebaseService {
         }
     }
     
-    func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
-        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if error != nil {
-                print(String(describing: error))
-                return
-            }
-            print("Successfully log user into firebase")
-            completion()
-        }
-    }
-    
-    func logout() {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            UserDefaults.standard.setIsLoggedIn(value: false)
-            UserDefaults.standard.synchronize()
-            print("Successfully logout of Firebase")
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-    }
-    
     func convertToDate(timestamp: Timestamp) -> Date {
         return timestamp.dateValue()
     }
@@ -95,6 +71,57 @@ class FirebaseService {
                     print("Document successfully updated")
                 }
             })
+        }
+    }
+}
+
+// MARK: Authentication
+extension FirebaseService {
+    func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if error != nil {
+                print(String(describing: error))
+                return
+            }
+            print("Successfully log user into firebase")
+            completion()
+        }
+    }
+    
+    func createUser(email: String, password: String, _ completion: @escaping()->()) {
+        Auth.auth().createUser(withEmail: email, password: password, completion: {
+            (authResult, error) in
+            if error != nil {
+                print("***** Unable to authenticate with Firebase email: \(String(describing: error))")
+                return
+            }
+            self.authenticateUsingEmail(email: email, password: password, {
+                self.updateDatabase(with: ["first_name": "A"])
+            })
+        })
+    }
+    
+    func authenticateUsingEmail(email: String, password: String,_ completion: @escaping()->()) {
+        Auth.auth().signIn(withEmail: email, password: password, completion: {(authResult, error) in
+            if error != nil {
+                print(String(describing: error))
+                return
+            }
+            print("Successfully log user into firebase")
+            completion()
+        })
+    }
+    
+    func logout() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            UserDefaults.standard.setIsLoggedIn(value: false)
+            UserDefaults.standard.synchronize()
+            print("Successfully logout of Firebase")
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
         }
     }
 }
@@ -143,12 +170,11 @@ extension FirebaseService {
                     return
                 }
                 guard let data = document.data() else {
+                    completion([])
                     print("Document data was empty.")
                     return
                 }
-                if (data.isEmpty) {
-                    completion([])
-                }
+
                 self.downloadImages(data: data, { images in
                     completion(images)
                 })

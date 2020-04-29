@@ -46,7 +46,13 @@ class EmailLoginViewController: UIViewController {
             print("***** Form is not valid")
             return
         }
-        
+        firebaseService.authenticateUsingEmail(email: email, password: password, {
+            let vc = MainViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
+//        firebaseService.createUser(email: email, password: password,
+//            self.navigationController?.popToRootViewController(animated: false)
+//        })
         
     }
 }

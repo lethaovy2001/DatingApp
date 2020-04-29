@@ -61,7 +61,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if (!UserDefaults.standard.isLoggedIn() || firebaseService.getUserID() == nil) {
+        if (firebaseService.getUserID() == nil) {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
         }
