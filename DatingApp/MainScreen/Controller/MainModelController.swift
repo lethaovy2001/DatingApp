@@ -76,10 +76,15 @@ class MainModelController {
         var usersData: [UserModel] = []
         firebaseService.getAllUsersFromDatabase { users in
             for user in users {
-                let userModel = UserModel(info: user.value)
-                usersData.append(userModel)
-                self.users = usersData
-                completion()
+                self.firebaseService.getUserImagesFromDatabase(from: user.key, { images in
+                    var data = user.value
+                    data.updateValue(images, forKey: "images")
+                    let userModel = UserModel(info: data)
+                    usersData.append(userModel)
+                    self.users = usersData
+                    completion()
+                })
+                
             }
         }
     }

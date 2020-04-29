@@ -158,6 +158,28 @@ extension FirebaseService {
         }
     }
     
+    func getUserImagesFromDatabase(from id: String, _ completion : @escaping([UIImage?])->()) {
+        database.collection("profile_images").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                completion([])
+                return
+            }
+            if (data.isEmpty) {
+                completion([])
+            }
+            self.downloadImages(data: data, { images in
+                completion(images)
+            })
+        }
+        
+    }
+    
     func downloadImages(data: [String: Any], _ completion : @escaping([UIImage])->()) {
         var imageTemp: [UIImage] = []
         var index = 0

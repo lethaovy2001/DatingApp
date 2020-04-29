@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 
 class SwipeCardView: UIView {
-    private var cardImages = ["Vy.jpg", "Image1.jpg", "Image2.jpg"]
-    private let cardImageView = RoundedUserImage(imageName: "Vy.jpg")
+    private var cardImages: [UIImage] = []
+    private let cardImageView = RoundedUserImage(imageName: "Vy")
     private var currentImage = 0
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -29,6 +29,12 @@ class SwipeCardView: UIView {
         didSet {
             guard let name = dataSource?.name else { return }
             guard let birthday = dataSource?.birthday else { return }
+            guard let images = dataSource?.images else { return }
+            self.cardImages = images
+            if (!cardImages.isEmpty) {
+                cardImageView.image = images[0]
+            }
+            
             let calendar = Calendar(identifier: .gregorian)
             var ageText: String {
                 let today = calendar.startOfDay(for: Date())
@@ -41,8 +47,7 @@ class SwipeCardView: UIView {
             }
             self.nameLabel.text = "\(name), \(ageText)"
             //            guard let age = dataSource?.age else { return }
-            //            guard let image = dataSource?.imageName[0] else { return }
-            //            cardImageView.image = UIImage(named: image)
+            
         }
     }
     
@@ -146,19 +151,21 @@ class SwipeCardView: UIView {
     }
     
     private func nextImage(isLeft: Bool) {
-        if (isLeft) {
-            if (currentImage <= 0) {
-                currentImage = cardImages.count - 1
+        if cardImages.count > 1 {
+            if (isLeft) {
+                if (currentImage <= 0) {
+                    currentImage = cardImages.count - 1
+                } else {
+                    currentImage = currentImage - 1
+                }
             } else {
-                currentImage = currentImage - 1
+                if (currentImage == cardImages.count - 1) {
+                    currentImage = 0
+                } else {
+                    currentImage = currentImage + 1
+                }
             }
-        } else {
-            if (currentImage == cardImages.count - 1) {
-                currentImage = 0
-            } else {
-                currentImage = currentImage + 1
-            }
+            cardImageView.image = cardImages[currentImage]
         }
-        cardImageView.image = UIImage(named: cardImages[currentImage])
     }
 }
