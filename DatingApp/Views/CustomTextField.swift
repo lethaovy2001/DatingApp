@@ -19,6 +19,14 @@ class CustomTextField: UITextField {
         self.layer.cornerRadius = 10
     }
     
+    init(placeholder: String) {
+        super.init(frame: .zero)
+        self.backgroundColor = UIColor.inputContainerColor
+        self.placeholder = placeholder
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 10
+    }
+    
     func setText(text: String) {
         self.text = text
     }

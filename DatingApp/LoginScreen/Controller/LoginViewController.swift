@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    private let mainView:LoginMainView = {
+    private let mainView: LoginMainView = {
         let view = LoginMainView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -44,7 +44,8 @@ class LoginViewController: UIViewController {
     }
     
     private func setSelectors() {
-        mainView.setLoginSelector(selector: #selector(loginWithFacebook), target: self)
+        mainView.setFbLoginSelector(selector: #selector(loginWithFacebook), target: self)
+        mainView.setEmailLoginSelector(selector: #selector(loginWithEmail), target: self)
     }
     
     //MARK: Actions
@@ -58,6 +59,11 @@ class LoginViewController: UIViewController {
             })
         }
        
+    }
+    
+    @objc func loginWithEmail() {
+        let vc = EmailLoginViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func goToMainViewController() {
