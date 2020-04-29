@@ -50,7 +50,9 @@ class FirebaseService {
             } else {
                 var data: [String: [String: Any]] = [:]
                 for document in querySnapshot!.documents {
-                    data.updateValue(document.data(), forKey: document.documentID)
+                    if (Auth.auth().currentUser?.uid != document.documentID) {
+                        data.updateValue(document.data(), forKey: document.documentID)
+                    }
                 }
                 print("Sucessful get users document!")
                 completion(data)
