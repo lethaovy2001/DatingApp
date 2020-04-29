@@ -117,9 +117,6 @@ extension FirebaseService {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            UserDefaults.standard.setIsLoggedIn(value: false)
-            UserDefaults.standard.synchronize()
-            print("Successfully logout of Firebase")
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
@@ -174,7 +171,7 @@ extension FirebaseService {
                     print("Document data was empty.")
                     return
                 }
-
+                
                 self.downloadImages(data: data, { images in
                     completion(images)
                 })
@@ -195,9 +192,6 @@ extension FirebaseService {
                 print("Document data was empty.")
                 completion([])
                 return
-            }
-            if (data.isEmpty) {
-                completion([])
             }
             self.downloadImages(data: data, { images in
                 completion(images)

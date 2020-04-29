@@ -37,7 +37,8 @@ class EmailLoginViewController: UIViewController {
     }
     
     private func setSelectors() {
-         mainView.setLoginSelector(selector: #selector(loginWithEmail), target: self)
+        mainView.setLoginSelector(selector: #selector(loginWithEmail), target: self)
+        mainView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
     }
     
     //MARK: Actions
@@ -49,10 +50,11 @@ class EmailLoginViewController: UIViewController {
         firebaseService.authenticateUsingEmail(email: email, password: password, {
             let vc = MainViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-        })
-//        firebaseService.createUser(email: email, password: password,
-//            self.navigationController?.popToRootViewController(animated: false)
-//        })
-        
+        })        
     }
+    
+    @objc func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
