@@ -230,3 +230,14 @@ extension FirebaseService {
         }
     }
 }
+
+extension FirebaseService {
+    func updateMatchUser(toId: String) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("*** FirebaseService: User ID is nil")
+            return
+        }
+        let data: [String: Any] = [toId: 1]
+        database.collection("match-users").document(uid).setData(data, merge: true)
+    }
+}

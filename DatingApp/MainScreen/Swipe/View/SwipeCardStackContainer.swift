@@ -11,12 +11,11 @@ import UIKit
 class SwipeCardStackContainer: UIView {
     
     // MARK: Properties
-    var numberOfCardsToShow: Int = 0
-    var cardsToBeVisible: Int = 2
-    var cardViews : [SwipeCardView] = []
-    var remainingcards: Int = 0
-    
-    var visibleCards: [SwipeCardView] {
+    private var numberOfCardsToShow: Int = 0
+    private var cardsToBeVisible: Int = 2
+    private var cardViews : [SwipeCardView] = []
+    private var remainingcards: Int = 0
+    private var visibleCards: [SwipeCardView] {
         return subviews as? [SwipeCardView] ?? []
     }
     var dataSource: SwipeableCardDataSource? {
@@ -24,6 +23,7 @@ class SwipeCardStackContainer: UIView {
             reloadData()
         }
     }
+    var matchUserDelegate: MatchUserDelegate?
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -44,6 +44,7 @@ class SwipeCardStackContainer: UIView {
     
     func addDelegate(viewController: MainViewController) {
         viewController.autoSwipeDelegate = self
+        self.matchUserDelegate = viewController
     }
     
     func reloadData() {
@@ -77,8 +78,12 @@ class SwipeCardStackContainer: UIView {
 
 // MARK: SwipeCardDelegate
 extension SwipeCardStackContainer: SwipeCardDelegate {
-    func swipeDidEnd(on view: SwipeCardView) {
+    func swipeDidEnd(on view: SwipeCardView, isMatch: Bool) {
+        guard let user = view.dataSource else { return }
         guard let datasource = dataSource else { return }
+        if isMatch {
+            matchUserDelegate?.shouldMatch(with: user)
+        }
         view.removeFromSuperview()
         cardViews.remove(at: 0)
         if remainingcards > 0 {
@@ -98,13 +103,16 @@ extension SwipeCardStackContainer: AutoSwipeDelegate {
         let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         var point = CGPoint(x: 0, y: 0)
         var rotation: CGFloat = 0
+        var isMatch = false
         switch direction {
         case .right:
             point = CGPoint(x: centerOfParentContainer.x + 300, y: centerOfParentContainer.y + 50)
             rotation = -100
+            isMatch = true
         case .left:
             point = CGPoint(x: centerOfParentContainer.x - 300, y: centerOfParentContainer.y - 50)
             rotation = 100
+            isMatch = false
         }
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: {
             card.transform = CGAffineTransform(rotationAngle: rotation)
@@ -112,7 +120,11 @@ extension SwipeCardStackContainer: AutoSwipeDelegate {
             card.alpha = 0
             self.layoutIfNeeded()
         }, completion: { finished in
-            self.swipeDidEnd(on: card)
+            self.swipeDidEnd(on: card, isMatch: isMatch)
         })
     }
+}
+
+protocol MatchUserDelegate {
+    func shouldMatch(with user: UserModel)
 }

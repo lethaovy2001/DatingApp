@@ -10,14 +10,13 @@ import UIKit
 import CoreLocation
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
-
-    private var locationService: LocationService!
-    
     private let mainView: MainView = {
         let view = MainView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private var locationService: LocationService!
     private let modelController = MainModelController()
     var autoSwipeDelegate: AutoSwipeDelegate?
     
@@ -74,7 +73,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Actions
     @objc func likePressed() {
         autoSwipeDelegate?.swipe(direction: .right)
-        
+//        modelController.matchUsers(toId: )
     }
     
     @objc func dislikePressed() {
@@ -124,5 +123,13 @@ extension MainViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationService.didChangeAuthorization(status: status)
+    }
+}
+
+extension MainViewController: MatchUserDelegate {
+    func shouldMatch(with user: UserModel) {
+        if let id = user.id {
+            modelController.matchUsers(toId: id)
+        }
     }
 }

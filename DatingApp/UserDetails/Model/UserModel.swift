@@ -16,8 +16,10 @@ struct UserModel {
     let bio: String?
     let gender: String?
     let images: [UIImage]?
+    let id: String?
     
     init(info: [String: Any?]) {
+        self.id = info["id"] as? String
         self.name = info["first_name"] as? String
         self.work = info["work"] as? String
         self.bio = info["bio"] as? String
