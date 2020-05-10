@@ -23,7 +23,7 @@ class SwipeCardStackContainer: UIView {
             reloadData()
         }
     }
-    var matchUserDelegate: MatchUserDelegate?
+    var matchUserDelegate: UserChoiceDelegate?
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -82,7 +82,9 @@ extension SwipeCardStackContainer: SwipeCardDelegate {
         guard let user = view.dataSource else { return }
         guard let datasource = dataSource else { return }
         if isMatch {
-            matchUserDelegate?.shouldMatch(with: user)
+            matchUserDelegate?.like(user)
+        } else {
+            matchUserDelegate?.dislike(user)
         }
         view.removeFromSuperview()
         cardViews.remove(at: 0)
@@ -125,6 +127,7 @@ extension SwipeCardStackContainer: AutoSwipeDelegate {
     }
 }
 
-protocol MatchUserDelegate {
-    func shouldMatch(with user: UserModel)
+protocol UserChoiceDelegate {
+    func like(_ user: UserModel)
+    func dislike(_ user: UserModel)
 }

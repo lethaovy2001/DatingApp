@@ -93,7 +93,11 @@ class MainModelController {
         return firebaseService.getUserID() != nil
     }
     
-    func matchUsers(toId: String ) {
+    func matchUsers(toId: String) {
         firebaseService.updateMatchUser(toId: toId)
+    }
+    
+    func dislikeUser(id: String) {
+        firebaseService.deleteDislikedUser(toId: id)
     }
 }

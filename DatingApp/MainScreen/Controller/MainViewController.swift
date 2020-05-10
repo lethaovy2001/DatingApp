@@ -73,7 +73,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Actions
     @objc func likePressed() {
         autoSwipeDelegate?.swipe(direction: .right)
-//        modelController.matchUsers(toId: )
     }
     
     @objc func dislikePressed() {
@@ -126,10 +125,16 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MainViewController: MatchUserDelegate {
-    func shouldMatch(with user: UserModel) {
+extension MainViewController: UserChoiceDelegate {
+    func like(_ user: UserModel) {
         if let id = user.id {
             modelController.matchUsers(toId: id)
+        }
+    }
+    
+    func dislike(_ user: UserModel) {
+        if let id = user.id {
+            modelController.dislikeUser(id: id)
         }
     }
 }
