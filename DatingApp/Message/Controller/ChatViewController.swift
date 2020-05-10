@@ -84,10 +84,13 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @objc func sendButtonPressed(){
         //TODO: Remove mock data
         if chatView.getInputText() != nil {
-            let message: [String: Any] = [
+            let dictionary: [String: Any] = [
+                "fromId": modelController.getCurrentUserId()!,
                 "toId": "2",
-                "text": chatView.getInputText()!
+                "text": chatView.getInputText()!,
+                "time": Date()
             ]
+            let message = Message(dictionary: dictionary)
             modelController.updateMessageToDatabase(message: message)
             chatView.setEmptyInputText()
         }
@@ -212,10 +215,11 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 extension ChatViewController {
     private func handleVideoSelectedForUrl(_ url: URL) {
         firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
-            var values: [String: Any] = message
+            var values: [String: Any] = message.getMessageDictionary()
             //TODO: remove mock id
             values.updateValue("2", forKey: "toId")
-            self.modelController.updateMessageToDatabase(message: values)
+            values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
+            self.modelController.updateMessageToDatabase(message: Message(dictionary: values))
         })
     }
     
@@ -228,10 +232,11 @@ extension ChatViewController {
         }
         if let selectedImage = selectedImageFromPicker {
             firebaseService.uploadMessageImageOntoStorage(image: selectedImage, { message in
-                var values: [String: Any] = message
+                var values: [String: Any] = message.getMessageDictionary()
                 //TODO: remove mock id
                 values.updateValue("2", forKey: "toId")
-                self.modelController.updateMessageToDatabase(message: values)
+                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
+                self.modelController.updateMessageToDatabase(message: Message(dictionary: values))
             })
         }
     }

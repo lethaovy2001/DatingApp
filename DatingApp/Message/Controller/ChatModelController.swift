@@ -24,7 +24,6 @@ class ChatModelController {
     }
     
     func getCurrentUserId() -> String? {
-        
         return firebaseService.getUserID()
     }
     
@@ -32,31 +31,43 @@ class ChatModelController {
         firebaseService.getMessages(toId: "2", { data in
             for messageId in data {
                 self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
-                    guard let time = messageData["time"] as? Timestamp else { return }
-                    let convertedTime = self.firebaseService.convertToDate(timestamp: time)
-                    var values = messageData
-                    values.updateValue(convertedTime, forKey: "time")
+                    var values = messageData.getMessageDictionary()
+                    //                    guard let time = messageData["time"] as? Timestamp else { return }
+                    //                    let convertedTime = self.firebaseService.convertToDate(timestamp: time)
+                    //
+                    //                    values.updateValue(convertedTime, forKey: "time")
                     var message: Message!
                     if let imageUrl = values["imageUrl"] as? String {
-                        self.firebaseService.downloadImageFromStorage(url: imageUrl, { image in
-                            message = Message(dictionary: values, image: image)
+                        if imageUrl != "" {
+                            self.firebaseService.downloadImageFromStorage(url: imageUrl, { image in
+                                message = Message(dictionary: values, image: image)
+                                self.messages.append(message)
+                                completion()
+                            })
+                        } else {
+                            message = Message(dictionary: values)
                             self.messages.append(message)
                             completion()
-                        })
-                    } else {
-                        message = Message(dictionary: values)
-                        self.messages.append(message)
-                        completion()
+                        }
                     }
                 })
             }
         })
     }
     
-    func updateMessageToDatabase(message: [String: Any]) {
+    func updateMessageToDatabase(message: Message) {
         firebaseService.saveMessageToDatabase(with: message, { messageId in
             //TODO: remove mock id
             self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)
+        })
+    }
+    
+    func handleVideoSelectedForUrl(_ url: URL) {
+        firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
+            var values: [String: Any] = message.getImageMessageDictionary()
+            //TODO: remove mock id
+            values.updateValue("2", forKey: "toId")
+            self.updateMessageToDatabase(message: message)
         })
     }
 }

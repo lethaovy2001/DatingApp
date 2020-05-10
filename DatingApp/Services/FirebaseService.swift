@@ -139,7 +139,7 @@ extension FirebaseService {
         }
     }
     
-    func uploadMessageVideoOntoStorage(url: URL, completion: @escaping ([String: Any]) -> ()) {
+    func uploadMessageVideoOntoStorage(url: URL, completion: @escaping (Message) -> ()) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child("messages-videos").child("\(imageName).mov")
          if let videoData = NSData(contentsOf: url) as Data? {
@@ -156,9 +156,10 @@ extension FirebaseService {
                     
                     if let thumbnailImage = self.thumbnailImageForFileUrl(fileUrl) {
                         self.uploadMessageImageOntoStorage(image: thumbnailImage, { imageData in
-                            var data = imageData
+                            var data = imageData.getMessageDictionary()
                             data.updateValue(downloadURL, forKey: "videoUrl")
-                            completion(data)
+                            let message = Message(dictionary: data, image: thumbnailImage)
+                            completion(message)
                         })
                     }
                 }
@@ -183,7 +184,7 @@ extension FirebaseService {
         return nil
     }
     
-    func uploadMessageImageOntoStorage(image: UIImage, _ completion: @escaping ([String: Any]) -> ()) {
+    func uploadMessageImageOntoStorage(image: UIImage, _ completion: @escaping (Message) -> ()) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child("messages-images").child("\(imageName).jpg")
         if let uploadData = image.jpegData(compressionQuality: 1.0) {
@@ -194,7 +195,8 @@ extension FirebaseService {
                         return
                     }
                     let properties: [String: Any] = ["imageUrl": downloadURL as String, "imageWidth": image.size.width, "imageHeight": image.size.height]
-                    completion(properties)
+                    let message = Message(dictionary: properties, image: image)
+                    completion(message)
                 }
             }
         }
@@ -252,12 +254,12 @@ extension FirebaseService {
 
 // MARK: Messages
 extension FirebaseService {
-    func saveMessageToDatabase(with data: [String: Any],_ completion : @escaping(String)->()) {
-        if let uid = Auth.auth().currentUser?.uid {
-            var values: [String: Any] = ["fromId": uid, "time": Date()]
-            data.forEach({values[$0] = $1})
+    func saveMessageToDatabase(with message: Message,_ completion : @escaping(String)->()) {
+//        if let uid = Auth.auth().currentUser?.uid {
+//            var values: [String: Any] = ["fromId": uid, "time": Date()]
+//            data.forEach({values[$0] = $1})
             var ref: DocumentReference? = nil
-            ref = database.collection("messages").addDocument(data: values, completion: { error in
+        ref = database.collection("messages").addDocument(data: message.getMessageDictionary(), completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
@@ -265,7 +267,7 @@ extension FirebaseService {
                     completion(ref!.documentID)
                 }
             })
-        }
+        //}
     }
     
     func updateMessageReference(toId: String, messageId: String) {
@@ -281,7 +283,7 @@ extension FirebaseService {
         }
     }
     
-    func getMessageDetails(with messageId: String, _ completion : @escaping([String: Any])->()) {
+    func getMessageDetails(with messageId: String, _ completion : @escaping(Message)->()) {
         database.collection("messages").document(messageId).getDocument { (documentSnapshot, error) in
             guard let document = documentSnapshot else {
                 print("Error fetching document: \(error!)")
@@ -291,7 +293,8 @@ extension FirebaseService {
                 print("Document data was empty.")
                 return
             }
-            completion(data)
+            let message = Message(dictionary: data)
+            completion(message)
         }
     }
     
