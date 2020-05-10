@@ -60,6 +60,7 @@ class FirebaseService {
     }
     
     func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
+        //self.updateListOfUsers()
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
                 if let err = err {
@@ -86,14 +87,13 @@ class FirebaseService {
     //TODO: update when first create user
     func updateListOfUsers() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        database.collection("users").getDocuments() { (querySnapshot, err) in
+        database.collection("users").getDocuments { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                
                 for document in querySnapshot!.documents {
                     if (uid != document.documentID) {
-                        self.database.collection("users").document(uid).collection("available-users").document(document.documentID).setData(["hasDisplay": false], merge: true)
+                        self.database.collection("users").document(uid).collection("available-users").document(document.documentID).setData(["hasDisplay": false, "id": document.documentID], merge: true)
                     }
                 }
             }
@@ -272,12 +272,21 @@ extension FirebaseService {
 
 extension FirebaseService {
     func updateMatchUser(toId: String) {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            print("*** FirebaseService: User ID is nil")
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        database.collection("users").document(toId).collection("available-users")
+            .whereField("id", isEqualTo: uid)
+            .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for _ in querySnapshot!.documents {
+                    self.database.collection("user-messages").document(uid).setData(["isMatch": true], merge: true)
+                    self.database.collection("user-messages").document(toId).setData(["isMatch": true], merge: true)
+                }
+            }
             return
         }
         database.collection("users").document(uid).collection("available-users").document(toId).setData(["hasDisplay": true], merge: true)
-        database.collection("match-users").document(uid).setData(["match": FieldValue.arrayUnion([toId])], merge: true)
     }
     
     func deleteDislikedUser(toId: String) {
