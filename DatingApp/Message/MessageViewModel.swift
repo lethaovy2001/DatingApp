@@ -20,6 +20,6 @@ class MessageViewModel {
 
 extension MessageViewModel {
     var text: String {
-        return model.text
+        return model.text ?? ""
     }
 }

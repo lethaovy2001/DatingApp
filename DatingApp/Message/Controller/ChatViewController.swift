@@ -81,6 +81,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @objc func sendButtonPressed(){
         //TODO: Remove mock data
         let message: [String: Any] = [
+            "fromId": modelController.getCurrentUserId(),
             "toId": "2",
             "time": Date(),
             "text": chatView.getInputText()
@@ -112,7 +113,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let message = modelController.getMessages()[indexPath.item]
-        let text = message.text
+        guard let text = message.text else { return CGSize(width: 0, height: 0) }
         let width = UIScreen.main.bounds.width
         let height = estimatedFrameForText(text: text).height + 20
         return CGSize(width: width, height: height)
