@@ -58,6 +58,7 @@ class ChatCell: UICollectionViewCell {
             if let image = viewModel.image {
                 messageImageView.setImage(image: image)
             }
+            playButton.isHidden = viewModel.videoUrl == nil
         }
     }
     
@@ -68,7 +69,7 @@ class ChatCell: UICollectionViewCell {
         isPlaying = false
         playButton.addTarget(self, action: #selector(handlePlay), for: .touchUpInside)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -206,8 +207,6 @@ class ChatCell: UICollectionViewCell {
             containerViewWidthAnchor.constant = 200
             textView.isHidden = true
             messageImageView.isHidden = false
-        case .video:
-            playButton.isHidden = false
         }
     }
 }

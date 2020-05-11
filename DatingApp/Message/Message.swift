@@ -60,8 +60,10 @@ struct Message {
                     "imageUrl": imageUrl,
                     "imageWidth": imageWidth,
                     "imageHeight": imageHeight,
-                    "videoUrl": videoUrl ?? "",
                 ]
+                if let videoUrl = self.videoUrl {
+                    dictionary?.updateValue(videoUrl, forKey: "videoUrl")
+                }
             }
         }
         return dictionary

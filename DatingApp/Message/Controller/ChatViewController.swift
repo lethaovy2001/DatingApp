@@ -83,12 +83,12 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @objc func sendButtonPressed(){
         //TODO: Remove mock data
-        if chatView.getInputText() != nil {
+        if let fromId = modelController.getCurrentUserId(), let text = chatView.getInputText() {
             let message: [String: Any] = [
-                "fromId": modelController.getCurrentUserId(),
+                "fromId": fromId,
                 "toId": "2",
                 "time": Date(),
-                "text": chatView.getInputText()
+                "text": text
             ]
             modelController.updateMessageToDatabase(message: message)
             chatView.setEmptyInputText()

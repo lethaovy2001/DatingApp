@@ -29,7 +29,6 @@ extension MessageViewModel {
     enum MessageType {
         case text
         case image
-        case video
     }
     
     var text: String {
@@ -55,10 +54,8 @@ extension MessageViewModel {
     var messageType: MessageType {
         if model.text != nil {
             return MessageType.text
-        } else if model.imageUrl != nil {
-            return MessageType.image
         } else {
-            return MessageType.video
+            return MessageType.image
         }
     }
 }
