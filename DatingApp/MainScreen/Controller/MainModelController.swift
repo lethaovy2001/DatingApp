@@ -42,9 +42,10 @@ class MainModelController {
         
         if let firstName = dictionary["first_name"] as? String,
             let gender = dictionary["gender"] as? String,
-            let birthday = dictionary["birthday"] as? String {
+            let birthday = dictionary["birthday"] as? String,
+            let id = self.firebaseService.getUserID() {
             if let date = dateFormatter.date(from: birthday) {
-                let data: [String: Any] = ["first_name": firstName, "gender": gender, "birthday": date, "id": self.firebaseService.getUserID()]
+                let data: [String: Any] = ["first_name": firstName, "gender": gender, "birthday": date, "id": id]
                 firebaseService.updateDatabase(with: data)
             }
         } else {
