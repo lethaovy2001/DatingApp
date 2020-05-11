@@ -43,17 +43,59 @@ class FirebaseService {
         }
     }
     
+    func getUserWithId(id: String,_ completion : @escaping([String: Any])->()) {
+        database.collection("users").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            print("Current data: \(data)")
+            completion(data)
+        }
+    }
+    
     func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
-        database.collection("users").getDocuments() { (querySnapshot, err) in
+        //self.updateListOfUsers()
+        if let uid = Auth.auth().currentUser?.uid {
+            database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    var data: [String: [String: Any]] = [:]
+                    var index = 0
+                    for document in querySnapshot!.documents {
+                        if (uid != document.documentID) {
+                            self.getUserWithId(id: document.documentID, { user in
+                                data.updateValue(user, forKey: document.documentID)
+                                index += 1
+                                if (index == querySnapshot!.documents.count) {
+                                    completion(data)
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //TODO: update when first create user
+    func updateListOfUsers() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        database.collection("users").getDocuments { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                var data: [String: [String: Any]] = [:]
                 for document in querySnapshot!.documents {
-                    data.updateValue(document.data(), forKey: document.documentID)
+                    if (uid != document.documentID) {
+                        self.database.collection("users").document(uid).collection("available-users").document(document.documentID).setData(["hasDisplay": false, "id": document.documentID], merge: true)
+                    }
                 }
-                print("Sucessful get users document!")
-                completion(data)
             }
         }
     }
@@ -74,7 +116,6 @@ class FirebaseService {
         }
     }
 }
-
 // MARK: Authentication
 extension FirebaseService {
     func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
@@ -98,6 +139,7 @@ extension FirebaseService {
             }
             self.authenticateUsingEmail(email: email, password: password, {
                 self.updateDatabase(with: ["first_name": "A"])
+                self.updateListOfUsers()
             })
         })
     }
@@ -189,7 +231,6 @@ extension FirebaseService {
                 return
             }
             guard let data = document.data() else {
-                print("Document data was empty.")
                 completion([])
                 return
             }
@@ -228,3 +269,35 @@ extension FirebaseService {
         }
     }
 }
+
+extension FirebaseService {
+    func updateMatchUser(toId: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        database.collection("users").document(toId).collection("available-users")
+            .whereField("id", isEqualTo: uid)
+            .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for _ in querySnapshot!.documents {
+                    self.database.collection("user-messages").document(uid).setData(["isMatch": true], merge: true)
+                    self.database.collection("user-messages").document(toId).setData(["isMatch": true], merge: true)
+                }
+            }
+            return
+        }
+        database.collection("users").document(uid).collection("available-users").document(toId).setData(["hasDisplay": true], merge: true)
+    }
+    
+    func deleteDislikedUser(toId: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        database.collection("users").document(uid).collection("available-users").document(toId).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+}
+

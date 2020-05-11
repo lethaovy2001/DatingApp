@@ -45,9 +45,7 @@ class SwipeCardView: UIView {
                 let age = components.year!
                 return "\(age)"
             }
-            self.nameLabel.text = "\(name), \(ageText)"
-            //            guard let age = dataSource?.age else { return }
-            
+            self.nameLabel.text = "\(name), \(ageText)"            
         }
     }
     
@@ -120,7 +118,7 @@ class SwipeCardView: UIView {
         switch sender.state {
         case .ended:
             if (card.center.x) > centerOfParentContainer.x + 40 {
-                self.delegate?.swipeDidEnd(on: card)
+                self.delegate?.swipeDidEnd(on: card, isMatch: true)
                 UIView.animate(withDuration: 0.2) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x + 400, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0
@@ -128,7 +126,7 @@ class SwipeCardView: UIView {
                 }
                 return
             } else if card.center.x < centerOfParentContainer.x - 40 {
-                delegate?.swipeDidEnd(on: card)
+                delegate?.swipeDidEnd(on: card, isMatch: false)
                 UIView.animate(withDuration: 0.2) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x - 400, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0
