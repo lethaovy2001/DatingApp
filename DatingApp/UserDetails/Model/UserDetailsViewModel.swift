@@ -20,12 +20,13 @@ class UserDetailsViewModel {
 
 extension UserDetailsViewModel {
     var name: String {
-        return model.name
+        return model.name ?? ""
     }
     
     var ageText: String {
+        guard let date = model.birthday else { return "" }
         let today = calendar.startOfDay(for: Date())
-        let birthday = calendar.startOfDay(for: model.birthday)
+        let birthday = calendar.startOfDay(for: date)
         let components = calendar.dateComponents([.year],
                                                  from: birthday,
                                                  to: today)
@@ -34,15 +35,15 @@ extension UserDetailsViewModel {
     }
     
     var work: String {
-        return model.work
+        return model.work ?? ""
     }
     
     var images: [UIImage] {
-        return model.images
+        return model.images ?? []
     }
     
     var bio: String {
-        return model.bio
+        return model.bio ?? ""
     }
 }
 

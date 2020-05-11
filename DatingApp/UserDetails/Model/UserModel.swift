@@ -7,21 +7,28 @@
 //
 
 import UIKit
+import Firebase
 
 struct UserModel {
-    let name: String
-    let birthday: Date
-    let work: String
-    let bio: String
-    let gender: String
-    let images: [UIImage]
+    let name: String?
+    var birthday: Date?
+    let work: String?
+    let bio: String?
+    let gender: String?
+    let images: [UIImage]?
+    let id: String?
     
-    init(name: String, birthday: Date, work: String, bio: String, gender: String, images: [UIImage]) {
-        self.name = name
-        self.birthday = birthday
-        self.work = work
-        self.bio = bio
-        self.gender = gender
-        self.images = images
+    init(info: [String: Any?]) {
+        self.id = info["id"] as? String
+        self.name = info["first_name"] as? String
+        self.work = info["work"] as? String
+        self.bio = info["bio"] as? String
+        self.gender = info["gender"] as? String
+        self.images = info["images"] as? [UIImage]
+        if let birthday = info["birthday"] as? Timestamp {
+            self.birthday = birthday.dateValue()
+        } else {
+            self.birthday = info["birthday"] as? Date
+        }
     }
 }

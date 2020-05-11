@@ -27,13 +27,15 @@ class EditUserDetailsView: UIView {
             nameLabel.setText(text: viewModel.name)
             workTextField.setText(text: viewModel.work)
             bioTextView.setText(text: viewModel.bio)
-            mainProfileImage.setImage(image: viewModel.images[0])
             cardImages = viewModel.images
-            if let cardImages = cardImages {
-                var index = 0
-                for image in cardImages.reversed() {
-                    imageButtonsContainerView.setImage(image: image, index: index)
-                    index = index + 1
+            if !viewModel.images.isEmpty {
+                mainProfileImage.setImage(image: viewModel.images[0])
+                if let cardImages = cardImages {
+                    var index = 0
+                    for image in cardImages.reversed() {
+                        imageButtonsContainerView.setImage(image: image, index: index)
+                        index = index + 1
+                    }
                 }
             }
         }

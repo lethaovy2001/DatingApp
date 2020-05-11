@@ -18,7 +18,6 @@ class MainView: UIView {
         let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: UIColor.orangeRed, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: UIColor.customLightGray, backgroundColor: .white)
         return button
     }()
-
     private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let customAlertView = CustomAlertView(type: .deniedLocationAccess)

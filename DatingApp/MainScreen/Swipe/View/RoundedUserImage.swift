@@ -10,8 +10,8 @@ import UIKit
 
 class RoundedUserImage: UIImageView {
     
-    init(imageName: String) {
-        super.init(image: UIImage(named: imageName))
+    init(imageName: String?) {
+        super.init(image: UIImage(named: imageName ?? ""))
         self.contentMode = .scaleAspectFill
         self.isUserInteractionEnabled = true
         self.layer.cornerRadius = Constants.PaddingValues.swipeImageCornerRadius

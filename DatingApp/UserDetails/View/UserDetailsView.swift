@@ -21,7 +21,9 @@ class UserDetailsView: UIView {
             nameContainerView.viewModel = viewModel
             bioContainerView.viewModel = viewModel
             cardImages = viewModel.images
-            userImageView.setImage(image: viewModel.images[0])
+            if !viewModel.images.isEmpty {
+                userImageView.setImage(image: viewModel.images[0])
+            }
         }
     }
     init() {
