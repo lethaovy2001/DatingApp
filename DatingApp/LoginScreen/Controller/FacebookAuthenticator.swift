@@ -27,9 +27,6 @@ class FacebookAuthenticator {
             } else if result?.isCancelled == true {
                 print("***** Cancel")
             } else {
-                print("Log in with fb")
-                UserDefaults.standard.setIsLoggedIn(value: true)
-                UserDefaults.standard.synchronize()
                 completion()
             }
         }

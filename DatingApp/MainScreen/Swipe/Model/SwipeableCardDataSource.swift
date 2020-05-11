@@ -19,5 +19,5 @@ protocol SwipeableCardDataSource {
 }
 
 protocol SwipeCardDelegate {
-    func swipeDidEnd(on view: SwipeCardView)
+    func swipeDidEnd(on view: SwipeCardView, isMatch: Bool)
 }
