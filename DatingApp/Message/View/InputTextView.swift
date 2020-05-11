@@ -35,6 +35,13 @@ class InputTextView: UITextView {
         self.textColor = .darkGray
     }
     
+    func hasText() -> Bool {
+        if (self.textColor == .customLightGray) {
+            return false
+        }
+        return true
+    }
+    
     func calculateBestHeight() {
         let size = CGSize(width: self.frame.width, height: .infinity)
         let estimatedSize = self.sizeThatFits(size)
