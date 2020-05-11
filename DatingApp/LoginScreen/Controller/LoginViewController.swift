@@ -58,7 +58,6 @@ class LoginViewController: UIViewController {
                 })
             })
         }
-       
     }
     
     @objc func loginWithEmail() {

@@ -44,7 +44,7 @@ class MainModelController {
             let gender = dictionary["gender"] as? String,
             let birthday = dictionary["birthday"] as? String {
             if let date = dateFormatter.date(from: birthday) {
-                let data: [String: Any] = ["first_name": firstName, "gender": gender, "birthday": date]
+                let data: [String: Any] = ["first_name": firstName, "gender": gender, "birthday": date, "id": self.firebaseService.getUserID()]
                 firebaseService.updateDatabase(with: data)
             }
         } else {
@@ -63,7 +63,8 @@ class MainModelController {
                          "bio": values["bio"],
                          "gender": values["gender"],
                          "birthday": date,
-                         "images": images]
+                         "images": images,
+                         "id": self.firebaseService.getUserID()]
                     let user = UserModel(info: data)
                     self.user = user
                     completion()
@@ -84,8 +85,19 @@ class MainModelController {
                     self.users = usersData
                     completion()
                 })
-                
             }
         }
+    }
+    
+    func checkIfUserExist() -> Bool {
+        return firebaseService.getUserID() != nil
+    }
+    
+    func matchUsers(toId: String) {
+        firebaseService.updateMatchUser(toId: toId)
+    }
+    
+    func dislikeUser(id: String) {
+        firebaseService.deleteDislikedUser(toId: id)
     }
 }

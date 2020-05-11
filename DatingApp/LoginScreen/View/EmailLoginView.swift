@@ -23,6 +23,7 @@ class EmailLoginView: UIView {
     private let emailTextField = CustomTextField(placeholder: "Email")
     private let passwordTextField = CustomTextField(placeholder: "Password")
     private let loginButton = RoundedButton(title: "LOG IN", color: UIColor.amour)
+    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -46,6 +47,7 @@ class EmailLoginView: UIView {
         addSubview(passwordTextField)
         addSubview(appLogo)
         addSubview(loginButton)
+        addSubview(backButton)
     }
     
     private func setupConstraints() {
@@ -77,17 +79,25 @@ class EmailLoginView: UIView {
             loginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
             loginButton.heightAnchor.constraint(equalToConstant: 60)
         ])
+        NSLayoutConstraint.activate([
+            backButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            backButton.topAnchor.constraint(equalTo: topAnchor, constant: 54)
+        ])
     }
     
     func setLoginSelector(selector: Selector, target: UIViewController) {
         loginButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func setBackButtonSelector(selector: Selector, target: UIViewController) {
+        backButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
     func getEmailText() -> String? {
-        return emailTextField.text
+        return emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func getPasswordText() -> String? {
-        return passwordTextField.text
+        return passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

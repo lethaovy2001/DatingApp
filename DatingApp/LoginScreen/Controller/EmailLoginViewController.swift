@@ -37,7 +37,8 @@ class EmailLoginViewController: UIViewController {
     }
     
     private func setSelectors() {
-         mainView.setLoginSelector(selector: #selector(loginWithEmail), target: self)
+        mainView.setLoginSelector(selector: #selector(loginWithEmail), target: self)
+        mainView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
     }
     
     //MARK: Actions
@@ -46,7 +47,14 @@ class EmailLoginViewController: UIViewController {
             print("***** Form is not valid")
             return
         }
-        
-        
+        firebaseService.authenticateUsingEmail(email: email, password: password, {
+            let vc = MainViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        })        
     }
+    
+    @objc func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
