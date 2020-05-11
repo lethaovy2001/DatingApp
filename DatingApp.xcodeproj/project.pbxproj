@@ -18,6 +18,8 @@
 		382CC7A123D5EF650043060E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A023D5EF650043060E /* Constants.swift */; };
 		382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 382CC7A223D78C940043060E /* GoogleService-Info.plist */; };
 		382CC7A523D791150043060E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382CC7A423D791150043060E /* MainViewController.swift */; };
+		3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD5F24562701007B4297 /* UITextView+helper.swift */; };
+		3837CD6224564404007B4297 /* ZoomTapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3837CD6124564404007B4297 /* ZoomTapDelegate.swift */; };
 		3838C0582453E30C00092341 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838C0572453E30C00092341 /* Message.swift */; };
 		383E46D32440E6A60012977A /* loveAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E46D22440E6A60012977A /* loveAnimation.json */; };
 		383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46DE244265450012977A /* UserDetailsViewController.swift */; };
@@ -66,6 +68,7 @@
 		38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */; };
 		38DB15942459D46F00748B1B /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB15932459D46F00748B1B /* EmailLoginViewController.swift */; };
 		38DB15962459D4B000748B1B /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB15952459D4B000748B1B /* EmailLoginView.swift */; };
+		38DB158E2457FE2F00748B1B /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
@@ -90,6 +93,8 @@
 		382CC7A023D5EF650043060E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		382CC7A223D78C940043060E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		382CC7A423D791150043060E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		3837CD5F24562701007B4297 /* UITextView+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+helper.swift"; sourceTree = "<group>"; };
+		3837CD6124564404007B4297 /* ZoomTapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTapDelegate.swift; sourceTree = "<group>"; };
 		3838C0572453E30C00092341 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		383E46D22440E6A60012977A /* loveAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveAnimation.json; sourceTree = "<group>"; };
 		383E46DE244265450012977A /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +143,7 @@
 		38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonsContainerView.swift; sourceTree = "<group>"; };
 		38DB15932459D46F00748B1B /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		38DB15952459D4B000748B1B /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
+		38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -227,9 +233,9 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
+				3889EB5524560042009B63C2 /* Services */,
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
-				38DACAF5244A68B600F4E60E /* FirebaseService.swift */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
 				383E46DC244265450012977A /* UserDetails */,
@@ -347,6 +353,7 @@
 				38C1EA042443F58200CEA9B2 /* FacebookUserDataDelegate.swift */,
 				38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */,
 				38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */,
+				3837CD6124564404007B4297 /* ZoomTapDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -387,8 +394,8 @@
 				383E4707244266740012977A /* UIView+helpers.swift */,
 				382CC7A023D5EF650043060E /* Constants.swift */,
 				3854F6542438092000229E16 /* CALayer+helpers.swift */,
-				38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */,
 				38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */,
+				3837CD5F24562701007B4297 /* UITextView+helper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -427,6 +434,7 @@
 			children = (
 				3854F6452437C4EC00229E16 /* ChatViewController.swift */,
 				3889EB4F2454C942009B63C2 /* ChatModelController.swift */,
+				38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -438,6 +446,15 @@
 				246B76C32438D73A00FE1D40 /* MainModelController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		3889EB5524560042009B63C2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				38DACAF5244A68B600F4E60E /* FirebaseService.swift */,
+				38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		38DACAF0244A145C00F4E60E /* View */ = {
@@ -594,6 +611,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38DB158E2457FE2F00748B1B /* ImageDetailViewController.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				38DB15942459D46F00748B1B /* EmailLoginViewController.swift in Sources */,
 				38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */,
@@ -629,6 +647,7 @@
 				38DB15962459D4B000748B1B /* EmailLoginView.swift in Sources */,
 				38DACAFA244B89E300F4E60E /* CustomNavigationView.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
+				3837CD6224564404007B4297 /* ZoomTapDelegate.swift in Sources */,
 				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
 				38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
@@ -650,6 +669,7 @@
 				383E46FF244265990012977A /* CustomContainerView.swift in Sources */,
 				38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */,
 				38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */,
+				3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,

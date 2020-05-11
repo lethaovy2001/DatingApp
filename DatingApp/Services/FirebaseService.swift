@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import AVFoundation
 
 class FirebaseService {
     private var database: Firestore!
@@ -20,7 +21,10 @@ class FirebaseService {
     }
     
     func getUserID() -> String? {
-        return Auth.auth().currentUser?.uid
+        if let uid = Auth.auth().currentUser?.uid {
+            return uid
+        }
+        return nil
     }
     
     func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
@@ -167,6 +171,7 @@ extension FirebaseService {
 
 // MARK: Storage
 extension FirebaseService {
+    // MARK: User Profile Images
     func updateImageDatabase(with data: [String: Any]) {
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("profile_images").document(uid).setData(data, merge: true)
@@ -186,7 +191,7 @@ extension FirebaseService {
     func uploadImageOntoStorage(image: UIImage, uid: String, index: Int) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
-        if let uploadData = image.jpegData(compressionQuality: 0.1) {
+        if let uploadData = image.jpegData(compressionQuality: 1.0) {
             storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
                     guard let downloadURL = url?.absoluteString else {
@@ -200,7 +205,68 @@ extension FirebaseService {
         }
     }
     
-    func getUserImagesFromDatabase(_ completion : @escaping([UIImage?])->()) {
+    func uploadMessageVideoOntoStorage(url: URL, completion: @escaping ([String: Any]) -> ()) {
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-videos").child("\(imageName).mov")
+        if let videoData = NSData(contentsOf: url) as Data? {
+            let uploadTask = storageRef.putData(videoData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    guard let fileUrl = url else {
+                        print("FirebaseService: error in fileUrl")
+                        return
+                    }
+                    
+                    if let thumbnailImage = self.thumbnailImageForFileUrl(fileUrl) {
+                        self.uploadMessageImageOntoStorage(image: thumbnailImage, { imageData in
+                            var data = imageData
+                            data.updateValue(downloadURL, forKey: "videoUrl")
+                            completion(data)
+                        })
+                    }
+                }
+            }
+            uploadTask.observe(.success) { (snapshot) in
+                print("Success")
+            }
+        }
+    }
+    
+    private func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
+        let asset = AVAsset(url: fileUrl)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        do {
+            let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60), actualTime: nil)
+            return UIImage(cgImage: thumbnailCGImage)
+            
+        } catch let err {
+            print(err)
+        }
+        
+        return nil
+    }
+    
+    func uploadMessageImageOntoStorage(image: UIImage, _ completion: @escaping ([String: Any]) -> ()) {
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-images").child("\(imageName).jpg")
+        if let uploadData = image.jpegData(compressionQuality: 1.0) {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    let properties: [String: Any] = ["imageUrl": downloadURL as String, "imageWidth": image.size.width, "imageHeight": image.size.height]
+                    completion(properties)
+                }
+            }
+        }
+    }
+    
+    func getUserImagesFromDatabase(_ completion : @escaping([UIImage])->()) {
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("profile_images").document(uid).addSnapshotListener {
                 documentSnapshot, error in
@@ -223,14 +289,34 @@ extension FirebaseService {
         }
     }
     
+    func getUserImagesFromDatabase(from id: String, _ completion : @escaping([UIImage?])->()) {
+        database.collection("profile_images").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                completion([])
+                return
+            }
+            self.downloadImages(data: data, { images in
+                completion(images)
+            })
+        }
+
+    }
+    
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
         httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("FirebaseService: downloadImage \(error)")
             } else {
-                let image = UIImage(data: data!)!
-                completion(image)
+                if let data = data {
+                    let image = UIImage(data: data)!
+                    completion(image)
+                }
             }
         }
         
@@ -256,8 +342,9 @@ extension FirebaseService {
 // MARK: Messages
 extension FirebaseService {
     func saveMessageToDatabase(with message: Message,_ completion : @escaping(String)->()) {
+        guard let data = message.getMessageDictionary() else { return }
         var ref: DocumentReference? = nil
-        ref = database.collection("messages").addDocument(data: message.getTextMessageDictionary(), completion: { error in
+        ref = database.collection("messages").addDocument(data: data, completion: { error in
             if let error = error {
                 print("Error adding document: \(error)")
             } else {

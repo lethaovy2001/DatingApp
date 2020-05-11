@@ -13,12 +13,13 @@ class ChatView: UIView {
         let container = UIView()
         container.backgroundColor = .white
         container.translatesAutoresizingMaskIntoConstraints = false
+        
         container.layer.addShadow(withDirection: .top)
         return container
     }()
     private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
-    private let addImageButton = CustomButton(imageName: "photo", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: .orange, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let addImageButton = CustomButton(imageName: "photo", size: 20, color: .amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     private let titleButton: UIButton = {
         let button = UIButton()
@@ -42,11 +43,13 @@ class ChatView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.backgroundColor = UIColor.white
         cv.alwaysBounceVertical = true
         cv.isScrollEnabled = true
+        cv.allowsSelection = true
         cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.keyboardDismissMode = .interactive
+        cv.backgroundColor = .white
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
@@ -130,8 +133,8 @@ class ChatView: UIView {
         let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
             target: target,
             action: selector)
-        self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
+        tapRecognizer.cancelsTouchesInView = false
+        collectionView.addGestureRecognizer(tapRecognizer)
     }
     
     func getKeyboard(frame: CGRect) {
@@ -145,13 +148,16 @@ class ChatView: UIView {
     func setAddImageButtonSelector(selector: Selector, target: UIViewController) {
         addImageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
-
+    
     func setSendButtonSelector(selector: Selector, target: UIViewController) {
         sendButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
-    func getInputText() -> String {
-        return inputTextView.text
+    func getInputText() -> String? {
+        if (inputTextView.hasText()) {
+            return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return nil
     }
     
     func setEmptyInputText() {
