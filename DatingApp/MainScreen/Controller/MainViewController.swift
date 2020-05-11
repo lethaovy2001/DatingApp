@@ -10,16 +10,14 @@ import UIKit
 import CoreLocation
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
-
-    private var locationService: LocationService!
-    
     private let mainView: MainView = {
         let view = MainView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private var locationService: LocationService!
     private let modelController = MainModelController()
-    private var firebaseService: FirebaseService!
     var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: Setup
@@ -45,7 +43,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
         mainView.setDataSource(uiViewController: self)
@@ -61,7 +58,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if (!UserDefaults.standard.isLoggedIn() || firebaseService.getUserID() == nil) {
+        if (!modelController.checkIfUserExist()) {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
         }
@@ -125,5 +122,19 @@ extension MainViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationService.didChangeAuthorization(status: status)
+    }
+}
+
+extension MainViewController: UserChoiceDelegate {
+    func like(_ user: UserModel) {
+        if let id = user.id {
+            modelController.matchUsers(toId: id)
+        }
+    }
+    
+    func dislike(_ user: UserModel) {
+        if let id = user.id {
+            modelController.dislikeUser(id: id)
+        }
     }
 }

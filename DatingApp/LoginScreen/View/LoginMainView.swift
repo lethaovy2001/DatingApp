@@ -13,6 +13,7 @@ import Lottie
 class LoginMainView: UIView {
     
     private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: UIColor.fbColor)
+    private let emailLoginButton = RoundedButton(title: "LOG IN WITH EMAIL", color: UIColor.amour)
     private let appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
@@ -30,14 +31,15 @@ class LoginMainView: UIView {
     }
     
     // MARK: Setup
-    private func addSubViews() {
-        addSubview(fbLoginButton)
-        addSubview(appLogo)
-    }
-    
     private func setup() {
         addSubViews()
         setupConstraints()
+    }
+    
+    private func addSubViews() {
+        addSubview(fbLoginButton)
+        addSubview(emailLoginButton)
+        addSubview(appLogo)
     }
     
     private func setupConstraints() {
@@ -47,7 +49,12 @@ class LoginMainView: UIView {
             appLogo.heightAnchor.constraint(equalToConstant: 250),
             appLogo.widthAnchor.constraint(equalToConstant: 250)
         ])
-        
+        NSLayoutConstraint.activate([
+            emailLoginButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
+            emailLoginButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
+            emailLoginButton.bottomAnchor.constraint(equalTo: fbLoginButton.topAnchor, constant: -12),
+            emailLoginButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
         NSLayoutConstraint.activate([
             fbLoginButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             fbLoginButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
@@ -56,8 +63,13 @@ class LoginMainView: UIView {
         ])
     }
     
-    func setLoginSelector(selector: Selector, target: UIViewController) {
+    // MARK: Selectors
+    func setFbLoginSelector(selector: Selector, target: UIViewController) {
         fbLoginButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setEmailLoginSelector(selector: Selector, target: UIViewController) {
+        emailLoginButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
