@@ -13,10 +13,12 @@ class ChatView: UIView {
         let container = UIView()
         container.backgroundColor = .white
         container.translatesAutoresizingMaskIntoConstraints = false
+        
         container.layer.addShadow(withDirection: .top)
         return container
     }()
     private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
+    private let addImageButton = CustomButton(imageName: "photo", size: 20, color: .amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
     private let titleButton: UIButton = {
@@ -41,11 +43,13 @@ class ChatView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.backgroundColor = UIColor.white
         cv.alwaysBounceVertical = true
         cv.isScrollEnabled = true
+        cv.allowsSelection = true
         cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.keyboardDismissMode = .interactive
+        cv.backgroundColor = .white
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
@@ -69,11 +73,11 @@ class ChatView: UIView {
     
     private func addSubviews() {
         addSubview(customNavigationView)
-        
         addSubview(collectionView)
         addSubview(inputContainerView)
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
+        inputContainerView.addSubview(addImageButton)
         bringSubviewToFront(customNavigationView)
     }
     
@@ -94,21 +98,27 @@ class ChatView: UIView {
         inputContainerBottomAnchor.isActive = true
         
         NSLayoutConstraint.activate([
-            inputTextView.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: Constants.PaddingValues.inputPadding),
+            inputTextView.leftAnchor.constraint(equalTo: addImageButton.rightAnchor),
             inputTextView.rightAnchor.constraint(equalTo: sendButton.leftAnchor),
             inputTextView.heightAnchor.constraint(equalToConstant: Constants.PaddingValues.inputTextViewHeight),
             inputTextView.topAnchor.constraint(equalTo: inputContainerView.topAnchor, constant: Constants.PaddingValues.inputPadding)
         ])
         NSLayoutConstraint.activate([
             sendButton.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor),
-            sendButton.widthAnchor.constraint(equalToConstant: Constants.PaddingValues.inputContainerHeight),
+            sendButton.widthAnchor.constraint(equalToConstant: 54),
             sendButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor),
             sendButton.topAnchor.constraint(equalTo: inputTextView.topAnchor)
         ])
         NSLayoutConstraint.activate([
+            addImageButton.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor),
+            addImageButton.widthAnchor.constraint(equalToConstant: 54),
+            addImageButton.bottomAnchor.constraint(equalTo: inputTextView.bottomAnchor),
+            addImageButton.topAnchor.constraint(equalTo: inputTextView.topAnchor)
+        ])
+        NSLayoutConstraint.activate([
             collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: inputContainerView.topAnchor),
             collectionView.topAnchor.constraint(equalTo: customNavigationView.bottomAnchor)
         ])
     }
@@ -123,8 +133,8 @@ class ChatView: UIView {
         let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
             target: target,
             action: selector)
-        self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
+        tapRecognizer.cancelsTouchesInView = false
+        collectionView.addGestureRecognizer(tapRecognizer)
     }
     
     func getKeyboard(frame: CGRect) {
@@ -133,6 +143,25 @@ class ChatView: UIView {
     
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
         customNavigationView.setleftButtonSelector(selector: selector, target: target)
+    }
+    
+    func setAddImageButtonSelector(selector: Selector, target: UIViewController) {
+        addImageButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setSendButtonSelector(selector: Selector, target: UIViewController) {
+        sendButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func getInputText() -> String? {
+        if (inputTextView.hasText()) {
+            return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return nil
+    }
+    
+    func setEmptyInputText() {
+        inputTextView.text = nil
     }
     
 }
@@ -167,6 +196,7 @@ extension ChatView: KeyboardDelegate {
         inputContainerBottomAnchor.constant = 0
     }
 }
+
 
 
 

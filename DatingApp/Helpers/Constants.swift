@@ -11,7 +11,7 @@ import UIKit
 struct Constants {
     struct PaddingValues {
         // MARK: Input Container
-        static let inputContainerHeight: CGFloat = 60
+        static let inputContainerHeight: CGFloat = 54
         static let inputPadding: CGFloat = 12
         static let inputTextViewHeight: CGFloat = 36
         
@@ -31,11 +31,11 @@ struct Constants {
     static let searchLocationAnimation = "searchLocationAnimation"
     
     static let meterToMile: Double = 1609
-    
-    
-    
     struct NotificationKeys {
         static let selectAddImage = "selectAddImage"
     }
+    
+    //MARK: Font size
+    static let textSize: CGFloat = 20
 }
 

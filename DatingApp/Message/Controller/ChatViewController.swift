@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import MobileCoreServices
+import AVFoundation
 
 class ChatViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
     private let chatView: ChatView = {
         let view = ChatView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private let modelController = ChatModelController()
+    private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
@@ -22,18 +25,19 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupKeyboardObservers()
         registerCellId()
+        setupSelectors()
         chatView.addDelegate(viewController: self)
         chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
-        chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
         chatView.collectionView.delegate = self
         chatView.collectionView.dataSource = self
+        getMessages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        setupKeyboardObservers()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -56,34 +60,87 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: Constants.cellId)
     }
     
+    private func getMessages() {
+        modelController.getMessagesFromDatabase {
+            DispatchQueue.main.async {
+                self.chatView.collectionView.reloadData()
+                let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
+                self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+    }
+    
+    func setupSelectors() {
+        chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
+        chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
+        chatView.setSendButtonSelector(selector: #selector(sendButtonPressed), target: self)
+    }
+    
+    // MARK: Actions
     @objc func backPressed(){
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @objc func sendButtonPressed(){
+        //TODO: Remove mock data
+        if let fromId = modelController.getCurrentUserId(), let text = chatView.getInputText() {
+            let message: [String: Any] = [
+                "fromId": fromId,
+                "toId": "2",
+                "time": Date(),
+                "text": text
+            ]
+            modelController.updateMessageToDatabase(message: message)
+            chatView.setEmptyInputText()
+        }
+    }
+        
+    @objc func addImageButtonPressed() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: UICollectionView
 extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return modelController.getMessages().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        cell.textView.text = "I love you 3000 \n lala"
+        if let uid = modelController.getCurrentUserId() {
+            let message = modelController.getMessages()[indexPath.item]
+            cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
+        }
+        cell.tapDelegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let text = "I love you 3000 \n lala"
+        var height: CGFloat = 80
+        let message = modelController.getMessages()[indexPath.item]
+        if let text = message.text {
+            height = estimatedFrameForText(text: text).height + 20
+        } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
+            height = CGFloat(imageHeight) / CGFloat(imageWidth) * 200
+        }
         let width = UIScreen.main.bounds.width
-        let height = estimatedFrameForText(text: text).height + 20
         return CGSize(width: width, height: height)
     }
     
     private func estimatedFrameForText(text: String) -> CGRect {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textSize)], context: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -123,6 +180,10 @@ extension ChatViewController {
         chatView.getKeyboard(frame: keyboardFrame)
         keyboardDelegate?.showKeyboard()
         performKeyboardAnimation(notification: notification)
+        if self.modelController.getMessages().count > 0 {
+            let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
+            chatView.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
     }
     
     private func performKeyboardAnimation(notification: NSNotification) {
@@ -130,6 +191,67 @@ extension ChatViewController {
         UIView.animate(withDuration: keyboardDuration!, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+}
+
+// MARK: UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+            handleVideoSelectedForUrl(videoUrl)
+        } else {
+            handleImageSelectedForInfo(info)
+        }
+        dismiss(animated: true, completion: nil)
+        dismissKeyboard()
+        self.view.layoutIfNeeded()
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: Images and Videos
+extension ChatViewController {
+    private func handleVideoSelectedForUrl(_ url: URL) {
+        firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
+            var values: [String: Any] = message
+            //TODO: remove mock id
+            values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
+            values.updateValue("2", forKey: "toId")
+            self.modelController.updateMessageToDatabase(message: values)
+        })
+    }
+    
+    private func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        if let selectedImage = selectedImageFromPicker {
+            firebaseService.uploadMessageImageOntoStorage(image: selectedImage, { message in
+                var values: [String: Any] = message
+                //TODO: remove mock id
+                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
+                values.updateValue("2", forKey: "toId")
+                self.modelController.updateMessageToDatabase(message: values)
+            })
+        }
+    }
+}
+
+// MARK: ImageTapGestureDelegate
+extension ChatViewController: ZoomTapDelegate {
+    func didTap(on imageView: UIImageView) {
+        let vc = ImageDetailViewController()
+        if let image = imageView.image {
+            vc.image = image
+        }
+        self.navigationController?.pushViewController(vc, animated: false)
+        dismissKeyboard()
     }
 }
 
