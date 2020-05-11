@@ -43,12 +43,13 @@ class ChatView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.backgroundColor = UIColor.white
         cv.alwaysBounceVertical = true
         cv.isScrollEnabled = true
+        cv.allowsSelection = true
         cv.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.keyboardDismissMode = .interactive
+        cv.backgroundColor = .white
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
@@ -132,8 +133,8 @@ class ChatView: UIView {
         let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
             target: target,
             action: selector)
-        self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
+        tapRecognizer.cancelsTouchesInView = false
+        collectionView.addGestureRecognizer(tapRecognizer)
     }
     
     func getKeyboard(frame: CGRect) {
@@ -152,8 +153,11 @@ class ChatView: UIView {
         sendButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
-    func getInputText() -> String {
-        return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+    func getInputText() -> String? {
+        if (inputTextView.hasText()) {
+            return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return nil
     }
     
     func setEmptyInputText() {

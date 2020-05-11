@@ -13,12 +13,21 @@ struct Message {
     var toId: String?
     var text: String?
     var time: Date?
-    
-    init(fromId: String, toId: String, text: String, time: Date) {
-        self.fromId = fromId
-        self.toId = toId
-        self.text = text
-        self.time = time
+    var imageUrl: String?
+    var imageWidth: CGFloat?
+    var imageHeight: CGFloat?
+    var image: UIImage?
+    var videoUrl: String?
+
+    init(dictionary: [String: Any], image: UIImage) {
+        self.fromId = dictionary["fromId"] as? String
+        self.toId = dictionary["toId"] as? String
+        self.time = dictionary["time"] as? Date
+        self.image = image
+        self.imageUrl = dictionary["imageUrl"] as? String
+        self.imageWidth = dictionary["imageWidth"] as? CGFloat
+        self.imageHeight = dictionary["imageHeight"] as? CGFloat
+        self.videoUrl = dictionary["videoUrl"] as? String
     }
     
     init(dictionary: [String: Any]) {
@@ -26,15 +35,37 @@ struct Message {
         self.text = dictionary["text"] as? String
         self.toId = dictionary["toId"] as? String
         self.time = dictionary["time"] as? Date
+        self.imageUrl = dictionary["imageUrl"] as? String
+        self.imageWidth = dictionary["imageWidth"] as? CGFloat
+        self.imageHeight = dictionary["imageHeight"] as? CGFloat
+        self.videoUrl = dictionary["videoUrl"] as? String
     }
     
-    func getTextMessageDictionary() -> [String: Any] {
-        let dictionary: [String: Any] = [
-            "fromId": fromId ?? "",
-            "toId": toId ?? "",
-            "text": text ?? "",
-            "time": time ?? Date(),
-        ]
+    func getMessageDictionary() -> [String: Any]? {
+        var dictionary: [String: Any]?
+        if let fromId = self.fromId, let toId = self.toId {
+            if let text = self.text {
+                dictionary = [
+                    "fromId": fromId,
+                    "toId": toId,
+                    "time": time ?? Date(),
+                    "text": text
+                ]
+            }
+            if let imageUrl = self.imageUrl, let imageWidth = self.imageWidth, let imageHeight = self.imageHeight {
+                dictionary = [
+                    "fromId": fromId,
+                    "toId": toId,
+                    "time": time ?? Date(),
+                    "imageUrl": imageUrl,
+                    "imageWidth": imageWidth,
+                    "imageHeight": imageHeight,
+                ]
+                if let videoUrl = self.videoUrl {
+                    dictionary?.updateValue(videoUrl, forKey: "videoUrl")
+                }
+            }
+        }
         return dictionary
     }
 }

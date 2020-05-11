@@ -33,15 +33,27 @@ class ChatModelController {
                 self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
                     guard let time = messageData["time"] as? Timestamp else { return }
                     let convertedTime = self.firebaseService.convertToDate(timestamp: time)
-                    let message = Message(fromId: messageData["fromId"] as! String, toId: messageData["toId"] as! String, text: messageData["text"] as! String, time: convertedTime)
-                    self.messages.append(message)
-                    completion()
+                    var values = messageData
+                    values.updateValue(convertedTime, forKey: "time")
+                    var message: Message!
+                    if let imageUrl = values["imageUrl"] as? String {
+                        self.firebaseService.downloadImageFromStorage(url: imageUrl, { image in
+                            message = Message(dictionary: values, image: image)
+                            self.messages.append(message)
+                            completion()
+                        })
+                    } else {
+                        message = Message(dictionary: values)
+                        self.messages.append(message)
+                        completion()
+                    }
                 })
             }
         })
     }
     
     func updateMessageToDatabase(message: [String: Any]) {
+        //TODO: remove mock id
         let model = Message(dictionary: message)
         firebaseService.saveMessageToDatabase(with: model, { messageId in
             self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)

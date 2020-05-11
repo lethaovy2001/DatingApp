@@ -21,20 +21,41 @@ class MessageViewModel {
 }
 
 extension MessageViewModel {
-    enum MessageType {
+    enum RelationshipType {
         case currentUser
         case otherPerson
+    }
+    
+    enum MessageType {
+        case text
+        case image
     }
     
     var text: String {
         return model.text ?? ""
     }
     
-    var style: MessageType {
+    var image: UIImage? {
+        return model.image ?? nil
+    }
+    
+    var videoUrl: String? {
+        return model.videoUrl
+    }
+    
+    var style: RelationshipType {
         if model.fromId == currentUserId {
-            return MessageType.currentUser
+            return RelationshipType.currentUser
         } else {
-            return MessageType.otherPerson
+            return RelationshipType.otherPerson
+        }
+    }
+    
+    var messageType: MessageType {
+        if model.text != nil {
+            return MessageType.text
+        } else {
+            return MessageType.image
         }
     }
 }
