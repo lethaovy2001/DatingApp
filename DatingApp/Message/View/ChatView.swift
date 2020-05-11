@@ -134,7 +134,7 @@ class ChatView: UIView {
             target: target,
             action: selector)
         tapRecognizer.cancelsTouchesInView = false
-        self.addGestureRecognizer(tapRecognizer)
+        collectionView.addGestureRecognizer(tapRecognizer)
     }
     
     func getKeyboard(frame: CGRect) {

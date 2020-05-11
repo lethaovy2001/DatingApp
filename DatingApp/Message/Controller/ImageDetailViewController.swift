@@ -10,6 +10,7 @@ import UIKit
 
 class ImageDetailViewController: UIViewController {
     private var imageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 0)
+    private var exitButton = CustomButton(imageName: "multiply", size: 20, color: .white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     
     var image: UIImage? {
         didSet {
@@ -21,8 +22,6 @@ class ImageDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
     }
     
     //MARK: Setup
@@ -30,10 +29,15 @@ class ImageDetailViewController: UIViewController {
         addSubviews()
         setupConstraints()
         addGesture()
+        
+        imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        exitButton.addTarget(self, action: #selector(handleTapGesture), for: .touchUpInside)
     }
     
     private func addSubviews(){
         view.addSubview(imageView)
+        view.addSubview(exitButton)
     }
     
     private func setupConstraints() {
@@ -41,6 +45,10 @@ class ImageDetailViewController: UIViewController {
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor),
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        NSLayoutConstraint.activate([
+            exitButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 36),
+            exitButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 54),
         ])
     }
     

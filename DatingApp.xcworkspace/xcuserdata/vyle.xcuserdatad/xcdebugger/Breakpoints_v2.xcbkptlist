@@ -23,54 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "08C487BB-CFA5-4C44-958A-0E0593525DE4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DatingApp/Message/Controller/ChatViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "getMessages()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "08C487BB-CFA5-4C44-958A-0E0593525DE4 - 5d1609ed5706d09f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DatingApp.ChatViewController.(getMessages in _B605D145D8DE24BC03EC7053DFE051EC)() -&gt; ()"
-                  moduleName = "DatingApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vyle/Documents/Projects/DatingApp/DatingApp/Message/Controller/ChatViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "22">
-               </Location>
-               <Location
-                  uuid = "08C487BB-CFA5-4C44-958A-0E0593525DE4 - 48a9bf2c7e7390b7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in DatingApp.ChatViewController.(getMessages in _B605D145D8DE24BC03EC7053DFE051EC)() -&gt; ()"
-                  moduleName = "DatingApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vyle/Documents/Projects/DatingApp/DatingApp/Message/Controller/ChatViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "135">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FC7E0B73-0239-403E-9C52-3083EB56ED88"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -78,8 +30,8 @@
             filePath = "DatingApp/Message/Controller/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "handleImageSelectedForInfo(_:)"
             landmarkType = "7">
             <Locations>
@@ -126,8 +78,8 @@
             filePath = "DatingApp/Message/Controller/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "handleImageSelectedForInfo(_:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -25,7 +25,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupKeyboardObservers()
         registerCellId()
         setupSelectors()
         chatView.addDelegate(viewController: self)
@@ -38,6 +37,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        setupKeyboardObservers()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -203,6 +203,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             handleImageSelectedForInfo(info)
         }
         dismiss(animated: true, completion: nil)
+        dismissKeyboard()
         self.view.layoutIfNeeded()
     }
     
@@ -245,15 +246,12 @@ extension ChatViewController {
 // MARK: ImageTapGestureDelegate
 extension ChatViewController: ZoomTapDelegate {
     func didTap(on imageView: UIImageView) {
-        handleZoomTap(on: imageView)
-    }
-    
-    private func handleZoomTap(on imageView: UIImageView) {
         let vc = ImageDetailViewController()
         if let image = imageView.image {
             vc.image = image
         }
         self.navigationController?.pushViewController(vc, animated: false)
+        dismissKeyboard()
     }
 }
 
