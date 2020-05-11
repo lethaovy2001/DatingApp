@@ -13,9 +13,16 @@ class ChatModelController {
     private var firebaseService = FirebaseService()
     private var messages = [Message]()
     
+    func getCurrentUserId() -> String? {
+        return firebaseService.getUserID()
+    }
+    
     func getMessages() -> [Message] {
         self.messages.sort( by: { (message1, message2) -> Bool in
-            return (message1.time) < (message2.time)
+            if let timeSent1 = message1.time, let timeSent2 = message2.time {
+                return (timeSent1) < (timeSent2)
+            }
+            return false
         })
         return messages
     }
@@ -40,7 +47,8 @@ class ChatModelController {
     }
     
     func updateMessageToDatabase(message: [String: Any]) {
-        firebaseService.saveMessageToDatabase(with: message, { messageId in
+        let model = Message(dictionary: message)
+        firebaseService.saveMessageToDatabase(with: model, { messageId in
             self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)
         })
     }

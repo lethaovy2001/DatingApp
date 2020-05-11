@@ -27,7 +27,7 @@ extension MessageViewModel {
     }
     
     var text: String {
-        return model.text
+        return model.text ?? ""
     }
     
     var style: MessageType {
