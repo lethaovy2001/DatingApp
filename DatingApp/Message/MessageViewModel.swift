@@ -55,10 +55,10 @@ extension MessageViewModel {
     var messageType: MessageType {
         if model.text != nil {
             return MessageType.text
-        } else if model.videoUrl != nil {
-            return MessageType.video
-        } else {
+        } else if model.imageUrl != nil {
             return MessageType.image
+        } else {
+            return MessageType.video
         }
     }
 }

@@ -142,7 +142,7 @@ extension FirebaseService {
     func uploadMessageVideoOntoStorage(url: URL, completion: @escaping ([String: Any]) -> ()) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child("messages-videos").child("\(imageName).mov")
-         if let videoData = NSData(contentsOf: url) as Data? {
+        if let videoData = NSData(contentsOf: url) as Data? {
             let uploadTask = storageRef.putData(videoData, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
                     guard let downloadURL = url?.absoluteString else {
@@ -227,8 +227,10 @@ extension FirebaseService {
             if let error = error {
                 print("FirebaseService: downloadImage \(error)")
             } else {
-                let image = UIImage(data: data!)!
-                completion(image)
+                if let data = data {
+                    let image = UIImage(data: data)!
+                    completion(image)
+                }
             }
         }
     }

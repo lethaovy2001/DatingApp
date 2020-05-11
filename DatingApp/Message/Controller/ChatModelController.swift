@@ -36,9 +36,7 @@ class ChatModelController {
                     var values = messageData
                     values.updateValue(convertedTime, forKey: "time")
                     var message: Message!
-                    //guard let imageUrl = values["imageUrl"] as? String else { return }
                     if let imageUrl = values["imageUrl"] as? String {
-                        
                         self.firebaseService.downloadImageFromStorage(url: imageUrl, { image in
                             message = Message(dictionary: values, image: image)
                             self.messages.append(message)
