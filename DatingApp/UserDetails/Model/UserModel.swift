@@ -17,7 +17,7 @@ struct UserModel {
     let gender: String?
     let images: [UIImage]?
     
-    init(info: [String: Any?]) {
+    init(info: [String: Any]) {
         self.name = info["first_name"] as? String
         self.work = info["work"] as? String
         self.bio = info["bio"] as? String
