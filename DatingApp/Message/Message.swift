@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 struct Message {
     var fromId: String?
@@ -23,22 +24,30 @@ struct Message {
         self.fromId = dictionary["fromId"] as? String
         self.text = dictionary["text"] as? String
         self.toId = dictionary["toId"] as? String
-        self.time = dictionary["time"] as? Date
         self.imageUrl = dictionary["imageUrl"] as? String
         self.imageWidth = dictionary["imageWidth"] as? CGFloat
         self.imageHeight = dictionary["imageHeight"] as? CGFloat
         self.videoUrl = dictionary["videoUrl"] as? String
+        if let timeSent = dictionary["time"] as? Timestamp {
+            self.time = timeSent.dateValue()
+        } else {
+            self.time = dictionary["time"] as? Date
+        }
     }
     
     init(dictionary: [String: Any], image: UIImage) {
         self.fromId = dictionary["fromId"] as? String
         self.toId = dictionary["toId"] as? String
-        self.time = dictionary["time"] as? Date
         self.image = image
         self.imageUrl = dictionary["imageUrl"] as? String
         self.imageWidth = dictionary["imageWidth"] as? CGFloat
         self.imageHeight = dictionary["imageHeight"] as? CGFloat
         self.videoUrl = dictionary["videoUrl"] as? String
+        if let timeSent = dictionary["time"] as? Timestamp {
+            self.time = timeSent.dateValue()
+        } else {
+            self.time = dictionary["time"] as? Date
+        }
     }
     
     func getTextMessageDictionary() -> [String: Any] {
