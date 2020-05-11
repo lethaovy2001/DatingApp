@@ -85,14 +85,16 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //TODO: Remove mock data
         if chatView.getInputText() != nil {
             let message: [String: Any] = [
+                "fromId": modelController.getCurrentUserId(),
                 "toId": "2",
-                "text": chatView.getInputText()!
+                "time": Date(),
+                "text": chatView.getInputText()
             ]
             modelController.updateMessageToDatabase(message: message)
             chatView.setEmptyInputText()
         }
     }
-    
+        
     @objc func addImageButtonPressed() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -100,6 +102,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
         present(imagePicker, animated: true, completion: nil)
     }
+    
 }
 
 // MARK: UICollectionView
@@ -214,6 +217,7 @@ extension ChatViewController {
         firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
             var values: [String: Any] = message
             //TODO: remove mock id
+            values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
             values.updateValue("2", forKey: "toId")
             self.modelController.updateMessageToDatabase(message: values)
         })
@@ -230,6 +234,7 @@ extension ChatViewController {
             firebaseService.uploadMessageImageOntoStorage(image: selectedImage, { message in
                 var values: [String: Any] = message
                 //TODO: remove mock id
+                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
                 values.updateValue("2", forKey: "toId")
                 self.modelController.updateMessageToDatabase(message: values)
             })

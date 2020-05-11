@@ -13,19 +13,18 @@ class ChatModelController {
     private var firebaseService = FirebaseService()
     private var messages = [Message]()
     
+    func getCurrentUserId() -> String? {
+        return firebaseService.getUserID()
+    }
+    
     func getMessages() -> [Message] {
         self.messages.sort( by: { (message1, message2) -> Bool in
-            if let time1 = message1.time, let time2 = message2.time {
-                return (time1) < (time2)
+            if let timeSent1 = message1.time, let timeSent2 = message2.time {
+                return (timeSent1) < (timeSent2)
             }
             return false
         })
         return messages
-    }
-    
-    func getCurrentUserId() -> String? {
-        
-        return firebaseService.getUserID()
     }
     
     func getMessagesFromDatabase(_ completion : @escaping()->()) {
@@ -37,7 +36,9 @@ class ChatModelController {
                     var values = messageData
                     values.updateValue(convertedTime, forKey: "time")
                     var message: Message!
+                    //guard let imageUrl = values["imageUrl"] as? String else { return }
                     if let imageUrl = values["imageUrl"] as? String {
+                        
                         self.firebaseService.downloadImageFromStorage(url: imageUrl, { image in
                             message = Message(dictionary: values, image: image)
                             self.messages.append(message)
@@ -54,8 +55,9 @@ class ChatModelController {
     }
     
     func updateMessageToDatabase(message: [String: Any]) {
-        firebaseService.saveMessageToDatabase(with: message, { messageId in
-            //TODO: remove mock id
+        //TODO: remove mock id
+        let model = Message(dictionary: message)
+        firebaseService.saveMessageToDatabase(with: model, { messageId in
             self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)
         })
     }

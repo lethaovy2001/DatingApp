@@ -252,20 +252,17 @@ extension FirebaseService {
 
 // MARK: Messages
 extension FirebaseService {
-    func saveMessageToDatabase(with data: [String: Any],_ completion : @escaping(String)->()) {
-        if let uid = Auth.auth().currentUser?.uid {
-            var values: [String: Any] = ["fromId": uid, "time": Date()]
-            data.forEach({values[$0] = $1})
-            var ref: DocumentReference? = nil
-            ref = database.collection("messages").addDocument(data: values, completion: { error in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                } else {
-                    print("Document added with ID: \(ref!.documentID)")
-                    completion(ref!.documentID)
-                }
-            })
-        }
+    func saveMessageToDatabase(with message: Message,_ completion : @escaping(String)->()) {
+        guard let data = message.getMessageDictionary() else { return }
+        var ref: DocumentReference? = nil
+        ref = database.collection("messages").addDocument(data: data, completion: { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+                completion(ref!.documentID)
+            }
+        })
     }
     
     func updateMessageReference(toId: String, messageId: String) {
