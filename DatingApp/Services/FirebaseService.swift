@@ -396,7 +396,14 @@ extension FirebaseService {
     func updateMessageReference(toId: String, messageId: String) {
         if let fromId = Auth.auth().currentUser?.uid {
             let data = [messageId: 1]
-            database.collection("user-messages").document(fromId).collection(toId).document(messageId).setData(data, merge: true, completion: { error in
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Successfully update message reference")
+                }
+            })
+            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
@@ -422,7 +429,7 @@ extension FirebaseService {
     
     func getMessages(toId: String, _ completion : @escaping([String: Any])->()) {
         if let fromId = Auth.auth().currentUser?.uid {
-            database.collection("user-messages").document(fromId).collection(toId).addSnapshotListener() {
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").addSnapshotListener() {
                 querySnapshot, error in
                 guard let snapshot = querySnapshot else {
                     print("Error fetching documents: \(error!)")

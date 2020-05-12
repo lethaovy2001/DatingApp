@@ -12,6 +12,11 @@ import Firebase
 class ChatModelController {
     private var firebaseService = FirebaseService()
     private var messages = [Message]()
+    var user: UserModel? {
+        didSet {
+            
+        }
+    }
     
     func getCurrentUserId() -> String? {
         return firebaseService.getUserID()
@@ -28,7 +33,8 @@ class ChatModelController {
     }
     
     func getMessagesFromDatabase(_ completion : @escaping()->()) {
-        firebaseService.getMessages(toId: "2", { data in
+        guard let toId = user?.id else { return }
+        firebaseService.getMessages(toId: toId, { data in
             for messageId in data {
                 self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
                     guard let time = messageData["time"] as? Timestamp else { return }
@@ -53,10 +59,12 @@ class ChatModelController {
     }
     
     func updateMessageToDatabase(message: [String: Any]) {
-        //TODO: remove mock id
         let model = Message(dictionary: message)
-        firebaseService.saveMessageToDatabase(with: model, { messageId in
-            self.firebaseService.updateMessageReference(toId: "2", messageId: messageId)
-        })
+        if let toId = model.toId {
+            firebaseService.saveMessageToDatabase(with: model, { messageId in
+                self.firebaseService.updateMessageReference(toId: toId, messageId: messageId)
+                
+            })
+        }
     }
 }
