@@ -50,6 +50,8 @@
 		38475D472469F894008EDD28 /* ListMessageModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D462469F894008EDD28 /* ListMessageModelController.swift */; };
 		38475D49246A1CB6008EDD28 /* ListMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D48246A1CB6008EDD28 /* ListMessageViewModel.swift */; };
 		38475D52246B2CC4008EDD28 /* UserDetailsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D51246B2CC4008EDD28 /* UserDetailsModelController.swift */; };
+		38475D54246B6892008EDD28 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D53246B6892008EDD28 /* LoadingAnimationView.swift */; };
+		38475D57246B6D8D008EDD28 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D56246B6D8D008EDD28 /* loading.json */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
@@ -128,6 +130,8 @@
 		38475D462469F894008EDD28 /* ListMessageModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageModelController.swift; sourceTree = "<group>"; };
 		38475D48246A1CB6008EDD28 /* ListMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageViewModel.swift; sourceTree = "<group>"; };
 		38475D51246B2CC4008EDD28 /* UserDetailsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsModelController.swift; sourceTree = "<group>"; };
+		38475D53246B6892008EDD28 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
+		38475D56246B6D8D008EDD28 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 				38DFEA6B2445FF6D00F1BE0D /* ListMessages */,
 				3854F6442437C4EC00229E16 /* Message */,
 				383E4709244267000012977A /* Protocols */,
+				38475D55246B6897008EDD28 /* Animations */,
 				246B76BD24382AE500FE1D40 /* Storyboards */,
 				3854F653243808FC00229E16 /* Helpers */,
 				246B76BE24382B1100FE1D40 /* SupportingFiles */,
@@ -281,6 +286,7 @@
 		383E46D12440E6950012977A /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				38475D56246B6D8D008EDD28 /* loading.json */,
 				383E46D22440E6A60012977A /* loveAnimation.json */,
 				38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */,
 			);
@@ -399,6 +405,14 @@
 				383E46E1244265450012977A /* UserModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		38475D55246B6897008EDD28 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				38475D53246B6892008EDD28 /* LoadingAnimationView.swift */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		3854F6442437C4EC00229E16 /* Message */ = {
@@ -590,6 +604,7 @@
 				382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */,
 				382CC79023D3B0DF0043060E /* Assets.xcassets in Resources */,
 				38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */,
+				38475D57246B6D8D008EDD28 /* loading.json in Resources */,
 				382CC78E23D3B0DD0043060E /* Main.storyboard in Resources */,
 				383E46D32440E6A60012977A /* loveAnimation.json in Resources */,
 			);
@@ -683,6 +698,7 @@
 				38DB15962459D4B000748B1B /* EmailLoginView.swift in Sources */,
 				38DACAFA244B89E300F4E60E /* CustomNavigationView.swift in Sources */,
 				3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */,
+				38475D54246B6892008EDD28 /* LoadingAnimationView.swift in Sources */,
 				3837CD6224564404007B4297 /* ZoomTapDelegate.swift in Sources */,
 				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
 				38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */,

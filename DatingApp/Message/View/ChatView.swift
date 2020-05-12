@@ -53,6 +53,7 @@ class ChatView: UIView {
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
+    private let loadingView = LoadingAnimationView()
     var viewModel: ListMessageViewModel? {
         didSet {
             profileImageView.image = viewModel?.userImage
@@ -81,13 +82,21 @@ class ChatView: UIView {
         addSubview(customNavigationView)
         addSubview(collectionView)
         addSubview(inputContainerView)
+        addSubview(loadingView)
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
         inputContainerView.addSubview(addImageButton)
         bringSubviewToFront(customNavigationView)
+        bringSubviewToFront(inputContainerView)
     }
     
     private func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: self.topAnchor),
+            loadingView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            loadingView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
         NSLayoutConstraint.activate([
             customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
             customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -169,6 +178,10 @@ class ChatView: UIView {
     
     func setEmptyInputText() {
         inputTextView.text = nil
+    }
+    
+    func doneLoading() {
+        self.loadingView.removeFromSuperview()
     }
     
 }
