@@ -49,6 +49,7 @@
 		384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */; };
 		38475D472469F894008EDD28 /* ListMessageModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D462469F894008EDD28 /* ListMessageModelController.swift */; };
 		38475D49246A1CB6008EDD28 /* ListMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D48246A1CB6008EDD28 /* ListMessageViewModel.swift */; };
+		38475D52246B2CC4008EDD28 /* UserDetailsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D51246B2CC4008EDD28 /* UserDetailsModelController.swift */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
@@ -126,6 +127,7 @@
 		384604B323EA76D2006F6540 /* SwipeCardStackContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackContainer.swift; sourceTree = "<group>"; };
 		38475D462469F894008EDD28 /* ListMessageModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageModelController.swift; sourceTree = "<group>"; };
 		38475D48246A1CB6008EDD28 /* ListMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageViewModel.swift; sourceTree = "<group>"; };
+		38475D51246B2CC4008EDD28 /* UserDetailsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsModelController.swift; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				383E46DE244265450012977A /* UserDetailsViewController.swift */,
+				38475D51246B2CC4008EDD28 /* UserDetailsModelController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				383E4701244265990012977A /* CustomTextField.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
 				383E4708244266740012977A /* UIView+helpers.swift in Sources */,
+				38475D52246B2CC4008EDD28 /* UserDetailsModelController.swift in Sources */,
 				384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */,
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
 				383E46F1244265570012977A /* SectionTitleLabel.swift in Sources */,

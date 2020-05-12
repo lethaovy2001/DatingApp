@@ -289,7 +289,7 @@ extension FirebaseService {
         }
     }
     
-    func getUserImagesFromDatabase(from id: String, _ completion : @escaping([UIImage?])->()) {
+    func getUserImagesFromDatabase(from id: String, _ completion : @escaping([UIImage])->()) {
         database.collection("profile_images").document(id).addSnapshotListener {
             documentSnapshot, error in
             guard let document = documentSnapshot else {

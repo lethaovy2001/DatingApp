@@ -45,6 +45,10 @@ extension UserDetailsViewModel {
     var bio: String {
         return model.bio ?? ""
     }
+    
+    var id: String? {
+        return model.id ?? nil
+    }
 }
 
 

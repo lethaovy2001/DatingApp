@@ -10,9 +10,9 @@ import UIKit
 
 class UserDetailsViewController: UIViewController {
     private let userDetailsView = UserDetailsView()
-    private var viewModel: UserDetailsViewModel!
-    private let modelController = MainModelController()
+    private let modelController = UserDetailsModelController()
     private let firebaseService = FirebaseService()
+    var viewModel: UserDetailsViewModel?
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -58,8 +58,10 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Actions
     @objc func editButtonPressed() {
-        let vc = EditUserDetailsViewController(viewModel: viewModel)
-        self.navigationController?.pushViewController(vc, animated: false)
+        if let viewModel = viewModel {
+            let vc = EditUserDetailsViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
     }
     
     @objc func backButtonPressed() {
@@ -68,9 +70,14 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Firebase
     func reloadUserInfo() {
-        self.modelController.getData {
-            self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo())
-            self.userDetailsView.viewModel = self.viewModel
+        var id: String?
+        if viewModel?.id != nil {
+            id = viewModel?.id
+        } else {
+            id = modelController.getCurrentUserId()
+        }
+        self.modelController.getData(id: id) {
+            self.userDetailsView.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo())
         }
     }
 }
