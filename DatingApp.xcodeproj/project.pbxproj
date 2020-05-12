@@ -237,21 +237,22 @@
 		382CC78523D3B0DD0043060E /* DatingApp */ = {
 			isa = PBXGroup;
 			children = (
-				3889EB5524560042009B63C2 /* Services */,
 				382CC78623D3B0DD0043060E /* AppDelegate.swift */,
 				382CC78823D3B0DD0043060E /* SceneDelegate.swift */,
+				38475D4C246A8382008EDD28 /* Model */,
+				382CC79B23D5ECBF0043060E /* Views */,
+				3889EB5524560042009B63C2 /* Services */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
 				383E46DC244265450012977A /* UserDetails */,
 				383E46E8244265570012977A /* EditUserDetails */,
 				38DFEA6B2445FF6D00F1BE0D /* ListMessages */,
 				3854F6442437C4EC00229E16 /* Message */,
-				382CC79B23D5ECBF0043060E /* Views */,
 				383E46D12440E6950012977A /* Animations */,
 				383E4709244267000012977A /* Protocols */,
 				246B76BD24382AE500FE1D40 /* Storyboards */,
-				246B76BE24382B1100FE1D40 /* SupportingFiles */,
 				3854F653243808FC00229E16 /* Helpers */,
+				246B76BE24382B1100FE1D40 /* SupportingFiles */,
 				382CC79423D3B0DF0043060E /* Info.plist */,
 			);
 			path = DatingApp;
@@ -306,7 +307,6 @@
 			isa = PBXGroup;
 			children = (
 				383E46E0244265450012977A /* UserDetailsViewModel.swift */,
-				383E46E1244265450012977A /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -388,6 +388,14 @@
 				38475D462469F894008EDD28 /* ListMessageModelController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		38475D4C246A8382008EDD28 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				383E46E1244265450012977A /* UserModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3854F6442437C4EC00229E16 /* Message */ = {
