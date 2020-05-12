@@ -45,8 +45,6 @@ class NameContainerView: CustomContainerView {
         addSubview(ageLabel)
         addSubview(workButton)
         addSubview(workLabel)
-        addSubview(locationButton)
-        addSubview(locationLabel)
     }
     
     private func setupConstraints() {
@@ -67,6 +65,11 @@ class NameContainerView: CustomContainerView {
             workLabel.bottomAnchor.constraint(equalTo: workButton.bottomAnchor),
             workLabel.leftAnchor.constraint(equalTo: workButton.rightAnchor, constant: 2),
         ])
+    }
+    
+    func displayLocation() {
+        addSubview(locationButton)
+        addSubview(locationLabel)
         NSLayoutConstraint.activate([
             locationButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             locationButton.topAnchor.constraint(equalTo: workLabel.bottomAnchor, constant: 6),
@@ -77,5 +80,4 @@ class NameContainerView: CustomContainerView {
             locationLabel.leftAnchor.constraint(equalTo: locationButton.rightAnchor, constant: 2),
         ])
     }
-    
 }

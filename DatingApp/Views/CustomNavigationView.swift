@@ -108,6 +108,10 @@ class CustomNavigationView: CustomContainerView {
         rightButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func hideEditButton() {
+        rightButton.isHidden = true
+    }
+    
     private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
@@ -124,6 +128,7 @@ class CustomNavigationView: CustomContainerView {
         }
     }
     
+    // MARK: Actions
     @objc func handleTapGesture() {
         tapDelegate?.didTap()
     }

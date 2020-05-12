@@ -70,14 +70,16 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Firebase
     func reloadUserInfo() {
-        var id: String?
         if viewModel?.id != nil {
-            id = viewModel?.id
+            self.modelController.getData(id: viewModel?.id) {
+                self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .otherUser)
+                self.userDetailsView.viewModel = self.viewModel
+            }
         } else {
-            id = modelController.getCurrentUserId()
-        }
-        self.modelController.getData(id: id) {
-            self.userDetailsView.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo())
+            self.modelController.getData(id: modelController.getCurrentUserId()) {
+                self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .currentUser)
+                self.userDetailsView.viewModel = self.viewModel
+            }
         }
     }
 }

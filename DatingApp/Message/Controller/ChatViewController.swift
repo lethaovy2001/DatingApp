@@ -265,10 +265,13 @@ extension ChatViewController: ZoomTapDelegate {
     }
 }
 
-// MARK: ImageTapGestureDelegate
+// MARK: TapGestureDelegate
 extension ChatViewController: TapGestureDelegate {
     func didTap() {
         let vc = UserDetailsViewController()
+        if let model = user {
+            vc.viewModel = UserDetailsViewModel(model: model)
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

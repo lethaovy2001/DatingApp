@@ -16,6 +16,7 @@ class UserDetailsView: UIView {
     private var cardImages: [UIImage]?
     private var currentImage = 0
     private let customNavigationView = CustomNavigationView(type: .userDetails)
+    private var nameContainerHeight: NSLayoutConstraint!
     var viewModel: UserDetailsViewModel! {
         didSet {
             nameContainerView.viewModel = viewModel
@@ -23,6 +24,15 @@ class UserDetailsView: UIView {
             cardImages = viewModel.images
             if !viewModel.images.isEmpty {
                 userImageView.setImage(image: viewModel.images[0])
+            }
+            switch viewModel.userType {
+            case .currentUser:
+                nameContainerHeight?.constant = 100
+                break
+            case .otherUser:
+                customNavigationView.hideEditButton()
+                nameContainerView.displayLocation()
+                nameContainerHeight?.constant = 120
             }
         }
     }
@@ -72,11 +82,12 @@ class UserDetailsView: UIView {
             userImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
             userImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1.75/3)
         ])
+        nameContainerHeight = nameContainerView.heightAnchor.constraint(equalToConstant: 120)
         NSLayoutConstraint.activate([
             nameContainerView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 12),
             nameContainerView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 12),
             nameContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
-            nameContainerView.heightAnchor.constraint(equalToConstant: 120)
+            nameContainerHeight
         ])
         NSLayoutConstraint.activate([
             bioContainerView.topAnchor.constraint(equalTo: nameContainerView.bottomAnchor, constant: 12),
