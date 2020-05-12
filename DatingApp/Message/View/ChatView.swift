@@ -56,7 +56,7 @@ class ChatView: UIView {
     var viewModel: ListMessageViewModel? {
         didSet {
             profileImageView.image = viewModel?.userImage
-            customNavigationView.setupTitleLabel(title: viewModel?.userName ?? "Unknown")
+            customNavigationView.setTitle(title: viewModel?.userName ?? "Unknown")
         }
     }
     

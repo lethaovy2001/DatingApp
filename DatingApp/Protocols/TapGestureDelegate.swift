@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol ImageTapGestureDelegate {
+protocol TapGestureDelegate {
     func didTap()
     func setImage(image: UIImage)
 }
 
-extension ImageTapGestureDelegate {
+extension TapGestureDelegate {
     func didTap() {
         print("Did Tap...")
     }

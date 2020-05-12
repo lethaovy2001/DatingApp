@@ -14,7 +14,7 @@ class CustomNavigationView: CustomContainerView {
     private var rightButton: CustomButton!
     private var type: NavigationType!
     private var profileImageView: CircleImageView!
-    var tapDelegate: ImageTapGestureDelegate?
+    var tapDelegate: TapGestureDelegate?
     
     enum NavigationType {
         case userDetails
@@ -29,6 +29,7 @@ class CustomNavigationView: CustomContainerView {
         self.type = type
         self.addShadow(color: UIColor.customLightGray, radius: 3.0)
         setup()
+        addTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +48,7 @@ class CustomNavigationView: CustomContainerView {
             setupTitleLabel(title: "Edit")
         case .chatMessage:
             setupLeftButton(imageName: "chevron.left")
+            setupTitleLabel(title: "")
         case .listMessages:
             setupLeftButton(imageName: "chevron.left")
             setupRightButton(imageName: "Vy.jpg")
@@ -85,14 +87,17 @@ class CustomNavigationView: CustomContainerView {
         ])
     }
     
-    func setupTitleLabel(title: String) {
+    private func setupTitleLabel(title: String) {
         titleLabel = CustomLabel(text: title, textColor: .darkGray, textSize: 30, textWeight: .heavy)
         self.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         ])
-        addTapGesture()
+    }
+    
+    func setTitle(title: String) {
+        titleLabel.text = title
     }
     
     func setleftButtonSelector(selector: Selector, target: UIViewController) {
@@ -107,8 +112,16 @@ class CustomNavigationView: CustomContainerView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
-        titleLabel.isUserInteractionEnabled = true
-        titleLabel.addGestureRecognizer(tapGesture)
+        switch type {
+        case .chatMessage:
+            titleLabel.isUserInteractionEnabled = true
+            titleLabel.addGestureRecognizer(tapGesture)
+        case .listMessages:
+            profileImageView.isUserInteractionEnabled = true
+            profileImageView.addGestureRecognizer(tapGesture)
+        default:
+            break
+        }
     }
     
     @objc func handleTapGesture() {

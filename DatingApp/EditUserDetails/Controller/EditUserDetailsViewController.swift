@@ -13,7 +13,7 @@ class EditUserDetailsViewController: UIViewController {
     private var viewModel: UserDetailsViewModel
     private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
-    var imageTapGestureDelegate: ImageTapGestureDelegate?
+    var imageTapGestureDelegate: TapGestureDelegate?
     
     // MARK: Init
     init(viewModel: UserDetailsViewModel) {

@@ -121,7 +121,7 @@ class ImageButtonsContainerView: UIView {
 }
 
 // MARK: ImageTapGestureDelegate
-extension ImageButtonsContainerView: ImageTapGestureDelegate {
+extension ImageButtonsContainerView: TapGestureDelegate {
     func setImage(image: UIImage) {
         selectedButton.setImage(image: image)
     }
