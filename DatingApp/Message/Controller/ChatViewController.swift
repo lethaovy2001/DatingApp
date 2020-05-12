@@ -20,6 +20,13 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
+    var user: UserModel? {
+        didSet {
+            if let uid = modelController.getCurrentUserId(), let user = user {
+                chatView.viewModel = ListMessageViewModel(userModel: user, currentUserId: uid)
+            }
+        }
+    }
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -94,7 +101,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
             chatView.setEmptyInputText()
         }
     }
-        
+    
     @objc func addImageButtonPressed() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self

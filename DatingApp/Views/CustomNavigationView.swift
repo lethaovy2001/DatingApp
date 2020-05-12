@@ -48,7 +48,6 @@ class CustomNavigationView: CustomContainerView {
             setupTitleLabel(title: "Edit")
         case .chatMessage:
             setupLeftButton(imageName: "chevron.left")
-            setupTitleLabel(title: "Vy")
         case .listMessages:
             setupLeftButton(imageName: "chevron.left")
             setupRightButton(imageName: "Vy.jpg")
@@ -87,7 +86,7 @@ class CustomNavigationView: CustomContainerView {
         ])
     }
     
-    private func setupTitleLabel(title: String) {
+    func setupTitleLabel(title: String) {
         titleLabel = CustomLabel(text: title, textColor: .darkGray, textSize: 30, textWeight: .heavy)
         self.addSubview(titleLabel)
         NSLayoutConstraint.activate([

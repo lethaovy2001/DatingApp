@@ -304,7 +304,26 @@ extension FirebaseService {
                 completion(images)
             })
         }
-
+    }
+    
+    func getMainUserImage(from id: String, _ completion : @escaping(UIImage?)->()) {
+        database.collection("profile_images").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                completion(UIImage())
+                return
+            }
+            
+            if let url = data["image0"] as? String {
+                self.downloadImageFromStorage(url: url, { image in
+                    completion(image)
+                })
+            }
+        }
     }
     
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
@@ -338,6 +357,26 @@ extension FirebaseService {
         }
     }
 }
+
+// MARK: List of Messages
+extension FirebaseService {
+    func getListMessages(_ completion: @escaping([String])->()) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var data: [String] = []
+                for document in querySnapshot!.documents {
+                    data.append(document.documentID)
+                }
+                print("Sucessful get users document!")
+                completion(data)
+            }
+        }
+    }
+}
+
 
 // MARK: Messages
 extension FirebaseService {
@@ -404,19 +443,20 @@ extension FirebaseService {
 extension FirebaseService {
     func updateMatchUser(toId: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        // match both user
         database.collection("users").document(toId).collection("available-users")
             .whereField("id", isEqualTo: uid)
             .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for _ in querySnapshot!.documents {
-                    self.database.collection("user-messages").document(uid).setData(["isMatch": true], merge: true)
-                    self.database.collection("user-messages").document(toId).setData(["isMatch": true], merge: true)
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for _ in querySnapshot!.documents {
+                        self.database.collection("user-messages").document(uid).collection("match-users").document(toId).setData(["isMatch": true, "time": Date()], merge: true)
+                        self.database.collection("user-messages").document(toId).collection("match-users").document(uid).setData(["isMatch": true, "time": Date()], merge: true)
+                    }
                 }
-            }
-            return
         }
+        // save when one person like first
         database.collection("users").document(uid).collection("available-users").document(toId).setData(["hasDisplay": true], merge: true)
     }
     

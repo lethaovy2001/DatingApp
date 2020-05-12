@@ -53,6 +53,12 @@ class ChatView: UIView {
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
+    var viewModel: ListMessageViewModel? {
+        didSet {
+            profileImageView.image = viewModel?.userImage
+            customNavigationView.setupTitleLabel(title: viewModel?.userName ?? "Unknown")
+        }
+    }
     
     // MARK: Initializer
     override init(frame: CGRect) {

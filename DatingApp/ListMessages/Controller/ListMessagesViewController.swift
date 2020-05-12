@@ -14,6 +14,7 @@ class ListMessagesViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private let modelController = ListMessageModelController()
     
     //MARK: Life Cycles
     override func viewDidLoad() {
@@ -22,6 +23,7 @@ class ListMessagesViewController: UIViewController {
         registerCellId()
         listMessagesView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
         listMessagesView.addDelegate(viewController: self)
+        loadListOfUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,24 +49,34 @@ class ListMessagesViewController: UIViewController {
         listMessagesView.tableView.dataSource = self
     }
     
+    private func loadListOfUsers() {
+        modelController.getMessagesList({
+            DispatchQueue.main.async {
+                self.listMessagesView.tableView.reloadData()
+                self.listMessagesView.tableView.scrollsToTop = true
+            }
+        })
+    }
+    
     // MARK: Actions
     @objc func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 
 // MARK: UITableViewDataSource
 extension ListMessagesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return modelController.getUsers().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.messageCellId, for: indexPath) as! ListMessageCell
+        if let uid = modelController.getCurrentUserId() {
+            let model = modelController.getUsers()[indexPath.item]
+            cell.viewModel = ListMessageViewModel(userModel: model, currentUserId: uid)
+        }
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        cell.nameLabel.text = "Alex"
-        cell.chatLabel.text = "Sure!"
         return cell
     }
 }
@@ -77,9 +89,9 @@ extension ListMessagesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ChatViewController()
+        vc.user = modelController.getUsers()[indexPath.item]
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
 
 extension ListMessagesViewController: ImageTapGestureDelegate {

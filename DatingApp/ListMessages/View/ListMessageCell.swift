@@ -12,6 +12,12 @@ class ListMessageCell: UITableViewCell {
     let profileImageView = CircleImageView(imageName: "Vy")
     let nameLabel = CustomLabel(text: "Alex", textColor: .black, textSize: 20, textWeight: .bold)
     let chatLabel = CustomLabel(text: "Yeah sure", textColor: .black, textSize: 18, textWeight: .regular)
+    var viewModel: ListMessageViewModel? {
+        didSet {
+            nameLabel.text = viewModel?.userName
+            profileImageView.image = viewModel?.userImage
+        }
+    }
     
     // MARK: Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -50,8 +56,5 @@ class ListMessageCell: UITableViewCell {
             chatLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 12),
             chatLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 12)
         ])
-        
     }
-    
-    
 }
