@@ -212,6 +212,7 @@
 		246B76BE24382B1100FE1D40 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				383E46D12440E6950012977A /* LottieFiles */,
 				382CC78F23D3B0DF0043060E /* Assets.xcassets */,
 				382CC7A223D78C940043060E /* GoogleService-Info.plist */,
 			);
@@ -250,7 +251,6 @@
 				383E46E8244265570012977A /* EditUserDetails */,
 				38DFEA6B2445FF6D00F1BE0D /* ListMessages */,
 				3854F6442437C4EC00229E16 /* Message */,
-				383E46D12440E6950012977A /* Animations */,
 				383E4709244267000012977A /* Protocols */,
 				246B76BD24382AE500FE1D40 /* Storyboards */,
 				3854F653243808FC00229E16 /* Helpers */,
@@ -278,13 +278,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		383E46D12440E6950012977A /* Animations */ = {
+		383E46D12440E6950012977A /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
 				383E46D22440E6A60012977A /* loveAnimation.json */,
 				38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */,
 			);
-			path = Animations;
+			path = LottieFiles;
 			sourceTree = "<group>";
 		};
 		383E46DC244265450012977A /* UserDetails */ = {
