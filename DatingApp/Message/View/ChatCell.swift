@@ -52,6 +52,7 @@ class ChatCell: UICollectionViewCell {
     var tapDelegate: ZoomTapDelegate?
     var viewModel: MessageViewModel! {
         didSet {
+            profileImageView.setImage(image: viewModel.userMainImage) 
             textView.text = viewModel.text
             setUpMessageRelationshipStyle()
             setUpMessageType()

@@ -58,7 +58,7 @@ class MainModelController {
             self.firebaseService.getUserImagesFromDatabase({ images in
                 if let birthday = values["birthday"] as? Timestamp {
                     let date = self.firebaseService.convertToDate(timestamp: birthday)
-                    let data: [String: Any?] =
+                    let data: [String: Any] =
                         ["first_name": values["first_name"],
                          "work": values["work"],
                          "bio": values["bio"],

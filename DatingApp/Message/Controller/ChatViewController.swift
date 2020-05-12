@@ -120,9 +120,9 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        if let uid = modelController.getCurrentUserId() {
+        if let uid = modelController.getCurrentUserId(), let image = user?.mainImage {
             let message = modelController.getMessages()[indexPath.item]
-            cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
+            cell.viewModel = MessageViewModel(model: message, currentUserId: uid, userImage: image)
         }
         cell.tapDelegate = self
         return cell
