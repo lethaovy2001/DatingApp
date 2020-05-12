@@ -13,7 +13,7 @@ class EditUserDetailsViewController: UIViewController {
     private var viewModel: UserDetailsViewModel
     private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
-    var imageTapGestureDelegate: TapGestureDelegate?
+    var tapGestureDelegate: TapGestureDelegate?
     
     // MARK: Init
     init(viewModel: UserDetailsViewModel) {
@@ -119,7 +119,7 @@ extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavi
             selectedImageFromPicker = originalImage
         }
         if let selectedImage = selectedImageFromPicker {
-            imageTapGestureDelegate?.setImage(image: selectedImage)
+            tapGestureDelegate?.setImage(image: selectedImage)
         }
         dismiss(animated: true, completion: nil)
     }
