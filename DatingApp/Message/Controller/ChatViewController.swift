@@ -20,6 +20,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
+    
     var user: UserModel? {
         didSet {
             if let uid = modelController.getCurrentUserId(), let user = user {
@@ -252,7 +253,7 @@ extension ChatViewController {
     }
 }
 
-// MARK: ImageTapGestureDelegate
+// MARK: ZoomTapDelegate
 extension ChatViewController: ZoomTapDelegate {
     func didTap(on imageView: UIImageView) {
         let vc = ImageDetailViewController()
@@ -261,6 +262,14 @@ extension ChatViewController: ZoomTapDelegate {
         }
         self.navigationController?.pushViewController(vc, animated: false)
         dismissKeyboard()
+    }
+}
+
+// MARK: ImageTapGestureDelegate
+extension ChatViewController: ImageTapGestureDelegate {
+    func didTap() {
+        let vc = UserDetailsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

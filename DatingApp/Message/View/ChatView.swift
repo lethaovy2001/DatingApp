@@ -131,6 +131,7 @@ class ChatView: UIView {
     
     func addDelegate(viewController: ChatViewController) {
         inputTextView.delegate = viewController
+        customNavigationView.tapDelegate = viewController
         viewController.textViewEditingDelegate = self
         viewController.keyboardDelegate = self
     }

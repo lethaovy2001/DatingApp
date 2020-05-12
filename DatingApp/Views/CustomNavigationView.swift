@@ -29,7 +29,6 @@ class CustomNavigationView: CustomContainerView {
         self.type = type
         self.addShadow(color: UIColor.customLightGray, radius: 3.0)
         setup()
-        addTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -93,6 +92,7 @@ class CustomNavigationView: CustomContainerView {
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         ])
+        addTapGesture()
     }
     
     func setleftButtonSelector(selector: Selector, target: UIViewController) {
@@ -107,10 +107,8 @@ class CustomNavigationView: CustomContainerView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
-        if let profileImageView = profileImageView {
-            profileImageView.isUserInteractionEnabled = true
-            profileImageView.addGestureRecognizer(tapGesture)
-        }
+        titleLabel.isUserInteractionEnabled = true
+        titleLabel.addGestureRecognizer(tapGesture)
     }
     
     @objc func handleTapGesture() {
