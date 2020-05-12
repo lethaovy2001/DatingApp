@@ -20,14 +20,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     private let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
-    var user: UserModel? {
-        didSet {
-            if let uid = modelController.getCurrentUserId(), let user = user {
-                chatView.viewModel = ListMessageViewModel(userModel: user, currentUserId: uid)
-            }
-            modelController.user = user
-        }
-    }
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -90,10 +82,11 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func sendButtonPressed(){
-        if let fromId = modelController.getCurrentUserId(), let text = chatView.getInputText(), let toId = user?.id {
+        //TODO: Remove mock data
+        if let fromId = modelController.getCurrentUserId(), let text = chatView.getInputText() {
             let message: [String: Any] = [
                 "fromId": fromId,
-                "toId": toId,
+                "toId": "2",
                 "time": Date(),
                 "text": text
             ]
@@ -120,9 +113,9 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        if let uid = modelController.getCurrentUserId(), let image = user?.mainImage {
+        if let uid = modelController.getCurrentUserId() {
             let message = modelController.getMessages()[indexPath.item]
-            cell.viewModel = MessageViewModel(model: message, currentUserId: uid, userImage: image)
+            cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
         }
         cell.tapDelegate = self
         return cell
@@ -223,12 +216,11 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 extension ChatViewController {
     private func handleVideoSelectedForUrl(_ url: URL) {
         firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
-            if let toId =  self.user?.id {
-                var values: [String: Any] = message
-                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
-                values.updateValue(toId, forKey: "toId")
-                self.modelController.updateMessageToDatabase(message: values)
-            }
+            var values: [String: Any] = message
+            //TODO: remove mock id
+            values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
+            values.updateValue("2", forKey: "toId")
+            self.modelController.updateMessageToDatabase(message: values)
         })
     }
     
@@ -241,12 +233,11 @@ extension ChatViewController {
         }
         if let selectedImage = selectedImageFromPicker {
             firebaseService.uploadMessageImageOntoStorage(image: selectedImage, { message in
-                if let toId =  self.user?.id {
-                    var values: [String: Any] = message
-                    values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
-                    values.updateValue(toId, forKey: "toId")
-                    self.modelController.updateMessageToDatabase(message: values)
-                }
+                var values: [String: Any] = message
+                //TODO: remove mock id
+                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
+                values.updateValue("2", forKey: "toId")
+                self.modelController.updateMessageToDatabase(message: values)
             })
         }
     }
