@@ -130,6 +130,9 @@ class MainView: UIView {
             searchingAnimation.bottomAnchor.constraint(equalTo: likeButton.topAnchor),
         ])
     }
+    func removeSearchingAnimation() {
+        searchingAnimation.removeFromSuperview()
+    }
 }
 
 // MARK: AlertView
