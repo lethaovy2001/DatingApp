@@ -76,6 +76,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
                 self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
+            self.chatView.doneLoading()
         }
     }
     

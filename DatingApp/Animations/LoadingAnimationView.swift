@@ -16,7 +16,7 @@ class LoadingAnimationView: UIView {
         animationView.play()
         animationView.contentMode = .scaleAspectFill
         animationView.loopMode = .repeat(.infinity)
-        animationView.animationSpeed = 1
+        animationView.animationSpeed = 2
         animationView.translatesAutoresizingMaskIntoConstraints = false
         return animationView
     }()
