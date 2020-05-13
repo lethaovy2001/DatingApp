@@ -14,6 +14,11 @@ class ChatModelController {
     private var messages = [Message]()
     var user: UserModel?
     
+    enum LoadMessagesState {
+        case success
+        case noMessage
+    }
+    
     func getCurrentUserId() -> String? {
         return firebaseService.getUserID()
     }
@@ -26,11 +31,6 @@ class ChatModelController {
             return false
         })
         return messages
-    }
-    
-    enum LoadMessagesState {
-        case success
-        case noMessage
     }
     
     func getMessagesFromDatabase(_ completion : @escaping(LoadMessagesState)->()) {
