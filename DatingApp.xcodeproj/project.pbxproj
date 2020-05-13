@@ -52,6 +52,8 @@
 		38475D52246B2CC4008EDD28 /* UserDetailsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D51246B2CC4008EDD28 /* UserDetailsModelController.swift */; };
 		38475D54246B6892008EDD28 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D53246B6892008EDD28 /* LoadingAnimationView.swift */; };
 		38475D57246B6D8D008EDD28 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D56246B6D8D008EDD28 /* loading.json */; };
+		38475D5B246B7D84008EDD28 /* SearchingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D5A246B7D84008EDD28 /* SearchingAnimationView.swift */; };
+		38475D5F246B82BD008EDD28 /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D5E246B82BD008EDD28 /* people.json */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
@@ -132,6 +134,8 @@
 		38475D51246B2CC4008EDD28 /* UserDetailsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsModelController.swift; sourceTree = "<group>"; };
 		38475D53246B6892008EDD28 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		38475D56246B6D8D008EDD28 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		38475D5A246B7D84008EDD28 /* SearchingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingAnimationView.swift; sourceTree = "<group>"; };
+		38475D5E246B82BD008EDD28 /* people.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 		383E46D12440E6950012977A /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				38475D5E246B82BD008EDD28 /* people.json */,
 				38475D56246B6D8D008EDD28 /* loading.json */,
 				383E46D22440E6A60012977A /* loveAnimation.json */,
 				38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */,
@@ -509,6 +514,7 @@
 			children = (
 				3854F65B2438526B00229E16 /* MainView.swift */,
 				38DFEA742449166C00F1BE0D /* CustomAlertView.swift */,
+				38475D5A246B7D84008EDD28 /* SearchingAnimationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -604,6 +610,7 @@
 				382CC7A323D78C940043060E /* GoogleService-Info.plist in Resources */,
 				382CC79023D3B0DF0043060E /* Assets.xcassets in Resources */,
 				38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */,
+				38475D5F246B82BD008EDD28 /* people.json in Resources */,
 				38475D57246B6D8D008EDD28 /* loading.json in Resources */,
 				382CC78E23D3B0DD0043060E /* Main.storyboard in Resources */,
 				383E46D32440E6A60012977A /* loveAnimation.json in Resources */,
@@ -670,6 +677,7 @@
 				38BFFAEA244EBF9500AC6B5E /* AutoSwipeDelegate.swift in Sources */,
 				3854F65C2438526B00229E16 /* MainView.swift in Sources */,
 				246B76C42438D73A00FE1D40 /* MainModelController.swift in Sources */,
+				38475D5B246B7D84008EDD28 /* SearchingAnimationView.swift in Sources */,
 				38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */,
 				3889EB502454C942009B63C2 /* ChatModelController.swift in Sources */,
 				3838C0582453E30C00092341 /* Message.swift in Sources */,

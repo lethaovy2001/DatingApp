@@ -58,6 +58,9 @@ class SwipeCardStackContainer: UIView {
         for i in 0..<min (numberOfCardsToShow, cardsToBeVisible) {
             addCardView(cardView: datasource.card(forItemAt: i))
         }
+        if (remainingcards <= 0) {
+            datasource.viewForEmptyCards()
+        }
     }
     
     private func removeAllCardViews() {

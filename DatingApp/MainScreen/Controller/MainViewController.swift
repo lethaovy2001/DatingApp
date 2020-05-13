@@ -111,6 +111,7 @@ extension MainViewController: SwipeableCardDataSource {
     }
     
     func viewForEmptyCards() -> UIView? {
+        mainView.showSearchingAnimation()
         return nil
     }
 }

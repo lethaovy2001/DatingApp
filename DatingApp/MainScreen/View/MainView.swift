@@ -21,6 +21,7 @@ class MainView: UIView {
     private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
+    private let searchingAnimation = SearchingAnimationView()
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -108,6 +109,10 @@ class MainView: UIView {
         messageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        customAlertView.setDoneSelector(selector: selector, target: target)
+    }
+    
     func addDelegate(viewController: MainViewController) {
         swipeStackContainer.addDelegate(viewController: viewController)
     }
@@ -116,8 +121,14 @@ class MainView: UIView {
         swipeStackContainer.reloadData()
     }
 
-    func setDoneSelector(selector: Selector, target: UIViewController) {
-        customAlertView.setDoneSelector(selector: selector, target: target)
+    func showSearchingAnimation() {
+        addSubview(searchingAnimation)
+        NSLayoutConstraint.activate([
+            searchingAnimation.topAnchor.constraint(equalTo: profileButton.bottomAnchor),
+            searchingAnimation.leftAnchor.constraint(equalTo: self.leftAnchor),
+            searchingAnimation.rightAnchor.constraint(equalTo: self.rightAnchor),
+            searchingAnimation.bottomAnchor.constraint(equalTo: likeButton.topAnchor),
+        ])
     }
 }
 
