@@ -74,11 +74,13 @@ class UserDetailsViewController: UIViewController {
             self.modelController.getData(id: viewModel?.id) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .otherUser)
                 self.userDetailsView.viewModel = self.viewModel
+                self.userDetailsView.doneLoading()
             }
         } else {
             self.modelController.getData(id: modelController.getCurrentUserId()) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .currentUser)
                 self.userDetailsView.viewModel = self.viewModel
+                self.userDetailsView.doneLoading()
             }
         }
     }
