@@ -109,14 +109,6 @@ extension MainViewController: SwipeableCardDataSource {
     func numberOfCards() -> Int {
         return modelController.getUsers().count
     }
-    
-    func animationForEmptyCard() {
-        mainView.showSearchingAnimation()
-    }
-    
-    func hideAnimation() {
-        mainView.removeSearchingAnimation()
-    }
 }
 
 extension MainViewController: CLLocationManagerDelegate {

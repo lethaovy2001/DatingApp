@@ -47,6 +47,8 @@ class MainView: UIView {
         addSubview(swipeStackContainer)
         addSubview(dislikeButton)
         addSubview(likeButton)
+        addSubview(searchingAnimation)
+        sendSubviewToBack(searchingAnimation)
     }
     
     private func setupConstraints() {
@@ -86,6 +88,12 @@ class MainView: UIView {
             swipeStackContainer.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 3.5/5),
             swipeStackContainer.topAnchor.constraint(equalTo: profileButton.bottomAnchor, constant: 6)
         ])
+        NSLayoutConstraint.activate([
+            searchingAnimation.topAnchor.constraint(equalTo: profileButton.bottomAnchor),
+            searchingAnimation.leftAnchor.constraint(equalTo: self.leftAnchor),
+            searchingAnimation.rightAnchor.constraint(equalTo: self.rightAnchor),
+            searchingAnimation.bottomAnchor.constraint(equalTo: likeButton.topAnchor),
+        ])
     }
     
     // MARK: Selectors
@@ -119,19 +127,6 @@ class MainView: UIView {
     
     func reloadSwipeViews() {
         swipeStackContainer.reloadData()
-    }
-
-    func showSearchingAnimation() {
-        addSubview(searchingAnimation)
-        NSLayoutConstraint.activate([
-            searchingAnimation.topAnchor.constraint(equalTo: profileButton.bottomAnchor),
-            searchingAnimation.leftAnchor.constraint(equalTo: self.leftAnchor),
-            searchingAnimation.rightAnchor.constraint(equalTo: self.rightAnchor),
-            searchingAnimation.bottomAnchor.constraint(equalTo: likeButton.topAnchor),
-        ])
-    }
-    func removeSearchingAnimation() {
-        searchingAnimation.removeFromSuperview()
     }
 }
 
