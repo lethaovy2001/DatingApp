@@ -70,7 +70,7 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Firebase
     func reloadUserInfo() {
-        if viewModel?.id != nil {
+        if let id = viewModel?.id, id != modelController.getCurrentUserId() {
             self.modelController.getData(id: viewModel?.id) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .otherUser)
                 self.userDetailsView.viewModel = self.viewModel
