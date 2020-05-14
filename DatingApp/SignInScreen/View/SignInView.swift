@@ -10,7 +10,7 @@ import UIKit
 import Lottie
 
 class SignInView: UIView {
-    private let appLogo: AnimationView = {
+    private var appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
         animationView.play()
@@ -25,6 +25,7 @@ class SignInView: UIView {
     private let passwordTextField = CustomTextField(placeholder: "Password")
     private let signInButton = RoundedButton(title: "SIGN IN", color: UIColor.amour)
     private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let errorLabel = CustomLabel(text: "Error", textColor: UIColor.red, textSize: 14, textWeight: .regular)
     private var keyboardFrame = CGRect()
     private var containerView: UIView = {
         let view = UIView()
@@ -33,6 +34,7 @@ class SignInView: UIView {
         return view
     }()
     private var containerBotomAnchor: NSLayoutConstraint?
+    private var appLogoTopAnchor: NSLayoutConstraint?
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -47,22 +49,30 @@ class SignInView: UIView {
     private func setup() {
         addSubViews()
         setupConstraints()
+        setUpErrorLabel()
     }
     
     // MARK: Setup
+    private func setUpErrorLabel() {
+        errorLabel.isHidden = true
+        errorLabel.numberOfLines = 2
+    }
+    
     private func addSubViews() {
         addSubview(containerView)
+        addSubview(signInButton)
         containerView.addSubview(signInLabel)
         containerView.addSubview(nameTextField)
         containerView.addSubview(emailTextField)
         containerView.addSubview(passwordTextField)
+        containerView.addSubview(errorLabel)
         containerView.addSubview(appLogo)
-        containerView.addSubview(signInButton)
         containerView.addSubview(backButton)
     }
     
     private func setupConstraints() {
         containerBotomAnchor = containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        appLogoTopAnchor = appLogo.topAnchor.constraint(equalTo: self.topAnchor, constant: 90)
         NSLayoutConstraint.activate([
             containerView.leftAnchor.constraint(equalTo: leftAnchor),
             containerView.rightAnchor.constraint(equalTo: rightAnchor),
@@ -70,13 +80,13 @@ class SignInView: UIView {
             containerBotomAnchor!
         ])
         NSLayoutConstraint.activate([
+            appLogoTopAnchor!,
             appLogo.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            appLogo.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -200),
-            appLogo.heightAnchor.constraint(equalToConstant: 250),
+            appLogo.heightAnchor.constraint(equalToConstant: 140),
             appLogo.widthAnchor.constraint(equalToConstant: 250)
         ])
         NSLayoutConstraint.activate([
-            signInLabel.topAnchor.constraint(equalTo: appLogo.bottomAnchor, constant: 12),
+            signInLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -72),
             signInLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             signInLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
             signInLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
@@ -97,9 +107,19 @@ class SignInView: UIView {
             passwordTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 12),
+            passwordTextField.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
+            passwordTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
+        ])
+        NSLayoutConstraint.activate([
+            errorLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 6),
+            errorLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
+            errorLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
+        ])
+        NSLayoutConstraint.activate([
             signInButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             signInButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 36),
+            signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 48),
             signInButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
@@ -117,7 +137,7 @@ class SignInView: UIView {
             target: target,
             action: selector)
         tapRecognizer.cancelsTouchesInView = false
-        self.addGestureRecognizer(tapRecognizer)
+        containerView.addGestureRecognizer(tapRecognizer)
     }
     
     func setLoginSelector(selector: Selector, target: UIViewController) {
@@ -143,15 +163,28 @@ class SignInView: UIView {
     func getKeyboard(frame: CGRect) {
         self.keyboardFrame = frame
     }
+    
+    func showError(message: String) {
+        errorLabel.isHidden = false
+        errorLabel.text = message
+    }
 }
 
 extension SignInView: KeyboardDelegate {
     func showKeyboard() {
-        containerBotomAnchor?.constant = -self.keyboardFrame.height 
+        containerBotomAnchor?.constant = -self.keyboardFrame.height + 20
+        appLogoTopAnchor?.constant = 36
+        UIView.animate(withDuration: 0.6, animations: {
+            self.appLogo.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        })
     }
     
     func hideKeyboard() {
         containerBotomAnchor?.constant = 0
+        appLogoTopAnchor?.constant = 90
+        UIView.animate(withDuration: 0.6, animations: {
+            self.appLogo.transform = CGAffineTransform.identity
+        })
     }
 }
 
