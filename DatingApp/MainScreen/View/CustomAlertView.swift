@@ -39,7 +39,6 @@ class CustomAlertView: UIView {
     private func initViews() {
         titleLabel = CustomLabel(text: self.title, textColor: UIColor.darkGray, textSize: 26, textWeight: .heavy)
         descriptionTextView = CustomTextView(text: self.message, textAlignment: .center)
-        
         animationView = AnimationView(name: self.animationName)
         animationView.play()
         animationView.contentMode = .scaleAspectFill
@@ -64,6 +63,7 @@ class CustomAlertView: UIView {
     }
     
     private func setupDescription() {
+        let number = Int.random(in: 0...3)
         switch self.type {
         case .deniedLocationAccess:
             title = "Location Access"
@@ -72,7 +72,7 @@ class CustomAlertView: UIView {
         case .newMessage:
             title = "Say something cute!"
             message = ""
-            animationName = Constants.match
+            animationName = "match\(number)"
         default:
             title = "Thank You"
             message = "You are now able to see others in the same area"
