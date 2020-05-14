@@ -54,6 +54,7 @@
 		38475D57246B6D8D008EDD28 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D56246B6D8D008EDD28 /* loading.json */; };
 		38475D5B246B7D84008EDD28 /* SearchingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D5A246B7D84008EDD28 /* SearchingAnimationView.swift */; };
 		38475D5F246B82BD008EDD28 /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D5E246B82BD008EDD28 /* people.json */; };
+		38475D67246CB563008EDD28 /* match.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D66246CB563008EDD28 /* match.json */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
@@ -136,6 +137,7 @@
 		38475D56246B6D8D008EDD28 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		38475D5A246B7D84008EDD28 /* SearchingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingAnimationView.swift; sourceTree = "<group>"; };
 		38475D5E246B82BD008EDD28 /* people.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
+		38475D66246CB563008EDD28 /* match.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = match.json; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		383E46D12440E6950012977A /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				38475D66246CB563008EDD28 /* match.json */,
 				38475D5E246B82BD008EDD28 /* people.json */,
 				38475D56246B6D8D008EDD28 /* loading.json */,
 				383E46D22440E6A60012977A /* loveAnimation.json */,
@@ -612,6 +615,7 @@
 				38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */,
 				38475D5F246B82BD008EDD28 /* people.json in Resources */,
 				38475D57246B6D8D008EDD28 /* loading.json in Resources */,
+				38475D67246CB563008EDD28 /* match.json in Resources */,
 				382CC78E23D3B0DD0043060E /* Main.storyboard in Resources */,
 				383E46D32440E6A60012977A /* loveAnimation.json in Resources */,
 			);

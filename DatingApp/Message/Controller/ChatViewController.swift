@@ -77,8 +77,11 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
             }
             switch state {
-            case .success, .noMessage:
+            case .success:
                 self.chatView.doneLoading()
+            case .noMessage:
+                self.chatView.doneLoading()
+                self.chatView.showNewConversationAlert()
             }
         }
     }
@@ -87,6 +90,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
         chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
         chatView.setSendButtonSelector(selector: #selector(sendButtonPressed), target: self)
+        chatView.setDoneSelector(selector: #selector(doneButtonPressed), target: self)
     }
     
     // MARK: Actions
@@ -113,6 +117,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         imagePicker.allowsEditing = true
         imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @objc func doneButtonPressed() {
+        self.chatView.hideNewConversationAlert()
     }
     
 }

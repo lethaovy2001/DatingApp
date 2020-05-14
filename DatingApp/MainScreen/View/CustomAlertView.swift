@@ -22,6 +22,7 @@ class CustomAlertView: UIView {
     
     enum AlertType {
         case deniedLocationAccess
+        case newMessage
     }
     
     // MARK: Initializer
@@ -36,7 +37,7 @@ class CustomAlertView: UIView {
     }
     
     private func initViews() {
-        titleLabel = CustomLabel(text: self.title, textColor: UIColor.darkGray, textSize: 30, textWeight: .heavy)
+        titleLabel = CustomLabel(text: self.title, textColor: UIColor.darkGray, textSize: 26, textWeight: .heavy)
         descriptionTextView = CustomTextView(text: self.message, textAlignment: .center)
         
         animationView = AnimationView(name: self.animationName)
@@ -68,6 +69,10 @@ class CustomAlertView: UIView {
             title = "Location Access"
             message = "Please enable location in order to match with other users"
             animationName = Constants.searchLocationAnimation
+        case .newMessage:
+            title = "Say something cute!"
+            message = ""
+            animationName = Constants.match
         default:
             title = "Thank You"
             message = "You are now able to see others in the same area"
