@@ -14,6 +14,10 @@ class LoginMainView: UIView {
     
     private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: UIColor.fbColor)
     private let emailLoginButton = RoundedButton(title: "LOG IN WITH EMAIL", color: UIColor.amour)
+    private let signInLabel = CustomLabel(text: "Don't have an account?", textColor: UIColor.lightGray, textSize: 14, textWeight: .regular)
+    private let signInButton = CustomButton(title: "Sign In", textColor: UIColor.amour, textSize: 16, textWeight: .bold)
+    private let customStackView = CustomStackView(axis: .horizontal, distribution: .fill)
+    
     private let appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
@@ -40,6 +44,9 @@ class LoginMainView: UIView {
         addSubview(fbLoginButton)
         addSubview(emailLoginButton)
         addSubview(appLogo)
+        addSubview(customStackView)
+        customStackView.addArrangedSubview(signInLabel)
+        customStackView.addArrangedSubview(signInButton)
     }
     
     private func setupConstraints() {
@@ -61,6 +68,11 @@ class LoginMainView: UIView {
             fbLoginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
             fbLoginButton.heightAnchor.constraint(equalToConstant: 60)
         ])
+        NSLayoutConstraint.activate([
+            customStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            customStackView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -36),
+            customStackView.heightAnchor.constraint(equalToConstant: 30)
+        ])
     }
     
     // MARK: Selectors
@@ -70,6 +82,10 @@ class LoginMainView: UIView {
     
     func setEmailLoginSelector(selector: Selector, target: UIViewController) {
         emailLoginButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setSignInSelector(selector: Selector, target: UIViewController) {
+        signInButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
