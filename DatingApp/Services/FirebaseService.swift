@@ -143,8 +143,7 @@ extension FirebaseService {
                 self.updateDatabase(with: ["first_name": name])
                 self.updateListOfUsers()
                 completion(nil)
-               }
-            })
+               })
         })
     }
     
