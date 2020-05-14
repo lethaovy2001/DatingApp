@@ -134,28 +134,34 @@ extension FirebaseService {
         }
     }
     
-    func createUser(email: String, password: String, _ completion: @escaping()->()) {
+    func createUser(email: String, password: String, _ completion: @escaping(String?)->()) {
         Auth.auth().createUser(withEmail: email, password: password, completion: {
             (authResult, error) in
             if error != nil {
                 print("***** Unable to authenticate with Firebase email: \(String(describing: error))")
+                completion(error?.localizedDescription)
                 return
             }
-            self.authenticateUsingEmail(email: email, password: password, {
+            self.authenticateUsingEmail(email: email, password: password, { authError in
+                if authError != nil {
+                    completion(authError)
+                }
                 self.updateDatabase(with: ["first_name": "A"])
                 self.updateListOfUsers()
+                completion(nil)
             })
         })
     }
     
-    func authenticateUsingEmail(email: String, password: String,_ completion: @escaping()->()) {
+    func authenticateUsingEmail(email: String, password: String,_ completion: @escaping(String?)->()) {
         Auth.auth().signIn(withEmail: email, password: password, completion: {(authResult, error) in
             if error != nil {
                 print(String(describing: error))
+                completion(error?.localizedDescription)
                 return
             }
             print("Successfully log user into firebase")
-            completion()
+            completion(nil)
         })
     }
     

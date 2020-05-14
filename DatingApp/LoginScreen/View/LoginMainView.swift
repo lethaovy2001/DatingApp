@@ -14,7 +14,7 @@ class LoginMainView: UIView {
     
     private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: UIColor.fbColor)
     private let emailLoginButton = RoundedButton(title: "LOG IN WITH EMAIL", color: UIColor.amour)
-    private let signInLabel = CustomLabel(text: "Don't have an account?", textColor: UIColor.lightGray, textSize: 14, textWeight: .regular)
+    private let signInLabel = CustomLabel(text: "Don't have an account?", textColor: UIColor.darkGray, textSize: 16, textWeight: .regular)
     private let signInButton = CustomButton(title: "Sign In", textColor: UIColor.amour, textSize: 16, textWeight: .bold)
     private let customStackView = CustomStackView(axis: .horizontal, distribution: .fill)
     

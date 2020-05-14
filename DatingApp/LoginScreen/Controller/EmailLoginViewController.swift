@@ -52,10 +52,15 @@ class EmailLoginViewController: UIViewController {
     //MARK: Actions
     @objc func loginWithEmail() {
         guard let email = mainView.getEmailText(), let password = mainView.getPasswordText()else {
-            print("***** Form is not valid")
+            self.mainView.showError(message: "Missing some fields")
             return
         }
-        firebaseService.authenticateUsingEmail(email: email, password: password, {
+        
+        firebaseService.authenticateUsingEmail(email: email, password: password, { errorMessage in
+            if let error = errorMessage {
+                self.mainView.showError(message: error)
+                return
+            }
             let vc = MainViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         })        
