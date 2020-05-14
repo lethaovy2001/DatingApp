@@ -52,10 +52,14 @@ class SignInViewController: UIViewController {
     //MARK: Actions
     @objc func signIn() {
         guard let email = mainView.getEmailText(), let password = mainView.getPasswordText(), let name = mainView.getNameText() else {
-            print("***** Form is not valid")
+            self.mainView.showError(message: "Missing some fields")
             return
         }
-        firebaseService.createUser(email: email, password: password, name: name, {
+        firebaseService.createUser(email: email, password: password, name: name, { errorMessage in
+            if let error = errorMessage {
+                self.mainView.showError(message: error)
+                return
+            }
             let model = UserModel(info: ["first_name": name])
             let viewModel = UserDetailsViewModel(model: model)
             let vc = EditUserDetailsViewController(viewModel: viewModel)
