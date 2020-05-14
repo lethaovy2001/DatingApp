@@ -24,6 +24,14 @@ class EmailLoginView: UIView {
     private let passwordTextField = CustomTextField(placeholder: "Password")
     private let loginButton = RoundedButton(title: "LOG IN", color: UIColor.amour)
     private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private var keyboardFrame = CGRect()
+    private var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private var containerBotomAnchor: NSLayoutConstraint?
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -42,24 +50,32 @@ class EmailLoginView: UIView {
     
     // MARK: Setup
     private func addSubViews() {
-        addSubview(emailLabel)
-        addSubview(emailTextField)
-        addSubview(passwordTextField)
-        addSubview(appLogo)
-        addSubview(loginButton)
-        addSubview(backButton)
+        addSubview(containerView)
+        containerView.addSubview(emailLabel)
+        containerView.addSubview(emailTextField)
+        containerView.addSubview(passwordTextField)
+        containerView.addSubview(appLogo)
+        containerView.addSubview(loginButton)
+        containerView.addSubview(backButton)
     }
     
     private func setupConstraints() {
+        containerBotomAnchor = containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         NSLayoutConstraint.activate([
-            appLogo.centerXAnchor.constraint(equalTo: centerXAnchor),
-            appLogo.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -200),
+            containerView.leftAnchor.constraint(equalTo: leftAnchor),
+            containerView.rightAnchor.constraint(equalTo: rightAnchor),
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerBotomAnchor!
+        ])
+        NSLayoutConstraint.activate([
+            appLogo.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            appLogo.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -200),
             appLogo.heightAnchor.constraint(equalToConstant: 250),
             appLogo.widthAnchor.constraint(equalToConstant: 250)
         ])
         NSLayoutConstraint.activate([
-            emailLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            emailLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            emailLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            emailLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             emailLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             emailLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
         ])
@@ -76,13 +92,25 @@ class EmailLoginView: UIView {
         NSLayoutConstraint.activate([
             loginButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             loginButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            loginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 36),
             loginButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
             backButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             backButton.topAnchor.constraint(equalTo: topAnchor, constant: 54)
         ])
+    }
+    
+    func addDelegate(viewController: EmailLoginViewController) {
+        viewController.keyboardDelegate = self
+    }
+    
+    func addTapGesture(target: UIViewController, selector: Selector) {
+        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: target,
+            action: selector)
+        tapRecognizer.cancelsTouchesInView = false
+        self.addGestureRecognizer(tapRecognizer)
     }
     
     func setLoginSelector(selector: Selector, target: UIViewController) {
@@ -99,5 +127,19 @@ class EmailLoginView: UIView {
     
     func getPasswordText() -> String? {
         return passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    func getKeyboard(frame: CGRect) {
+        self.keyboardFrame = frame
+    }
+}
+
+extension EmailLoginView: KeyboardDelegate {
+    func showKeyboard() {
+        containerBotomAnchor?.constant = -self.keyboardFrame.height
+    }
+    
+    func hideKeyboard() {
+        containerBotomAnchor?.constant = 0
     }
 }

@@ -25,6 +25,14 @@ class SignInView: UIView {
     private let passwordTextField = CustomTextField(placeholder: "Password")
     private let signInButton = RoundedButton(title: "SIGN IN", color: UIColor.amour)
     private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private var keyboardFrame = CGRect()
+    private var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private var containerBotomAnchor: NSLayoutConstraint?
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -43,32 +51,40 @@ class SignInView: UIView {
     
     // MARK: Setup
     private func addSubViews() {
-        addSubview(signInLabel)
-        addSubview(nameTextField)
-        addSubview(emailTextField)
-        addSubview(passwordTextField)
-        addSubview(appLogo)
-        addSubview(signInButton)
-        addSubview(backButton)
+        addSubview(containerView)
+        containerView.addSubview(signInLabel)
+        containerView.addSubview(nameTextField)
+        containerView.addSubview(emailTextField)
+        containerView.addSubview(passwordTextField)
+        containerView.addSubview(appLogo)
+        containerView.addSubview(signInButton)
+        containerView.addSubview(backButton)
     }
     
     private func setupConstraints() {
+        containerBotomAnchor = containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         NSLayoutConstraint.activate([
-            appLogo.centerXAnchor.constraint(equalTo: centerXAnchor),
-            appLogo.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -200),
+            containerView.leftAnchor.constraint(equalTo: leftAnchor),
+            containerView.rightAnchor.constraint(equalTo: rightAnchor),
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerBotomAnchor!
+        ])
+        NSLayoutConstraint.activate([
+            appLogo.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            appLogo.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -200),
             appLogo.heightAnchor.constraint(equalToConstant: 250),
             appLogo.widthAnchor.constraint(equalToConstant: 250)
         ])
         NSLayoutConstraint.activate([
             signInLabel.topAnchor.constraint(equalTo: appLogo.bottomAnchor, constant: 12),
             signInLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            signInLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
-            signInLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
+            signInLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
+            signInLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 8),
-            nameTextField.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
-            nameTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
+            nameTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
+            nameTextField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 12),
@@ -83,13 +99,25 @@ class SignInView: UIView {
         NSLayoutConstraint.activate([
             signInButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             signInButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            signInButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
+            signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 36),
             signInButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
             backButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             backButton.topAnchor.constraint(equalTo: topAnchor, constant: 54)
         ])
+    }
+    
+    func addDelegate(viewController: SignInViewController) {
+        viewController.keyboardDelegate = self
+    }
+    
+    func addTapGesture(target: UIViewController, selector: Selector) {
+        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: target,
+            action: selector)
+        tapRecognizer.cancelsTouchesInView = false
+        self.addGestureRecognizer(tapRecognizer)
     }
     
     func setLoginSelector(selector: Selector, target: UIViewController) {
@@ -111,4 +139,20 @@ class SignInView: UIView {
     func getNameText() -> String? {
         return nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    
+    func getKeyboard(frame: CGRect) {
+        self.keyboardFrame = frame
+    }
 }
+
+extension SignInView: KeyboardDelegate {
+    func showKeyboard() {
+        containerBotomAnchor?.constant = -self.keyboardFrame.height 
+    }
+    
+    func hideKeyboard() {
+        containerBotomAnchor?.constant = 0
+    }
+}
+
+

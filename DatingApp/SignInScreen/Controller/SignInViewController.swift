@@ -15,6 +15,7 @@ class SignInViewController: UIViewController {
         return view
     }()
     private var firebaseService: FirebaseService!
+    var keyboardDelegate: KeyboardDelegate?
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -22,6 +23,13 @@ class SignInViewController: UIViewController {
         firebaseService = FirebaseService()
         setupUI()
         setSelectors()
+        mainView.addDelegate(viewController: self)
+        mainView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupKeyboardObservers()
     }
     
     // MARK: Setup
@@ -55,6 +63,37 @@ class SignInViewController: UIViewController {
     
     @objc func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: Keyboards
+extension SignInViewController {
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @objc func handleKeyboardWillHide(notification: NSNotification) {
+        keyboardDelegate?.hideKeyboard()
+        performKeyboardAnimation(notification: notification)
+    }
+    
+    @objc func handleKeyboardWillShow(notification: NSNotification) {
+        let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue ?? CGRect(x: 0, y: 0, width: 0, height: 0)
+        mainView.getKeyboard(frame: keyboardFrame)
+        keyboardDelegate?.showKeyboard()
+        performKeyboardAnimation(notification: notification)
+    }
+    
+    private func performKeyboardAnimation(notification: NSNotification) {
+        let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        UIView.animate(withDuration: keyboardDuration!, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 }
 
