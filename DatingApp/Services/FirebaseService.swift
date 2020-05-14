@@ -395,7 +395,7 @@ extension FirebaseService {
     
     func updateMessageReference(toId: String, messageId: String) {
         if let fromId = Auth.auth().currentUser?.uid {
-            let data = [messageId: 1]
+            let data: [String : Any] = [messageId: 1, "date": Date()]
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
@@ -424,6 +424,26 @@ extension FirebaseService {
                 return
             }
             completion(data)
+        }
+    }
+    
+    func getLastestMessage(toId: String, _ completion : @escaping(String)->()) {
+        if let fromId = Auth.auth().currentUser?.uid {
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").order(by: "date", descending: true).addSnapshotListener() {
+                querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                
+                for document in snapshot.documentChanges {
+                    print(document.document.data())
+                    if document.type == .added {
+                        completion(document.document.documentID)
+                        break
+                    }
+                }
+            }
         }
     }
     
