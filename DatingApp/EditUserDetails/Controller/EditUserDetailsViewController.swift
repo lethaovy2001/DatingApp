@@ -70,15 +70,22 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func saveButtonPressed() {
-        let dictionary: [String: Any] = [
-            "bio": editUserDetailsView.getBioText(),
-            "work": editUserDetailsView.getWorkText(),
-        ]
-        self.firebaseService.uploadImages(images: editUserDetailsView.getImages())
-        self.firebaseService.updateDatabase(with: dictionary)
-        
-        let vc = UserDetailsViewController()
-        self.navigationController?.pushViewController(vc, animated: false)
+        if let bio = editUserDetailsView.getBioText(),
+            let work = editUserDetailsView.getWorkText(),
+            let images = editUserDetailsView.getImages() {
+            
+            let dictionary: [String: Any] = [
+                "bio": bio,
+                "work": work,
+            ]
+            self.firebaseService.updateDatabase(with: dictionary)
+            self.firebaseService.uploadImages(images: images, {
+                let vc = UserDetailsViewController()
+                self.navigationController?.pushViewController(vc, animated: false)
+            })
+        } else {
+            //TODO: Alert view when user haven't fill out all fields
+        }
     }
 
     @objc func addImageButtonPressed(sender: UIButton) {

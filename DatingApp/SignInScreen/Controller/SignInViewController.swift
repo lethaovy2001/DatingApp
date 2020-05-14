@@ -56,8 +56,10 @@ class SignInViewController: UIViewController {
             return
         }
         firebaseService.createUser(email: email, password: password, name: name, {
-//            let vc = EditUserDetailsViewController(viewModel: UserDetailsViewModel(model: UserModel(info: ["first_name": name])))
-//            self.navigationController?.pushViewController(vc, animated: true)
+            let model = UserModel(info: ["first_name": name])
+            let viewModel = UserDetailsViewModel(model: model)
+            let vc = EditUserDetailsViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(vc, animated: true)
         })
     }
     

@@ -173,17 +173,21 @@ extension FirebaseService {
         }
     }
     
-    func uploadImages(images: [UIImage]){
+    func uploadImages(images: [UIImage], _ completion: @escaping()->()){
         if let uid = Auth.auth().currentUser?.uid {
             var index = 0
             for image in images {
-                uploadImageOntoStorage(image: image, uid: uid, index: index)
-                index += 1
+                uploadImageOntoStorage(image: image, uid: uid, index: index, {
+                    index += 1
+                    if index == images.count {
+                        completion()
+                    }
+                })
             }
         }
     }
     
-    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int) {
+    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping()->()) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
         if let uploadData = image.jpegData(compressionQuality: 1.0) {
@@ -195,6 +199,7 @@ extension FirebaseService {
                     }
                     let data = ["image\(index)": downloadURL]
                     self.updateImageDatabase(with: data)
+                    completion()
                 }
             }
         }

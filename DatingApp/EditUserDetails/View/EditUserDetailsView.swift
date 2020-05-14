@@ -178,15 +178,24 @@ class EditUserDetailsView: UIView {
         imageButtonsContainerView.setSelectedButton(sender: sender)
     }
     
-    func getBioText() -> String {
-        return bioTextView.text
+    func getBioText() -> String? {
+        if bioTextView.text != "" {
+            return bioTextView.text
+        }
+        return nil
     }
     
-    func getWorkText() -> String {
-        return workTextField.text ?? "Unknown workplace"
+    func getWorkText() -> String? {
+        if workTextField.text != "" {
+            return workTextField.text
+        }
+        return nil
     }
     
-    func getImages() -> [UIImage] {
+    func getImages() -> [UIImage]? {
+        if imageButtonsContainerView.getImages().count == 0 {
+            return nil
+        }
         return imageButtonsContainerView.getImages()
     }
 }
