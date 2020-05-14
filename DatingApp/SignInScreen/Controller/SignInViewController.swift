@@ -55,9 +55,9 @@ class SignInViewController: UIViewController {
             print("***** Form is not valid")
             return
         }
-        firebaseService.createUser(email: email, password: password, {
-            let vc = MainViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+        firebaseService.createUser(email: email, password: password, name: name, {
+//            let vc = EditUserDetailsViewController(viewModel: UserDetailsViewModel(model: UserModel(info: ["first_name": name])))
+//            self.navigationController?.pushViewController(vc, animated: true)
         })
     }
     

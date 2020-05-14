@@ -110,13 +110,7 @@ class FirebaseService {
     
     func updateDatabase(with data: [String: Any]) {
         if let uid = Auth.auth().currentUser?.uid {
-            database.collection("users").document(uid).updateData(data, completion: { err in
-                if let err = err {
-                    print("Error updating document: \(err)")
-                } else {
-                    print("Document successfully updated")
-                }
-            })
+            database.collection("users").document(uid).setData(data, merge: true)
         }
     }
 }
@@ -134,7 +128,7 @@ extension FirebaseService {
         }
     }
     
-    func createUser(email: String, password: String, _ completion: @escaping()->()) {
+    func createUser(email: String, password: String, name: String, _ completion: @escaping()->()) {
         Auth.auth().createUser(withEmail: email, password: password, completion: {
             (authResult, error) in
             if error != nil {
@@ -142,8 +136,9 @@ extension FirebaseService {
                 return
             }
             self.authenticateUsingEmail(email: email, password: password, {
-                self.updateDatabase(with: ["first_name": "A"])
+                self.updateDatabase(with: ["first_name": name])
                 self.updateListOfUsers()
+                completion()
             })
         })
     }
