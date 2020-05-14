@@ -60,7 +60,7 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func backPressed() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func logoutPressed() {
@@ -84,7 +84,7 @@ class EditUserDetailsViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: false)
             })
         } else {
-            //TODO: Alert view when user haven't fill out all fields
+            editUserDetailsView.showError(message: "Please fill out all of your information")
         }
     }
 
