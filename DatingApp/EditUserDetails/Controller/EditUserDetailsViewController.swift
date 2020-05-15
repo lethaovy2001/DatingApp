@@ -71,12 +71,14 @@ class EditUserDetailsViewController: UIViewController {
     
     @objc func saveButtonPressed() {
         if let bio = editUserDetailsView.getBioText(),
+            let birthday = editUserDetailsView.getBirthdayText(),
             let work = editUserDetailsView.getWorkText(),
-            let images = editUserDetailsView.getImages() {
-            
+            let images = editUserDetailsView.getImages(){
+            let date = convertToDate(from: birthday)
             let dictionary: [String: Any] = [
                 "bio": bio,
                 "work": work,
+                "birthday": date
             ]
             self.firebaseService.updateDatabase(with: dictionary)
             self.firebaseService.uploadImages(images: images, {
@@ -98,6 +100,12 @@ class EditUserDetailsViewController: UIViewController {
     
     private func updateDatabase(values: [String: Any]) {
         firebaseService.updateDatabase(with: values)
+    }
+    
+    private func convertToDate(from dateString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        return dateFormatter.date(from: dateString) ?? Date()
     }
 }
 
