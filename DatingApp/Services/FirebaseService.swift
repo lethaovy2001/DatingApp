@@ -333,7 +333,7 @@ extension FirebaseService {
     
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
-        httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        httpsReference.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if let error = error {
                 print("FirebaseService: downloadImage \(error)")
             } else {

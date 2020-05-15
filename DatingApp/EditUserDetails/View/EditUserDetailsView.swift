@@ -13,8 +13,6 @@ class EditUserDetailsView: UIView {
     private var featureLabel = SectionTitleLabel(title: "Featured")
     private let bioLabel = SectionTitleLabel(title: "Bio")
     private let detailsLabel = SectionTitleLabel(title: "Details")
-    private let birthdayLabel = SectionTitleLabel(title: "Birthday")
-    private let birthdayTextField = CustomTextField(placeholder: "mm-dd-yyyy")
     private let bioTextView = InputTextView(placeholder: "Describe Yourself...", cornerRadius: 10, isScrollable: false)
     private let workTextField = CustomTextField()
     private let saveButton = RoundedButton(title: "Save", color: UIColor.amour)
@@ -76,8 +74,6 @@ class EditUserDetailsView: UIView {
     private func addSubviews() {
         addSubview(customNavigationView)
         addSubview(scrollView)
-        scrollView.addSubview(birthdayLabel)
-        scrollView.addSubview(birthdayTextField)
         scrollView.addSubview(bioLabel)
         scrollView.addSubview(bioTextView)
         scrollView.addSubview(detailsLabel)
@@ -116,16 +112,7 @@ class EditUserDetailsView: UIView {
             nameLabel.centerXAnchor.constraint(equalTo: mainProfileImage.centerXAnchor)
         ])
         NSLayoutConstraint.activate([
-            birthdayLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
-            birthdayLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-        ])
-        NSLayoutConstraint.activate([
-            birthdayTextField.topAnchor.constraint(equalTo: birthdayLabel.bottomAnchor),
-            birthdayTextField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12),
-            birthdayTextField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12),
-        ])
-        NSLayoutConstraint.activate([
-            bioLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: birthdayTextField.bottomAnchor, constant: 16),
+            bioLabel.safeAreaLayoutGuide.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
             bioLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
         ])
         NSLayoutConstraint.activate([
@@ -203,13 +190,6 @@ class EditUserDetailsView: UIView {
     
     func setSelectedButton(sender: UIButton) {
         imageButtonsContainerView.setSelectedButton(sender: sender)
-    }
-    
-    func getBirthdayText() -> String? {
-        if birthdayTextField.text != "" {
-            return birthdayTextField.text
-        }
-        return nil
     }
     
     func getBioText() -> String? {

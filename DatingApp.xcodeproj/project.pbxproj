@@ -60,6 +60,8 @@
 		38475D6D246CDB9F008EDD28 /* match3.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D6C246CDB9F008EDD28 /* match3.json */; };
 		38475D70246D077F008EDD28 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D6F246D077F008EDD28 /* SignInViewController.swift */; };
 		38475D72246D078B008EDD28 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D71246D078B008EDD28 /* SignInView.swift */; };
+		38475D76246E1CF3008EDD28 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D75246E1CF3008EDD28 /* PreferenceViewController.swift */; };
+		38475D78246E1CFE008EDD28 /* PreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D77246E1CFE008EDD28 /* PreferenceView.swift */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
 		3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6452437C4EC00229E16 /* ChatViewController.swift */; };
 		3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6472437C4EC00229E16 /* InputTextView.swift */; };
@@ -148,6 +150,8 @@
 		38475D6C246CDB9F008EDD28 /* match3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = match3.json; sourceTree = "<group>"; };
 		38475D6F246D077F008EDD28 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		38475D71246D078B008EDD28 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		38475D75246E1CF3008EDD28 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
+		38475D77246E1CFE008EDD28 /* PreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceView.swift; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3854F6452437C4EC00229E16 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3854F6472437C4EC00229E16 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
@@ -450,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				38475D6F246D077F008EDD28 /* SignInViewController.swift */,
+				38475D75246E1CF3008EDD28 /* PreferenceViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -458,6 +463,7 @@
 			isa = PBXGroup;
 			children = (
 				38475D71246D078B008EDD28 /* SignInView.swift */,
+				38475D77246E1CFE008EDD28 /* PreferenceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -717,6 +723,7 @@
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
 				38DB15942459D46F00748B1B /* EmailLoginViewController.swift in Sources */,
 				38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */,
+				38475D76246E1CF3008EDD28 /* PreferenceViewController.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */,
@@ -740,6 +747,7 @@
 				38475D70246D077F008EDD28 /* SignInViewController.swift in Sources */,
 				38F7672524525BE900B49F62 /* TapGestureDelegate.swift in Sources */,
 				383E46E6244265450012977A /* UserModel.swift in Sources */,
+				38475D78246E1CFE008EDD28 /* PreferenceView.swift in Sources */,
 				38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */,
 				383E470C244267000012977A /* KeyboardDelegate.swift in Sources */,
 				383E4701244265990012977A /* CustomTextField.swift in Sources */,
