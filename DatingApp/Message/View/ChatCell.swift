@@ -34,7 +34,7 @@ class ChatCell: UICollectionViewCell {
         view.layer.masksToBounds = true
         return view
     }()
-    private let profileImageView = CircleImageView(imageName: "Vy")
+    private let profileImageView = CircleImageView(imageName: "user")
     private let textView: UITextView = {
         let tv = UITextView()
         tv.font = UIFont.boldSystemFont(ofSize: Constants.textSize)
@@ -45,7 +45,7 @@ class ChatCell: UICollectionViewCell {
         tv.isScrollEnabled = false
         return tv
     }()
-    private var messageImageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 16)
+    private var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
     private var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!

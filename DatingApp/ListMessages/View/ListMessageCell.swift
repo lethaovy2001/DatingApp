@@ -9,7 +9,7 @@
 import UIKit
 
 class ListMessageCell: UITableViewCell {
-    let profileImageView = CircleImageView(imageName: "Vy")
+    let profileImageView = CircleImageView(imageName: "user")
     let nameLabel = CustomLabel(text: "Alex", textColor: .black, textSize: 20, textWeight: .bold)
     let chatLabel = CustomLabel(text: "Yeah sure", textColor: .black, textSize: 18, textWeight: .regular)
     var viewModel: ListMessageViewModel? {

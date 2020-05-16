@@ -51,7 +51,7 @@ class CustomNavigationView: CustomContainerView {
             setupTitleLabel(title: "")
         case .listMessages:
             setupLeftButton(imageName: "chevron.left")
-            setupRightButton(imageName: "Vy.jpg")
+            setupRightButton(imageName: "user")
             setupTitleLabel(title: "Chats")
         default:
             setupLeftButton(imageName: "chevron.left")

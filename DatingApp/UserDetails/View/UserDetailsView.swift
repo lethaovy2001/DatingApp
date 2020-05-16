@@ -9,7 +9,7 @@
 import UIKit
 
 class UserDetailsView: UIView {
-    private let userImageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 10)
+    private let userImageView = CustomImageView(imageName: "user", cornerRadius: 10)
     private let nameContainerView = NameContainerView()
     private let bioContainerView = BioContainerView()
     private let scrollView = CustomScrollView()

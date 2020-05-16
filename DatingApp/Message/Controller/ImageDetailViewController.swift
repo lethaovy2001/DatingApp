@@ -9,7 +9,7 @@
 import UIKit
 
 class ImageDetailViewController: UIViewController {
-    private var imageView = CustomImageView(imageName: "Vy.jpg", cornerRadius: 0)
+    private var imageView = CustomImageView(imageName: "user", cornerRadius: 0)
     private var exitButton = CustomButton(imageName: "multiply", size: 20, color: .white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     
     var image: UIImage? {
