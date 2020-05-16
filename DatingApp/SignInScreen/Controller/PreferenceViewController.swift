@@ -39,12 +39,14 @@ class PreferenceViewController: UIViewController {
     @objc func saveButtonPressed() {
         let gender = mainView.getGenderSelection()
         let interestedGender = mainView.getInterestedSelection()
-        if let birthday = mainView.getBirthdayText() {
+        if let birthday = mainView.getBirthdayText(),
+            let id = firebaseService.getUserID() {
             let date = convertToDate(from: birthday)
             let dictionary: [String: Any] = [
                 "gender": gender,
                 "interestedIn": interestedGender,
                 "birthday": date,
+                "id": id
             ]
             self.firebaseService.updateDatabase(with: dictionary)
             let viewModel = UserDetailsViewModel(model: user)

@@ -64,7 +64,6 @@ class FirebaseService {
     }
     
     func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
-        //self.updateListOfUsers()
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
                 if let err = err {
@@ -91,13 +90,14 @@ class FirebaseService {
     //TODO: update when first create user
     func updateListOfUsers() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        database.collection("users").getDocuments { (querySnapshot, err) in
+        database.collection("users").addSnapshotListener { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     if (uid != document.documentID) {
                         self.database.collection("users").document(uid).collection("available-users").document(document.documentID).setData(["hasDisplay": false, "id": document.documentID], merge: true)
+                        self.database.collection("users").document(document.documentID).collection("available-users").document(uid).setData(["hasDisplay": false, "id": uid], merge: true)
                     }
                 }
             }
@@ -143,7 +143,7 @@ extension FirebaseService {
                 self.updateDatabase(with: ["first_name": name])
                 self.updateListOfUsers()
                 completion(nil)
-               })
+            })
         })
     }
     
@@ -183,11 +183,11 @@ extension FirebaseService {
             var index = 0
             for image in images {
                 uploadImageOntoStorage(image: image, uid: uid, index: index, {
-                    index += 1
                     if index == images.count {
                         completion()
                     }
                 })
+                index += 1
             }
         }
     }
