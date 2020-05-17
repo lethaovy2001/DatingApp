@@ -1,16 +1,16 @@
 //
-//  EmailLoginViewController.swift
+//  SignInViewController.swift
 //  DatingApp
 //
-//  Created by Vy Le on 4/29/20.
+//  Created by Vy Le on 5/13/20.
 //  Copyright © 2020 Vy Le. All rights reserved.
 //
 
 import UIKit
 
-class EmailLoginViewController: UIViewController {
-    private let mainView: EmailLoginView = {
-        let view = EmailLoginView(frame: .zero)
+class SignInViewController: UIViewController {
+    private let mainView: SignInView = {
+        let view = SignInView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -45,34 +45,33 @@ class EmailLoginViewController: UIViewController {
     }
     
     private func setSelectors() {
-        mainView.setLoginSelector(selector: #selector(loginWithEmail), target: self)
+        mainView.setLoginSelector(selector: #selector(signIn), target: self)
         mainView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
     }
     
     //MARK: Actions
-    @objc func loginWithEmail() {
-        guard let email = mainView.getEmailText(), let password = mainView.getPasswordText()else {
+    @objc func signIn() {
+        guard let email = mainView.getEmailText(), let password = mainView.getPasswordText(), let name = mainView.getNameText() else {
             return
         }
-        
-        firebaseService.authenticateUsingEmail(email: email, password: password, { errorMessage in
+        firebaseService.createUser(email: email, password: password, name: name, { errorMessage in
             if let error = errorMessage {
                 self.mainView.showError(message: error)
                 return
             }
-            let vc = MainViewController()
+            let vc = PreferenceViewController()
+            vc.user = UserModel(info: ["first_name": name])
             self.navigationController?.pushViewController(vc, animated: true)
-        })        
+        })
     }
     
     @objc func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 
 // MARK: Keyboards
-extension EmailLoginViewController {
+extension SignInViewController {
     private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -101,3 +100,4 @@ extension EmailLoginViewController {
         })
     }
 }
+

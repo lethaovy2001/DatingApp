@@ -1,16 +1,16 @@
 //
-//  EmailLoginView.swift
+//  SignInView.swift
 //  DatingApp
 //
-//  Created by Vy Le on 4/29/20.
+//  Created by Vy Le on 5/13/20.
 //  Copyright © 2020 Vy Le. All rights reserved.
 //
 
 import UIKit
 import Lottie
 
-class EmailLoginView: UIView {
-    private let appLogo: AnimationView = {
+class SignInView: UIView {
+    private var appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
         animationView.play()
@@ -19,10 +19,11 @@ class EmailLoginView: UIView {
         animationView.translatesAutoresizingMaskIntoConstraints = false
         return animationView
     }()
-    private let emailLabel = SectionTitleLabel(title: "Email")
+    private let signInLabel = SectionTitleLabel(title: "Sign In")
+    private let nameTextField = CustomTextField(placeholder: "Name")
     private let emailTextField = CustomTextField(placeholder: "Email")
     private let passwordTextField = CustomTextField(placeholder: "Password")
-    private let loginButton = RoundedButton(title: "LOG IN", color: UIColor.amour)
+    private let signInButton = RoundedButton(title: "SIGN IN", color: UIColor.amour)
     private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let errorLabel = CustomLabel(text: "Error", textColor: UIColor.red, textSize: 14, textWeight: .regular)
     private var keyboardFrame = CGRect()
@@ -59,8 +60,9 @@ class EmailLoginView: UIView {
     
     private func addSubViews() {
         addSubview(containerView)
-        addSubview(loginButton)
-        containerView.addSubview(emailLabel)
+        addSubview(signInButton)
+        containerView.addSubview(signInLabel)
+        containerView.addSubview(nameTextField)
         containerView.addSubview(emailTextField)
         containerView.addSubview(passwordTextField)
         containerView.addSubview(errorLabel)
@@ -70,7 +72,7 @@ class EmailLoginView: UIView {
     
     private func setupConstraints() {
         containerBotomAnchor = containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
-         appLogoTopAnchor = appLogo.topAnchor.constraint(equalTo: self.topAnchor, constant: 90)
+        appLogoTopAnchor = appLogo.topAnchor.constraint(equalTo: self.topAnchor, constant: 90)
         NSLayoutConstraint.activate([
             containerView.leftAnchor.constraint(equalTo: leftAnchor),
             containerView.rightAnchor.constraint(equalTo: rightAnchor),
@@ -84,15 +86,25 @@ class EmailLoginView: UIView {
             appLogo.widthAnchor.constraint(equalToConstant: 250)
         ])
         NSLayoutConstraint.activate([
-            emailLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -72),
-            emailLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            emailLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
-            emailLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
+            signInLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -72),
+            signInLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            signInLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
+            signInLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
-            emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8),
+            nameTextField.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 8),
+            nameTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
+            nameTextField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
+        ])
+        NSLayoutConstraint.activate([
+            emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 12),
             emailTextField.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             emailTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
+        ])
+        NSLayoutConstraint.activate([
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 12),
+            passwordTextField.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
+            passwordTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 12),
@@ -105,10 +117,10 @@ class EmailLoginView: UIView {
             errorLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
-            loginButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
-            loginButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 60),
-            loginButton.heightAnchor.constraint(equalToConstant: 60)
+            signInButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
+            signInButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
+            signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 48),
+            signInButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
             backButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
@@ -116,7 +128,7 @@ class EmailLoginView: UIView {
         ])
     }
     
-    func addDelegate(viewController: EmailLoginViewController) {
+    func addDelegate(viewController: SignInViewController) {
         viewController.keyboardDelegate = self
     }
     
@@ -129,7 +141,7 @@ class EmailLoginView: UIView {
     }
     
     func setLoginSelector(selector: Selector, target: UIViewController) {
-        loginButton.addTarget(target, action: selector, for: .touchUpInside)
+        signInButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
@@ -144,6 +156,10 @@ class EmailLoginView: UIView {
         return passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    func getNameText() -> String? {
+        return nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
     func getKeyboard(frame: CGRect) {
         self.keyboardFrame = frame
     }
@@ -154,9 +170,8 @@ class EmailLoginView: UIView {
     }
 }
 
-extension EmailLoginView: KeyboardDelegate {
+extension SignInView: KeyboardDelegate {
     func showKeyboard() {
-        containerBotomAnchor?.constant = -self.keyboardFrame.height
         containerBotomAnchor?.constant = -self.keyboardFrame.height + 20
         appLogoTopAnchor?.constant = 36
         UIView.animate(withDuration: 0.6, animations: {
@@ -172,3 +187,5 @@ extension EmailLoginView: KeyboardDelegate {
         })
     }
 }
+
+

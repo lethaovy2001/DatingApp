@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Firebase
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     private let mainView: MainView = {
@@ -54,6 +55,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        fetchAllUsers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,6 +95,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         mainView.hideAlert()
     }
     
+    @objc func reloadUsers() {
+        if modelController.getUsers().count == 0 {
+            fetchAllUsers()
+        }
+    }
+    
     func showAlert() {
         mainView.showAlert()
     }
@@ -100,6 +108,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 
 // MARK: SwipeableCardDataSource
 extension MainViewController: SwipeableCardDataSource {
+    func reloadData() {
+        fetchAllUsers()
+    }
+    
     func card(forItemAt index: Int) -> SwipeCardView {
         let card = SwipeCardView()
         card.dataSource = modelController.getUsers()[index]
@@ -108,10 +120,6 @@ extension MainViewController: SwipeableCardDataSource {
     
     func numberOfCards() -> Int {
         return modelController.getUsers().count
-    }
-    
-    func viewForEmptyCards() -> UIView? {
-        return nil
     }
 }
 

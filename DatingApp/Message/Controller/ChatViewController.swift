@@ -70,11 +70,18 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func getMessages() {
-        modelController.getMessagesFromDatabase {
+        modelController.getMessagesFromDatabase { state in
             DispatchQueue.main.async {
                 self.chatView.collectionView.reloadData()
                 let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
-                self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+                self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+            }
+            switch state {
+            case .success:
+                self.chatView.doneLoading()
+            case .noMessage:
+                self.chatView.doneLoading()
+                self.chatView.showNewConversationAlert()
             }
         }
     }
@@ -83,6 +90,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         chatView.setBackButtonSelector(selector: #selector(backPressed), target: self)
         chatView.setAddImageButtonSelector(selector: #selector(addImageButtonPressed), target: self)
         chatView.setSendButtonSelector(selector: #selector(sendButtonPressed), target: self)
+        chatView.setDoneSelector(selector: #selector(doneButtonPressed), target: self)
     }
     
     // MARK: Actions
@@ -109,6 +117,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         imagePicker.allowsEditing = true
         imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @objc func doneButtonPressed() {
+        self.chatView.hideNewConversationAlert()
     }
     
 }
@@ -269,6 +281,9 @@ extension ChatViewController: ZoomTapDelegate {
 extension ChatViewController: ImageTapGestureDelegate {
     func didTap() {
         let vc = UserDetailsViewController()
+        if let model = user {
+            vc.viewModel = UserDetailsViewModel(model: model)
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

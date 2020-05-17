@@ -75,7 +75,8 @@ extension ListMessagesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.messageCellId, for: indexPath) as! ListMessageCell
         if let uid = firebaseService.getUserID() {
             let model = modelController.getUsers()[indexPath.item]
-            cell.viewModel = ListMessageViewModel(userModel: model, currentUserId: uid)
+            let message = modelController.getMessages()[indexPath.item]
+            cell.viewModel = ListMessageViewModel(userModel: model, message: message, currentUserId: uid)
         }
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
@@ -90,7 +91,7 @@ extension ListMessagesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ChatViewController()
-        //vc.user = modelController.getUsers()[indexPath.item]
+        vc.user = modelController.getUsers()[indexPath.item]
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

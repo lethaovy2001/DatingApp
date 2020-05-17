@@ -46,6 +46,7 @@ class LoginViewController: UIViewController {
     private func setSelectors() {
         mainView.setFbLoginSelector(selector: #selector(loginWithFacebook), target: self)
         mainView.setEmailLoginSelector(selector: #selector(loginWithEmail), target: self)
+        mainView.setSignInSelector(selector: #selector(signIn), target: self)
     }
     
     //MARK: Actions
@@ -62,6 +63,11 @@ class LoginViewController: UIViewController {
     
     @objc func loginWithEmail() {
         let vc = EmailLoginViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func signIn() {
+        let vc = SignInViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
