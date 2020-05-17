@@ -1,5 +1,5 @@
 //
-//  TapGestureDelegate.swift
+//  ImageTapGestureDelegate.swift
 //  DatingApp
 //
 //  Created by Vy Le on 4/23/20.
