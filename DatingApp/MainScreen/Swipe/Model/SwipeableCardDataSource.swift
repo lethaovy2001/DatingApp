@@ -10,12 +10,7 @@ import UIKit
 
 protocol SwipeableCardDataSource {
     func numberOfCards() -> Int
-    
     func card(forItemAt index: Int) -> SwipeCardView
-    
-    //if all cards have been swiped away
-    func viewForEmptyCards() -> UIView?
-    
 }
 
 protocol SwipeCardDelegate {

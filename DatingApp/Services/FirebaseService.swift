@@ -436,6 +436,11 @@ extension FirebaseService {
                     return
                 }
                 
+                if snapshot.isEmpty {
+                    completion([:])
+                    return
+                }
+                
                 for diff in snapshot.documentChanges {
                     print(diff.document.data())
                     if (diff.type == .added) {
