@@ -12,10 +12,6 @@ class ListMessageModelController {
     private var firebaseService = FirebaseService.shared
     private var users = [UserModel]()
     
-    func getCurrentUserId() -> String? {
-        return firebaseService.getUserID()
-    }
-    
     func getUsers() -> [UserModel] {
         return users
     }
