@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PreferenceViewController: UIViewController, DateConverter {
+class PreferenceViewController: UIViewController {
     private let mainView: PreferenceView = {
         let view = PreferenceView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -16,6 +16,7 @@ class PreferenceViewController: UIViewController, DateConverter {
     }()
     private var firebaseService = FirebaseService()
     var user: UserModel!
+    private let converter = Converter()
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -40,7 +41,7 @@ class PreferenceViewController: UIViewController, DateConverter {
         let gender = mainView.getGenderSelection()
         let interestedGender = mainView.getInterestedSelection()
         if let birthday = mainView.getBirthdayText() {
-            let date = convertToDate(dateString: birthday)
+            let date = converter.convertToDate(dateString: birthday)
             let dictionary: [String: Any] = [
                 "gender": gender,
                 "interestedIn": interestedGender,
