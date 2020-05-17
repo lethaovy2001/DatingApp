@@ -92,6 +92,9 @@ extension SwipeCardStackContainer: SwipeCardDelegate {
             let newIndex = datasource.numberOfCards() - remainingcards
             addCardView(cardView: datasource.card(forItemAt: newIndex))
         }
+        if visibleCards.count == 0 {
+            datasource.reloadData()
+        }
     }
 }
 
