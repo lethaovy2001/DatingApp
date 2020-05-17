@@ -54,7 +54,7 @@ class SignInViewController: UIViewController {
         guard let email = mainView.getEmailText(), let password = mainView.getPasswordText(), let name = mainView.getNameText() else {
             return
         }
-        firebaseService.createUser(email: email, password: password, { errorMessage in
+        firebaseService.createUser(email: email, password: password, name: name, { errorMessage in
             if let error = errorMessage {
                 self.mainView.showError(message: error)
                 return
