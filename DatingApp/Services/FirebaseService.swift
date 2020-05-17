@@ -15,6 +15,11 @@ class FirebaseService {
     private var database: Firestore!
     private var storage: Storage!
     
+    enum MessageState {
+        case noMessage
+        case hasMessage
+    }
+    
     init() {
         database = Firestore.firestore()
         storage = Storage.storage()
@@ -432,7 +437,7 @@ extension FirebaseService {
         }
     }
     
-    func getLastestMessage(toId: String, _ completion : @escaping(String)->()) {
+    func getLastestMessage(toId: String, _ completion : @escaping(String, MessageState)->()) {
         if let fromId = Auth.auth().currentUser?.uid {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").order(by: "date", descending: true).addSnapshotListener() {
                 querySnapshot, error in
@@ -441,10 +446,15 @@ extension FirebaseService {
                     return
                 }
                 
+                if snapshot.documentChanges.count == 0 {
+                    completion("", .noMessage)
+                    return
+                }
+                
                 for document in snapshot.documentChanges {
                     print(document.document.data())
                     if document.type == .added {
-                        completion(document.document.documentID)
+                        completion(document.document.documentID, .hasMessage)
                         break
                     }
                 }
