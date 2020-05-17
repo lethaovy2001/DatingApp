@@ -58,8 +58,8 @@
 		38475D6A246CDA66008EDD28 /* match1.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D68246CDA66008EDD28 /* match1.json */; };
 		38475D6B246CDA66008EDD28 /* match2.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D69246CDA66008EDD28 /* match2.json */; };
 		38475D6D246CDB9F008EDD28 /* match3.json in Resources */ = {isa = PBXBuildFile; fileRef = 38475D6C246CDB9F008EDD28 /* match3.json */; };
-		38475D70246D077F008EDD28 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D6F246D077F008EDD28 /* SignInViewController.swift */; };
-		38475D72246D078B008EDD28 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D71246D078B008EDD28 /* SignInView.swift */; };
+		38475D70246D077F008EDD28 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D6F246D077F008EDD28 /* SignUpViewController.swift */; };
+		38475D72246D078B008EDD28 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D71246D078B008EDD28 /* SignUpView.swift */; };
 		38475D76246E1CF3008EDD28 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D75246E1CF3008EDD28 /* PreferenceViewController.swift */; };
 		38475D78246E1CFE008EDD28 /* PreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38475D77246E1CFE008EDD28 /* PreferenceView.swift */; };
 		384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384EDF1C2438DFFB00001F7B /* ChatView.swift */; };
@@ -152,8 +152,8 @@
 		38475D68246CDA66008EDD28 /* match1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = match1.json; sourceTree = "<group>"; };
 		38475D69246CDA66008EDD28 /* match2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = match2.json; sourceTree = "<group>"; };
 		38475D6C246CDB9F008EDD28 /* match3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = match3.json; sourceTree = "<group>"; };
-		38475D6F246D077F008EDD28 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		38475D71246D078B008EDD28 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		38475D6F246D077F008EDD28 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		38475D71246D078B008EDD28 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		38475D75246E1CF3008EDD28 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
 		38475D77246E1CFE008EDD28 /* PreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceView.swift; sourceTree = "<group>"; };
 		384EDF1C2438DFFB00001F7B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 		38475D73246D07A4008EDD28 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				38475D6F246D077F008EDD28 /* SignInViewController.swift */,
+				38475D6F246D077F008EDD28 /* SignUpViewController.swift */,
 				38475D75246E1CF3008EDD28 /* PreferenceViewController.swift */,
 			);
 			path = Controller;
@@ -474,7 +474,7 @@
 		38475D74246D07AC008EDD28 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				38475D71246D078B008EDD28 /* SignInView.swift */,
+				38475D71246D078B008EDD28 /* SignUpView.swift */,
 				38475D77246E1CFE008EDD28 /* PreferenceView.swift */,
 			);
 			path = View;
@@ -747,7 +747,7 @@
 				38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */,
 				3889EB502454C942009B63C2 /* ChatModelController.swift in Sources */,
 				3838C0582453E30C00092341 /* Message.swift in Sources */,
-				38475D72246D078B008EDD28 /* SignInView.swift in Sources */,
+				38475D72246D078B008EDD28 /* SignUpView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */,
 				38F90ADC2471B048005B0BEB /* Converter.swift in Sources */,
@@ -758,7 +758,7 @@
 				383E46EF244265570012977A /* EditUserDetailsViewController.swift in Sources */,
 				383E46F0244265570012977A /* EditUserDetailsView.swift in Sources */,
 				383E46F2244265570012977A /* AddImageButton.swift in Sources */,
-				38475D70246D077F008EDD28 /* SignInViewController.swift in Sources */,
+				38475D70246D077F008EDD28 /* SignUpViewController.swift in Sources */,
 				38F7672524525BE900B49F62 /* ImageTapGestureDelegate.swift in Sources */,
 				383E46E6244265450012977A /* UserModel.swift in Sources */,
 				38475D78246E1CFE008EDD28 /* PreferenceView.swift in Sources */,
