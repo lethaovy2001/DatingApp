@@ -75,13 +75,12 @@ struct Message {
     func getMessageReference() -> [String: Any]? {
         guard
             let messageId = messageId,
-            let date = time,
             let toId = toId
             else { return nil }
         let dictionary: [String : Any] =
         [
             "messageId": messageId,
-            "date": date,
+            "date": time ?? Date(),
             "toId": toId
         ]
         return dictionary
