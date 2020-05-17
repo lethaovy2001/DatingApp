@@ -15,6 +15,11 @@ class FirebaseService {
     private var database: Firestore!
     private var storage: Storage!
     
+    enum MessageState {
+        case noMessage
+        case hasMessage
+    }
+    
     init() {
         database = Firestore.firestore()
         storage = Storage.storage()
@@ -64,7 +69,6 @@ class FirebaseService {
     }
     
     func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
-        //self.updateListOfUsers()
         if let uid = Auth.auth().currentUser?.uid {
             database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
                 if let err = err {
@@ -91,13 +95,14 @@ class FirebaseService {
     //TODO: update when first create user
     func updateListOfUsers() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        database.collection("users").getDocuments { (querySnapshot, err) in
+        database.collection("users").addSnapshotListener { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     if (uid != document.documentID) {
                         self.database.collection("users").document(uid).collection("available-users").document(document.documentID).setData(["hasDisplay": false, "id": document.documentID], merge: true)
+                        self.database.collection("users").document(document.documentID).collection("available-users").document(uid).setData(["hasDisplay": false, "id": uid], merge: true)
                     }
                 }
             }
@@ -143,7 +148,7 @@ extension FirebaseService {
                 self.updateDatabase(with: ["first_name": name])
                 self.updateListOfUsers()
                 completion(nil)
-               })
+            })
         })
     }
     
@@ -178,17 +183,21 @@ extension FirebaseService {
         }
     }
     
-    func uploadImages(images: [UIImage]){
+    func uploadImages(images: [UIImage], _ completion: @escaping()->()){
         if let uid = Auth.auth().currentUser?.uid {
             var index = 0
             for image in images {
-                uploadImageOntoStorage(image: image, uid: uid, index: index)
+                uploadImageOntoStorage(image: image, uid: uid, index: index, {
+                    if index == images.count {
+                        completion()
+                    }
+                })
                 index += 1
             }
         }
     }
     
-    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int) {
+    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping()->()) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
         if let uploadData = image.jpegData(compressionQuality: 1.0) {
@@ -200,6 +209,7 @@ extension FirebaseService {
                     }
                     let data = ["image\(index)": downloadURL]
                     self.updateImageDatabase(with: data)
+                    completion()
                 }
             }
         }
@@ -328,7 +338,7 @@ extension FirebaseService {
     
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
-        httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        httpsReference.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if let error = error {
                 print("FirebaseService: downloadImage \(error)")
             } else {
@@ -427,7 +437,7 @@ extension FirebaseService {
         }
     }
     
-    func getLastestMessage(toId: String, _ completion : @escaping(String)->()) {
+    func getLastestMessage(toId: String, _ completion : @escaping(String, MessageState)->()) {
         if let fromId = Auth.auth().currentUser?.uid {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").order(by: "date", descending: true).addSnapshotListener() {
                 querySnapshot, error in
@@ -436,10 +446,15 @@ extension FirebaseService {
                     return
                 }
                 
+                if snapshot.documentChanges.count == 0 {
+                    completion("", .noMessage)
+                    return
+                }
+                
                 for document in snapshot.documentChanges {
                     print(document.document.data())
                     if document.type == .added {
-                        completion(document.document.documentID)
+                        completion(document.document.documentID, .hasMessage)
                         break
                     }
                 }

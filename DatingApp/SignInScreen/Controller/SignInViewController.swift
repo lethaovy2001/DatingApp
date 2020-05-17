@@ -60,7 +60,8 @@ class SignInViewController: UIViewController {
                 self.mainView.showError(message: error)
                 return
             }
-            let vc = MainViewController()
+            let vc = PreferenceViewController()
+            vc.user = UserModel(info: ["first_name": name])
             self.navigationController?.pushViewController(vc, animated: true)
         })
     }
