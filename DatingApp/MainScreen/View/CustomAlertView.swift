@@ -66,16 +66,16 @@ class CustomAlertView: UIView {
         let number = Int.random(in: 0...3)
         switch self.type {
         case .deniedLocationAccess:
-            title = "Location Access"
-            message = "Please enable location in order to match with other users"
+            title = Constants.Strings.DeniedLocationAccess.title
+            message = Constants.Strings.DeniedLocationAccess.message
             animationName = Constants.searchLocationAnimation
         case .newMessage:
-            title = "Say something cute!"
-            message = ""
+            title = Constants.Strings.NewMessage.title
+            message = Constants.Strings.NewMessage.message
             animationName = "match\(number)"
         default:
-            title = "Thank You"
-            message = "You are now able to see others in the same area"
+            title = Constants.Strings.Default.title
+            message = Constants.Strings.Default.message
             animationName = Constants.searchLocationAnimation
         }
     }
