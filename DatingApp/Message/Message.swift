@@ -9,6 +9,7 @@
 import UIKit
 
 struct Message {
+    var messageId: String?
     var fromId: String?
     var toId: String?
     var text: String?
@@ -20,6 +21,7 @@ struct Message {
     var videoUrl: String?
 
     init(dictionary: [String: Any], image: UIImage) {
+        self.messageId = dictionary["messageId"] as? String
         self.fromId = dictionary["fromId"] as? String
         self.toId = dictionary["toId"] as? String
         self.time = dictionary["time"] as? Date
@@ -31,6 +33,7 @@ struct Message {
     }
     
     init(dictionary: [String: Any]) {
+        self.messageId = dictionary["messageId"] as? String
         self.fromId = dictionary["fromId"] as? String
         self.text = dictionary["text"] as? String
         self.toId = dictionary["toId"] as? String
@@ -66,6 +69,21 @@ struct Message {
                 }
             }
         }
+        return dictionary
+    }
+    
+    func getMessageReference() -> [String: Any]? {
+        guard
+            let messageId = messageId,
+            let date = time,
+            let toId = toId
+            else { return nil }
+        let dictionary: [String : Any] =
+        [
+            "messageId": messageId,
+            "date": date,
+            "toId": toId
+        ]
         return dictionary
     }
 }

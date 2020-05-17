@@ -110,13 +110,7 @@ class FirebaseService {
     
     func updateDatabase(with data: [String: Any]) {
         if let uid = Auth.auth().currentUser?.uid {
-            database.collection("users").document(uid).updateData(data, completion: { err in
-                if let err = err {
-                    print("Error updating document: \(err)")
-                } else {
-                    print("Document successfully updated")
-                }
-            })
+            database.collection("users").document(uid).setData(data, merge: true)
         }
     }
 }
@@ -134,28 +128,34 @@ extension FirebaseService {
         }
     }
     
-    func createUser(email: String, password: String, _ completion: @escaping()->()) {
+    func createUser(email: String, password: String, name: String, _ completion: @escaping(String?)->()) {
         Auth.auth().createUser(withEmail: email, password: password, completion: {
             (authResult, error) in
             if error != nil {
                 print("***** Unable to authenticate with Firebase email: \(String(describing: error))")
+                completion(error?.localizedDescription)
                 return
             }
-            self.authenticateUsingEmail(email: email, password: password, {
-                self.updateDatabase(with: ["first_name": "A"])
+            self.authenticateUsingEmail(email: email, password: password, { authError in
+                if authError != nil {
+                    completion(authError)
+                }
+                self.updateDatabase(with: ["first_name": name])
                 self.updateListOfUsers()
-            })
+                completion(nil)
+               })
         })
     }
     
-    func authenticateUsingEmail(email: String, password: String,_ completion: @escaping()->()) {
+    func authenticateUsingEmail(email: String, password: String,_ completion: @escaping(String?)->()) {
         Auth.auth().signIn(withEmail: email, password: password, completion: {(authResult, error) in
             if error != nil {
                 print(String(describing: error))
+                completion(error?.localizedDescription)
                 return
             }
             print("Successfully log user into firebase")
-            completion()
+            completion(nil)
         })
     }
     
@@ -328,7 +328,7 @@ extension FirebaseService {
     
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
-        httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        httpsReference.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if let error = error {
                 print("FirebaseService: downloadImage \(error)")
             } else {
@@ -393,17 +393,19 @@ extension FirebaseService {
         })
     }
     
-    func updateMessageReference(toId: String, messageId: String) {
-        if let fromId = Auth.auth().currentUser?.uid {
-            let data = [messageId: 1]
-            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+    func updateMessageReference(message: Message) {
+        if let fromId = Auth.auth().currentUser?.uid,
+            let data = message.getMessageReference(),
+        let toId = message.toId {
+//            let data: [String : Any] = [messageId: 1, "date": Date()]
+            database.collection("user-messages").document(fromId).collection("match-users").document().collection("messageId").document(toId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
                     print("Successfully update message reference")
                 }
             })
-            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(toId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
@@ -424,6 +426,26 @@ extension FirebaseService {
                 return
             }
             completion(data)
+        }
+    }
+    
+    func getLastestMessage(toId: String, _ completion : @escaping(String)->()) {
+        if let fromId = Auth.auth().currentUser?.uid {
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").order(by: "date", descending: true).addSnapshotListener() {
+                querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                
+                for document in snapshot.documentChanges {
+                    print(document.document.data())
+                    if document.type == .added {
+                        completion(document.document.documentID)
+                        break
+                    }
+                }
+            }
         }
     }
     

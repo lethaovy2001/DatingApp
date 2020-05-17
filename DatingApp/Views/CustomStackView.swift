@@ -18,6 +18,15 @@ class CustomStackView: UIStackView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    init(axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution) {
+        super.init(frame: .zero)
+        self.axis = axis
+        self.backgroundColor = .red
+        self.distribution = distribution
+        self.spacing = 10
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
