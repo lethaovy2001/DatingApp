@@ -11,10 +11,23 @@ import UIKit
 class UserDetailsViewModel {
     private var model: UserModel
     private let calendar: Calendar
+    private let type: UserType
+    
+    enum UserType {
+        case currentUser
+        case otherUser
+    }
     
     init(model: UserModel) {
         self.model = model
         self.calendar = Calendar(identifier: .gregorian)
+        self.type = .currentUser
+    }
+    
+    init(model: UserModel, type: UserType) {
+        self.model = model
+        self.calendar = Calendar(identifier: .gregorian)
+        self.type = type
     }
 }
 
@@ -44,6 +57,14 @@ extension UserDetailsViewModel {
     
     var bio: String {
         return model.bio ?? ""
+    }
+    
+    var id: String? {
+        return model.id ?? nil
+    }
+    
+    var userType: UserType {
+        return self.type
     }
 }
 

@@ -76,6 +76,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
                 self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
+            self.chatView.doneLoading()
         }
     }
     
@@ -269,6 +270,9 @@ extension ChatViewController: ZoomTapDelegate {
 extension ChatViewController: ImageTapGestureDelegate {
     func didTap() {
         let vc = UserDetailsViewController()
+        if let model = user {
+            vc.viewModel = UserDetailsViewModel(model: model)
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

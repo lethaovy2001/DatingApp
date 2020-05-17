@@ -80,8 +80,7 @@ class EditUserDetailsViewController: UIViewController {
         let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: false)
     }
-    
-    
+
     @objc func addImageButtonPressed(sender: UIButton) {
         editUserDetailsView.setSelectedButton(sender: sender)
         let imagePicker = UIImagePickerController()

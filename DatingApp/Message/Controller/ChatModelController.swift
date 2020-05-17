@@ -47,7 +47,6 @@ class ChatModelController {
                     } else {
                         message = Message(dictionary: values)
                         self.messages.append(message)
-                        completion()
                     }
                 })
             }
