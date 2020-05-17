@@ -53,6 +53,12 @@ class ChatView: UIView {
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
+    var viewModel: ListMessageViewModel? {
+        didSet {
+            profileImageView.image = viewModel?.userImage
+            customNavigationView.setTitle(title: viewModel?.userName ?? "Unknown")
+        }
+    }
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -125,6 +131,7 @@ class ChatView: UIView {
     
     func addDelegate(viewController: ChatViewController) {
         inputTextView.delegate = viewController
+        customNavigationView.tapDelegate = viewController
         viewController.textViewEditingDelegate = self
         viewController.keyboardDelegate = self
     }

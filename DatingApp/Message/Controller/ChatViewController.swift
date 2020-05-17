@@ -21,6 +21,15 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
     
+    var user: UserModel? {
+        didSet {
+            if let uid = modelController.getCurrentUserId(), let user = user {
+                chatView.viewModel = ListMessageViewModel(userModel: user, currentUserId: uid)
+            }
+            modelController.user = user
+        }
+    }
+    
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,11 +91,10 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func sendButtonPressed(){
-        //TODO: Remove mock data
-        if let fromId = modelController.getCurrentUserId(), let text = chatView.getInputText() {
+        if let fromId = modelController.getCurrentUserId(), let text = chatView.getInputText(), let toId = user?.id {
             let message: [String: Any] = [
                 "fromId": fromId,
-                "toId": "2",
+                "toId": toId,
                 "time": Date(),
                 "text": text
             ]
@@ -94,7 +102,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
             chatView.setEmptyInputText()
         }
     }
-        
+    
     @objc func addImageButtonPressed() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -113,9 +121,9 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        if let uid = modelController.getCurrentUserId() {
+        if let uid = modelController.getCurrentUserId(), let image = user?.mainImage {
             let message = modelController.getMessages()[indexPath.item]
-            cell.viewModel = MessageViewModel(model: message, currentUserId: uid)
+            cell.viewModel = MessageViewModel(model: message, currentUserId: uid, userImage: image)
         }
         cell.tapDelegate = self
         return cell
@@ -216,11 +224,12 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 extension ChatViewController {
     private func handleVideoSelectedForUrl(_ url: URL) {
         firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
-            var values: [String: Any] = message
-            //TODO: remove mock id
-            values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
-            values.updateValue("2", forKey: "toId")
-            self.modelController.updateMessageToDatabase(message: values)
+            if let toId =  self.user?.id {
+                var values: [String: Any] = message
+                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
+                values.updateValue(toId, forKey: "toId")
+                self.modelController.updateMessageToDatabase(message: values)
+            }
         })
     }
     
@@ -233,17 +242,18 @@ extension ChatViewController {
         }
         if let selectedImage = selectedImageFromPicker {
             firebaseService.uploadMessageImageOntoStorage(image: selectedImage, { message in
-                var values: [String: Any] = message
-                //TODO: remove mock id
-                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
-                values.updateValue("2", forKey: "toId")
-                self.modelController.updateMessageToDatabase(message: values)
+                if let toId =  self.user?.id, let fromId = self.modelController.getCurrentUserId() {
+                    var values: [String: Any] = message
+                    values.updateValue(fromId, forKey: "fromId")
+                    values.updateValue(toId, forKey: "toId")
+                    self.modelController.updateMessageToDatabase(message: values)
+                }
             })
         }
     }
 }
 
-// MARK: ImageTapGestureDelegate
+// MARK: ZoomTapDelegate
 extension ChatViewController: ZoomTapDelegate {
     func didTap(on imageView: UIImageView) {
         let vc = ImageDetailViewController()
@@ -252,6 +262,14 @@ extension ChatViewController: ZoomTapDelegate {
         }
         self.navigationController?.pushViewController(vc, animated: false)
         dismissKeyboard()
+    }
+}
+
+// MARK: TapGestureDelegate
+extension ChatViewController: ImageTapGestureDelegate {
+    func didTap() {
+        let vc = UserDetailsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

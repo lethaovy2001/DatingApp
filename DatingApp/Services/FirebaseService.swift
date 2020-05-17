@@ -14,6 +14,7 @@ import AVFoundation
 class FirebaseService {
     private var database: Firestore!
     private var storage: Storage!
+    static let shared = FirebaseService()
     
     init() {
         database = Firestore.firestore()
@@ -21,10 +22,7 @@ class FirebaseService {
     }
     
     func getUserID() -> String? {
-        if let uid = Auth.auth().currentUser?.uid {
-            return uid
-        }
-        return nil
+        return Auth.auth().currentUser?.uid
     }
     
     func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
@@ -304,7 +302,26 @@ extension FirebaseService {
                 completion(images)
             })
         }
-
+    }
+    
+    func getMainUserImage(from id: String, _ completion : @escaping(UIImage?)->()) {
+        database.collection("profile_images").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                completion(UIImage())
+                return
+            }
+            
+            if let url = data["image0"] as? String {
+                self.downloadImageFromStorage(url: url, { image in
+                    completion(image)
+                })
+            }
+        }
     }
     
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
@@ -339,6 +356,26 @@ extension FirebaseService {
     }
 }
 
+// MARK: List of Messages
+extension FirebaseService {
+    func getListMessages(_ completion: @escaping([String])->()) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var data: [String] = []
+                for document in querySnapshot!.documents {
+                    data.append(document.documentID)
+                }
+                print("Sucessful get users document!")
+                completion(data)
+            }
+        }
+    }
+}
+
+
 // MARK: Messages
 extension FirebaseService {
     func saveMessageToDatabase(with message: Message,_ completion : @escaping(String)->()) {
@@ -357,7 +394,14 @@ extension FirebaseService {
     func updateMessageReference(toId: String, messageId: String) {
         if let fromId = Auth.auth().currentUser?.uid {
             let data = [messageId: 1]
-            database.collection("user-messages").document(fromId).collection(toId).document(messageId).setData(data, merge: true, completion: { error in
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Successfully update message reference")
+                }
+            })
+            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
@@ -383,7 +427,7 @@ extension FirebaseService {
     
     func getMessages(toId: String, _ completion : @escaping([String: Any])->()) {
         if let fromId = Auth.auth().currentUser?.uid {
-            database.collection("user-messages").document(fromId).collection(toId).addSnapshotListener() {
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").addSnapshotListener() {
                 querySnapshot, error in
                 guard let snapshot = querySnapshot else {
                     print("Error fetching documents: \(error!)")
@@ -404,19 +448,20 @@ extension FirebaseService {
 extension FirebaseService {
     func updateMatchUser(toId: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        // match both user
         database.collection("users").document(toId).collection("available-users")
             .whereField("id", isEqualTo: uid)
             .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for _ in querySnapshot!.documents {
-                    self.database.collection("user-messages").document(uid).setData(["isMatch": true], merge: true)
-                    self.database.collection("user-messages").document(toId).setData(["isMatch": true], merge: true)
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for _ in querySnapshot!.documents {
+                        self.database.collection("user-messages").document(uid).collection("match-users").document(toId).setData(["isMatch": true, "time": Date()], merge: true)
+                        self.database.collection("user-messages").document(toId).collection("match-users").document(uid).setData(["isMatch": true, "time": Date()], merge: true)
+                    }
                 }
-            }
-            return
         }
+        // save when one person like first
         database.collection("users").document(uid).collection("available-users").document(toId).setData(["hasDisplay": true], merge: true)
     }
     
