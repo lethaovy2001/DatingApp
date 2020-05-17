@@ -53,6 +53,14 @@ class ChatView: UIView {
         return cv
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
+    private let loadingView = LoadingAnimationView()
+    private let newChatAlertView = CustomAlertView(type: .newMessage)
+    var viewModel: ListMessageViewModel? {
+        didSet {
+            profileImageView.image = viewModel?.userImage
+            customNavigationView.setTitle(title: viewModel?.userName ?? "Unknown")
+        }
+    }
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -75,13 +83,21 @@ class ChatView: UIView {
         addSubview(customNavigationView)
         addSubview(collectionView)
         addSubview(inputContainerView)
+        addSubview(loadingView)
         inputContainerView.addSubview(inputTextView)
         inputContainerView.addSubview(sendButton)
         inputContainerView.addSubview(addImageButton)
         bringSubviewToFront(customNavigationView)
+        bringSubviewToFront(inputContainerView)
     }
     
     private func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: self.topAnchor),
+            loadingView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            loadingView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
         NSLayoutConstraint.activate([
             customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
             customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -125,6 +141,7 @@ class ChatView: UIView {
     
     func addDelegate(viewController: ChatViewController) {
         inputTextView.delegate = viewController
+        customNavigationView.tapDelegate = viewController
         viewController.textViewEditingDelegate = self
         viewController.keyboardDelegate = self
     }
@@ -153,6 +170,10 @@ class ChatView: UIView {
         sendButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        newChatAlertView.setDoneSelector(selector: selector, target: target)
+    }
+    
     func getInputText() -> String? {
         if (inputTextView.hasText()) {
             return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -164,6 +185,25 @@ class ChatView: UIView {
         inputTextView.text = nil
     }
     
+    func doneLoading() {
+        self.loadingView.removeFromSuperview()
+    }
+    
+    func showNewConversationAlert() {
+        newChatAlertView.isHidden = false
+        self.addSubview(newChatAlertView)
+        bringSubviewToFront(newChatAlertView)
+        NSLayoutConstraint.activate([
+            newChatAlertView.topAnchor.constraint(equalTo: topAnchor),
+            newChatAlertView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            newChatAlertView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            newChatAlertView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    func hideNewConversationAlert() {
+        self.newChatAlertView.removeFromSuperview()
+    }
 }
 
 // MARK: TextViewEditingDelegate

@@ -11,9 +11,9 @@ import UIKit
 class EditUserDetailsViewController: UIViewController {
     private let editUserDetailsView = EditUserDetailsView()
     private var viewModel: UserDetailsViewModel
-    private let firebaseService = FirebaseService()
+    let firebaseService = FirebaseService()
     var textViewEditingDelegate: TextViewEditingDelegate?
-    var imageTapGestureDelegate: ImageTapGestureDelegate?
+    var tapGestureDelegate: ImageTapGestureDelegate?
     
     // MARK: Init
     init(viewModel: UserDetailsViewModel) {
@@ -60,7 +60,7 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func backPressed() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func logoutPressed() {
@@ -70,17 +70,8 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func saveButtonPressed() {
-        let dictionary: [String: Any] = [
-            "bio": editUserDetailsView.getBioText(),
-            "work": editUserDetailsView.getWorkText(),
-        ]
-        self.firebaseService.uploadImages(images: editUserDetailsView.getImages())
-        self.firebaseService.updateDatabase(with: dictionary)
-        
-        let vc = UserDetailsViewController()
-        self.navigationController?.pushViewController(vc, animated: false)
+        saveData()
     }
-    
     
     @objc func addImageButtonPressed(sender: UIButton) {
         editUserDetailsView.setSelectedButton(sender: sender)
@@ -88,10 +79,6 @@ class EditUserDetailsViewController: UIViewController {
         imagePicker.delegate = self 
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
-    }
-    
-    private func updateDatabase(values: [String: Any]) {
-        firebaseService.updateDatabase(with: values)
     }
 }
 
@@ -119,13 +106,32 @@ extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavi
             selectedImageFromPicker = originalImage
         }
         if let selectedImage = selectedImageFromPicker {
-            imageTapGestureDelegate?.setImage(image: selectedImage)
+            tapGestureDelegate?.setImage(image: selectedImage)
         }
         dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension EditUserDetailsViewController: WritableDatabase {
+    func saveData() {
+        if let bio = editUserDetailsView.getBioText(),
+            let work = editUserDetailsView.getWorkText(),
+            let images = editUserDetailsView.getImages() {
+            let dictionary: [String: Any] = [
+                "bio": bio,
+                "work": work,
+            ]
+            updateUser(info: dictionary)
+            updateUserImages(images: images)
+            let vc = UserDetailsViewController()
+            self.navigationController?.pushViewController(vc, animated: false)
+        } else {
+            //TODO: Alert view when user haven't fill out all fields
+        }
     }
 }
 

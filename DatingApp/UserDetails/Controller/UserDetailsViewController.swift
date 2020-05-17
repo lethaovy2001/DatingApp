@@ -10,9 +10,9 @@ import UIKit
 
 class UserDetailsViewController: UIViewController {
     private let userDetailsView = UserDetailsView()
-    private var viewModel: UserDetailsViewModel!
-    private let modelController = MainModelController()
+    private let modelController = UserDetailsModelController()
     private let firebaseService = FirebaseService()
+    var viewModel: UserDetailsViewModel?
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -58,8 +58,10 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Actions
     @objc func editButtonPressed() {
-        let vc = EditUserDetailsViewController(viewModel: viewModel)
-        self.navigationController?.pushViewController(vc, animated: false)
+        if let viewModel = viewModel {
+            let vc = EditUserDetailsViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
     }
     
     @objc func backButtonPressed() {
@@ -68,9 +70,18 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Firebase
     func reloadUserInfo() {
-        self.modelController.getData {
-            self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo())
-            self.userDetailsView.viewModel = self.viewModel
+        if let id = viewModel?.id, id != modelController.getCurrentUserId() {
+            self.modelController.getData(id: viewModel?.id) {
+                self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .otherUser)
+                self.userDetailsView.viewModel = self.viewModel
+                self.userDetailsView.doneLoading()
+            }
+        } else {
+            self.modelController.getData(id: modelController.getCurrentUserId()) {
+                self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .currentUser)
+                self.userDetailsView.viewModel = self.viewModel
+                self.userDetailsView.doneLoading()
+            }
         }
     }
 }

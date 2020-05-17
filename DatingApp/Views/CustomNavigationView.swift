@@ -48,7 +48,7 @@ class CustomNavigationView: CustomContainerView {
             setupTitleLabel(title: "Edit")
         case .chatMessage:
             setupLeftButton(imageName: "chevron.left")
-            setupTitleLabel(title: "Vy")
+            setupTitleLabel(title: "")
         case .listMessages:
             setupLeftButton(imageName: "chevron.left")
             setupRightButton(imageName: "Vy.jpg")
@@ -96,6 +96,10 @@ class CustomNavigationView: CustomContainerView {
         ])
     }
     
+    func setTitle(title: String) {
+        titleLabel.text = title
+    }
+    
     func setleftButtonSelector(selector: Selector, target: UIViewController) {
         leftButton.addTarget(target, action: selector, for: .touchUpInside)
     }
@@ -104,16 +108,27 @@ class CustomNavigationView: CustomContainerView {
         rightButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func hideEditButton() {
+        rightButton.isHidden = true
+    }
+    
     private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
-        if let profileImageView = profileImageView {
+        switch type {
+        case .chatMessage:
+            titleLabel.isUserInteractionEnabled = true
+            titleLabel.addGestureRecognizer(tapGesture)
+        case .listMessages:
             profileImageView.isUserInteractionEnabled = true
             profileImageView.addGestureRecognizer(tapGesture)
+        default:
+            break
         }
     }
     
+    // MARK: Actions
     @objc func handleTapGesture() {
         tapDelegate?.didTap()
     }

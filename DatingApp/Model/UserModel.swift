@@ -47,4 +47,19 @@ struct UserModel {
             self.birthday = info["birthday"] as? Date
         }
     }
+    
+    init(info: [String: Any], images: [UIImage]) {
+        self.id = info["id"] as? String
+        self.name = info["first_name"] as? String
+        self.work = info["work"] as? String
+        self.bio = info["bio"] as? String
+        self.gender = info["gender"] as? String
+        self.images = images
+        self.mainImage = images[0]
+        if let birthday = info["birthday"] as? Timestamp {
+            self.birthday = birthday.dateValue()
+        } else {
+            self.birthday = info["birthday"] as? Date
+        }
+    }
 }
