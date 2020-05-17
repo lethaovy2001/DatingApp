@@ -116,7 +116,7 @@ extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavi
     }
 }
 
-extension EditUserDetailsViewController: EditableUserProfile {
+extension EditUserDetailsViewController: WritableDatabase {
     func saveData() {
         if let bio = editUserDetailsView.getBioText(),
             let work = editUserDetailsView.getWorkText(),

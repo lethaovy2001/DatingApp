@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol EditableUserProfile: Database {
+protocol WritableDatabase: Database {
     func updateUser(info: [String: Any])
     func updateUserImages(images: [UIImage])
 }
 
-extension EditableUserProfile {
+extension WritableDatabase {
     func updateUser(info: [String: Any]) {
         firebaseService.updateDatabase(with: info)
     }
