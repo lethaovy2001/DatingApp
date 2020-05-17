@@ -90,6 +90,7 @@
 		38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA742449166C00F1BE0D /* CustomAlertView.swift */; };
 		38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */; };
 		38F7672524525BE900B49F62 /* TapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F7672424525BE900B49F62 /* TapGestureDelegate.swift */; };
+		38F90ADA2470FF4E005B0BEB /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD92470FF4E005B0BEB /* DateConverter.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +181,7 @@
 		38DFEA742449166C00F1BE0D /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchLocationAnimation.json; sourceTree = "<group>"; };
 		38F7672424525BE900B49F62 /* TapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureDelegate.swift; sourceTree = "<group>"; };
+		38F90AD92470FF4E005B0BEB /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -393,6 +395,7 @@
 				38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */,
 				38F7672424525BE900B49F62 /* TapGestureDelegate.swift */,
 				3837CD6124564404007B4297 /* ZoomTapDelegate.swift */,
+				38F90AD92470FF4E005B0BEB /* DateConverter.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38F90ADA2470FF4E005B0BEB /* DateConverter.swift in Sources */,
 				38475D472469F894008EDD28 /* ListMessageModelController.swift in Sources */,
 				38DB158E2457FE2F00748B1B /* ImageDetailViewController.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,

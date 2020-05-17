@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PreferenceViewController: UIViewController {
+class PreferenceViewController: UIViewController, DateConverter {
     private let mainView: PreferenceView = {
         let view = PreferenceView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ class PreferenceViewController: UIViewController {
         let gender = mainView.getGenderSelection()
         let interestedGender = mainView.getInterestedSelection()
         if let birthday = mainView.getBirthdayText() {
-            let date = convertToDate(from: birthday)
+            let date = convertToDate(dateString: birthday)
             let dictionary: [String: Any] = [
                 "gender": gender,
                 "interestedIn": interestedGender,
@@ -51,11 +51,5 @@ class PreferenceViewController: UIViewController {
             let vc = EditUserDetailsViewController(viewModel: viewModel)
             self.navigationController?.pushViewController(vc, animated: true)
         }
-    }
-    
-    private func convertToDate(from dateString: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
-        return dateFormatter.date(from: dateString) ?? Date()
     }
 }
