@@ -40,6 +40,7 @@ class ChatModelController {
         firebaseService.getMessages(toId: toId, { data in
             if data.isEmpty {
                 completion(.noMessage)
+                return
             }
             for messageId in data {
                 self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
