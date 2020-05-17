@@ -60,7 +60,7 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func backPressed() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func logoutPressed() {

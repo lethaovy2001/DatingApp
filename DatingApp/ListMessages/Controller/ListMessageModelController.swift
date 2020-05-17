@@ -39,11 +39,19 @@ class ListMessageModelController {
                             user = UserModel(info: userInfo)
                         }
                         self.users.append(user)
-                        self.firebaseService.getLastestMessage(toId: userId, { messageId in
+                        self.firebaseService.getLastestMessage(toId: userId, { messageId, message in
                             totalRecipient += 1
-                            self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: totalRecipient, totalRecipient: matchedUsers.count, {
+                            switch message {
+                            case .noMessage:
+                                let message = Message(dictionary: [:])
+                                self.messages.append(message)
                                 completion()
-                            })
+                                return
+                            case .hasMessage:
+                                self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: totalRecipient, totalRecipient: matchedUsers.count, {
+                                    completion()
+                                })
+                            }
                         })
                     })
                 })

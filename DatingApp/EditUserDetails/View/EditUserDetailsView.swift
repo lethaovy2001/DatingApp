@@ -21,6 +21,7 @@ class EditUserDetailsView: UIView {
     private let nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .heavy)
     private let scrollView = CustomScrollView()
     private let customNavigationView = CustomNavigationView(type: .editUserDetails)
+    private let errorLabel = CustomLabel(text: "Error", textColor: UIColor.red, textSize: 14, textWeight: .regular)
     private var cardImages: [UIImage]?
     var viewModel: UserDetailsViewModel! {
         didSet {
@@ -57,11 +58,17 @@ class EditUserDetailsView: UIView {
         setUpSelf()
         addSubviews()
         setUpConstraints()
+        setUpErrorLabel()
     }
     
     private func setUpSelf() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .white
+    }
+    
+    private func setUpErrorLabel() {
+        errorLabel.isHidden = true
+        errorLabel.numberOfLines = 2
     }
     
     private func addSubviews() {
@@ -77,6 +84,7 @@ class EditUserDetailsView: UIView {
         scrollView.addSubview(nameLabel)
         scrollView.addSubview(featureLabel)
         scrollView.addSubview(imageButtonsContainerView)
+        scrollView.addSubview(errorLabel)
         bringSubviewToFront(customNavigationView)
     }
     
@@ -132,9 +140,15 @@ class EditUserDetailsView: UIView {
             imageButtonsContainerView.heightAnchor.constraint(equalTo: imageButtonsContainerView.widthAnchor, multiplier: 2/3)
         ])
         NSLayoutConstraint.activate([
+            errorLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 36),
+            errorLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -36),
+            errorLabel.topAnchor.constraint(equalTo: imageButtonsContainerView.bottomAnchor, constant: 12),
+            errorLabel.heightAnchor.constraint(equalToConstant: 30),
+        ])
+        NSLayoutConstraint.activate([
             saveButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
             saveButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            saveButton.topAnchor.constraint(equalTo: imageButtonsContainerView.bottomAnchor, constant: 36),
+            saveButton.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: 36),
             saveButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
@@ -197,6 +211,11 @@ class EditUserDetailsView: UIView {
             return nil
         }
         return imageButtonsContainerView.getImages()
+    }
+    
+    func showError(message: String) {
+        errorLabel.isHidden = false
+        errorLabel.text = message
     }
 }
 
