@@ -11,7 +11,7 @@ import Firebase
 
 class SwipeCardView: UIView {
     private var cardImages: [UIImage] = []
-    private let cardImageView = RoundedUserImage(imageName: "Vy")
+    private let cardImageView = RoundedUserImage(imageName: "user")
     private var currentImage = 0
     private let nameLabel: UILabel = {
         let label = UILabel()

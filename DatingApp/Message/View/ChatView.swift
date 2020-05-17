@@ -31,10 +31,9 @@ class ChatView: UIView {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
-    private let profileImageView = CircleImageView(imageName: "Vy")
+    private let profileImageView = CircleImageView(imageName: "user")
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.text = "Vy"
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
