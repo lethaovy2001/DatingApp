@@ -16,6 +16,7 @@ class UserDetailsView: UIView {
     private var cardImages: [UIImage]?
     private var currentImage = 0
     private let customNavigationView = CustomNavigationView(type: .userDetails)
+    private let loadingView = LoadingAnimationView()
     private var nameContainerHeight: NSLayoutConstraint!
     var viewModel: UserDetailsViewModel! {
         didSet {
@@ -57,6 +58,7 @@ class UserDetailsView: UIView {
     private func addSubviews() {
         addSubview(customNavigationView)
         addSubview(scrollView)
+        addSubview(loadingView)
         scrollView.addSubview(userImageView)
         scrollView.addSubview(nameContainerView)
         scrollView.addSubview(bioContainerView)
@@ -64,6 +66,12 @@ class UserDetailsView: UIView {
     }
     
     private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: self.topAnchor),
+            loadingView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            loadingView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
         NSLayoutConstraint.activate([
             customNavigationView.topAnchor.constraint(equalTo: self.topAnchor),
             customNavigationView.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -103,6 +111,10 @@ class UserDetailsView: UIView {
     
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
         customNavigationView.setleftButtonSelector(selector: selector, target: target)
+    }
+    
+    func doneLoading() {
+        self.loadingView.removeFromSuperview()
     }
     
     // MARK: Gestures
