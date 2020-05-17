@@ -21,6 +21,7 @@ class MainView: UIView {
     private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
+    private let searchingAnimation = SearchingAnimationView()
     
     // MARK: Initializer
     override init(frame: CGRect) {
@@ -46,6 +47,8 @@ class MainView: UIView {
         addSubview(swipeStackContainer)
         addSubview(dislikeButton)
         addSubview(likeButton)
+        addSubview(searchingAnimation)
+        sendSubviewToBack(searchingAnimation)
     }
     
     private func setupConstraints() {
@@ -85,6 +88,12 @@ class MainView: UIView {
             swipeStackContainer.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 3.5/5),
             swipeStackContainer.topAnchor.constraint(equalTo: profileButton.bottomAnchor, constant: 6)
         ])
+        NSLayoutConstraint.activate([
+            searchingAnimation.topAnchor.constraint(equalTo: profileButton.bottomAnchor),
+            searchingAnimation.leftAnchor.constraint(equalTo: self.leftAnchor),
+            searchingAnimation.rightAnchor.constraint(equalTo: self.rightAnchor),
+            searchingAnimation.bottomAnchor.constraint(equalTo: likeButton.topAnchor),
+        ])
     }
     
     // MARK: Selectors
@@ -108,16 +117,16 @@ class MainView: UIView {
         messageButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        customAlertView.setDoneSelector(selector: selector, target: target)
+    }
+    
     func addDelegate(viewController: MainViewController) {
         swipeStackContainer.addDelegate(viewController: viewController)
     }
     
     func reloadSwipeViews() {
         swipeStackContainer.reloadData()
-    }
-
-    func setDoneSelector(selector: Selector, target: UIViewController) {
-        customAlertView.setDoneSelector(selector: selector, target: target)
     }
 }
 
