@@ -24,7 +24,11 @@ class UserDetailsModelController {
         if let id = id {
             firebaseService.getUserWithId(id: id, { user in
                 self.firebaseService.getUserImagesFromDatabase(from: id, { images in
-                    self.user = UserModel(info: user, images: images)
+                    if images.isEmpty {
+                        self.user = UserModel(info: user)
+                    } else {
+                        self.user = UserModel(info: user, images: images)
+                    }
                     completion()
                 })
             })
