@@ -94,6 +94,8 @@
 		38F90AD62470EB36005B0BEB /* WritableDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD52470EB36005B0BEB /* WritableDatabase.swift */; };
 		38F90ADA2470FF4E005B0BEB /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD92470FF4E005B0BEB /* DateConverter.swift */; };
 		38F90ADC2471B048005B0BEB /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90ADB2471B048005B0BEB /* Converter.swift */; };
+		38F90AE22471FC2F005B0BEB /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE12471FC2F005B0BEB /* BackButton.swift */; };
+		38F90AE42471FFFA005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -188,6 +190,8 @@
 		38F90AD52470EB36005B0BEB /* WritableDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritableDatabase.swift; sourceTree = "<group>"; };
 		38F90AD92470FF4E005B0BEB /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		38F90ADB2471B048005B0BEB /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		38F90AE12471FC2F005B0BEB /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -308,6 +312,8 @@
 				383E46F3244265970012977A /* CustomTextView.swift */,
 				383E46F4244265980012977A /* RoundedButton.swift */,
 				38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */,
+				38F90AE12471FC2F005B0BEB /* BackButton.swift */,
+				38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -730,6 +736,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38F90AE22471FC2F005B0BEB /* BackButton.swift in Sources */,
 				38F90ADA2470FF4E005B0BEB /* DateConverter.swift in Sources */,
 				38475D472469F894008EDD28 /* ListMessageModelController.swift in Sources */,
 				38DB158E2457FE2F00748B1B /* ImageDetailViewController.swift in Sources */,
@@ -785,6 +792,7 @@
 				38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */,
 				38F90AD62470EB36005B0BEB /* WritableDatabase.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
+				38F90AE42471FFFA005B0BEB /* ErrorLabel.swift in Sources */,
 				383E4705244265990012977A /* CustomButton.swift in Sources */,
 				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
