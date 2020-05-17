@@ -14,7 +14,7 @@ class CustomNavigationView: CustomContainerView {
     private var rightButton: CustomButton!
     private var type: NavigationType!
     private var profileImageView: CircleImageView!
-    var tapDelegate: TapGestureDelegate?
+    var tapDelegate: ImageTapGestureDelegate?
     
     enum NavigationType {
         case userDetails

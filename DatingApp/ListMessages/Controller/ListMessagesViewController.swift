@@ -94,7 +94,7 @@ extension ListMessagesViewController: UITableViewDelegate {
     }
 }
 
-extension ListMessagesViewController: TapGestureDelegate {
+extension ListMessagesViewController: ImageTapGestureDelegate {
     func didTap() {
         let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
