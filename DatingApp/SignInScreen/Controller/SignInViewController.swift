@@ -52,7 +52,6 @@ class SignInViewController: UIViewController {
     //MARK: Actions
     @objc func signIn() {
         guard let email = mainView.getEmailText(), let password = mainView.getPasswordText(), let name = mainView.getNameText() else {
-            self.mainView.showError(message: "Missing some fields")
             return
         }
         firebaseService.createUser(email: email, password: password, { errorMessage in
