@@ -14,6 +14,7 @@ import AVFoundation
 class FirebaseService {
     private var database: Firestore!
     private var storage: Storage!
+    static let shared = FirebaseService()
     
     init() {
         database = Firestore.firestore()
@@ -21,10 +22,7 @@ class FirebaseService {
     }
     
     func getUserID() -> String? {
-        if let uid = Auth.auth().currentUser?.uid {
-            return uid
-        }
-        return nil
+        return Auth.auth().currentUser?.uid
     }
     
     func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {

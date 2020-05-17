@@ -26,5 +26,4 @@ extension ListMessageViewModel {
     var userImage: UIImage {
         return userModel.mainImage ?? UIImage(systemName: "person.fill")!
     }
-    
 }

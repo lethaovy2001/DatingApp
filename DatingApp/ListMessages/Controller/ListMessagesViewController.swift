@@ -89,7 +89,7 @@ extension ListMessagesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ChatViewController()
-        vc.user = modelController.getUsers()[indexPath.item]
+        //vc.user = modelController.getUsers()[indexPath.item]
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

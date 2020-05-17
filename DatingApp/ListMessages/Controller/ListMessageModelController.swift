@@ -9,7 +9,7 @@
 import UIKit
 
 class ListMessageModelController {
-    private var firebaseService = FirebaseService()
+    private var firebaseService = FirebaseService.shared
     private var users = [UserModel]()
     
     func getCurrentUserId() -> String? {
@@ -23,13 +23,11 @@ class ListMessageModelController {
     func getMessagesList(_ completion : @escaping()->()) {
         firebaseService.getListMessages({ matchedUsers in
             for userId in matchedUsers {
-                var user: UserModel!
                 self.firebaseService.getUserWithId(id: userId, { userInfo in
+                    var user = UserModel(info: userInfo)
                     self.firebaseService.getMainUserImage(from: userId, { image in
                         if let image = image {
-                            user = UserModel(info: userInfo, mainImage: image)
-                        } else {
-                            user = UserModel(info: userInfo)
+                            user.mainImage = image
                         }
                         self.users.append(user)
                         completion()
