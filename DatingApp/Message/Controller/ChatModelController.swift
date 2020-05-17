@@ -14,6 +14,11 @@ class ChatModelController {
     private var messages = [Message]()
     var user: UserModel?
     
+    enum LoadMessagesState {
+        case success
+        case noMessage
+    }
+    
     func getCurrentUserId() -> String? {
         return firebaseService.getUserID()
     }
@@ -28,9 +33,15 @@ class ChatModelController {
         return messages
     }
     
-    func getMessagesFromDatabase(_ completion : @escaping()->()) {
+    func getMessagesFromDatabase(_ completion : @escaping(LoadMessagesState)->()) {
         guard let toId = user?.id else { return }
+        var totalMessages = 0
+        var currentMessageIndex = 0
         firebaseService.getMessages(toId: toId, { data in
+            if data.isEmpty {
+                completion(.noMessage)
+                return
+            }
             for messageId in data {
                 self.firebaseService.getMessageDetails(with: messageId.key, { messageData in
                     guard let time = messageData["time"] as? Timestamp else { return }
@@ -42,14 +53,22 @@ class ChatModelController {
                         self.firebaseService.downloadImageFromStorage(url: imageUrl, { image in
                             message = Message(dictionary: values, image: image)
                             self.messages.append(message)
-                            completion()
+                            currentMessageIndex += 1
+                            if (currentMessageIndex == totalMessages) {
+                                completion(.success)
+                            }
                         })
                     } else {
                         message = Message(dictionary: values)
                         self.messages.append(message)
+                        currentMessageIndex += 1
+                        if (currentMessageIndex == totalMessages) {
+                            completion(.success)
+                        }
                     }
                 })
             }
+            totalMessages += 1
         })
     }
     
