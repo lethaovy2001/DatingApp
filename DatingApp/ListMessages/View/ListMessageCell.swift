@@ -16,6 +16,8 @@ class ListMessageCell: UITableViewCell {
         didSet {
             nameLabel.text = viewModel?.userName
             profileImageView.image = viewModel?.userImage
+            chatLabel.text = viewModel?.latestMessage
+            chatLabel.font = viewModel?.messageStyle
         }
     }
     

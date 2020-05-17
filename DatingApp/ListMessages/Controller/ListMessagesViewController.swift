@@ -74,7 +74,8 @@ extension ListMessagesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.messageCellId, for: indexPath) as! ListMessageCell
         if let uid = modelController.getCurrentUserId() {
             let model = modelController.getUsers()[indexPath.item]
-            cell.viewModel = ListMessageViewModel(userModel: model, currentUserId: uid)
+            let message = modelController.getMessages()[indexPath.item]
+            cell.viewModel = ListMessageViewModel(userModel: model, message: message, currentUserId: uid)
         }
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell

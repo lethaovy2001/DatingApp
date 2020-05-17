@@ -9,6 +9,21 @@
 import UIKit
 
 struct Constants {
+    struct Strings {
+        struct NewMessage {
+            static let title = "Say something cute!"
+            static let message = ""
+        }
+        struct DeniedLocationAccess {
+            static let title = "Location Access"
+            static let message = "Please enable location in order to match with other users"
+        }
+        struct Default {
+            static let title = "Thank You"
+            static let message = "You are now able to see others in the same area"
+        }
+    }
+    
     struct PaddingValues {
         // MARK: Input Container
         static let inputContainerHeight: CGFloat = 54

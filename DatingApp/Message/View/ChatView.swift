@@ -54,6 +54,7 @@ class ChatView: UIView {
     }()
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
     private let loadingView = LoadingAnimationView()
+    private let newChatAlertView = CustomAlertView(type: .newMessage)
     var viewModel: ListMessageViewModel? {
         didSet {
             profileImageView.image = viewModel?.userImage
@@ -169,6 +170,10 @@ class ChatView: UIView {
         sendButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        newChatAlertView.setDoneSelector(selector: selector, target: target)
+    }
+    
     func getInputText() -> String? {
         if (inputTextView.hasText()) {
             return inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -184,6 +189,21 @@ class ChatView: UIView {
         self.loadingView.removeFromSuperview()
     }
     
+    func showNewConversationAlert() {
+        newChatAlertView.isHidden = false
+        self.addSubview(newChatAlertView)
+        bringSubviewToFront(newChatAlertView)
+        NSLayoutConstraint.activate([
+            newChatAlertView.topAnchor.constraint(equalTo: topAnchor),
+            newChatAlertView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            newChatAlertView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            newChatAlertView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    func hideNewConversationAlert() {
+        self.newChatAlertView.removeFromSuperview()
+    }
 }
 
 // MARK: TextViewEditingDelegate
