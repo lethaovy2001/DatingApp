@@ -90,6 +90,10 @@
 		38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA742449166C00F1BE0D /* CustomAlertView.swift */; };
 		38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */; };
 		38F7672524525BE900B49F62 /* TapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F7672424525BE900B49F62 /* TapGestureDelegate.swift */; };
+		38F90ADA2470FF4E005B0BEB /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD92470FF4E005B0BEB /* DateConverter.swift */; };
+		38F90ADC2471B048005B0BEB /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90ADB2471B048005B0BEB /* Converter.swift */; };
+		38F90AD42470E91B005B0BEB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD32470E91B005B0BEB /* Database.swift */; };
+		38F90AD62470EB36005B0BEB /* EditableUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD52470EB36005B0BEB /* EditableUserProfile.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +184,10 @@
 		38DFEA742449166C00F1BE0D /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchLocationAnimation.json; sourceTree = "<group>"; };
 		38F7672424525BE900B49F62 /* TapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureDelegate.swift; sourceTree = "<group>"; };
+		38F90AD92470FF4E005B0BEB /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
+		38F90ADB2471B048005B0BEB /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		38F90AD32470E91B005B0BEB /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		38F90AD52470EB36005B0BEB /* EditableUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableUserProfile.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -393,6 +401,9 @@
 				38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */,
 				38F7672424525BE900B49F62 /* TapGestureDelegate.swift */,
 				3837CD6124564404007B4297 /* ZoomTapDelegate.swift */,
+				38F90AD92470FF4E005B0BEB /* DateConverter.swift */,
+				38F90AD32470E91B005B0BEB /* Database.swift */,
+				38F90AD52470EB36005B0BEB /* EditableUserProfile.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -446,6 +457,7 @@
 			children = (
 				38475D74246D07AC008EDD28 /* View */,
 				38475D73246D07A4008EDD28 /* Controller */,
+				38F90ADB2471B048005B0BEB /* Converter.swift */,
 			);
 			path = SignInScreen;
 			sourceTree = "<group>";
@@ -718,6 +730,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38F90ADA2470FF4E005B0BEB /* DateConverter.swift in Sources */,
 				38475D472469F894008EDD28 /* ListMessageModelController.swift in Sources */,
 				38DB158E2457FE2F00748B1B /* ImageDetailViewController.swift in Sources */,
 				382CC7A123D5EF650043060E /* Constants.swift in Sources */,
@@ -737,6 +750,7 @@
 				38475D72246D078B008EDD28 /* SignInView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */,
+				38F90ADC2471B048005B0BEB /* Converter.swift in Sources */,
 				383E4704244265990012977A /* CustomScrollView.swift in Sources */,
 				38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */,
 				383E4700244265990012977A /* CircleImageView.swift in Sources */,
@@ -769,6 +783,7 @@
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
 				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
 				38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */,
+				38F90AD62470EB36005B0BEB /* EditableUserProfile.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				383E4705244265990012977A /* CustomButton.swift in Sources */,
 				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,
@@ -788,6 +803,7 @@
 				3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
+				38F90AD42470E91B005B0BEB /* Database.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
