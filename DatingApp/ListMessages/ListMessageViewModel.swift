@@ -37,11 +37,12 @@ extension ListMessageViewModel {
     var latestMessage: String {
         if let text = message?.text {
             return text
-        }
-        if message?.videoUrl != nil {
+        } else if message?.videoUrl != nil {
             return "Share a video"
-        } else {
+        } else if message?.imageUrl != nil {
             return "Share an image"
+        } else {
+            return "You have a new match!"
         }
     }
     
