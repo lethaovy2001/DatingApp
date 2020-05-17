@@ -328,7 +328,7 @@ extension FirebaseService {
     
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
-        httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        httpsReference.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if let error = error {
                 print("FirebaseService: downloadImage \(error)")
             } else {
@@ -393,17 +393,19 @@ extension FirebaseService {
         })
     }
     
-    func updateMessageReference(toId: String, messageId: String) {
-        if let fromId = Auth.auth().currentUser?.uid {
-            let data: [String : Any] = [messageId: 1, "date": Date()]
-            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+    func updateMessageReference(message: Message) {
+        if let fromId = Auth.auth().currentUser?.uid,
+            let data = message.getMessageReference(),
+        let toId = message.toId {
+//            let data: [String : Any] = [messageId: 1, "date": Date()]
+            database.collection("user-messages").document(fromId).collection("match-users").document().collection("messageId").document(toId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
                     print("Successfully update message reference")
                 }
             })
-            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(toId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {

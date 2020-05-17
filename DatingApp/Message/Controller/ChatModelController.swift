@@ -73,11 +73,10 @@ class ChatModelController {
     }
     
     func updateMessageToDatabase(message: [String: Any]) {
-        let model = Message(dictionary: message)
-        if let toId = model.toId {
-            firebaseService.saveMessageToDatabase(with: model, { messageId in
-                self.firebaseService.updateMessageReference(toId: toId, messageId: messageId)
-            })
-        }
+        var model = Message(dictionary: message)
+        firebaseService.saveMessageToDatabase(with: model, { messageId in
+            model.messageId = messageId
+            self.firebaseService.updateMessageReference(message: model)
+        })
     }
 }

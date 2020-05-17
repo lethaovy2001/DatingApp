@@ -28,7 +28,7 @@ class ListMessageModelController {
     
     func getMessagesList(_ completion : @escaping()->()) {
         firebaseService.getListMessages({ matchedUsers in
-            var totalRecipient = 0
+            var recipientIndex = 0
             for userId in matchedUsers {
                 var user: UserModel!
                 self.firebaseService.getUserWithId(id: userId, { userInfo in
@@ -40,8 +40,8 @@ class ListMessageModelController {
                         }
                         self.users.append(user)
                         self.firebaseService.getLastestMessage(toId: userId, { messageId in
-                            totalRecipient += 1
-                            self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: totalRecipient, totalRecipient: matchedUsers.count, {
+                            recipientIndex += 1
+                            self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: recipientIndex, totalRecipient: matchedUsers.count, {
                                 completion()
                             })
                         })
