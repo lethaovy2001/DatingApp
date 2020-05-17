@@ -406,16 +406,16 @@ extension FirebaseService {
     func updateMessageReference(message: Message) {
         if let fromId = Auth.auth().currentUser?.uid,
             let data = message.getMessageReference(),
-        let toId = message.toId {
-//            let data: [String : Any] = [messageId: 1, "date": Date()]
-            database.collection("user-messages").document(fromId).collection("match-users").document().collection("messageId").document(toId).setData(data, merge: true, completion: { error in
+        let toId = message.toId,
+            let messageId = message.messageId {
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {
                     print("Successfully update message reference")
                 }
             })
-            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(toId).setData(data, merge: true, completion: { error in
+            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                 } else {

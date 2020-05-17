@@ -39,13 +39,16 @@ class ListMessageModelController {
                             user = UserModel(info: userInfo)
                         }
                         self.users.append(user)
-                        self.firebaseService.getLastestMessage(toId: userId, { messageId in
-                            recipientIndex += 1
-                            self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: recipientIndex, totalRecipient: matchedUsers.count, {
+                        let message = Message(dictionary: [:])
+                        self.messages.append(message)
+                        recipientIndex += 1
+                        self.firebaseService.getLastestMessage(toId: userId, { messageId, message in
+                        switch message {
+                            case .noMessage:
                                 completion()
                                 return
                             case .hasMessage:
-                                self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: totalRecipient, totalRecipient: matchedUsers.count, {
+                                self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: recipientIndex, totalRecipient: matchedUsers.count, {
                                     completion()
                                 })
                             }
@@ -63,21 +66,14 @@ class ListMessageModelController {
             var values = messageData
             values.updateValue(convertedTime, forKey: "time")
             let message = Message(dictionary: values)
-            //add new messages
-            if (recipientIndex <= totalRecipient) {
-                self.messages.append(message)
-                completion()
-                //update message
-            } else {
-                var index = 0
-                for person in self.users {
-                    if person.id == userId {
-                        self.messages.remove(at: index)
-                        self.messages.insert(message, at: index)
-                        completion()
-                    }
-                    index += 1
+            var index = 0
+            for person in self.users {
+                if person.id == userId {
+                    self.messages.remove(at: index)
+                    self.messages.insert(message, at: index)
+                    completion()
                 }
+                index += 1
             }
         })
     }
