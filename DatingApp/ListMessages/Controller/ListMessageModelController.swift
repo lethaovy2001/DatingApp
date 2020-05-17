@@ -43,7 +43,12 @@ class ListMessageModelController {
                             recipientIndex += 1
                             self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: recipientIndex, totalRecipient: matchedUsers.count, {
                                 completion()
-                            })
+                                return
+                            case .hasMessage:
+                                self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: totalRecipient, totalRecipient: matchedUsers.count, {
+                                    completion()
+                                })
+                            }
                         })
                     })
                 })
