@@ -14,7 +14,7 @@ class CustomNavigationView: CustomContainerView {
     private var rightButton: CustomButton!
     private var type: NavigationType!
     private var profileImageView: CircleImageView!
-    var tapDelegate: TapGestureDelegate?
+    var tapDelegate: ImageTapGestureDelegate?
     
     enum NavigationType {
         case userDetails
@@ -59,7 +59,7 @@ class CustomNavigationView: CustomContainerView {
     }
     
     private func setupLeftButton(imageName: String) {
-        leftButton = CustomButton(imageName: imageName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+        leftButton = CustomButton(imageName: imageName, size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
         self.addSubview(leftButton)
         NSLayoutConstraint.activate([
             leftButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
@@ -68,7 +68,7 @@ class CustomNavigationView: CustomContainerView {
     }
     
     private func setupRightButton(symbolName: String) {
-        rightButton = CustomButton(imageName: symbolName, size: 22, color: UIColor.orangeRed, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+        rightButton = CustomButton(imageName: symbolName, size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
         self.addSubview(rightButton)
         NSLayoutConstraint.activate([
             rightButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),

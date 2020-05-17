@@ -15,6 +15,7 @@ class ListMessagesViewController: UIViewController {
         return view
     }()
     private let modelController = ListMessageModelController()
+    private var firebaseService = FirebaseService.shared
     
     //MARK: Life Cycles
     override func viewDidLoad() {
@@ -72,7 +73,7 @@ extension ListMessagesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.messageCellId, for: indexPath) as! ListMessageCell
-        if let uid = modelController.getCurrentUserId() {
+        if let uid = firebaseService.getUserID() {
             let model = modelController.getUsers()[indexPath.item]
             let message = modelController.getMessages()[indexPath.item]
             cell.viewModel = ListMessageViewModel(userModel: model, message: message, currentUserId: uid)
@@ -95,7 +96,7 @@ extension ListMessagesViewController: UITableViewDelegate {
     }
 }
 
-extension ListMessagesViewController: TapGestureDelegate {
+extension ListMessagesViewController: ImageTapGestureDelegate {
     func didTap() {
         let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)

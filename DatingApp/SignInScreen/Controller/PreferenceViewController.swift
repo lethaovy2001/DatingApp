@@ -16,6 +16,7 @@ class PreferenceViewController: UIViewController {
     }()
     private var firebaseService = FirebaseService()
     var user: UserModel!
+    private let converter = Converter()
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -41,7 +42,7 @@ class PreferenceViewController: UIViewController {
         let interestedGender = mainView.getInterestedSelection()
         if let birthday = mainView.getBirthdayText(),
             let id = firebaseService.getUserID() {
-            let date = convertToDate(from: birthday)
+            let date = converter.convertToDate(dateString: birthday)
             let dictionary: [String: Any] = [
                 "gender": gender,
                 "interestedIn": interestedGender,
@@ -53,11 +54,5 @@ class PreferenceViewController: UIViewController {
             let vc = EditUserDetailsViewController(viewModel: viewModel)
             self.navigationController?.pushViewController(vc, animated: true)
         }
-    }
-    
-    private func convertToDate(from dateString: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
-        return dateFormatter.date(from: dateString) ?? Date()
     }
 }

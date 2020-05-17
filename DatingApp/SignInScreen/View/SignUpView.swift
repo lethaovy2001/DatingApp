@@ -1,5 +1,5 @@
 //
-//  SignInView.swift
+//  SignUpView.swift
 //  DatingApp
 //
 //  Created by Vy Le on 5/13/20.
@@ -9,7 +9,7 @@
 import UIKit
 import Lottie
 
-class SignInView: UIView {
+class SignUpView: UIView {
     private var appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
@@ -19,7 +19,7 @@ class SignInView: UIView {
         animationView.translatesAutoresizingMaskIntoConstraints = false
         return animationView
     }()
-    private let signInLabel = SectionTitleLabel(title: "Sign In")
+    private let signUpLabel = SectionTitleLabel(title: "Sign Up")
     private let nameTextField = CustomTextField(placeholder: "Name")
     private let emailTextField = CustomTextField(placeholder: "Email")
     private let passwordTextField = CustomTextField(placeholder: "Password")
@@ -61,7 +61,7 @@ class SignInView: UIView {
     private func addSubViews() {
         addSubview(containerView)
         addSubview(signInButton)
-        containerView.addSubview(signInLabel)
+        containerView.addSubview(signUpLabel)
         containerView.addSubview(nameTextField)
         containerView.addSubview(emailTextField)
         containerView.addSubview(passwordTextField)
@@ -86,13 +86,13 @@ class SignInView: UIView {
             appLogo.widthAnchor.constraint(equalToConstant: 250)
         ])
         NSLayoutConstraint.activate([
-            signInLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -72),
-            signInLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            signInLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
-            signInLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
+            signUpLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -72),
+            signUpLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            signUpLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
+            signUpLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 8),
+            nameTextField.topAnchor.constraint(equalTo: signUpLabel.bottomAnchor, constant: 8),
             nameTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 36),
             nameTextField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -36)
         ])
@@ -128,7 +128,7 @@ class SignInView: UIView {
         ])
     }
     
-    func addDelegate(viewController: SignInViewController) {
+    func addDelegate(viewController: SignUpViewController) {
         viewController.keyboardDelegate = self
     }
     
@@ -170,7 +170,7 @@ class SignInView: UIView {
     }
 }
 
-extension SignInView: KeyboardDelegate {
+extension SignUpView: KeyboardDelegate {
     func showKeyboard() {
         containerBotomAnchor?.constant = -self.keyboardFrame.height + 20
         appLogoTopAnchor?.constant = 36

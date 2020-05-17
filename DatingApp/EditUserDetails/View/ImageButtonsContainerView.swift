@@ -81,7 +81,7 @@ class ImageButtonsContainerView: UIView {
     }
     
     func addDelegate(viewController: EditUserDetailsViewController) {
-        viewController.imageTapGestureDelegate = self
+        viewController.tapGestureDelegate = self
     }
     
     func setSelectedButton(sender: UIButton) {
@@ -120,8 +120,8 @@ class ImageButtonsContainerView: UIView {
     }
 }
 
-// MARK: ImageTapGestureDelegate
-extension ImageButtonsContainerView: TapGestureDelegate {
+// MARK: TapGestureDelegate
+extension ImageButtonsContainerView: ImageTapGestureDelegate {
     func setImage(image: UIImage) {
         selectedButton.setImage(image: image)
     }

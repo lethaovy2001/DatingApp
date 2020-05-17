@@ -1,5 +1,5 @@
 //
-//  SignInViewController.swift
+//  SignUpViewController.swift
 //  DatingApp
 //
 //  Created by Vy Le on 5/13/20.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SignInViewController: UIViewController {
-    private let mainView: SignInView = {
-        let view = SignInView(frame: .zero)
+class SignUpViewController: UIViewController {
+    private let mainView: SignUpView = {
+        let view = SignUpView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -52,7 +52,6 @@ class SignInViewController: UIViewController {
     //MARK: Actions
     @objc func signIn() {
         guard let email = mainView.getEmailText(), let password = mainView.getPasswordText(), let name = mainView.getNameText() else {
-            self.mainView.showError(message: "Missing some fields")
             return
         }
         firebaseService.createUser(email: email, password: password, name: name, { errorMessage in
@@ -72,7 +71,7 @@ class SignInViewController: UIViewController {
 }
 
 // MARK: Keyboards
-extension SignInViewController {
+extension SignUpViewController {
     private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

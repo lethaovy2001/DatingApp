@@ -52,7 +52,6 @@ class EmailLoginViewController: UIViewController {
     //MARK: Actions
     @objc func loginWithEmail() {
         guard let email = mainView.getEmailText(), let password = mainView.getPasswordText()else {
-            self.mainView.showError(message: "Missing some fields")
             return
         }
         

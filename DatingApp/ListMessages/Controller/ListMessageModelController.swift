@@ -10,13 +10,9 @@ import UIKit
 import Firebase
 
 class ListMessageModelController {
-    private var firebaseService = FirebaseService()
+    private var firebaseService = FirebaseService.shared
     private var users = [UserModel]()
     private var messages = [Message]()
-    
-    func getCurrentUserId() -> String? {
-        return firebaseService.getUserID()
-    }
     
     func getUsers() -> [UserModel] {
         return users
@@ -28,27 +24,25 @@ class ListMessageModelController {
     
     func getMessagesList(_ completion : @escaping()->()) {
         firebaseService.getListMessages({ matchedUsers in
-            var totalRecipient = 0
+            var recipientIndex = 0
             for userId in matchedUsers {
-                var user: UserModel!
                 self.firebaseService.getUserWithId(id: userId, { userInfo in
+                    var user = UserModel(info: userInfo)
                     self.firebaseService.getMainUserImage(from: userId, { image in
                         if let image = image {
-                            user = UserModel(info: userInfo, mainImage: image)
-                        } else {
-                            user = UserModel(info: userInfo)
+                            user.mainImage = image
                         }
                         self.users.append(user)
+                        let message = Message(dictionary: [:])
+                        self.messages.append(message)
+                        recipientIndex += 1
                         self.firebaseService.getLastestMessage(toId: userId, { messageId, message in
-                            totalRecipient += 1
-                            switch message {
+                        switch message {
                             case .noMessage:
-                                let message = Message(dictionary: [:])
-                                self.messages.append(message)
                                 completion()
                                 return
                             case .hasMessage:
-                                self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: totalRecipient, totalRecipient: matchedUsers.count, {
+                                self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: recipientIndex, totalRecipient: matchedUsers.count, {
                                     completion()
                                 })
                             }
@@ -66,21 +60,14 @@ class ListMessageModelController {
             var values = messageData
             values.updateValue(convertedTime, forKey: "time")
             let message = Message(dictionary: values)
-            //add new messages
-            if (recipientIndex <= totalRecipient) {
-                self.messages.append(message)
-                completion()
-                //update message
-            } else {
-                var index = 0
-                for person in self.users {
-                    if person.id == userId {
-                        self.messages.remove(at: index)
-                        self.messages.insert(message, at: index)
-                        completion()
-                    }
-                    index += 1
+            var index = 0
+            for person in self.users {
+                if person.id == userId {
+                    self.messages.remove(at: index)
+                    self.messages.insert(message, at: index)
+                    completion()
                 }
+                index += 1
             }
         })
     }

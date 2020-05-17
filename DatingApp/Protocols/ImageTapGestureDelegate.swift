@@ -1,5 +1,5 @@
 //
-//  TapGestureDelegate.swift
+//  ImageTapGestureDelegate.swift
 //  DatingApp
 //
 //  Created by Vy Le on 4/23/20.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol TapGestureDelegate {
+protocol ImageTapGestureDelegate {
     func didTap()
     func setImage(image: UIImage)
 }
 
-extension TapGestureDelegate {
+extension ImageTapGestureDelegate {
     func didTap() {
         print("Did Tap...")
     }

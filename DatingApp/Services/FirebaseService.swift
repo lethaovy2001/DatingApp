@@ -14,6 +14,7 @@ import AVFoundation
 class FirebaseService {
     private var database: Firestore!
     private var storage: Storage!
+    static let shared = FirebaseService()
     
     enum MessageState {
         case noMessage
@@ -26,10 +27,7 @@ class FirebaseService {
     }
     
     func getUserID() -> String? {
-        if let uid = Auth.auth().currentUser?.uid {
-            return uid
-        }
-        return nil
+        return Auth.auth().currentUser?.uid
     }
     
     func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
@@ -403,9 +401,11 @@ extension FirebaseService {
         })
     }
     
-    func updateMessageReference(toId: String, messageId: String) {
-        if let fromId = Auth.auth().currentUser?.uid {
-            let data: [String : Any] = [messageId: 1, "date": Date()]
+    func updateMessageReference(message: Message) {
+        if let fromId = Auth.auth().currentUser?.uid,
+            let data = message.getMessageReference(),
+        let toId = message.toId,
+            let messageId = message.messageId {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
