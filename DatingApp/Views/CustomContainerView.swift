@@ -9,10 +9,10 @@
 import UIKit
 
 class CustomContainerView: UIView {
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = .white
-        self.addShadow(color: UIColor.customLightGray)
+        self.backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

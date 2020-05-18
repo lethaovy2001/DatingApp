@@ -8,16 +8,13 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
-    private let mainView: SignUpView = {
-        let view = SignUpView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+class SignUpViewController : UIViewController {
+    // MARK: - Properties
+    private let mainView = SignUpView()
     private var firebaseService: FirebaseService!
     var keyboardDelegate: KeyboardDelegate?
     
-    // MARK: Life Cycles
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         firebaseService = FirebaseService()
@@ -70,7 +67,7 @@ class SignUpViewController: UIViewController {
     }
 }
 
-// MARK: Keyboards
+// MARK: - Keyboards
 extension SignUpViewController {
     private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
