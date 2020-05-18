@@ -15,7 +15,7 @@ class ListMessagesViewController: UIViewController {
         return view
     }()
     private let modelController = ListMessageModelController()
-    private var firebaseService = FirebaseService.shared
+    private var firebaseService = FirebaseService()
     
     //MARK: Life Cycles
     override func viewDidLoad() {
