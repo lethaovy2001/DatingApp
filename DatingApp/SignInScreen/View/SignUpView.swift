@@ -10,6 +10,8 @@ import UIKit
 import Lottie
 
 class SignUpView: UIView {
+    
+    // MARK: - Properties
     private var appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
@@ -23,22 +25,17 @@ class SignUpView: UIView {
     private let nameTextField = CustomTextField(placeholder: "Name")
     private let emailTextField = CustomTextField(placeholder: "Email")
     private let passwordTextField = CustomTextField(placeholder: "Password")
-    private let signInButton = RoundedButton(title: "SIGN IN", color: UIColor.amour)
-    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let errorLabel = CustomLabel(text: "Error", textColor: UIColor.red, textSize: 14, textWeight: .regular)
+    private let signUpButton = RoundedButton(title: "SIGN UP", color: UIColor.amour)
+    private let backButton = BackButton()
+    private let errorLabel = ErrorLabel()
     private var keyboardFrame = CGRect()
-    private var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private var containerView = CustomContainerView()
     private var containerBotomAnchor: NSLayoutConstraint?
     private var appLogoTopAnchor: NSLayoutConstraint?
     
-    // MARK: Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Initializer
+    init() {
+        super.init(frame: .zero)
         setup()
     }
     
@@ -46,21 +43,21 @@ class SignUpView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup
     private func setup() {
+        setUpSelf()
         addSubViews()
         setupConstraints()
         setUpErrorLabel()
     }
     
-    // MARK: Setup
-    private func setUpErrorLabel() {
-        errorLabel.isHidden = true
-        errorLabel.numberOfLines = 2
+    private func setUpSelf() {
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func addSubViews() {
         addSubview(containerView)
-        addSubview(signInButton)
+        addSubview(signUpButton)
         containerView.addSubview(signUpLabel)
         containerView.addSubview(nameTextField)
         containerView.addSubview(emailTextField)
@@ -117,15 +114,20 @@ class SignUpView: UIView {
             errorLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -36)
         ])
         NSLayoutConstraint.activate([
-            signInButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
-            signInButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
-            signInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 48),
-            signInButton.heightAnchor.constraint(equalToConstant: 60)
+            signUpButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 36),
+            signUpButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -36),
+            signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 48),
+            signUpButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
             backButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             backButton.topAnchor.constraint(equalTo: topAnchor, constant: 54)
         ])
+    }
+    
+    private func setUpErrorLabel() {
+        errorLabel.isHidden = true
+        errorLabel.numberOfLines = 2
     }
     
     func addDelegate(viewController: SignUpViewController) {
@@ -141,7 +143,7 @@ class SignUpView: UIView {
     }
     
     func setLoginSelector(selector: Selector, target: UIViewController) {
-        signInButton.addTarget(target, action: selector, for: .touchUpInside)
+        signUpButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
@@ -170,6 +172,7 @@ class SignUpView: UIView {
     }
 }
 
+// MARK: - KeyboardDelegate
 extension SignUpView: KeyboardDelegate {
     func showKeyboard() {
         containerBotomAnchor?.constant = -self.keyboardFrame.height + 20

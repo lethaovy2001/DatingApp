@@ -9,6 +9,7 @@
 import UIKit
 
 struct Constants {
+    // MARK: Strings
     struct Strings {
         struct NewMessage {
             static let title = "Say something cute!"
@@ -24,6 +25,12 @@ struct Constants {
         }
     }
     
+    // MARK: IconNames
+    struct IconNames {
+        static let back = "chevron.left"
+    }
+    
+    // MARK: PaddingValues
     struct PaddingValues {
         // MARK: Input Container
         static let inputContainerHeight: CGFloat = 54
@@ -50,7 +57,7 @@ struct Constants {
         static let selectAddImage = "selectAddImage"
     }
     
-    //MARK: Font size
+    //MARK: - Font size
     static let textSize: CGFloat = 20
 }
 
