@@ -80,12 +80,11 @@
 		38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */; };
 		38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFD244BAB9000F4E60E /* BioContainerView.swift */; };
 		38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */; };
+		38DB157E24574FCA00748B1B /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB157D24574FCA00748B1B /* DatingAppTests.swift */; };
+		38DB1586245752CD00748B1B /* UserViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB1585245752CD00748B1B /* UserViewModelTest.swift */; };
 		38DB158E2457FE2F00748B1B /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */; };
 		38DB15942459D46F00748B1B /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB15932459D46F00748B1B /* EmailLoginViewController.swift */; };
 		38DB15962459D4B000748B1B /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB15952459D4B000748B1B /* EmailLoginView.swift */; };
-		38DB157E24574FCA00748B1B /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB157D24574FCA00748B1B /* DatingAppTests.swift */; };
-		38DB1586245752CD00748B1B /* UserViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB1585245752CD00748B1B /* UserViewModelTest.swift */; };
-		38DB158A24579E6F00748B1B /* MainModelControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB158924579E6F00748B1B /* MainModelControllerTest.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
@@ -100,7 +99,8 @@
 		38F90AE42471FFFA005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */; };
 		38F90AF824722C40005B0BEB /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AF724722C40005B0BEB /* CustomButton.swift */; };
 		38F90AFB24723286005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AFA24723286005B0BEB /* Authentication.swift */; };
-		5B62D4902943CD3B7D999CA1 /* Pods_DatingAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61AF9D71FCFC6A7C4934CE76 /* Pods_DatingAppTests.framework */; };
+		38F90B0324725A58005B0BEB /* UserModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B0224725A58005B0BEB /* UserModelTest.swift */; };
+		5B62D4902943CD3B7D999CA1 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -191,14 +191,13 @@
 		38DACAFB244B9A0C00F4E60E /* NameContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameContainerView.swift; sourceTree = "<group>"; };
 		38DACAFD244BAB9000F4E60E /* BioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioContainerView.swift; sourceTree = "<group>"; };
 		38DACAFF244BAFBC00F4E60E /* ImageButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonsContainerView.swift; sourceTree = "<group>"; };
-		38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
-		38DB15932459D46F00748B1B /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
-		38DB15952459D4B000748B1B /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		38DB157B24574FCA00748B1B /* DatingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DB157D24574FCA00748B1B /* DatingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppTests.swift; sourceTree = "<group>"; };
 		38DB157F24574FCA00748B1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38DB1585245752CD00748B1B /* UserViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTest.swift; sourceTree = "<group>"; };
-		38DB158924579E6F00748B1B /* MainModelControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModelControllerTest.swift; sourceTree = "<group>"; };
+		38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		38DB15932459D46F00748B1B /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
+		38DB15952459D4B000748B1B /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -213,6 +212,7 @@
 		38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90AF724722C40005B0BEB /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		38F90AFA24723286005B0BEB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		38F90B0224725A58005B0BEB /* UserModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTest.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1531BA758836D865B53171 /* Pods-DatingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingAppTests.release.xcconfig"; path = "Target Support Files/Pods-DatingAppTests/Pods-DatingAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B62D4902943CD3B7D999CA1 /* Pods_DatingAppTests.framework in Frameworks */,
+				5B62D4902943CD3B7D999CA1 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,7 +627,7 @@
 				38DB157D24574FCA00748B1B /* DatingAppTests.swift */,
 				38DB157F24574FCA00748B1B /* Info.plist */,
 				38DB1585245752CD00748B1B /* UserViewModelTest.swift */,
-				38DB158924579E6F00748B1B /* MainModelControllerTest.swift */,
+				38F90B0224725A58005B0BEB /* UserModelTest.swift */,
 			);
 			path = DatingAppTests;
 			sourceTree = "<group>";
@@ -655,7 +655,6 @@
 			isa = PBXGroup;
 			children = (
 				A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */,
-				61AF9D71FCFC6A7C4934CE76 /* Pods_DatingAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -940,8 +939,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38DB158A24579E6F00748B1B /* MainModelControllerTest.swift in Sources */,
 				38DB157E24574FCA00748B1B /* DatingAppTests.swift in Sources */,
+				38F90B0324725A58005B0BEB /* UserModelTest.swift in Sources */,
 				38DB1586245752CD00748B1B /* UserViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
