@@ -14,4 +14,8 @@ target 'DatingApp' do
   pod 'FBSDKLoginKit'
   pod 'lottie-ios'
 
+  target 'DatingAppTests' do
+      inherit! :search_paths
+      pod 'Firebase'
+  end
 end
