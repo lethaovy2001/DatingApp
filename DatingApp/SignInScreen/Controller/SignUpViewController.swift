@@ -11,7 +11,7 @@ import UIKit
 class SignUpViewController : UIViewController {
     // MARK: - Properties
     private let mainView = SignUpView()
-    internal var firebaseService = FirebaseService()
+    private var firebaseService: FirebaseService
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - View Lifecycle
@@ -30,8 +30,8 @@ class SignUpViewController : UIViewController {
     
     // MARK: - Initializer
     init(firebaseService: FirebaseService) {
-        super.init(nibName: nil, bundle: nil)
         self.firebaseService = firebaseService
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
