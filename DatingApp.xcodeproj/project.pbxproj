@@ -38,7 +38,6 @@
 		383E4702244265990012977A /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F8244265980012977A /* CustomStackView.swift */; };
 		383E4703244265990012977A /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46F9244265980012977A /* CustomImageView.swift */; };
 		383E4704244265990012977A /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46FA244265990012977A /* CustomScrollView.swift */; };
-		383E4705244265990012977A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46FB244265990012977A /* CustomButton.swift */; };
 		383E4706244265990012977A /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E46FC244265990012977A /* CustomLabel.swift */; };
 		383E4708244266740012977A /* UIView+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E4707244266740012977A /* UIView+helpers.swift */; };
 		383E470C244267000012977A /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E470A244267000012977A /* KeyboardDelegate.swift */; };
@@ -96,6 +95,7 @@
 		38F90ADC2471B048005B0BEB /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90ADB2471B048005B0BEB /* Converter.swift */; };
 		38F90AE22471FC2F005B0BEB /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE12471FC2F005B0BEB /* BackButton.swift */; };
 		38F90AE42471FFFA005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */; };
+		38F90AF824722C40005B0BEB /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AF724722C40005B0BEB /* CustomButton.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -134,7 +134,6 @@
 		383E46F8244265980012977A /* CustomStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		383E46F9244265980012977A /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		383E46FA244265990012977A /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
-		383E46FB244265990012977A /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = "../../../../../Downloads/DatingApp-user-details-display-ui/DatingApp/Views/CustomButton.swift"; sourceTree = "<group>"; };
 		383E46FC244265990012977A /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		383E4707244266740012977A /* UIView+helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+helpers.swift"; sourceTree = "<group>"; };
 		383E470A244267000012977A /* KeyboardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +191,7 @@
 		38F90ADB2471B048005B0BEB /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		38F90AE12471FC2F005B0BEB /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
+		38F90AF724722C40005B0BEB /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -302,7 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				383E46F6244265980012977A /* CircleImageView.swift */,
-				383E46FB244265990012977A /* CustomButton.swift */,
+				38F90AF724722C40005B0BEB /* CustomButton.swift */,
 				383E46F5244265980012977A /* CustomContainerView.swift */,
 				383E46F9244265980012977A /* CustomImageView.swift */,
 				383E46FC244265990012977A /* CustomLabel.swift */,
@@ -762,6 +762,7 @@
 				38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */,
 				383E4700244265990012977A /* CircleImageView.swift in Sources */,
 				383E46E7244265450012977A /* UserDetailsView.swift in Sources */,
+				38F90AF824722C40005B0BEB /* CustomButton.swift in Sources */,
 				383E46EF244265570012977A /* EditUserDetailsViewController.swift in Sources */,
 				383E46F0244265570012977A /* EditUserDetailsView.swift in Sources */,
 				383E46F2244265570012977A /* AddImageButton.swift in Sources */,
@@ -793,7 +794,6 @@
 				38F90AD62470EB36005B0BEB /* WritableDatabase.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				38F90AE42471FFFA005B0BEB /* ErrorLabel.swift in Sources */,
-				383E4705244265990012977A /* CustomButton.swift in Sources */,
 				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
 				38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */,
