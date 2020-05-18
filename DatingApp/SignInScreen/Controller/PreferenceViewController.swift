@@ -9,6 +9,7 @@
 import UIKit
 
 class PreferenceViewController: UIViewController {
+    // MARK: - Properties
     private let mainView: PreferenceView = {
         let view = PreferenceView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -16,15 +17,26 @@ class PreferenceViewController: UIViewController {
     }()
     private var firebaseService = FirebaseService()
     var user: UserModel!
-    private let converter = Converter()
+    private let converter = DateConverter()
     
-    // MARK: Life Cycles
+    // MARK: - Initializer
+    init(firebaseService: FirebaseService) {
+        self.firebaseService = firebaseService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         mainView.setSaveButton(selector: #selector(saveButtonPressed), target: self)
     }
     
+    // MARK: - Setup
     private func setupUI() {
         view.addSubview(mainView)
         NSLayoutConstraint.activate([
@@ -37,7 +49,7 @@ class PreferenceViewController: UIViewController {
     }
     
     // MARK: Actions
-    @objc func saveButtonPressed() {
+    @objc private func saveButtonPressed() {
         let gender = mainView.getGenderSelection()
         let interestedGender = mainView.getInterestedSelection()
         if let birthday = mainView.getBirthdayText(),
