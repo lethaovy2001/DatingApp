@@ -9,6 +9,7 @@
 import UIKit
 
 class PreferenceView: UIView {
+    // MARK: - Properties
     private let genderLabel = SectionTitleLabel(title: "Gender")
     private let interestLabel = SectionTitleLabel(title: "Interested in")
     private var genderSegmentedControl: UISegmentedControl = {
@@ -29,7 +30,7 @@ class PreferenceView: UIView {
     private let birthdayLabel = SectionTitleLabel(title: "Birthday")
     private let birthdayTextField = CustomTextField(placeholder: "mm-dd-yyyy")
     
-    // MARK: Initializer
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
         setup()
@@ -39,7 +40,7 @@ class PreferenceView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
         addSubViews()
         setupConstraints()

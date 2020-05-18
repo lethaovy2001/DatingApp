@@ -8,13 +8,9 @@
 
 import UIKit
 
-class PreferenceViewController: UIViewController {
+class PreferenceViewController : UIViewController {
     // MARK: - Properties
-    private let mainView: PreferenceView = {
-        let view = PreferenceView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let mainView = PreferenceView()
     private var firebaseService = FirebaseService()
     var user: UserModel!
     private let converter = DateConverter()
@@ -39,6 +35,7 @@ class PreferenceViewController: UIViewController {
     // MARK: - Setup
     private func setupUI() {
         view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: view.topAnchor),
             mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

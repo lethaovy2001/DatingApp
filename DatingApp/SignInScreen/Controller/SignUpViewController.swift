@@ -80,7 +80,7 @@ extension SignUpViewController: UserCreatable {
                 self.mainView.showError(message: error)
                 return
             }
-            let vc = PreferenceViewController()
+            let vc = PreferenceViewController(firebaseService: self.firebaseService)
             vc.user = UserModel(info: ["first_name": name])
             self.navigationController?.pushViewController(vc, animated: true)
         }
