@@ -14,7 +14,6 @@ import AVFoundation
 class FirebaseService {
     private var database: Firestore!
     private var storage: Storage!
-    static let shared = FirebaseService()
     
     enum MessageState {
         case noMessage

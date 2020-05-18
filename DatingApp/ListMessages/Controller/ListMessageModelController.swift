@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class ListMessageModelController {
-    private var firebaseService = FirebaseService.shared
+    private var firebaseService = FirebaseService()
     private var users = [UserModel]()
     private var messages = [Message]()
     
