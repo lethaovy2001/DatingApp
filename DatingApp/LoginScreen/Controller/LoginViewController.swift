@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func signIn() {
-        let vc = SignUpViewController()
+        let vc = SignUpViewController(firebaseService: firebaseService)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
