@@ -96,6 +96,7 @@
 		38F90AE22471FC2F005B0BEB /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE12471FC2F005B0BEB /* BackButton.swift */; };
 		38F90AE42471FFFA005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */; };
 		38F90AF824722C40005B0BEB /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AF724722C40005B0BEB /* CustomButton.swift */; };
+		38F90B072473097D005B0BEB /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B062473097D005B0BEB /* CustomButton.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +193,7 @@
 		38F90AE12471FC2F005B0BEB /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90AF724722C40005B0BEB /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		38F90B062473097D005B0BEB /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -303,6 +305,7 @@
 			children = (
 				383E46F6244265980012977A /* CircleImageView.swift */,
 				38F90AF724722C40005B0BEB /* CustomButton.swift */,
+				38F90B062473097D005B0BEB /* CustomButton.swift */,
 				383E46F5244265980012977A /* CustomContainerView.swift */,
 				383E46F9244265980012977A /* CustomImageView.swift */,
 				383E46FC244265990012977A /* CustomLabel.swift */,
@@ -757,6 +760,7 @@
 				38475D72246D078B008EDD28 /* SignUpView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,
 				383E470D244267000012977A /* TextViewEditingDelegate.swift in Sources */,
+				38F90B072473097D005B0BEB /* CustomButton.swift in Sources */,
 				38F90ADC2471B048005B0BEB /* Converter.swift in Sources */,
 				383E4704244265990012977A /* CustomScrollView.swift in Sources */,
 				38BFFAE8244D2A6A00AC6B5E /* LocationService.swift in Sources */,
