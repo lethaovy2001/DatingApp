@@ -96,6 +96,7 @@
 		38F90AE22471FC2F005B0BEB /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE12471FC2F005B0BEB /* BackButton.swift */; };
 		38F90AE42471FFFA005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */; };
 		38F90AF824722C40005B0BEB /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AF724722C40005B0BEB /* CustomButton.swift */; };
+		38F90AFB24723286005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AFA24723286005B0BEB /* Authentication.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +193,7 @@
 		38F90AE12471FC2F005B0BEB /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		38F90AE32471FFFA005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90AF724722C40005B0BEB /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		38F90AFA24723286005B0BEB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -410,6 +412,7 @@
 				38F90AD92470FF4E005B0BEB /* DateConverter.swift */,
 				38F90AD32470E91B005B0BEB /* Database.swift */,
 				38F90AD52470EB36005B0BEB /* WritableDatabase.swift */,
+				38F90AFA24723286005B0BEB /* Authentication.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				38475D5B246B7D84008EDD28 /* SearchingAnimationView.swift in Sources */,
 				38DACAFC244B9A0C00F4E60E /* NameContainerView.swift in Sources */,
 				3889EB502454C942009B63C2 /* ChatModelController.swift in Sources */,
+				38F90AFB24723286005B0BEB /* Authentication.swift in Sources */,
 				3838C0582453E30C00092341 /* Message.swift in Sources */,
 				38475D72246D078B008EDD28 /* SignUpView.swift in Sources */,
 				3854F64B2437C4EC00229E16 /* InputTextView.swift in Sources */,

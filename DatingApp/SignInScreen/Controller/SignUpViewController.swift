@@ -11,13 +11,12 @@ import UIKit
 class SignUpViewController : UIViewController {
     // MARK: - Properties
     private let mainView = SignUpView()
-    private var firebaseService: FirebaseService!
+    internal var firebaseService = FirebaseService()
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
         mainView.addDelegate(viewController: self)
@@ -29,8 +28,19 @@ class SignUpViewController : UIViewController {
         setupKeyboardObservers()
     }
     
-    // MARK: Setup
+    // MARK: - Initializer
+    init(firebaseService: FirebaseService) {
+        super.init(nibName: nil, bundle: nil)
+        self.firebaseService = firebaseService
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Setup
     private func setupUI() {
+        view.backgroundColor = .white
         view.addSubview(mainView)
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -38,20 +48,34 @@ class SignUpViewController : UIViewController {
             mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        view.backgroundColor = .white
     }
     
     private func setSelectors() {
-        mainView.setLoginSelector(selector: #selector(signIn), target: self)
+        mainView.setLoginSelector(selector: #selector(signUp), target: self)
         mainView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
     }
     
     //MARK: Actions
-    @objc func signIn() {
-        guard let email = mainView.getEmailText(), let password = mainView.getPasswordText(), let name = mainView.getNameText() else {
+    @objc private func signUp() {
+        createUser()
+    }
+    
+    @objc private func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - UserCreatable
+extension SignUpViewController: UserCreatable {
+    func createUser() {
+        guard
+            let email = mainView.getEmailText(),
+            let password = mainView.getPasswordText(),
+            let name = mainView.getNameText()
+        else {
             return
         }
-        firebaseService.createUser(email: email, password: password, name: name, { errorMessage in
+        firebaseService.createUser(email: email, password: password, name: name) { errorMessage in
             if let error = errorMessage {
                 self.mainView.showError(message: error)
                 return
@@ -59,11 +83,7 @@ class SignUpViewController : UIViewController {
             let vc = PreferenceViewController()
             vc.user = UserModel(info: ["first_name": name])
             self.navigationController?.pushViewController(vc, animated: true)
-        })
-    }
-    
-    @objc func backButtonPressed() {
-        self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -74,16 +94,16 @@ extension SignUpViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    @objc func dismissKeyboard() {
+    @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    @objc func handleKeyboardWillHide(notification: NSNotification) {
+    @objc private func handleKeyboardWillHide(notification: NSNotification) {
         keyboardDelegate?.hideKeyboard()
         performKeyboardAnimation(notification: notification)
     }
     
-    @objc func handleKeyboardWillShow(notification: NSNotification) {
+    @objc private func handleKeyboardWillShow(notification: NSNotification) {
         let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue ?? CGRect(x: 0, y: 0, width: 0, height: 0)
         mainView.getKeyboard(frame: keyboardFrame)
         keyboardDelegate?.showKeyboard()
