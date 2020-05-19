@@ -98,6 +98,7 @@
 		38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1E24733358005B0BEB /* ErrorLabel.swift */; };
 		38F90B23247338F7005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B22247338F7005B0BEB /* Authentication.swift */; };
 		38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B382473A1E6005B0BEB /* PasswordTextField.swift */; };
+		38F90B3C24747A1B005B0BEB /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3B24747A1B005B0BEB /* AppLogoView.swift */; };
 		38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */; };
 		38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3224733C01005B0BEB /* UserModelTest.swift */; };
 		38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3424733C32005B0BEB /* UserViewModelTest.swift */; };
@@ -211,6 +212,7 @@
 		38F90B1E24733358005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90B22247338F7005B0BEB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		38F90B382473A1E6005B0BEB /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		38F90B3B24747A1B005B0BEB /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
 		38F90B2824733B9D005B0BEB /* DatingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppTests.swift; sourceTree = "<group>"; };
 		38F90B2C24733B9E005B0BEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				383E46F8244265980012977A /* CustomStackView.swift */,
 				383E46F3244265970012977A /* CustomTextView.swift */,
 				38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */,
+				38F90B3B24747A1B005B0BEB /* AppLogoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -658,6 +661,15 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+        38F90B3A2473A40E005B0BEB /* TextField */ = {
+            isa = PBXGroup;
+            children = (
+                383E46F7244265980012977A /* CustomTextField.swift */,
+                38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
+            );
+            path = TextField;
+            sourceTree = "<group>";
+        };
 		38F90B2924733B9D005B0BEB /* DatingAppTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -923,6 +935,7 @@
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
 				383E4708244266740012977A /* UIView+helpers.swift in Sources */,
 				38475D52246B2CC4008EDD28 /* UserDetailsModelController.swift in Sources */,
+				38F90B3C24747A1B005B0BEB /* AppLogoView.swift in Sources */,
 				384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */,
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
 				383E46F1244265570012977A /* SectionTitleLabel.swift in Sources */,
