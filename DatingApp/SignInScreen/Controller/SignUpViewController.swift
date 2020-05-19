@@ -80,7 +80,7 @@ class SignUpViewController : UIViewController {
                     "id": id
                 ]
                 let user = UserModel(info: info)
-                let vc = PreferenceViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+                let vc = PreferenceViewController(database: FirebaseService.shared)
                 vc.user = user
                 self.navigationController?.pushViewController(vc, animated: true)
             }
