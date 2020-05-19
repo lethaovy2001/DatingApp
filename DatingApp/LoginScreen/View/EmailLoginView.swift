@@ -11,15 +11,7 @@ import Lottie
 
 class EmailLoginView: UIView {
     // MARK: - Properties
-    private let appLogo: AnimationView = {
-        let animationView = AnimationView(name: Constants.loveAnimation)
-        animationView.contentMode = .scaleAspectFill
-        animationView.play()
-        animationView.loopMode = .repeat(.infinity)
-        animationView.animationSpeed = 3
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        return animationView
-    }()
+    private let appLogo = AppLogoView()
     private let emailLabel = SectionTitleLabel(title: "Email")
     private let emailTextField = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
     private let passwordTextField = PasswordTextField()
