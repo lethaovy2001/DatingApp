@@ -11,12 +11,14 @@ import UIKit
 class SignUpViewController : UIViewController {
     // MARK: - Properties
     private let mainView = SignUpView()
-    private var firebaseService: FirebaseService
+    private let database: Database
+    private let auth: Authentication
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Initializer
-    init(firebaseService: FirebaseService) {
-        self.firebaseService = firebaseService
+    init(authentication: Authentication, database: Database) {
+        self.auth = authentication
+        self.database = database
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -27,7 +29,6 @@ class SignUpViewController : UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
         mainView.addDelegate(viewController: self)
@@ -58,32 +59,37 @@ class SignUpViewController : UIViewController {
     
     //MARK: Actions
     @objc private func signUp() {
-        createUser()
-    }
-
-    @objc private func backButtonPressed() {
-        self.navigationController?.popViewController(animated: true)
-    }
-}
-// MARK: - UserCreatable
-extension SignUpViewController: UserCreatable {
-    func createUser() {
         guard
             let email = mainView.getEmailText(),
             let password = mainView.getPasswordText(),
             let name = mainView.getNameText()
-        else {
-            return
-        }
-        firebaseService.createUser(email: email, password: password, name: name) { errorMessage in
-            if let error = errorMessage {
-                self.mainView.showError(message: error)
+        else { return }
+        auth.createUser(email: email, password: password, name: name) { createUserError in
+            if let message = createUserError {
+                self.mainView.showError(message: message)
                 return
             }
-            let vc = PreferenceViewController()
-            vc.user = UserModel(info: ["first_name": name])
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.auth.logUserIn(withEmail: email, password: password) { signInError in
+                if let message = signInError {
+                    self.mainView.showError(message: message)
+                    return
+                }
+                guard let id = self.auth.getCurrentUserId() else { return }
+                let info: [String: Any] = [
+                    "first_name": name,
+                    "id": id
+                ]
+                let user = UserModel(info: info)
+                self.database.saveProfile(ofUser: user)
+                let vc = PreferenceViewController()
+                vc.user = user
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
+    }
+
+    @objc private func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -112,9 +118,9 @@ extension SignUpViewController {
     
     private func performKeyboardAnimation(notification: NSNotification) {
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
-        UIView.animate(withDuration: keyboardDuration!, animations: {
+        UIView.animate(withDuration: keyboardDuration!) {
             self.view.layoutIfNeeded()
-        })
+        }
     }
 }
 

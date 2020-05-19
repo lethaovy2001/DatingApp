@@ -9,6 +9,12 @@
 import UIKit
 
 protocol Database {
-    var firebaseService: FirebaseService { get }
-    func saveData()
+    func saveProfile(ofUser user: UserModel)
 }
+
+
+
+
+
+
+
