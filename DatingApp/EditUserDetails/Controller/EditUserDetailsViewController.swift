@@ -70,7 +70,7 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func saveButtonPressed() {
-        saveData()
+        //saveData()
     }
     
     @objc func addImageButtonPressed(sender: UIButton) {
@@ -116,22 +116,30 @@ extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavi
     }
 }
 
-extension EditUserDetailsViewController: WritableDatabase {
-    func saveData() {
-        if let bio = editUserDetailsView.getBioText(),
-            let work = editUserDetailsView.getWorkText(),
-            let images = editUserDetailsView.getImages() {
-            let dictionary: [String: Any] = [
-                "bio": bio,
-                "work": work,
-            ]
-            updateUser(info: dictionary)
-            updateUserImages(images: images)
-            let vc = UserDetailsViewController()
-            self.navigationController?.pushViewController(vc, animated: false)
-        } else {
-            //TODO: Alert view when user haven't fill out all fields
-        }
-    }
-}
+//extension EditUserDetailsViewController: WritableDatabase {
+//    func saveProfile(ofUser user: UserModel) {
+//        
+//    }
+//    
+//    func loadUserProfile() {
+//        
+//    }
+//    
+//    func saveData() {
+//        if let bio = editUserDetailsView.getBioText(),
+//            let work = editUserDetailsView.getWorkText(),
+//            let images = editUserDetailsView.getImages() {
+//            let dictionary: [String: Any] = [
+//                "bio": bio,
+//                "work": work,
+//            ]
+//            updateUser(info: dictionary)
+//            updateUserImages(images: images)
+//            let vc = UserDetailsViewController()
+//            self.navigationController?.pushViewController(vc, animated: false)
+//        } else {
+//            //TODO: Alert view when user haven't fill out all fields
+//        }
+//    }
+//}
 

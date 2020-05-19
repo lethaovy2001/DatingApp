@@ -97,6 +97,7 @@
 		38F90B1D24733342005B0BEB /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1C24733342005B0BEB /* BackButton.swift */; };
 		38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1E24733358005B0BEB /* ErrorLabel.swift */; };
 		38F90B23247338F7005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B22247338F7005B0BEB /* Authentication.swift */; };
+		38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B382473A1E6005B0BEB /* PasswordTextField.swift */; };
 		38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */; };
 		38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3224733C01005B0BEB /* UserModelTest.swift */; };
 		38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3424733C32005B0BEB /* UserViewModelTest.swift */; };
@@ -209,6 +210,7 @@
 		38F90B1C24733342005B0BEB /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		38F90B1E24733358005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90B22247338F7005B0BEB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		38F90B382473A1E6005B0BEB /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		38F90B2824733B9D005B0BEB /* DatingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppTests.swift; sourceTree = "<group>"; };
 		38F90B2C24733B9E005B0BEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -338,13 +340,13 @@
 			isa = PBXGroup;
 			children = (
 				38F90B202473336A005B0BEB /* Label */,
+				38F90B3A2473A40E005B0BEB /* TextField */,
 				38F90B1B2473305F005B0BEB /* Button */,
 				383E46F6244265980012977A /* CircleImageView.swift */,
 				383E46F9244265980012977A /* CustomImageView.swift */,
 				383E46F5244265980012977A /* CustomContainerView.swift */,
 				383E46FA244265990012977A /* CustomScrollView.swift */,
 				383E46F8244265980012977A /* CustomStackView.swift */,
-				383E46F7244265980012977A /* CustomTextField.swift */,
 				383E46F3244265970012977A /* CustomTextView.swift */,
 				38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */,
 			);
@@ -442,7 +444,6 @@
 				3837CD6124564404007B4297 /* ZoomTapDelegate.swift */,
 				38F90AD92470FF4E005B0BEB /* DateConvertible.swift */,
 				38F90AD32470E91B005B0BEB /* Database.swift */,
-				38F90AD52470EB36005B0BEB /* WritableDatabase.swift */,
 				38F90B22247338F7005B0BEB /* Authentication.swift */,
 			);
 			path = Protocols;
@@ -668,6 +669,15 @@
 			path = DatingAppTests;
 			sourceTree = "<group>";
 		};
+        38F90B3A2473A40E005B0BEB /* TextField */ = {
+            isa = PBXGroup;
+            children = (
+                383E46F7244265980012977A /* CustomTextField.swift */,
+                38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
+            );
+            path = TextField;
+            sourceTree = "<group>";
+        };
 		F12EC8373E2D99DDF2F32760 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -928,7 +938,6 @@
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
 				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
 				38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */,
-				38F90AD62470EB36005B0BEB /* WritableDatabase.swift in Sources */,
 				38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,
@@ -947,6 +956,7 @@
 				38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */,
 				3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
+				38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				38F90AD42470E91B005B0BEB /* Database.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,
