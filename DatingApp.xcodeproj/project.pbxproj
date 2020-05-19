@@ -656,18 +656,23 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
-		38F90B3A2473A40E005B0BEB /* TextField */ = {
+        38F90B3A2473A40E005B0BEB /* TextField */ = {
+            isa = PBXGroup;
+            children = (
+                383E46F7244265980012977A /* CustomTextField.swift */,
+                38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
+            );
+            path = TextField;
+            sourceTree = "<group>";
+        };
 		38F90B2924733B9D005B0BEB /* DatingAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				383E46F7244265980012977A /* CustomTextField.swift */,
-				38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
 				38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */,
 				38F90B2C24733B9E005B0BEB /* Info.plist */,
 				38F90B3224733C01005B0BEB /* UserModelTest.swift */,
 				38F90B3424733C32005B0BEB /* UserViewModelTest.swift */,
 			);
-			path = TextField;
 			path = DatingAppTests;
 			sourceTree = "<group>";
 		};
