@@ -10,15 +10,9 @@ import UIKit
 
 class EmailLoginViewController: UIViewController {
     // MARK: - Properties
-    private let mainView: EmailLoginView = {
-        let view = EmailLoginView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let mainView = EmailLoginView()
     private let database: Database
     private let auth: Authentication
-    private let mainView = EmailLoginView()
-    private var firebaseService: FirebaseService!
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Initializer
