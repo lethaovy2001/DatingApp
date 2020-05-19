@@ -96,6 +96,7 @@
 		38F90B1D24733342005B0BEB /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1C24733342005B0BEB /* BackButton.swift */; };
 		38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1E24733358005B0BEB /* ErrorLabel.swift */; };
 		38F90B23247338F7005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B22247338F7005B0BEB /* Authentication.swift */; };
+		38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B382473A1E6005B0BEB /* PasswordTextField.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +193,7 @@
 		38F90B1C24733342005B0BEB /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		38F90B1E24733358005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90B22247338F7005B0BEB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		38F90B382473A1E6005B0BEB /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -302,13 +304,13 @@
 			isa = PBXGroup;
 			children = (
 				38F90B202473336A005B0BEB /* Label */,
+				38F90B3A2473A40E005B0BEB /* TextField */,
 				38F90B1B2473305F005B0BEB /* Button */,
 				383E46F6244265980012977A /* CircleImageView.swift */,
 				383E46F9244265980012977A /* CustomImageView.swift */,
 				383E46F5244265980012977A /* CustomContainerView.swift */,
 				383E46FA244265990012977A /* CustomScrollView.swift */,
 				383E46F8244265980012977A /* CustomStackView.swift */,
-				383E46F7244265980012977A /* CustomTextField.swift */,
 				383E46F3244265970012977A /* CustomTextView.swift */,
 				38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */,
 			);
@@ -620,6 +622,15 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		38F90B3A2473A40E005B0BEB /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				383E46F7244265980012977A /* CustomTextField.swift */,
+				38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
 		F12EC8373E2D99DDF2F32760 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -826,6 +837,7 @@
 				38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */,
 				3837CD6024562701007B4297 /* UITextView+helper.swift in Sources */,
 				384604AC23E7A339006F6540 /* SwipeableCardDataSource.swift in Sources */,
+				38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */,
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				38F90AD42470E91B005B0BEB /* Database.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,

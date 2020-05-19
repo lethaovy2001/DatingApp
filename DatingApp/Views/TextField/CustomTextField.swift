@@ -27,6 +27,15 @@ class CustomTextField: UITextField {
         self.layer.cornerRadius = 10
     }
     
+    init(placeholder: String, keyboardType: UIKeyboardType) {
+        super.init(frame: .zero)
+        self.backgroundColor = UIColor.inputContainerColor
+        self.placeholder = placeholder
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 10
+        self.keyboardType = keyboardType
+    }
+    
     func setText(text: String) {
         self.text = text
     }
