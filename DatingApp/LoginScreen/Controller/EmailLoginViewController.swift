@@ -17,6 +17,8 @@ class EmailLoginViewController: UIViewController {
     }()
     private let database: Database
     private let auth: Authentication
+    private let mainView = EmailLoginView()
+    private var firebaseService: FirebaseService!
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Initializer

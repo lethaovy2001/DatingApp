@@ -24,8 +24,8 @@ class EmailLoginView: UIView {
     private var appLogoTopAnchor: NSLayoutConstraint?
     
     // MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
         setup()
     }
     
@@ -35,9 +35,14 @@ class EmailLoginView: UIView {
     
     // MARK: - Setup
     private func setup() {
+        setupSelf()
         addSubViews()
         setupConstraints()
         setUpErrorLabel()
+    }
+    
+    private func setupSelf() {
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func addSubViews() {
