@@ -97,6 +97,7 @@
 		38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1E24733358005B0BEB /* ErrorLabel.swift */; };
 		38F90B23247338F7005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B22247338F7005B0BEB /* Authentication.swift */; };
 		38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B382473A1E6005B0BEB /* PasswordTextField.swift */; };
+		38F90B3C24747A1B005B0BEB /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3B24747A1B005B0BEB /* AppLogoView.swift */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -194,6 +195,7 @@
 		38F90B1E24733358005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90B22247338F7005B0BEB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		38F90B382473A1E6005B0BEB /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		38F90B3B24747A1B005B0BEB /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -313,6 +315,7 @@
 				383E46F8244265980012977A /* CustomStackView.swift */,
 				383E46F3244265970012977A /* CustomTextView.swift */,
 				38DACAF9244B89E300F4E60E /* CustomNavigationView.swift */,
+				38F90B3B24747A1B005B0BEB /* AppLogoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
 				383E4708244266740012977A /* UIView+helpers.swift in Sources */,
 				38475D52246B2CC4008EDD28 /* UserDetailsModelController.swift in Sources */,
+				38F90B3C24747A1B005B0BEB /* AppLogoView.swift in Sources */,
 				384604B223EA712A006F6540 /* SwipeCardModel.swift in Sources */,
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
 				383E46F1244265570012977A /* SectionTitleLabel.swift in Sources */,
