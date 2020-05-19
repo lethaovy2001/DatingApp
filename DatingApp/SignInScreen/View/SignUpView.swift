@@ -10,15 +10,7 @@ import UIKit
 import Lottie
 
 class SignUpView: UIView {
-    private var appLogo: AnimationView = {
-        let animationView = AnimationView(name: Constants.loveAnimation)
-        animationView.contentMode = .scaleAspectFill
-        animationView.play()
-        animationView.loopMode = .repeat(.infinity)
-        animationView.animationSpeed = 3
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        return animationView
-    }()
+    private var appLogo = AppLogoView()
     private let signUpLabel = SectionTitleLabel(title: "Sign Up")
     private let nameTextField = CustomTextField(placeholder: "Name")
     private let emailTextField = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
