@@ -11,14 +11,13 @@ import UIKit
 class SignUpViewController : UIViewController {
     // MARK: - Properties
     private let mainView = SignUpView()
-    private var firebaseService = FirebaseService()
     private let database: Database
     private let auth: Authentication
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Initializer
-    init(auth: Authentication, database: Database) {
-        self.auth = auth
+    init(authentication: Authentication, database: Database) {
+        self.auth = authentication
         self.database = database
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,7 +29,6 @@ class SignUpViewController : UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
         mainView.addDelegate(viewController: self)
