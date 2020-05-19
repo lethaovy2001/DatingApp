@@ -10,15 +10,7 @@ import UIKit
 import Lottie
 
 class SignUpView: UIView {
-    private var appLogo: AnimationView = {
-        let animationView = AnimationView(name: Constants.loveAnimation)
-        animationView.contentMode = .scaleAspectFill
-        animationView.play()
-        animationView.loopMode = .repeat(.infinity)
-        animationView.animationSpeed = 3
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        return animationView
-    }()
+    private var appLogo = AppLogoView()
     private let signUpLabel = SectionTitleLabel(title: "Sign Up")
     private let nameTextField = CustomTextField(placeholder: "Name")
     private let emailTextField = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
@@ -26,8 +18,8 @@ class SignUpView: UIView {
     private let signUpButton = RoundedButton(title: "SIGN UP", color: UIColor.amour)
     private let backButton = BackButton()
     private let errorLabel = ErrorLabel()
-    private var keyboardFrame = CGRect()
     private var containerView = CustomContainerView()
+    private var keyboardFrame = CGRect()
     private var containerBotomAnchor: NSLayoutConstraint?
     private var appLogoTopAnchor: NSLayoutConstraint?
     
@@ -175,17 +167,17 @@ extension SignUpView: KeyboardDelegate {
     func showKeyboard() {
         containerBotomAnchor?.constant = -self.keyboardFrame.height + 20
         appLogoTopAnchor?.constant = 36
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 0.6) {
             self.appLogo.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        })
+        }
     }
     
     func hideKeyboard() {
         containerBotomAnchor?.constant = 0
         appLogoTopAnchor?.constant = 90
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 0.6) {
             self.appLogo.transform = CGAffineTransform.identity
-        })
+        }
     }
 }
 
