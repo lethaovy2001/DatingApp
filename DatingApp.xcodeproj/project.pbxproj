@@ -90,7 +90,6 @@
 		38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */; };
 		38F7672524525BE900B49F62 /* ImageTapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */; };
 		38F90AD42470E91B005B0BEB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD32470E91B005B0BEB /* Database.swift */; };
-		38F90AD62470EB36005B0BEB /* WritableDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD52470EB36005B0BEB /* WritableDatabase.swift */; };
 		38F90ADA2470FF4E005B0BEB /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD92470FF4E005B0BEB /* DateConverter.swift */; };
 		38F90ADC2471B048005B0BEB /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90ADB2471B048005B0BEB /* Converter.swift */; };
 		38F90B072473097D005B0BEB /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B062473097D005B0BEB /* CustomButton.swift */; };
@@ -187,7 +186,6 @@
 		38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchLocationAnimation.json; sourceTree = "<group>"; };
 		38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTapGestureDelegate.swift; sourceTree = "<group>"; };
 		38F90AD32470E91B005B0BEB /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		38F90AD52470EB36005B0BEB /* WritableDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritableDatabase.swift; sourceTree = "<group>"; };
 		38F90AD92470FF4E005B0BEB /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		38F90ADB2471B048005B0BEB /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		38F90B062473097D005B0BEB /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -408,7 +406,6 @@
 				3837CD6124564404007B4297 /* ZoomTapDelegate.swift */,
 				38F90AD92470FF4E005B0BEB /* DateConverter.swift */,
 				38F90AD32470E91B005B0BEB /* Database.swift */,
-				38F90AD52470EB36005B0BEB /* WritableDatabase.swift */,
 				38F90B22247338F7005B0BEB /* Authentication.swift */,
 			);
 			path = Protocols;
@@ -811,7 +808,6 @@
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
 				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
 				38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */,
-				38F90AD62470EB36005B0BEB /* WritableDatabase.swift in Sources */,
 				38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,

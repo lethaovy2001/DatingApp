@@ -14,6 +14,8 @@ import AVFoundation
 class FirebaseService {
     private var database: Firestore!
     private var storage: Storage!
+    private var auth: Auth!
+    static let shared = FirebaseService()
     
     enum MessageState {
         case noMessage
@@ -23,14 +25,15 @@ class FirebaseService {
     init() {
         database = Firestore.firestore()
         storage = Storage.storage()
+        auth = Auth.auth()
     }
     
     func getUserID() -> String? {
-        return Auth.auth().currentUser?.uid
+        return auth.currentUser?.uid
     }
     
     func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = auth.currentUser?.uid {
             database.collection("users").document(uid).addSnapshotListener {
                 documentSnapshot, error in
                 guard let document = documentSnapshot else {
@@ -66,7 +69,7 @@ class FirebaseService {
     }
     
     func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = auth.currentUser?.uid {
             database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -91,7 +94,7 @@ class FirebaseService {
     
     //TODO: update when first create user
     func updateListOfUsers() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = auth.currentUser?.uid else { return }
         database.collection("users").addSnapshotListener { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -111,7 +114,7 @@ class FirebaseService {
     }
     
     func updateDatabase(with data: [String: Any]) {
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = auth.currentUser?.uid {
             database.collection("users").document(uid).setData(data, merge: true)
         }
     }
@@ -120,7 +123,7 @@ class FirebaseService {
 extension FirebaseService {
     func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
-        Auth.auth().signIn(with: credential) { (authResult, error) in
+        auth.signIn(with: credential) { (authResult, error) in
             if error != nil {
                 print(String(describing: error))
                 return
@@ -129,28 +132,9 @@ extension FirebaseService {
             completion()
         }
     }
-    
-    func createUser(email: String, password: String, name: String, _ completion: @escaping(String?)->()) {
-        Auth.auth().createUser(withEmail: email, password: password, completion: {
-            (authResult, error) in
-            if error != nil {
-                print("***** Unable to authenticate with Firebase email: \(String(describing: error))")
-                completion(error?.localizedDescription)
-                return
-            }
-            self.authenticateUsingEmail(email: email, password: password, { authError in
-                if authError != nil {
-                    completion(authError)
-                }
-                self.updateDatabase(with: ["first_name": name])
-                self.updateListOfUsers()
-                completion(nil)
-            })
-        })
-    }
-    
+
     func authenticateUsingEmail(email: String, password: String,_ completion: @escaping(String?)->()) {
-        Auth.auth().signIn(withEmail: email, password: password, completion: {(authResult, error) in
+        auth.signIn(withEmail: email, password: password, completion: {(authResult, error) in
             if error != nil {
                 print(String(describing: error))
                 completion(error?.localizedDescription)
@@ -160,28 +144,19 @@ extension FirebaseService {
             completion(nil)
         })
     }
-    
-    func logout() {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-    }
 }
 
 // MARK: Storage
 extension FirebaseService {
     // MARK: User Profile Images
     func updateImageDatabase(with data: [String: Any]) {
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = auth.currentUser?.uid {
             database.collection("profile_images").document(uid).setData(data, merge: true)
         }
     }
     
     func uploadImages(images: [UIImage], _ completion: @escaping()->()){
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = auth.currentUser?.uid {
             var index = 0
             for image in images {
                 uploadImageOntoStorage(image: image, uid: uid, index: index, {
@@ -274,7 +249,7 @@ extension FirebaseService {
     }
     
     func getUserImagesFromDatabase(_ completion : @escaping([UIImage])->()) {
-        if let uid = Auth.auth().currentUser?.uid {
+        if let uid = auth.currentUser?.uid {
             database.collection("profile_images").document(uid).addSnapshotListener {
                 documentSnapshot, error in
                 guard let document = documentSnapshot else {
@@ -368,7 +343,7 @@ extension FirebaseService {
 // MARK: List of Messages
 extension FirebaseService {
     func getListMessages(_ completion: @escaping([String])->()) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = auth.currentUser?.uid else { return }
         database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -401,9 +376,9 @@ extension FirebaseService {
     }
     
     func updateMessageReference(message: Message) {
-        if let fromId = Auth.auth().currentUser?.uid,
+        if let fromId = auth.currentUser?.uid,
             let data = message.getMessageReference(),
-        let toId = message.toId,
+            let toId = message.toId,
             let messageId = message.messageId {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
                 if let error = error {
@@ -437,7 +412,7 @@ extension FirebaseService {
     }
     
     func getLastestMessage(toId: String, _ completion : @escaping(String, MessageState)->()) {
-        if let fromId = Auth.auth().currentUser?.uid {
+        if let fromId = auth.currentUser?.uid {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").order(by: "date", descending: true).addSnapshotListener() {
                 querySnapshot, error in
                 guard let snapshot = querySnapshot else {
@@ -462,7 +437,7 @@ extension FirebaseService {
     }
     
     func getMessages(toId: String, _ completion : @escaping([String: Any])->()) {
-        if let fromId = Auth.auth().currentUser?.uid {
+        if let fromId = auth.currentUser?.uid {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").addSnapshotListener() {
                 querySnapshot, error in
                 guard let snapshot = querySnapshot else {
@@ -488,7 +463,7 @@ extension FirebaseService {
 
 extension FirebaseService {
     func updateMatchUser(toId: String) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = auth.currentUser?.uid else { return }
         // match both user
         database.collection("users").document(toId).collection("available-users")
             .whereField("id", isEqualTo: uid)
@@ -507,13 +482,67 @@ extension FirebaseService {
     }
     
     func deleteDislikedUser(toId: String) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = auth.currentUser?.uid else { return }
         database.collection("users").document(uid).collection("available-users").document(toId).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
             }
+        }
+    }
+}
+
+extension FirebaseService : Database {
+    func loadUserProfile() {
+        
+    }
+    
+    func saveData() {
+        
+    }
+    
+    func saveProfile(ofUser user: UserModel) {
+        guard let name = user.name else {
+            return
+        }
+        self.updateDatabase(with: ["first_name": name])
+        self.updateListOfUsers()
+    }
+}
+
+// MARK: - Authentication
+extension FirebaseService : Authentication {
+    func getCurrentUserId() -> String? {
+        return auth.currentUser?.uid
+    }
+    
+    func createUser(email: String, password: String, name: String, completion: @escaping(String?)->()) {
+        auth.createUser(withEmail: email, password: password) { authResult, error in
+            if error != nil {
+                completion(error?.localizedDescription)
+                return
+            }
+            completion(nil)
+        }
+    }
+    
+    func logUserIn(withEmail email: String, password: String,  completion: @escaping(String?)->()) {
+        auth.signIn(withEmail: email, password: password, completion: {(authResult, error) in
+            if error != nil {
+                completion(error?.localizedDescription)
+                return
+            }
+            print("Successfully log user into firebase")
+            completion(nil)
+        })
+    }
+    
+    func logout() {
+        do {
+            try auth.signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
         }
     }
 }
