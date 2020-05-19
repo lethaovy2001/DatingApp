@@ -10,6 +10,7 @@ import UIKit
 import Lottie
 
 class EmailLoginView: UIView {
+    // MARK: - Properties
     private let appLogo: AnimationView = {
         let animationView = AnimationView(name: Constants.loveAnimation)
         animationView.contentMode = .scaleAspectFill
@@ -20,22 +21,17 @@ class EmailLoginView: UIView {
         return animationView
     }()
     private let emailLabel = SectionTitleLabel(title: "Email")
-    private let emailTextField = CustomTextField(placeholder: "Email")
-    private let passwordTextField = CustomTextField(placeholder: "Password")
+    private let emailTextField = CustomTextField(placeholder: "Email", keyboardType: .emailAddress)
+    private let passwordTextField = PasswordTextField()
     private let loginButton = RoundedButton(title: "LOG IN", color: UIColor.amour)
-    private let backButton = CustomButton(imageName: "chevron.left", size: 22, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let errorLabel = CustomLabel(text: "Error", textColor: UIColor.red, textSize: 14, textWeight: .regular)
+    private let backButton = BackButton()
+    private let errorLabel = ErrorLabel()
+    private var containerView = CustomContainerView()
     private var keyboardFrame = CGRect()
-    private var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     private var containerBotomAnchor: NSLayoutConstraint?
     private var appLogoTopAnchor: NSLayoutConstraint?
     
-    // MARK: Initializer
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -45,16 +41,11 @@ class EmailLoginView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup
     private func setup() {
         addSubViews()
         setupConstraints()
         setUpErrorLabel()
-    }
-    
-    // MARK: Setup
-    private func setUpErrorLabel() {
-        errorLabel.isHidden = true
-        errorLabel.numberOfLines = 2
     }
     
     private func addSubViews() {
@@ -70,7 +61,7 @@ class EmailLoginView: UIView {
     
     private func setupConstraints() {
         containerBotomAnchor = containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
-         appLogoTopAnchor = appLogo.topAnchor.constraint(equalTo: self.topAnchor, constant: 90)
+        appLogoTopAnchor = appLogo.topAnchor.constraint(equalTo: self.topAnchor, constant: 90)
         NSLayoutConstraint.activate([
             containerView.leftAnchor.constraint(equalTo: leftAnchor),
             containerView.rightAnchor.constraint(equalTo: rightAnchor),
@@ -116,14 +107,17 @@ class EmailLoginView: UIView {
         ])
     }
     
+    private func setUpErrorLabel() {
+        errorLabel.isHidden = true
+        errorLabel.numberOfLines = 2
+    }
+    
     func addDelegate(viewController: EmailLoginViewController) {
         viewController.keyboardDelegate = self
     }
     
     func addTapGesture(target: UIViewController, selector: Selector) {
-        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(
-            target: target,
-            action: selector)
+        let tapRecognizer = UITapGestureRecognizer(target: target, action: selector)
         tapRecognizer.cancelsTouchesInView = false
         containerView.addGestureRecognizer(tapRecognizer)
     }
@@ -154,21 +148,21 @@ class EmailLoginView: UIView {
     }
 }
 
+// MARK: - KeyboardDelegate
 extension EmailLoginView: KeyboardDelegate {
     func showKeyboard() {
-        containerBotomAnchor?.constant = -self.keyboardFrame.height
         containerBotomAnchor?.constant = -self.keyboardFrame.height + 20
         appLogoTopAnchor?.constant = 36
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 0.6) {
             self.appLogo.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        })
+        }
     }
     
     func hideKeyboard() {
         containerBotomAnchor?.constant = 0
         appLogoTopAnchor?.constant = 90
-        UIView.animate(withDuration: 0.6, animations: {
+        UIView.animate(withDuration: 0.6) {
             self.appLogo.transform = CGAffineTransform.identity
-        })
+        }
     }
 }
