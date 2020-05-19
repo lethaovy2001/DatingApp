@@ -92,23 +92,6 @@ class FirebaseService {
         }
     }
     
-    //TODO: update when first create user
-    func updateListOfUsers() {
-        guard let uid = auth.currentUser?.uid else { return }
-        database.collection("users").addSnapshotListener { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    if (uid != document.documentID) {
-                        self.database.collection("users").document(uid).collection("available-users").document(document.documentID).setData(["hasDisplay": false, "id": document.documentID], merge: true)
-                        self.database.collection("users").document(document.documentID).collection("available-users").document(uid).setData(["hasDisplay": false, "id": uid], merge: true)
-                    }
-                }
-            }
-        }
-    }
-    
     func convertToDate(timestamp: Timestamp) -> Date {
         return timestamp.dateValue()
     }
@@ -132,7 +115,7 @@ extension FirebaseService {
             completion()
         }
     }
-
+    
     func authenticateUsingEmail(email: String, password: String,_ completion: @escaping(String?)->()) {
         auth.signIn(withEmail: email, password: password, completion: {(authResult, error) in
             if error != nil {
@@ -503,11 +486,25 @@ extension FirebaseService : Database {
     }
     
     func saveProfile(ofUser user: UserModel) {
-        guard let name = user.name else {
-            return
+        if let uid = auth.currentUser?.uid, let data = user.getUserInfo() {
+            database.collection("users").document(uid).setData(data, merge: true)
         }
-        self.updateDatabase(with: ["first_name": name])
-        self.updateListOfUsers()
+    }
+    
+    func updateListOfUsers() {
+        guard let uid = auth.currentUser?.uid else { return }
+        database.collection("users").addSnapshotListener { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    if (uid != document.documentID) {
+                        self.database.collection("users").document(uid).collection("available-users").document(document.documentID).setData(["hasDisplay": false, "id": document.documentID], merge: true)
+                        self.database.collection("users").document(document.documentID).collection("available-users").document(uid).setData(["hasDisplay": false, "id": uid], merge: true)
+                    }
+                }
+            }
+        }
     }
 }
 

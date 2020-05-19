@@ -11,13 +11,15 @@ import UIKit
 class PreferenceViewController : UIViewController {
     // MARK: - Properties
     private let mainView = PreferenceView()
-    private var firebaseService = FirebaseService()
+    private var database: Database
+    private var auth: Authentication
     var user: UserModel!
     private let converter = DateConverter()
     
     // MARK: - Initializer
-    init(firebaseService: FirebaseService) {
-        self.firebaseService = firebaseService
+    init(authentication: Authentication, database: Database) {
+        self.database = database
+        self.auth = authentication
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,16 +51,13 @@ class PreferenceViewController : UIViewController {
     @objc private func saveButtonPressed() {
         let gender = mainView.getGenderSelection()
         let interestedGender = mainView.getInterestedSelection()
-        if let birthday = mainView.getBirthdayText(),
-            let id = firebaseService.getUserID() {
+        if let birthday = mainView.getBirthdayText() {
             let date = converter.convertToDate(dateString: birthday)
-            let dictionary: [String: Any] = [
-                "gender": gender,
-                "interestedIn": interestedGender,
-                "birthday": date,
-                "id": id
-            ]
-            self.firebaseService.updateDatabase(with: dictionary)
+            user.gender = gender
+            user.interestedIn = interestedGender
+            user.birthday = date
+            self.database.saveProfile(ofUser: user)
+            self.database.updateListOfUsers()
             let viewModel = UserDetailsViewModel(model: user)
             let vc = EditUserDetailsViewController(viewModel: viewModel)
             self.navigationController?.pushViewController(vc, animated: true)

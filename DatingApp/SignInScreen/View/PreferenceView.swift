@@ -28,7 +28,7 @@ class PreferenceView: UIView {
     }()
     private let saveButton = RoundedButton(title: "Save", color: UIColor.amour)
     private let birthdayLabel = SectionTitleLabel(title: "Birthday")
-    private let birthdayTextField = CustomTextField(placeholder: "mm-dd-yyyy")
+    private let birthdayTextField = CustomTextField(placeholder: "mm-dd-yyyy", keyboardType: .numbersAndPunctuation)
     
     // MARK: - Initializer
     init() {
