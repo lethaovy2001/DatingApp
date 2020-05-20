@@ -54,6 +54,7 @@ class LoginViewController : UIViewController {
         mainView.setFbLoginSelector(selector: #selector(loginWithFacebook), target: self)
         mainView.setEmailLoginSelector(selector: #selector(loginWithEmail), target: self)
         mainView.setSignInSelector(selector: #selector(signIn), target: self)
+        mainView.setDoneSelector(selector: #selector(doneButtonPressed), target: self)
     }
     
     //MARK: Actions
@@ -61,8 +62,7 @@ class LoginViewController : UIViewController {
         facebookAuth.loginPressed(viewController: self) { isAlreadyLogin in
             self.auth.logUserIn(withCredential: self.facebookAuth.getFBAccessToken()) { loginError in
                 if let error = loginError {
-                    print(error)
-                    //TODO: show error
+                    self.mainView.showAlert()
                     return
                 }
                 if isAlreadyLogin {
@@ -90,6 +90,10 @@ class LoginViewController : UIViewController {
     @objc private func signIn() {
         let vc = SignUpViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func doneButtonPressed() {
+        mainView.hideAlert()
     }
 }
 
