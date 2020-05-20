@@ -23,6 +23,7 @@ class CustomAlertView: UIView {
     enum AlertType {
         case deniedLocationAccess
         case newMessage
+        case failLoginWithFacebook
     }
     
     // MARK: Initializer
@@ -73,6 +74,10 @@ class CustomAlertView: UIView {
             title = Constants.Strings.NewMessage.title
             message = Constants.Strings.NewMessage.message
             animationName = "match\(number)"
+        case .failLoginWithFacebook:
+            title = Constants.Strings.FailLoginWithFacebook.title
+            message = Constants.Strings.FailLoginWithFacebook.message
+            animationName = Constants.failAnimation
         default:
             title = Constants.Strings.Default.title
             message = Constants.Strings.Default.message

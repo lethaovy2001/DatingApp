@@ -19,6 +19,10 @@ struct Constants {
             static let title = "Location Access"
             static let message = "Please enable location in order to match with other users"
         }
+        struct FailLoginWithFacebook {
+            static let title = "Unable to login with Facebook"
+            static let message = "Please try again..."
+        }
         struct Default {
             static let title = "Thank You"
             static let message = "You are now able to see others in the same area"
@@ -51,6 +55,7 @@ struct Constants {
     // MARK: Animation Names
     static let loveAnimation = "loveAnimation"
     static let searchLocationAnimation = "searchLocationAnimation"
+    static let failAnimation = "fail"
     
     static let meterToMile: Double = 1609
     struct NotificationKeys {
