@@ -8,11 +8,25 @@
 
 import UIKit
 
-class UserDetailsViewController: UIViewController {
-    // MARK: Properties
+class UserDetailsViewController : UIViewController {
+    // MARK: - Properties
     private let userDetailsView = UserDetailsView()
-    private let modelController = UserDetailsModelController()
+    private let modelController: UserDetailsModelController
+    private let database: Database
+    private let auth: Authentication
     var viewModel: UserDetailsViewModel?
+    
+    // MARK: - Initializer
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
+        self.auth = authentication
+        self.database = database
+        self.modelController = UserDetailsModelController(database: database)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
@@ -62,14 +76,14 @@ class UserDetailsViewController: UIViewController {
     
     // MARK: Firebase
     func reloadUserInfo() {
-        if let id = viewModel?.id, id != modelController.getCurrentUserId() {
-            self.modelController.getData(id: viewModel?.id) {
+        if let id = viewModel?.id, id != auth.getCurrentUserId() {
+            self.modelController.getData(id: id) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .otherUser)
                 self.userDetailsView.viewModel = self.viewModel
                 self.userDetailsView.doneLoading()
             }
         } else {
-            self.modelController.getData(id: modelController.getCurrentUserId()) {
+            self.modelController.getData(id: auth.getCurrentUserId()) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .currentUser)
                 self.userDetailsView.viewModel = self.viewModel
                 self.userDetailsView.doneLoading()

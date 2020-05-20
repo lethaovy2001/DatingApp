@@ -27,6 +27,9 @@ struct UserModel {
         self.bio = info["bio"] as? String
         self.gender = info["gender"] as? String
         self.images = info["images"] as? [UIImage]
+        if let mainImage = images?[0] {
+            self.mainImage = mainImage
+        }
         self.interestedIn = info["interestedIn"] as? String
         if let birthday = info["birthday"] as? Timestamp {
             self.birthday = birthday.dateValue()
@@ -35,37 +38,37 @@ struct UserModel {
         }
     }
     
-    init(info: [String: Any], mainImage: UIImage) {
-        self.id = info["id"] as? String
-        self.name = info["first_name"] as? String
-        self.work = info["work"] as? String
-        self.bio = info["bio"] as? String
-        self.gender = info["gender"] as? String
-        self.images = info["images"] as? [UIImage]
-        self.mainImage = mainImage
-        self.interestedIn = info["interestedIn"] as? String
-        if let birthday = info["birthday"] as? Timestamp {
-            self.birthday = birthday.dateValue()
-        } else {
-            self.birthday = info["birthday"] as? Date
-        }
-    }
-    
-    init(info: [String: Any], images: [UIImage]) {
-        self.id = info["id"] as? String
-        self.name = info["first_name"] as? String
-        self.work = info["work"] as? String
-        self.bio = info["bio"] as? String
-        self.gender = info["gender"] as? String
-        self.images = images
-        self.mainImage = images[0]
-        self.interestedIn = info["interestedIn"] as? String
-        if let birthday = info["birthday"] as? Timestamp {
-            self.birthday = birthday.dateValue()
-        } else {
-            self.birthday = info["birthday"] as? Date
-        }
-    }
+//    init(info: [String: Any], mainImage: UIImage) {
+//        self.id = info["id"] as? String
+//        self.name = info["first_name"] as? String
+//        self.work = info["work"] as? String
+//        self.bio = info["bio"] as? String
+//        self.gender = info["gender"] as? String
+//        self.images = info["images"] as? [UIImage]
+//        self.mainImage = mainImage
+//        self.interestedIn = info["interestedIn"] as? String
+//        if let birthday = info["birthday"] as? Timestamp {
+//            self.birthday = birthday.dateValue()
+//        } else {
+//            self.birthday = info["birthday"] as? Date
+//        }
+//    }
+//    
+//    init(info: [String: Any], images: [UIImage]) {
+//        self.id = info["id"] as? String
+//        self.name = info["first_name"] as? String
+//        self.work = info["work"] as? String
+//        self.bio = info["bio"] as? String
+//        self.gender = info["gender"] as? String
+//        self.images = images
+//        self.mainImage = images[0]
+//        self.interestedIn = info["interestedIn"] as? String
+//        if let birthday = info["birthday"] as? Timestamp {
+//            self.birthday = birthday.dateValue()
+//        } else {
+//            self.birthday = info["birthday"] as? Date
+//        }
+//    }
     
     func getUserInfo() -> [String: Any]? {
         guard

@@ -13,6 +13,7 @@ protocol Database {
     func updateListOfUsers()
     func loadAllUsers(_ completion: @escaping([UserModel])->())
     func loadUserImages(withId id: String,_ completion: @escaping([UIImage])->())
+    func loadUserProfile(withId id: String,_ completion: @escaping(UserModel)->())
     func saveLikeUser(withId id: String)
     func saveDislikeUser(withId id: String)
 }

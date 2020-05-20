@@ -478,12 +478,23 @@ extension FirebaseService {
 
 // MARK: - Database
 extension FirebaseService : Database {
-    func loadUserProfile() {
-        
-    }
-    
-    func saveData() {
-        
+    func loadUserProfile(withId id: String,_ completion: @escaping(UserModel)->()) {
+        database.collection("users").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            var user = UserModel(info: data)
+            self.loadUserImages(withId: id) { images in
+                user.images = images
+                completion(user)
+            }
+        }
     }
     
     func saveProfile(ofUser user: UserModel) {
