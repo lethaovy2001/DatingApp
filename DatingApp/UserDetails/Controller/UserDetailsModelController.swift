@@ -10,7 +10,6 @@ import UIKit
 
 class UserDetailsModelController {
     // MARK: - Properties
-    private var firebaseService = FirebaseService()
     private var user = UserModel(info: ["":""])
     private let database: Database
     
@@ -24,10 +23,6 @@ class UserDetailsModelController {
     }
     
     // MARK: - Getters
-    func getCurrentUserId() -> String? {
-        return firebaseService.getUserID() ?? nil
-    }
-    
     func getUserInfo() -> UserModel {
         return user
     }
