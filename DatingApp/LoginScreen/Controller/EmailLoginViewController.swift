@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmailLoginViewController: UIViewController {
+class EmailLoginViewController : UIViewController {
     // MARK: - Properties
     private let mainView = EmailLoginView()
     private let auth: Authentication
@@ -80,7 +80,7 @@ class EmailLoginViewController: UIViewController {
     }
 }
 
-// MARK: Keyboards
+// MARK: - Keyboards
 extension EmailLoginViewController {
     private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
