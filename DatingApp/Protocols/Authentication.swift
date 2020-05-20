@@ -12,5 +12,6 @@ protocol Authentication {
     func getCurrentUserId() -> String?
     func createUser(email: String, password: String, name: String, completion: @escaping(String?)->())
     func logUserIn(withEmail email: String, password: String, completion: @escaping(String?)->())
+    func logUserIn(withCredential credential: String, completion: @escaping(String?)->())
     func logout()
 }

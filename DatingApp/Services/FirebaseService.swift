@@ -535,6 +535,18 @@ extension FirebaseService : Authentication {
         })
     }
     
+    func logUserIn(withCredential accessToken: String, completion: @escaping (String?) -> ()) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
+        auth.signIn(with: credential) { (authResult, error) in
+            if error != nil {
+                completion(error?.localizedDescription)
+                return
+            }
+            print("Successfully log user into firebase")
+            completion(nil)
+        }
+    }
+    
     func logout() {
         do {
             try auth.signOut()

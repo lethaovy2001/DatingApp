@@ -61,7 +61,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         if (!modelController.checkIfUserExist()) {
-            let vc = LoginViewController()
+            let vc = LoginViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
             self.navigationController?.pushViewController(vc, animated: false)
         }
     }

@@ -11,29 +11,31 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 
 class FacebookAuthenticator {
-    private let viewController: UIViewController
-    private let modelController = MainModelController()
     private var firebaseService: FirebaseService!
+    private let permissions = [Constants.FacebookPermission.publicProfile]
+    private let permission = Constants.FacebookPermission.publicProfile
     
-    init(viewController: UIViewController) {
-        self.viewController = viewController
-    }
-    
-    func loginPressed(_ completion : @escaping()->()) {
+    func loginPressed(viewController: UIViewController, _ completion: @escaping(Bool)->()) {
         let loginManager = LoginManager()
-        loginManager.logIn(permissions: ["public_profile", "email", "user_birthday, user_gender"], from: viewController) { (result, error) in
-            if error != nil {
-                print("***** Error: \(error!)")
-            } else if result?.isCancelled == true {
-                print("***** Cancel")
+        if let grantedPermission = AccessToken.current?.hasGranted(permission: permission) {
+            if grantedPermission {
+                completion(true)
             } else {
-                completion()
+                loginManager.logIn(permissions: permissions, from: viewController) { (result, error) in
+                    if error != nil {
+                        print("***** Error: \(error!)")
+                    } else if result?.isCancelled == true {
+                        print("***** Cancel")
+                    } else {
+                        completion(false)
+                    }
+                }
             }
         }
     }
     
     func getFBUserInfo(_ completion: @escaping(Any?)->()) {
-        GraphRequest(graphPath: "/me", parameters: ["fields": "first_name, birthday, gender"]).start { (connection, result, err) in
+        GraphRequest(graphPath: "/me", parameters: ["fields": "first_name"]).start { (connection, result, err) in
             if err != nil {
                 print("Failed to start graph request:", err!)
                 return
@@ -46,5 +48,7 @@ class FacebookAuthenticator {
         return AccessToken.current!.tokenString
     }
 }
+
+
 
 

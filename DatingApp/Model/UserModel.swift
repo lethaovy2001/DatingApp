@@ -17,7 +17,7 @@ struct UserModel {
     var gender: String?
     let images: [UIImage]?
     var mainImage: UIImage?
-    let id: String?
+    var id: String?
     var interestedIn: String?
     
     init(info: [String: Any]) {
