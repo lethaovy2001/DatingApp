@@ -19,8 +19,8 @@ class MainView : UIView {
     private let searchingAnimation = SearchingAnimationView()
     
     // MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
         setup()
     }
     
