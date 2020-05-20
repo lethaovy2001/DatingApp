@@ -15,7 +15,7 @@ struct UserModel {
     let work: String?
     let bio: String?
     var gender: String?
-    let images: [UIImage]?
+    var images: [UIImage]?
     var mainImage: UIImage?
     var id: String?
     var interestedIn: String?

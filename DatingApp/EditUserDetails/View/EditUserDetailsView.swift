@@ -41,7 +41,6 @@ class EditUserDetailsView: UIView {
             }
         }
     }
-    private var modelController = MainModelController()
     
     // MARK: Init
     init() {

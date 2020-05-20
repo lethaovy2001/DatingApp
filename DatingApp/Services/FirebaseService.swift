@@ -476,6 +476,7 @@ extension FirebaseService {
     }
 }
 
+// MARK: - Database
 extension FirebaseService : Database {
     func loadUserProfile() {
         
@@ -486,13 +487,13 @@ extension FirebaseService : Database {
     }
     
     func saveProfile(ofUser user: UserModel) {
-        if let uid = auth.currentUser?.uid, let data = user.getUserInfo() {
+        if let uid = getCurrentUserId(), let data = user.getUserInfo() {
             database.collection("users").document(uid).setData(data, merge: true)
         }
     }
     
     func updateListOfUsers() {
-        guard let uid = auth.currentUser?.uid else { return }
+        guard let uid = getCurrentUserId() else { return }
         database.collection("users").addSnapshotListener { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -503,6 +504,78 @@ extension FirebaseService : Database {
                         self.database.collection("users").document(document.documentID).collection("available-users").document(uid).setData(["hasDisplay": false, "id": uid], merge: true)
                     }
                 }
+            }
+        }
+    }
+    
+    func loadAllUsers(_ completion: @escaping([UserModel]) -> ()) {
+        guard let uid = auth.currentUser?.uid else { return }
+        database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var users: [UserModel] = []
+                var index = 0
+                for document in querySnapshot!.documents {
+                    if (uid != document.documentID) {
+                        self.getUserWithId(id: document.documentID) { userInfo in
+                            let user = UserModel(info: userInfo)
+                            users.append(user)
+                            index += 1
+                            if (index == querySnapshot!.documents.count) {
+                                completion(users)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func loadUserImages(withId id: String,_ completion: @escaping([UIImage])->()) {
+        database.collection("profile_images").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                completion([])
+                return
+            }
+            self.downloadImages(data: data, { images in
+                completion(images)
+            })
+        }
+    }
+    
+    // MARK: Like/Dislike
+    func saveLikeUser(withId id: String) {
+        guard let uid = auth.currentUser?.uid else { return }
+        // match both user
+        database.collection("users").document(id).collection("available-users")
+            .whereField("id", isEqualTo: uid)
+            .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for _ in querySnapshot!.documents {
+                        self.database.collection("user-messages").document(uid).collection("match-users").document(id).setData(["isMatch": true, "time": Date()], merge: true)
+                        self.database.collection("user-messages").document(id).collection("match-users").document(uid).setData(["isMatch": true, "time": Date()], merge: true)
+                    }
+                }
+        }
+        // save when one person like first
+        database.collection("users").document(uid).collection("available-users").document(id).setData(["hasDisplay": true], merge: true)
+    }
+    
+    func saveDislikeUser(withId id: String) {
+        guard let uid = getCurrentUserId() else { return }
+        database.collection("users").document(uid).collection("available-users").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
             }
         }
     }

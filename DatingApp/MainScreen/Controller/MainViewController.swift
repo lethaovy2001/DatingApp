@@ -15,13 +15,14 @@ class MainViewController : UIViewController {
     private var locationService: LocationService!
     private let database: Database
     private let auth: Authentication
-    private let modelController = MainModelController()
+    private let modelController: MainModelController
     var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: - Initializer
     init(authentication: Authentication, database: Database) {
         self.auth = authentication
         self.database = database
+        self.modelController = MainModelController(database: database)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,7 +57,6 @@ class MainViewController : UIViewController {
         mainView.setDataSource(uiViewController: self)
         mainView.addDelegate(viewController: self)
         locationService = LocationService(viewController: self)
-        fetchAllUsers()
     }
     
     private func setupUI() {
@@ -150,13 +150,13 @@ extension MainViewController: CLLocationManagerDelegate {
 extension MainViewController: UserChoiceDelegate {
     func like(_ user: UserModel) {
         if let id = user.id {
-            modelController.matchUsers(toId: id)
+            database.saveLikeUser(withId: id)
         }
     }
     
     func dislike(_ user: UserModel) {
         if let id = user.id {
-            modelController.dislikeUser(id: id)
+            database.saveDislikeUser(withId: id)
         }
     }
 }
