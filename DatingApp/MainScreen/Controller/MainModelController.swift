@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import Firebase
 
 class MainModelController {
+    // MARK: - Properties
     private var users = [UserModel]()
     private var user = UserModel(info: ["":""])
     private var converter = DateConverter()
@@ -35,15 +35,13 @@ class MainModelController {
     
     // MARK: - Load data
     func getAllUsers(_ completion : @escaping()->()){
-        var usersData: [UserModel] = []
         database.loadAllUsers() { users in
             for user in users {
                 guard let id = user.id else { return }
                 self.database.loadUserImages(withId: id) { images in
                     var userModel = user
                     userModel.images = images
-                    usersData.append(userModel)
-                    self.users = usersData
+                    self.users.append(userModel)
                     completion()
                 }
             }

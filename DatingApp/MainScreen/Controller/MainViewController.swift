@@ -79,7 +79,7 @@ class MainViewController : UIViewController {
     }
     
     private func fetchAllUsers() {
-        modelController.getAllUsers {
+        modelController.getAllUsers() {
             self.mainView.reloadSwipeViews()
         }
     }
