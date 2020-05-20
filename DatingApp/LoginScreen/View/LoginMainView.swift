@@ -6,35 +6,28 @@
 //  Copyright © 2020 Vy Le. All rights reserved.
 //
 
-import Foundation
 import UIKit
-import Lottie
 
-class LoginMainView: UIView {
-    
+class LoginMainView : UIView {
+    // MARK: Properties
     private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: UIColor.fbColor)
     private let emailLoginButton = RoundedButton(title: "LOG IN WITH EMAIL", color: UIColor.amour)
     private let signInLabel = CustomLabel(text: "Don't have an account?", textColor: UIColor.darkGray, textSize: 16, textWeight: .regular)
     private let signInButton = CustomButton(title: "Sign In", textColor: UIColor.amour, textSize: 16, textWeight: .bold)
     private let customStackView = CustomStackView(axis: .horizontal, distribution: .fill)
+    private let appLogo = AppLogoView()
     
-    private let appLogo: AnimationView = {
-        let animationView = AnimationView(name: Constants.loveAnimation)
-        animationView.contentMode = .scaleAspectFill
-        animationView.play()
-        animationView.loopMode = .repeat(.infinity)
-        animationView.animationSpeed = 3
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        return animationView
-    }()
-    
-    // MARK: Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Initializer
+    init() {
+        super.init(frame: .zero)
         setup()
     }
     
-    // MARK: Setup
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Setup
     private func setup() {
         addSubViews()
         setupConstraints()
@@ -86,9 +79,5 @@ class LoginMainView: UIView {
     
     func setSignInSelector(selector: Selector, target: UIViewController) {
         signInButton.addTarget(target, action: selector, for: .touchUpInside)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
