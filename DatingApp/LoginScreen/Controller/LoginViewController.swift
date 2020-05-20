@@ -62,7 +62,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginWithEmail() {
-        let vc = EmailLoginViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+        let vc = EmailLoginViewController(authentication: FirebaseService.shared)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

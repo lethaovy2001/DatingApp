@@ -11,14 +11,12 @@ import UIKit
 class EmailLoginViewController: UIViewController {
     // MARK: - Properties
     private let mainView = EmailLoginView()
-    private let database: Database
     private let auth: Authentication
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Initializer
-    init(authentication: Authentication, database: Database) {
+    init(authentication: Authentication) {
         self.auth = authentication
-        self.database = database
         super.init(nibName: nil, bundle: nil)
     }
 
