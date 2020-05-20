@@ -16,6 +16,7 @@ class LoginMainView : UIView {
     private let signInButton = CustomButton(title: "Sign In", textColor: UIColor.amour, textSize: 16, textWeight: .bold)
     private let customStackView = CustomStackView(axis: .horizontal, distribution: .fill)
     private let appLogo = AppLogoView()
+    private let customAlertView = CustomAlertView(type: .failLoginWithFacebook)
     
     // MARK: - Initializer
     init() {
@@ -34,6 +35,7 @@ class LoginMainView : UIView {
     }
     
     private func addSubViews() {
+        addSubview(customAlertView)
         addSubview(fbLoginButton)
         addSubview(emailLoginButton)
         addSubview(appLogo)
@@ -43,6 +45,12 @@ class LoginMainView : UIView {
     }
     
     private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            customAlertView.topAnchor.constraint(equalTo: topAnchor),
+            customAlertView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            customAlertView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            customAlertView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
         NSLayoutConstraint.activate([
             appLogo.centerXAnchor.constraint(equalTo: centerXAnchor),
             appLogo.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -200),
@@ -79,5 +87,21 @@ class LoginMainView : UIView {
     
     func setSignInSelector(selector: Selector, target: UIViewController) {
         signInButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        customAlertView.setDoneSelector(selector: selector, target: target)
+    }
+}
+
+// MARK: - AlertView
+extension LoginMainView {
+    func showAlert() {
+        customAlertView.isHidden = false
+        bringSubviewToFront(customAlertView)
+    }
+    
+    func hideAlert() {
+        customAlertView.isHidden = true
     }
 }
