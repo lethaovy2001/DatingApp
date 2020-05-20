@@ -11,7 +11,6 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 
 class FacebookAuthenticator {
-    private var firebaseService: FirebaseService!
     private let permissions = [Constants.FacebookPermission.publicProfile]
     private let permission = Constants.FacebookPermission.publicProfile
     

@@ -268,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				382CC78A23D3B0DD0043060E /* LoginViewController.swift */,
-				38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */,
 				38DB15932459D46F00748B1B /* EmailLoginViewController.swift */,
 			);
 			path = Controller;
@@ -610,6 +609,7 @@
 			children = (
 				38DACAF5244A68B600F4E60E /* FirebaseService.swift */,
 				38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */,
+				38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
