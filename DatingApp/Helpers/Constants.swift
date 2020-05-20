@@ -20,8 +20,8 @@ struct Constants {
             static let message = "Please enable location in order to match with other users"
         }
         struct FailLoginWithFacebook {
-            static let title = "Unable to login with Facebook"
-            static let message = "Please try again..."
+            static let title = "Login with Facebook"
+            static let message = "Unable to login with Facebook. Please try again..."
         }
         struct Default {
             static let title = "Thank You"

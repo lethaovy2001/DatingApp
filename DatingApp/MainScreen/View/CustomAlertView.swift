@@ -19,6 +19,7 @@ class CustomAlertView: UIView {
     private var title: String!
     private var message: String!
     private var animationName: String!
+    private var animationSpeed: CGFloat!
     
     enum AlertType {
         case deniedLocationAccess
@@ -44,7 +45,7 @@ class CustomAlertView: UIView {
         animationView.play()
         animationView.contentMode = .scaleAspectFill
         animationView.loopMode = .repeat(.infinity)
-        animationView.animationSpeed = 2
+        animationView.animationSpeed = animationSpeed
         animationView.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -70,18 +71,22 @@ class CustomAlertView: UIView {
             title = Constants.Strings.DeniedLocationAccess.title
             message = Constants.Strings.DeniedLocationAccess.message
             animationName = Constants.searchLocationAnimation
+            animationSpeed = 2
         case .newMessage:
             title = Constants.Strings.NewMessage.title
             message = Constants.Strings.NewMessage.message
             animationName = "match\(number)"
+            animationSpeed = 2
         case .failLoginWithFacebook:
             title = Constants.Strings.FailLoginWithFacebook.title
             message = Constants.Strings.FailLoginWithFacebook.message
             animationName = Constants.failAnimation
+            animationSpeed = 1
         default:
             title = Constants.Strings.Default.title
             message = Constants.Strings.Default.message
             animationName = Constants.searchLocationAnimation
+            animationSpeed = 1
         }
     }
     
