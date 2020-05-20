@@ -21,7 +21,7 @@ struct Constants {
         }
         struct FailLoginWithFacebook {
             static let title = "Login with Facebook"
-            static let message = "Unable to login with Facebook. Please try again..."
+            static let message = "Unable to login with Facebook.\n Please try again..."
         }
         struct Default {
             static let title = "Thank You"
