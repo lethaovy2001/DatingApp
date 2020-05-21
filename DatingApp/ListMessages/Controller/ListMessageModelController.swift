@@ -33,7 +33,7 @@ class ListMessageModelController {
     }
     
     func getMessagesList(_ completion : @escaping()->()) {
-        database.getListMessage() { users, messages in
+        database.loadListMessages() { users, messages in
             self.users = users
             self.messages = messages
             completion()

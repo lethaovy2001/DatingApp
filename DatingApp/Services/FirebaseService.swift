@@ -48,6 +48,35 @@ class FirebaseService {
         }
     }
     
+    func getMatchedUsers(_ completion: @escaping([UserModel])->()) {
+        guard let uid = auth.currentUser?.uid else { return }
+        database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var users: [UserModel] = []
+                var index = 0
+                for document in querySnapshot!.documents {
+                    let id = document.documentID
+                    self.loadUserProfile(withId: id) { user in
+                        var userModel = user
+                        self.getMainUserImage(from: id) {
+                            image in
+                            if let image = image {
+                                userModel.mainImage = image
+                            }
+                            users.append(userModel)
+                            index += 1
+                            if (index == querySnapshot!.documents.count) {
+                                completion(users)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func convertToDate(timestamp: Timestamp) -> Date {
         return timestamp.dateValue()
     }
@@ -191,95 +220,6 @@ extension FirebaseService {
         }
     }
 }
-
-// MARK: List of Messages
-extension FirebaseService {
-    func getListMessages(_ completion: @escaping([String])->()) {
-        guard let uid = auth.currentUser?.uid else { return }
-        database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var data: [String] = []
-                for document in querySnapshot!.documents {
-                    data.append(document.documentID)
-                }
-                print("Sucessful get users document!")
-                completion(data)
-            }
-        }
-    }
-    
-    func getListMessage(_ completion: @escaping([UserModel], [Message])->()) {
-        var messages: [Message] = []
-        var index = 0
-        getMatchedUsers() { users in
-            for user in users {
-                guard let id = user.id else { return }
-                self.getLastestMessage(toId: id) { messageId, message in
-                    messages.append(Message(dictionary: [:]))
-                    index += 1
-                    if messageId == "" {
-                        if index == users.count {
-                            completion(users, messages)
-                        }
-                    } else {
-                        self.getMessageDetails(with: messageId) { messageData in
-                            var values = messageData
-                            guard let time = messageData["time"] as? Timestamp else { return }
-                            let convertedTime = self.convertToDate(timestamp: time)
-                            values.updateValue(convertedTime, forKey: "time")
-                            let message = Message(dictionary: messageData)
-                            if users.count != messages.count {
-                                messages.append(message)
-                            } else {
-                                var messageIndex = 0
-                                for person in users {
-                                    if person.id == id {
-                                        messages.remove(at: messageIndex)
-                                        messages.insert(message, at: messageIndex)
-                                        completion(users, messages)
-                                    }
-                                    messageIndex += 1
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func getMatchedUsers(_ completion: @escaping([UserModel])->()) {
-        guard let uid = auth.currentUser?.uid else { return }
-        database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var users: [UserModel] = []
-                var index = 0
-                for document in querySnapshot!.documents {
-                    let id = document.documentID
-                    self.loadUserProfile(withId: id) { user in
-                        var userModel = user
-                        self.getMainUserImage(from: id) {
-                            image in
-                            if let image = image {
-                                userModel.mainImage = image
-                            }
-                            users.append(userModel)
-                            index += 1
-                            if (index == querySnapshot!.documents.count) {
-                                completion(users)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 
 // MARK: Messages
 extension FirebaseService {
@@ -510,6 +450,46 @@ extension FirebaseService : Database {
             }
             self.downloadImages(data: data) { images in
                 completion(images)
+            }
+        }
+    }
+    
+    func loadListMessages(_ completion: @escaping([UserModel], [Message])->()) {
+        var messages: [Message] = []
+        var index = 0
+        getMatchedUsers() { users in
+            for user in users {
+                guard let id = user.id else { return }
+                self.getLastestMessage(toId: id) { messageId, message in
+                    messages.append(Message(dictionary: [:]))
+                    index += 1
+                    if messageId == "" {
+                        if index == users.count {
+                            completion(users, messages)
+                        }
+                    } else {
+                        self.getMessageDetails(with: messageId) { messageData in
+                            var values = messageData
+                            guard let time = messageData["time"] as? Timestamp else { return }
+                            let convertedTime = self.convertToDate(timestamp: time)
+                            values.updateValue(convertedTime, forKey: "time")
+                            let message = Message(dictionary: messageData)
+                            if users.count != messages.count {
+                                messages.append(message)
+                            } else {
+                                var messageIndex = 0
+                                for person in users {
+                                    if person.id == id {
+                                        messages.remove(at: messageIndex)
+                                        messages.insert(message, at: messageIndex)
+                                        completion(users, messages)
+                                    }
+                                    messageIndex += 1
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
