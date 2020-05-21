@@ -8,35 +8,16 @@
 
 import UIKit
 
-class ChatView: UIView {
-    private let inputContainerView: UIView = {
-        let container = UIView()
-        container.backgroundColor = .white
-        container.translatesAutoresizingMaskIntoConstraints = false
-        
-        container.layer.addShadow(withDirection: .top)
-        return container
-    }()
+class ChatView : UIView {
+    // MARK: - Properties
+    private let inputContainerView = InputContainerView()
     private let inputTextView = InputTextView(placeholder: "Aa", cornerRadius: 20, isScrollable: true)
     private let addImageButton = CustomButton(imageName: "photo", size: 20, color: .amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let sendButton = CustomButton(imageName: "paperplane.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let customNavigationView = CustomNavigationView(type: .chatMessage)
+    private let loadingView = LoadingAnimationView()
+    private let newChatAlertView = CustomAlertView(type: .newMessage)
     private var inputContainerBottomAnchor = NSLayoutConstraint()
-    private let titleButton: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
-        return button
-    }()
-    private let containerView: UIView = {
-        let containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        return containerView
-    }()
-    private let profileImageView = CircleImageView(imageName: "user")
-    private let nameLabel: UILabel = {
-        let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        return nameLabel
-    }()
     private var keyboardFrame = CGRect()
     var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -51,16 +32,13 @@ class ChatView: UIView {
         cv.backgroundColor = .white
         return cv
     }()
-    private let customNavigationView = CustomNavigationView(type: .chatMessage)
-    private let loadingView = LoadingAnimationView()
-    private let newChatAlertView = CustomAlertView(type: .newMessage)
     var viewModel: UserDetailsViewModel? {
         didSet {
             customNavigationView.setTitle(title: viewModel?.name ?? "Unknown")
         }
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -70,7 +48,7 @@ class ChatView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
         self.backgroundColor = .white
         addSubviews()
@@ -90,6 +68,8 @@ class ChatView: UIView {
     }
     
     private func setUpConstraints() {
+        inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: inputContainerView.safeAreaLayoutGuide.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding))
+        inputContainerBottomAnchor.isActive = true
         NSLayoutConstraint.activate([
             loadingView.topAnchor.constraint(equalTo: self.topAnchor),
             loadingView.leftAnchor.constraint(equalTo: self.leftAnchor),
@@ -107,10 +87,6 @@ class ChatView: UIView {
             inputContainerView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             inputContainerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        inputContainerBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: inputContainerView.safeAreaLayoutGuide.bottomAnchor, constant: -(Constants.PaddingValues.inputPadding))
-        inputContainerBottomAnchor.isActive = true
-        
         NSLayoutConstraint.activate([
             inputTextView.leftAnchor.constraint(equalTo: addImageButton.rightAnchor),
             inputTextView.rightAnchor.constraint(equalTo: sendButton.leftAnchor),
@@ -152,10 +128,7 @@ class ChatView: UIView {
         collectionView.addGestureRecognizer(tapRecognizer)
     }
     
-    func getKeyboard(frame: CGRect) {
-        self.keyboardFrame = frame
-    }
-    
+    // MARK: Selectors
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
         customNavigationView.setleftButtonSelector(selector: selector, target: target)
     }
@@ -170,6 +143,11 @@ class ChatView: UIView {
     
     func setDoneSelector(selector: Selector, target: UIViewController) {
         newChatAlertView.setDoneSelector(selector: selector, target: target)
+    }
+    
+    // MARK: Actions
+    func getKeyboard(frame: CGRect) {
+        self.keyboardFrame = frame
     }
     
     func getInputText() -> String? {
@@ -187,6 +165,7 @@ class ChatView: UIView {
         self.loadingView.removeFromSuperview()
     }
     
+    // MARK: Alert View
     func showNewConversationAlert() {
         newChatAlertView.isHidden = false
         self.addSubview(newChatAlertView)
@@ -204,7 +183,7 @@ class ChatView: UIView {
     }
 }
 
-// MARK: TextViewEditingDelegate
+// MARK: - TextViewEditingDelegate
 extension ChatView: TextViewEditingDelegate {
     func didChange() {
         inputTextView.calculateBestHeight()
@@ -225,9 +204,10 @@ extension ChatView: TextViewEditingDelegate {
     }
 }
 
+// MARK: - KeyboardDelegate
 extension ChatView: KeyboardDelegate {
     func showKeyboard() {
-        inputContainerBottomAnchor.constant = -self.keyboardFrame.height + Constants.PaddingValues.inputPadding*2
+        inputContainerBottomAnchor.constant = -self.keyboardFrame.height + Constants.PaddingValues.inputPadding * 2
     }
     
     func hideKeyboard() {
