@@ -11,17 +11,26 @@ import UIKit
 class ListMessageViewModel {
     private var userModel: UserModel
     private var message: Message?
-    private var currentUserId: String
+    //private var currentUserId: String
     
     init(userModel: UserModel, message: Message, currentUserId: String) {
         self.userModel = userModel
-        self.currentUserId = currentUserId
+        //self.currentUserId = currentUserId
+        self.message = message
+    }
+    
+    init(userModel: UserModel, message: Message) {
+        self.userModel = userModel
         self.message = message
     }
     
     init(userModel: UserModel, currentUserId: String) {
         self.userModel = userModel
-        self.currentUserId = currentUserId
+        //self.currentUserId = currentUserId
+    }
+    
+    init(userModel: UserModel) {
+        self.userModel = userModel
     }
 }
 
@@ -53,5 +62,4 @@ extension ListMessageViewModel {
             return UIFont.systemFont(ofSize: 18)
         }
     }
-    
 }

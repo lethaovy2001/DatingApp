@@ -17,6 +17,7 @@ protocol Database {
     func loadUserProfile(withId id: String,_ completion: @escaping(UserModel)->())
     func saveLikeUser(withId id: String)
     func saveDislikeUser(withId id: String)
+    func getListMessage(_ completion: @escaping([UserModel], [Message])->())
 }
 
 

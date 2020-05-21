@@ -9,15 +9,23 @@
 import UIKit
 
 class ListMessagesViewController: UIViewController {
-    private let listMessagesView: ListMessagesView = {
-        let view = ListMessagesView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private let modelController = ListMessageModelController()
-    private var firebaseService = FirebaseService()
+    //MARK: Properties
+    private let listMessagesView = ListMessagesView()
+    private let modelController: ListMessageModelController
+    private let database: Database
     
-    //MARK: Life Cycles
+    // MARK: - Initializer
+    init(database: Database = FirebaseService.shared) {
+        self.database = database
+        self.modelController = ListMessageModelController(database: database)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -32,7 +40,7 @@ class ListMessagesViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setupUI() {
         view.addSubview(listMessagesView)
         view.backgroundColor = .white
@@ -60,12 +68,12 @@ class ListMessagesViewController: UIViewController {
     }
     
     // MARK: Actions
-    @objc func backButtonPressed() {
+    @objc private func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
-// MARK: UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension ListMessagesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modelController.getUsers().count
@@ -73,17 +81,15 @@ extension ListMessagesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.messageCellId, for: indexPath) as! ListMessageCell
-        if let uid = firebaseService.getUserID() {
-            let model = modelController.getUsers()[indexPath.item]
-            let message = modelController.getMessages()[indexPath.item]
-            cell.viewModel = ListMessageViewModel(userModel: model, message: message, currentUserId: uid)
-        }
+        let model = modelController.getUsers()[indexPath.item]
+        let message = modelController.getMessages()[indexPath.item]
+        cell.viewModel = ListMessageViewModel(userModel: model, message: message)
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
 }
 
-// MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension ListMessagesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
@@ -96,6 +102,7 @@ extension ListMessagesViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ImageTapGestureDelegate
 extension ListMessagesViewController: ImageTapGestureDelegate {
     func didTap() {
         let vc = UserDetailsViewController()

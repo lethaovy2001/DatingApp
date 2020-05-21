@@ -7,13 +7,23 @@
 //
 
 import UIKit
-import Firebase
 
 class ListMessageModelController {
-    private var firebaseService = FirebaseService()
+    // MARK: Properties
     private var users = [UserModel]()
     private var messages = [Message]()
+    private let database: Database
     
+    // MARK: - Initializer
+    init(database: Database) {
+        self.database = database
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Getters
     func getUsers() -> [UserModel] {
         return users
     }
@@ -23,52 +33,10 @@ class ListMessageModelController {
     }
     
     func getMessagesList(_ completion : @escaping()->()) {
-        firebaseService.getListMessages({ matchedUsers in
-            var recipientIndex = 0
-            for userId in matchedUsers {
-                self.firebaseService.getUserWithId(id: userId, { userInfo in
-                    var user = UserModel(info: userInfo)
-                    self.firebaseService.getMainUserImage(from: userId, { image in
-                        if let image = image {
-                            user.mainImage = image
-                        }
-                        self.users.append(user)
-                        let message = Message(dictionary: [:])
-                        self.messages.append(message)
-                        recipientIndex += 1
-                        self.firebaseService.getLastestMessage(toId: userId, { messageId, message in
-                        switch message {
-                            case .noMessage:
-                                completion()
-                                return
-                            case .hasMessage:
-                                self.getMessageDetail(userId: userId, messageId: messageId, recipientIndex: recipientIndex, totalRecipient: matchedUsers.count, {
-                                    completion()
-                                })
-                            }
-                        })
-                    })
-                })
-            }
-        })
-    }
-    
-    func getMessageDetail(userId: String, messageId: String, recipientIndex: Int, totalRecipient: Int,_ completion : @escaping()->()) {
-        self.firebaseService.getMessageDetails(with: messageId, { messageData in
-            guard let time = messageData["time"] as? Timestamp else { return }
-            let convertedTime = self.firebaseService.convertToDate(timestamp: time)
-            var values = messageData
-            values.updateValue(convertedTime, forKey: "time")
-            let message = Message(dictionary: values)
-            var index = 0
-            for person in self.users {
-                if person.id == userId {
-                    self.messages.remove(at: index)
-                    self.messages.insert(message, at: index)
-                    completion()
-                }
-                index += 1
-            }
-        })
+        database.getListMessage() { users, messages in
+            self.users = users
+            self.messages = messages
+            completion()
+        }
     }
 }
