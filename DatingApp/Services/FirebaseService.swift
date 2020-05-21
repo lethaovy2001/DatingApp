@@ -32,26 +32,6 @@ class FirebaseService {
         return auth.currentUser?.uid
     }
     
-    func getUserInfoFromDatabase(_ completion : @escaping([String: Any])->()) {
-        if let uid = auth.currentUser?.uid {
-            database.collection("users").document(uid).addSnapshotListener {
-                documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                guard let data = document.data() else {
-                    print("Document data was empty.")
-                    return
-                }
-                print("Current data: \(data)")
-                completion(data)
-            }
-        } else {
-            print("*** FirebaseService: User ID is nil")
-        }
-    }
-    
     func getUserWithId(id: String,_ completion : @escaping([String: Any])->()) {
         database.collection("users").document(id).addSnapshotListener {
             documentSnapshot, error in
@@ -68,64 +48,8 @@ class FirebaseService {
         }
     }
     
-    func getAllUsersFromDatabase(_ completion : @escaping([String: [String: Any]])->()) {
-        if let uid = auth.currentUser?.uid {
-            database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    var data: [String: [String: Any]] = [:]
-                    var index = 0
-                    for document in querySnapshot!.documents {
-                        if (uid != document.documentID) {
-                            self.getUserWithId(id: document.documentID, { user in
-                                data.updateValue(user, forKey: document.documentID)
-                                index += 1
-                                if (index == querySnapshot!.documents.count) {
-                                    completion(data)
-                                }
-                            })
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     func convertToDate(timestamp: Timestamp) -> Date {
         return timestamp.dateValue()
-    }
-    
-    func updateDatabase(with data: [String: Any]) {
-        if let uid = auth.currentUser?.uid {
-            database.collection("users").document(uid).setData(data, merge: true)
-        }
-    }
-}
-// MARK: Authentication
-extension FirebaseService {
-    func authenticateWithFirebase(accessToken: String,_ completion: @escaping()->()) {
-        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
-        auth.signIn(with: credential) { (authResult, error) in
-            if error != nil {
-                print(String(describing: error))
-                return
-            }
-            print("Successfully log user into firebase")
-            completion()
-        }
-    }
-    
-    func authenticateUsingEmail(email: String, password: String,_ completion: @escaping(String?)->()) {
-        auth.signIn(withEmail: email, password: password, completion: {(authResult, error) in
-            if error != nil {
-                print(String(describing: error))
-                completion(error?.localizedDescription)
-                return
-            }
-            print("Successfully log user into firebase")
-            completion(nil)
-        })
     }
 }
 
@@ -137,8 +61,6 @@ extension FirebaseService {
             database.collection("profile_images").document(uid).setData(data, merge: true)
         }
     }
-    
-    
     
     func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping()->()) {
         let imageName = UUID().uuidString
@@ -219,46 +141,6 @@ extension FirebaseService {
         }
     }
     
-    func getUserImagesFromDatabase(_ completion : @escaping([UIImage])->()) {
-        if let uid = auth.currentUser?.uid {
-            database.collection("profile_images").document(uid).addSnapshotListener {
-                documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                guard let data = document.data() else {
-                    completion([])
-                    print("Document data was empty.")
-                    return
-                }
-                
-                self.downloadImages(data: data, { images in
-                    completion(images)
-                })
-            }
-        } else {
-            print("*** FirebaseService: User ID is nil")
-        }
-    }
-    
-    func getUserImagesFromDatabase(from id: String, _ completion : @escaping([UIImage])->()) {
-        database.collection("profile_images").document(id).addSnapshotListener {
-            documentSnapshot, error in
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
-                completion([])
-                return
-            }
-            self.downloadImages(data: data, { images in
-                completion(images)
-            })
-        }
-    }
-    
     func getMainUserImage(from id: String, _ completion : @escaping(UIImage?)->()) {
         database.collection("profile_images").document(id).addSnapshotListener {
             documentSnapshot, error in
@@ -291,7 +173,6 @@ extension FirebaseService {
                 }
             }
         }
-        
     }
     
     func downloadImages(data: [String: Any], _ completion : @escaping([UIImage])->()) {
