@@ -11,15 +11,11 @@ import UIKit
 class PreferenceViewController : UIViewController {
     // MARK: - Properties
     private let mainView = PreferenceView()
-    private var database: Database
-    private var auth: Authentication
     var user: UserModel!
     private let converter = DateConverter()
     
     // MARK: - Initializer
-    init(authentication: Authentication, database: Database) {
-        self.database = database
-        self.auth = authentication
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,10 +52,8 @@ class PreferenceViewController : UIViewController {
             user.gender = gender
             user.interestedIn = interestedGender
             user.birthday = date
-            self.database.saveProfile(ofUser: user)
-            self.database.updateListOfUsers()
-            let viewModel = UserDetailsViewModel(model: user)
-            let vc = EditUserDetailsViewController(viewModel: viewModel)
+            let vc = EditUserDetailsViewController()
+            vc.user = user
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

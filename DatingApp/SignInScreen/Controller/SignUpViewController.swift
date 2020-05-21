@@ -74,13 +74,14 @@ class SignUpViewController : UIViewController {
                     self.mainView.showError(message: message)
                     return
                 }
+                self.database.updateListOfUsers()
                 guard let id = self.auth.getCurrentUserId() else { return }
                 let info: [String: Any] = [
                     "first_name": name,
                     "id": id
                 ]
                 let user = UserModel(info: info)
-                let vc = PreferenceViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+                let vc = PreferenceViewController()
                 vc.user = user
                 self.navigationController?.pushViewController(vc, animated: true)
             }

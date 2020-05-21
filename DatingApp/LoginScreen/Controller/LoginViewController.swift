@@ -61,7 +61,7 @@ class LoginViewController : UIViewController {
     @objc private func loginWithFacebook() {
         facebookAuth.loginPressed(viewController: self) { isAlreadyLogin in
             self.auth.logUserIn(withCredential: self.facebookAuth.getFBAccessToken()) { loginError in
-                if let error = loginError {
+                if loginError != nil {
                     self.mainView.showAlert()
                     return
                 }
@@ -72,7 +72,7 @@ class LoginViewController : UIViewController {
                         if let userInfo = data as? [String: Any] {
                             var user = UserModel(info: userInfo)
                             user.id = self.auth.getCurrentUserId()
-                            let vc = PreferenceViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+                            let vc = PreferenceViewController()
                             vc.user = user
                             self.navigationController?.pushViewController(vc, animated: true)
                         }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol Database {
     func saveProfile(ofUser user: UserModel)
+    func uploadUserImages(images: [UIImage], _ completion: @escaping()->())
     func updateListOfUsers()
     func loadAllUsers(_ completion: @escaping([UserModel])->())
     func loadUserImages(withId id: String,_ completion: @escaping([UIImage])->())

@@ -138,19 +138,7 @@ extension FirebaseService {
         }
     }
     
-    func uploadImages(images: [UIImage], _ completion: @escaping()->()){
-        if let uid = auth.currentUser?.uid {
-            var index = 0
-            for image in images {
-                uploadImageOntoStorage(image: image, uid: uid, index: index, {
-                    if index == images.count {
-                        completion()
-                    }
-                })
-                index += 1
-            }
-        }
-    }
+    
     
     func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping()->()) {
         let imageName = UUID().uuidString
@@ -478,28 +466,24 @@ extension FirebaseService {
 
 // MARK: - Database
 extension FirebaseService : Database {
-    func loadUserProfile(withId id: String,_ completion: @escaping(UserModel)->()) {
-        database.collection("users").document(id).addSnapshotListener {
-            documentSnapshot, error in
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
-            var user = UserModel(info: data)
-            self.loadUserImages(withId: id) { images in
-                user.images = images
-                completion(user)
-            }
-        }
-    }
-    
+    // MARK: Save data
     func saveProfile(ofUser user: UserModel) {
         if let uid = getCurrentUserId(), let data = user.getUserInfo() {
             database.collection("users").document(uid).setData(data, merge: true)
+        }
+    }
+    
+    func uploadUserImages(images: [UIImage], _ completion: @escaping()->()){
+        if let uid = auth.currentUser?.uid {
+            var index = 0
+            for image in images {
+                uploadImageOntoStorage(image: image, uid: uid, index: index, {
+                    if index == images.count {
+                        completion()
+                    }
+                })
+                index += 1
+            }
         }
     }
     
@@ -519,6 +503,7 @@ extension FirebaseService : Database {
         }
     }
     
+    // MARK: Load data
     func loadAllUsers(_ completion: @escaping([UserModel]) -> ()) {
         guard let uid = auth.currentUser?.uid else { return }
         database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
@@ -543,6 +528,25 @@ extension FirebaseService : Database {
         }
     }
     
+    func loadUserProfile(withId id: String,_ completion: @escaping(UserModel)->()) {
+        database.collection("users").document(id).addSnapshotListener {
+            documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            var user = UserModel(info: data)
+            self.loadUserImages(withId: id) { images in
+                user.images = images
+                completion(user)
+            }
+        }
+    }
+    
     func loadUserImages(withId id: String,_ completion: @escaping([UIImage])->()) {
         database.collection("profile_images").document(id).addSnapshotListener {
             documentSnapshot, error in
@@ -554,9 +558,9 @@ extension FirebaseService : Database {
                 completion([])
                 return
             }
-            self.downloadImages(data: data, { images in
+            self.downloadImages(data: data) { images in
                 completion(images)
-            })
+            }
         }
     }
     
