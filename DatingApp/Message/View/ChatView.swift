@@ -54,10 +54,9 @@ class ChatView: UIView {
     private let customNavigationView = CustomNavigationView(type: .chatMessage)
     private let loadingView = LoadingAnimationView()
     private let newChatAlertView = CustomAlertView(type: .newMessage)
-    var viewModel: ListMessageViewModel? {
+    var viewModel: UserDetailsViewModel? {
         didSet {
-            profileImageView.image = viewModel?.userImage
-            customNavigationView.setTitle(title: viewModel?.userName ?? "Unknown")
+            customNavigationView.setTitle(title: viewModel?.name ?? "Unknown")
         }
     }
     

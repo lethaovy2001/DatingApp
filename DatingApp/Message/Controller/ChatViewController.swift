@@ -18,19 +18,31 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }()
     private let modelController = ChatModelController()
     private let firebaseService = FirebaseService()
+    private let database: Database
+    private let auth: Authentication
     var textViewEditingDelegate: TextViewEditingDelegate?
     var keyboardDelegate: KeyboardDelegate?
-    
     var user: UserModel? {
         didSet {
-            if let uid = modelController.getCurrentUserId(), let user = user {
-                chatView.viewModel = ListMessageViewModel(userModel: user, currentUserId: uid)
+            if let userModel = user {
+                chatView.viewModel = UserDetailsViewModel(model: userModel)
+                modelController.user = userModel
             }
-            modelController.user = user
         }
     }
     
-    // MARK: Life Cycles
+    // MARK: - Initializer
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
+        self.auth = authentication
+        self.database = database
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
