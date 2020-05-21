@@ -12,6 +12,7 @@ class ListMessageModelController {
     // MARK: Properties
     private var users = [UserModel]()
     private var messages = [Message]()
+    private var listMessages = [ListMessageModel]()
     private let database: Database
     
     // MARK: - Initializer
@@ -24,18 +25,14 @@ class ListMessageModelController {
     }
     
     // MARK: - Getters
-    func getUsers() -> [UserModel] {
-        return users
+    func getListMessages() -> [ListMessageModel] {
+        return listMessages
     }
     
-    func getMessages() -> [Message] {
-        return messages
-    }
-    
-    func getMessagesList(_ completion : @escaping()->()) {
-        database.loadListMessages() { users, messages in
-            self.users = users
-            self.messages = messages
+    // MARK: - Load data
+    func loadData(_ completion : @escaping()->()) {
+        database.loadListMessages() { listMessageModels in
+            self.listMessages = listMessageModels
             completion()
         }
     }

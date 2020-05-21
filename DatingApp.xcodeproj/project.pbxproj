@@ -107,6 +107,7 @@
 		38F90B462475D234005B0BEB /* AgeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B452475D234005B0BEB /* AgeConverter.swift */; };
 		38F90B482475D260005B0BEB /* AgeConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B472475D260005B0BEB /* AgeConvertible.swift */; };
 		38F90B4A2475D34D005B0BEB /* SwipeCardViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */; };
+		38F90B4C247653E8005B0BEB /* ListMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B4B247653E8005B0BEB /* ListMessageModel.swift */; };
 		582385F0EBBA40D9FCE8EE86 /* Pods_DatingAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B25DA64073197A99447DE058 /* Pods_DatingAppTests.framework */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
@@ -228,6 +229,7 @@
 		38F90B452475D234005B0BEB /* AgeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeConverter.swift; sourceTree = "<group>"; };
 		38F90B472475D260005B0BEB /* AgeConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeConvertible.swift; sourceTree = "<group>"; };
 		38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardViewTest.swift; sourceTree = "<group>"; };
+		38F90B4B247653E8005B0BEB /* ListMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageModel.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		95C93F3411C66357ED08711D /* Pods-DatingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingAppTests.release.xcconfig"; path = "Target Support Files/Pods-DatingAppTests/Pods-DatingAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -644,6 +646,7 @@
 				38475D452469F727008EDD28 /* Controller */,
 				38475D422469F6BF008EDD28 /* View */,
 				38475D48246A1CB6008EDD28 /* ListMessageViewModel.swift */,
+				38F90B4B247653E8005B0BEB /* ListMessageModel.swift */,
 			);
 			path = ListMessages;
 			sourceTree = "<group>";
@@ -985,6 +988,7 @@
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				38F90AD42470E91B005B0BEB /* Database.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,
+				38F90B4C247653E8005B0BEB /* ListMessageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

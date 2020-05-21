@@ -59,7 +59,7 @@ class ListMessagesViewController: UIViewController {
     }
     
     private func loadListOfUsers() {
-        modelController.getMessagesList({
+        modelController.loadData({
             DispatchQueue.main.async {
                 self.listMessagesView.tableView.reloadData()
                 self.listMessagesView.tableView.scrollsToTop = true
@@ -76,14 +76,12 @@ class ListMessagesViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension ListMessagesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelController.getUsers().count
+        return modelController.getListMessages().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.messageCellId, for: indexPath) as! ListMessageCell
-        let model = modelController.getUsers()[indexPath.item]
-        let message = modelController.getMessages()[indexPath.item]
-        cell.viewModel = ListMessageViewModel(userModel: model, message: message)
+        cell.viewModel = ListMessageViewModel(listMessageModel: modelController.getListMessages()[indexPath.item])
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
@@ -97,7 +95,7 @@ extension ListMessagesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ChatViewController()
-        vc.user = modelController.getUsers()[indexPath.item]
+        vc.user = modelController.getListMessages()[indexPath.item].user
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

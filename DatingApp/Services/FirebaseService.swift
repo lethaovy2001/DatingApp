@@ -48,28 +48,27 @@ class FirebaseService {
         }
     }
     
-    func getMatchedUsers(_ completion: @escaping([UserModel])->()) {
-        guard let uid = auth.currentUser?.uid else { return }
-        database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var users: [UserModel] = []
-                var index = 0
-                for document in querySnapshot!.documents {
-                    let id = document.documentID
-                    self.loadUserProfile(withId: id) { user in
-                        var userModel = user
-                        self.getMainUserImage(from: id) {
-                            image in
-                            if let image = image {
-                                userModel.mainImage = image
-                            }
-                            users.append(userModel)
-                            index += 1
-                            if (index == querySnapshot!.documents.count) {
-                                completion(users)
-                            }
+    func getListMessage(withId id: String,_ completion: @escaping(ListMessageModel)->()) {
+        self.loadUserProfile(withId: id) { user in
+            var userModel = user
+            self.getMainUserImage(from: id) {
+                image in
+                if let image = image {
+                    userModel.mainImage = image
+                }
+                self.getLastestMessage(toId: id) { (messageId, message) in
+                    if messageId == "" {
+                        let model = ListMessageModel(user: userModel, message: Message(dictionary: [:]))
+                        completion(model)
+                    } else {
+                        self.getMessageDetails(with: messageId) { messageData in
+                            var values = messageData
+                            guard let time = messageData["time"] as? Timestamp else { return }
+                            let convertedTime = self.convertToDate(timestamp: time)
+                            values.updateValue(convertedTime, forKey: "time")
+                            let message = Message(dictionary: values)
+                            let model = ListMessageModel(user: userModel, message: message)
+                            completion(model)
                         }
                     }
                 }
@@ -322,38 +321,6 @@ extension FirebaseService {
     }
 }
 
-extension FirebaseService {
-    func updateMatchUser(toId: String) {
-        guard let uid = auth.currentUser?.uid else { return }
-        // match both user
-        database.collection("users").document(toId).collection("available-users")
-            .whereField("id", isEqualTo: uid)
-            .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for _ in querySnapshot!.documents {
-                        self.database.collection("user-messages").document(uid).collection("match-users").document(toId).setData(["isMatch": true, "time": Date()], merge: true)
-                        self.database.collection("user-messages").document(toId).collection("match-users").document(uid).setData(["isMatch": true, "time": Date()], merge: true)
-                    }
-                }
-        }
-        // save when one person like first
-        database.collection("users").document(uid).collection("available-users").document(toId).setData(["hasDisplay": true], merge: true)
-    }
-    
-    func deleteDislikedUser(toId: String) {
-        guard let uid = auth.currentUser?.uid else { return }
-        database.collection("users").document(uid).collection("available-users").document(toId).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
-            } else {
-                print("Document successfully removed!")
-            }
-        }
-    }
-}
-
 // MARK: - Database
 extension FirebaseService : Database {
     // MARK: Save data
@@ -454,39 +421,33 @@ extension FirebaseService : Database {
         }
     }
     
-    func loadListMessages(_ completion: @escaping([UserModel], [Message])->()) {
-        var messages: [Message] = []
-        var index = 0
-        getMatchedUsers() { users in
-            for user in users {
-                guard let id = user.id else { return }
-                self.getLastestMessage(toId: id) { messageId, message in
-                    messages.append(Message(dictionary: [:]))
-                    index += 1
-                    if messageId == "" {
-                        if index == users.count {
-                            completion(users, messages)
-                        }
-                    } else {
-                        self.getMessageDetails(with: messageId) { messageData in
-                            var values = messageData
-                            guard let time = messageData["time"] as? Timestamp else { return }
-                            let convertedTime = self.convertToDate(timestamp: time)
-                            values.updateValue(convertedTime, forKey: "time")
-                            let message = Message(dictionary: messageData)
-                            if users.count != messages.count {
-                                messages.append(message)
-                            } else {
-                                var messageIndex = 0
-                                for person in users {
-                                    if person.id == id {
-                                        messages.remove(at: messageIndex)
-                                        messages.insert(message, at: messageIndex)
-                                        completion(users, messages)
-                                    }
-                                    messageIndex += 1
+    func loadListMessages(_ completion: @escaping([ListMessageModel])->()) {
+        guard let uid = auth.currentUser?.uid else { return }
+        database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var models: [ListMessageModel] = []
+                var index = 0
+                for document in querySnapshot!.documents {
+                    let id = document.documentID
+                    self.getListMessage(withId: id) { listMessageModel in
+                        if models.count == querySnapshot!.documents.count {
+                            var modelIndex = 0
+                            for model in models {
+                                if model.user.id == listMessageModel.user.id {
+                                    models.remove(at: modelIndex)
+                                    models.insert(listMessageModel, at: modelIndex)
+                                    completion(models)
                                 }
+                                modelIndex += 1
                             }
+                        } else {
+                            models.append(listMessageModel)
+                        }
+                        index += 1
+                        if index == querySnapshot!.documents.count {
+                            completion(models)
                         }
                     }
                 }
