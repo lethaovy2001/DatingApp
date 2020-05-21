@@ -10,7 +10,8 @@ import UIKit
 import MobileCoreServices
 import AVFoundation
 
-class ChatViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ChatViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    // MARK: Properties
     private let chatView: ChatView = {
         let view = ChatView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -83,18 +84,17 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func getMessages() {
-        modelController.getMessagesFromDatabase { state in
+        modelController.getMessagesFromDatabase() {
             DispatchQueue.main.async {
                 self.chatView.collectionView.reloadData()
                 let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
                 self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
-            }
-            switch state {
-            case .success:
-                self.chatView.doneLoading()
-            case .noMessage:
-                self.chatView.doneLoading()
-                self.chatView.showNewConversationAlert()
+                if self.modelController.getMessages().count != 0 {
+                    self.chatView.doneLoading()
+                } else {
+                    self.chatView.doneLoading()
+                    self.chatView.showNewConversationAlert()
+                }
             }
         }
     }
@@ -149,7 +149,8 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as! ChatCell
-        if let uid = modelController.getCurrentUserId(), let image = user?.mainImage {
+        if let uid = auth.getCurrentUserId(),
+        let image = user?.mainImage {
             let message = modelController.getMessages()[indexPath.item]
             cell.viewModel = MessageViewModel(model: message, currentUserId: uid, userImage: image)
         }
@@ -173,10 +174,6 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         let size = CGSize(width: 200, height: 1000)
         let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         return NSString(string: text).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.textSize)], context: nil)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
     }
 }
 

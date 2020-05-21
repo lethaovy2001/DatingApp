@@ -484,8 +484,48 @@ extension FirebaseService : Database {
         }
     }
     
+    
+    
     func loadMessages(withId id: String, _ completion: @escaping ([Message]) -> ()) {
+        var totalMessages = 0
+        var currentMessageIndex = 0
+        var messages: [Message] = []
         
+        getMessages(toId: id, { data in
+            if data.isEmpty {
+                completion([])
+                return
+            }
+            guard let messageId = data["messageId"] as? String else {
+                completion([])
+                return
+            }
+            self.getMessageDetails(with: messageId, { messageData in
+                guard let time = messageData["time"] as? Timestamp else { return }
+                let convertedTime = self.convertToDate(timestamp: time)
+                var values = messageData
+                values.updateValue(convertedTime, forKey: "time")
+                var message: Message!
+                if let imageUrl = values["imageUrl"] as? String {
+                    self.downloadImageFromStorage(url: imageUrl, { image in
+                        message = Message(dictionary: values, image: image)
+                        messages.append(message)
+                        currentMessageIndex += 1
+                        if (currentMessageIndex == totalMessages) {
+                            completion(messages)
+                        }
+                    })
+                } else {
+                    message = Message(dictionary: values)
+                    messages.append(message)
+                    currentMessageIndex += 1
+                    if (currentMessageIndex == totalMessages) {
+                        completion(messages)
+                    }
+                }
+            })
+            totalMessages += 1
+        })
     }
     
     // MARK: Like/Dislike

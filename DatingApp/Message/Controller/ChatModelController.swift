@@ -10,25 +10,18 @@ import UIKit
 import Firebase
 
 class ChatModelController {
+    //MARK: - Properties
     private var firebaseService = FirebaseService()
     private var messages = [Message]()
     private var database: Database
     var user: UserModel?
     
-    enum LoadMessagesState {
-        case success
-        case noMessage
-    }
-    
-    //MARK: Initializer
+    //MARK: - Initializer
     init(database: Database) {
         self.database = database
     }
     
-    func getCurrentUserId() -> String? {
-        return firebaseService.getUserID()
-    }
-    
+    //MARK: - Getters
     func getMessages() -> [Message] {
         self.messages.sort( by: { (message1, message2) -> Bool in
             if let timeSent1 = message1.time, let timeSent2 = message2.time {
@@ -39,44 +32,12 @@ class ChatModelController {
         return messages
     }
     
-    func getMessagesFromDatabase(_ completion : @escaping(LoadMessagesState)->()) {
-        guard let toId = user?.id else { return }
-        var totalMessages = 0
-        var currentMessageIndex = 0
-        firebaseService.getMessages(toId: toId, { data in
-            if data.isEmpty {
-                completion(.noMessage)
-                return
-            }
-            guard let messageId = data["messageId"] as? String else {
-                completion(.noMessage)
-                return
-            }
-            self.firebaseService.getMessageDetails(with: messageId, { messageData in
-                guard let time = messageData["time"] as? Timestamp else { return }
-                let convertedTime = self.firebaseService.convertToDate(timestamp: time)
-                var values = messageData
-                values.updateValue(convertedTime, forKey: "time")
-                var message: Message!
-                if let imageUrl = values["imageUrl"] as? String {
-                    self.firebaseService.downloadImageFromStorage(url: imageUrl, { image in
-                        message = Message(dictionary: values, image: image)
-                        self.messages.append(message)
-                        currentMessageIndex += 1
-                        if (currentMessageIndex == totalMessages) {
-                            completion(.success)
-                        }
-                    })
-                } else {
-                    message = Message(dictionary: values)
-                    self.messages.append(message)
-                    currentMessageIndex += 1
-                    if (currentMessageIndex == totalMessages) {
-                        completion(.success)
-                    }
-                }
-            })
-            totalMessages += 1
-        })
+    //MARK: - Load data
+    func getMessagesFromDatabase(_ completion : @escaping()->()) {
+        guard let id = user?.id else { return }
+        database.loadMessages(withId: id) { messages in
+            self.messages = messages
+            completion()
+        }
     }
 }
