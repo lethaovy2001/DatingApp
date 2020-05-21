@@ -16,7 +16,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let modelController = ChatModelController()
+    private let modelController: ChatModelController
     private let firebaseService = FirebaseService()
     private let database: Database
     private let auth: Authentication
@@ -35,6 +35,7 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
         self.auth = authentication
         self.database = database
+        self.modelController = ChatModelController(database: database)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -111,14 +112,17 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func sendButtonPressed(){
-        if let fromId = modelController.getCurrentUserId(), let text = chatView.getInputText(), let toId = user?.id {
-            let message: [String: Any] = [
+        if let fromId = auth.getCurrentUserId(),
+        let text = chatView.getInputText(),
+        let toId = user?.id {
+            let messageInfo: [String: Any] = [
                 "fromId": fromId,
                 "toId": toId,
                 "time": Date(),
                 "text": text
             ]
-            modelController.updateMessageToDatabase(message: message)
+            let message = Message(dictionary: messageInfo)
+            database.saveMessage(message: message)
             chatView.setEmptyInputText()
         }
     }
@@ -247,14 +251,16 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 // MARK: Images and Videos
 extension ChatViewController {
     private func handleVideoSelectedForUrl(_ url: URL) {
-        firebaseService.uploadMessageVideoOntoStorage(url: url, completion: { message in
-            if let toId =  self.user?.id {
-                var values: [String: Any] = message
-                values.updateValue(self.modelController.getCurrentUserId()!, forKey: "fromId")
-                values.updateValue(toId, forKey: "toId")
-                self.modelController.updateMessageToDatabase(message: values)
-            }
-        })
+        guard
+            let fromId = auth.getCurrentUserId(),
+            let toId = user?.id
+        else { return }
+        let dictionary: [String: Any] = [
+            "fromId": fromId,
+            "toId": toId
+        ]
+        let message = Message(dictionary: dictionary)
+        database.uploadVideoMessage(url: url, message: message)
     }
     
     private func handleImageSelectedForInfo(_ info: [UIImagePickerController.InfoKey : Any]) {
@@ -265,14 +271,17 @@ extension ChatViewController {
             selectedImageFromPicker = originalImage
         }
         if let selectedImage = selectedImageFromPicker {
-            firebaseService.uploadMessageImageOntoStorage(image: selectedImage, { message in
-                if let toId =  self.user?.id, let fromId = self.modelController.getCurrentUserId() {
-                    var values: [String: Any] = message
-                    values.updateValue(fromId, forKey: "fromId")
-                    values.updateValue(toId, forKey: "toId")
-                    self.modelController.updateMessageToDatabase(message: values)
-                }
-            })
+            guard
+                let fromId = auth.getCurrentUserId(),
+                let toId = user?.id
+            else { return }
+            let dictionary: [String: Any] = [
+                "fromId": fromId,
+                "toId": toId,
+            ]
+            var message = Message(dictionary: dictionary)
+            message.image = selectedImage
+            database.uploadImageMessage(message: message)
         }
     }
 }

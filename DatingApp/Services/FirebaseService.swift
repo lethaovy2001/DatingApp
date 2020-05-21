@@ -108,9 +108,10 @@ extension FirebaseService {
         }
     }
     
-    func uploadMessageVideoOntoStorage(url: URL, completion: @escaping ([String: Any]) -> ()) {
-        let imageName = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("messages-videos").child("\(imageName).mov")
+    func uploadVideoMessage(url: URL, message: Message) {
+        var updateMessage = message
+        let videoName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-videos").child("\(videoName).mov")
         if let videoData = NSData(contentsOf: url) as Data? {
             let uploadTask = storageRef.putData(videoData, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
@@ -124,11 +125,14 @@ extension FirebaseService {
                     }
                     
                     if let thumbnailImage = self.thumbnailImageForFileUrl(fileUrl) {
-                        self.uploadMessageImageOntoStorage(image: thumbnailImage, { imageData in
-                            var data = imageData
-                            data.updateValue(downloadURL, forKey: "videoUrl")
-                            completion(data)
-                        })
+                        updateMessage.videoUrl = downloadURL
+                        updateMessage.image = thumbnailImage
+                        self.uploadImageMessage(message: updateMessage)
+//                        self.uploadMessageImageOntoStorage(image: thumbnailImage, { imageData in
+//                            var data = imageData
+//                            data.updateValue(downloadURL, forKey: "videoUrl")
+//
+//                        })
                     }
                 }
             }
@@ -222,20 +226,21 @@ extension FirebaseService {
 
 // MARK: Messages
 extension FirebaseService {
-    func saveMessageToDatabase(with message: Message,_ completion : @escaping(String)->()) {
+    func saveMessage(message: Message) {
         guard let data = message.getMessageDictionary() else { return }
         var ref: DocumentReference? = nil
         ref = database.collection("messages").addDocument(data: data, completion: { error in
             if let error = error {
                 print("Error adding document: \(error)")
             } else {
-                print("Document added with ID: \(ref!.documentID)")
-                completion(ref!.documentID)
+                var messageRef = message
+                messageRef.messageId = ref!.documentID
+                self.saveMessageReference(message: messageRef)
             }
         })
     }
     
-    func updateMessageReference(message: Message) {
+    func saveMessageReference(message: Message) {
         if let fromId = auth.currentUser?.uid,
             let data = message.getMessageReference(),
             let toId = message.toId,
@@ -340,6 +345,30 @@ extension FirebaseService : Database {
                     }
                 })
                 index += 1
+            }
+        }
+    }
+    
+    func uploadImageMessage(message: Message) {
+        guard let image = message.image else {
+            return
+        }
+        var updateMessage = message
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-images").child("\(imageName).jpg")
+        if let uploadData = image.jpegData(compressionQuality: 1.0) {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    //let properties: [String: Any] = ["imageUrl": downloadURL as String, "imageWidth": image.size.width, "imageHeight": image.size.height]
+                    updateMessage.imageUrl = downloadURL
+                    updateMessage.imageWidth = image.size.width
+                    updateMessage.imageHeight = image.size.height
+                    self.saveMessage(message: updateMessage)
+                }
             }
         }
     }
@@ -453,6 +482,10 @@ extension FirebaseService : Database {
                 }
             }
         }
+    }
+    
+    func loadMessages(withId id: String, _ completion: @escaping ([Message]) -> ()) {
+        
     }
     
     // MARK: Like/Dislike

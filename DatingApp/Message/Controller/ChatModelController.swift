@@ -12,11 +12,17 @@ import Firebase
 class ChatModelController {
     private var firebaseService = FirebaseService()
     private var messages = [Message]()
+    private var database: Database
     var user: UserModel?
     
     enum LoadMessagesState {
         case success
         case noMessage
+    }
+    
+    //MARK: Initializer
+    init(database: Database) {
+        self.database = database
     }
     
     func getCurrentUserId() -> String? {
@@ -71,14 +77,6 @@ class ChatModelController {
                 }
             })
             totalMessages += 1
-        })
-    }
-    
-    func updateMessageToDatabase(message: [String: Any]) {
-        var model = Message(dictionary: message)
-        firebaseService.saveMessageToDatabase(with: model, { messageId in
-            model.messageId = messageId
-            self.firebaseService.updateMessageReference(message: model)
         })
     }
 }
