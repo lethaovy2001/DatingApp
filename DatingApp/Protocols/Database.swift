@@ -17,9 +17,8 @@ protocol Database {
     func uploadImageMessage(message: Message)
     func uploadVideoMessage(url: URL, message: Message)
     func updateListOfUsers()
-    func loadAllUsers(_ completion: @escaping([UserModel])->())
-    func loadUserImages(withId id: String,_ completion: @escaping([UIImage])->())
     func loadUserProfile(withId id: String,_ completion: @escaping(UserModel)->())
+    func loadAllUsers(_ completion: @escaping([UserModel])->())
     func loadListMessages(_ completion: @escaping([ListMessageModel])->())
     func loadMessages(withId id: String,_ completion: @escaping([Message])->())
 }

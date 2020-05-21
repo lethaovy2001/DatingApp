@@ -36,15 +36,8 @@ class MainModelController {
     // MARK: - Load data
     func getAllUsers(_ completion : @escaping()->()){
         database.loadAllUsers() { users in
-            for user in users {
-                guard let id = user.id else { return }
-                self.database.loadUserImages(withId: id) { images in
-                    var userModel = user
-                    userModel.images = images
-                    self.users.append(userModel)
-                    completion()
-                }
-            }
+            self.users = users
+            completion()
         }
     }
 }

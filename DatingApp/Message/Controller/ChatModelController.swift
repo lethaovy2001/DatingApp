@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import Firebase
 
 class ChatModelController {
     //MARK: - Properties
-    private var firebaseService = FirebaseService()
     private var messages = [Message]()
     private var database: Database
     var user: UserModel?

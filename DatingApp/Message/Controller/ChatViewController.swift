@@ -11,14 +11,13 @@ import MobileCoreServices
 import AVFoundation
 
 class ChatViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    // MARK: Properties
+    // MARK: - Properties
     private let chatView: ChatView = {
         let view = ChatView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private let modelController: ChatModelController
-    private let firebaseService = FirebaseService()
     private let database: Database
     private let auth: Authentication
     var textViewEditingDelegate: TextViewEditingDelegate?
@@ -47,13 +46,7 @@ class ChatViewController : UIViewController, UICollectionViewDelegate, UICollect
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        registerCellId()
-        setupSelectors()
-        chatView.addDelegate(viewController: self)
-        chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
-        chatView.collectionView.delegate = self
-        chatView.collectionView.dataSource = self
+        setup()
         getMessages()
     }
     
@@ -68,7 +61,17 @@ class ChatViewController : UIViewController, UICollectionViewDelegate, UICollect
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK: Setup
+    // MARK: - Setup
+    private func setup() {
+        setupUI()
+        registerCellId()
+        setupSelectors()
+        chatView.addDelegate(viewController: self)
+        chatView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
+        chatView.collectionView.delegate = self
+        chatView.collectionView.dataSource = self
+    }
+    
     private func setupUI() {
         view.addSubview(chatView)
         NSLayoutConstraint.activate([
@@ -107,11 +110,11 @@ class ChatViewController : UIViewController, UICollectionViewDelegate, UICollect
     }
     
     // MARK: Actions
-    @objc func backPressed(){
+    @objc private func backPressed(){
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func sendButtonPressed(){
+    @objc private func sendButtonPressed(){
         if let fromId = auth.getCurrentUserId(),
         let text = chatView.getInputText(),
         let toId = user?.id {
@@ -127,7 +130,7 @@ class ChatViewController : UIViewController, UICollectionViewDelegate, UICollect
         }
     }
     
-    @objc func addImageButtonPressed() {
+    @objc private func addImageButtonPressed() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -135,13 +138,12 @@ class ChatViewController : UIViewController, UICollectionViewDelegate, UICollect
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @objc func doneButtonPressed() {
+    @objc private func doneButtonPressed() {
         self.chatView.hideNewConversationAlert()
     }
-    
 }
 
-// MARK: UICollectionView
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return modelController.getMessages().count
@@ -177,7 +179,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: UITextViewDelegate
+// MARK: - UITextViewDelegate
 extension ChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         textViewEditingDelegate?.didChange()
@@ -192,7 +194,7 @@ extension ChatViewController: UITextViewDelegate {
     }
 }
 
-// MARK: Keyboards
+// MARK: - Keyboards
 extension ChatViewController {
     private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -227,7 +229,7 @@ extension ChatViewController {
     }
 }
 
-// MARK: UIImagePickerControllerDelegate, UINavigationControllerDelegate
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
@@ -245,7 +247,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-// MARK: Images and Videos
+// MARK: - Images and Videos
 extension ChatViewController {
     private func handleVideoSelectedForUrl(_ url: URL) {
         guard
@@ -283,7 +285,7 @@ extension ChatViewController {
     }
 }
 
-// MARK: ZoomTapDelegate
+// MARK: - ZoomTapDelegate
 extension ChatViewController: ZoomTapDelegate {
     func didTap(on imageView: UIImageView) {
         let vc = ImageDetailViewController()
@@ -295,7 +297,7 @@ extension ChatViewController: ZoomTapDelegate {
     }
 }
 
-// MARK: TapGestureDelegate
+// MARK: - TapGestureDelegate
 extension ChatViewController: ImageTapGestureDelegate {
     func didTap() {
         let vc = UserDetailsViewController()
