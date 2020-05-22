@@ -10,6 +10,7 @@ import XCTest
 @testable import DatingApp
 
 class UserViewModelTest: XCTestCase {
+    private var viewModel: UserDetailsViewModel!
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -17,6 +18,7 @@ class UserViewModelTest: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        viewModel = nil
     }
 
     func testExample() throws {
@@ -41,8 +43,30 @@ class UserViewModelTest: XCTestCase {
         ]
         let image = UIImage(named: "Vy")!
         let images = [image, image]
-        let model = UserModel(info: info, images: images)
-        let viewModel = UserDetailsViewModel(model: model)
+        var model = UserModel(info: info)
+        model.images = images
+        viewModel = UserDetailsViewModel(model: model)
+        XCTAssertEqual(viewModel.id, "Id")
+        XCTAssertEqual(viewModel.name, "First Name")
+        XCTAssertEqual(viewModel.ageText, "0")
+        XCTAssertEqual(viewModel.bio, "Bio")
+        XCTAssertEqual(viewModel.work, "Work")
+        XCTAssertEqual(viewModel.images, images)
+    }
+    
+    func testViewModelWithType() {
+        let info: [String: Any] = [
+            "id": "Id",
+            "first_name": "First Name",
+            "birthday": Date(),
+            "work": "Work",
+            "bio": "Bio",
+        ]
+        let image = UIImage(named: "Vy")!
+        let images = [image, image]
+        var model = UserModel(info: info)
+        model.images = images
+        viewModel = UserDetailsViewModel(model: model, type: .currentUser)
         XCTAssertEqual(viewModel.id, "Id")
         XCTAssertEqual(viewModel.name, "First Name")
         XCTAssertEqual(viewModel.ageText, "0")

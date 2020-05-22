@@ -10,9 +10,22 @@ import XCTest
 @testable import DatingApp
 
 class UserModelTest: XCTestCase {
+    private var model: UserModel!
+    private var date: Date!
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        date = Date()
+        let info: [String: Any] = [
+            "id": "Id",
+            "first_name": "First Name",
+            "birthday": date!,
+            "work": "Work",
+            "bio": "Bio",
+            "gender": "Gender",
+            "interestedIn": "InterestedIn"
+        ]
+        model = UserModel(info: info)
     }
     
     override func tearDownWithError() throws {
@@ -32,16 +45,6 @@ class UserModelTest: XCTestCase {
     }
     
     func testModelInfo() {
-        let date = Date()
-        let info: [String: Any] = [
-            "id": "Id",
-            "first_name": "First Name",
-            "birthday": date,
-            "work": "Work",
-            "bio": "Bio",
-            "gender": "Gender"
-        ]
-        let model = UserModel(info: info)
         XCTAssertEqual(model.id, "Id")
         XCTAssertEqual(model.name, "First Name")
         XCTAssertEqual(model.birthday, date)
@@ -50,47 +53,14 @@ class UserModelTest: XCTestCase {
         XCTAssertEqual(model.gender, "Gender")
     }
     
-    func testModelInfoWithMainImage() {
-        let date = Date()
-        let info: [String: Any] = [
-            "id": "Id",
-            "first_name": "First Name",
-            "birthday": date,
-            "work": "Work",
-            "bio": "Bio",
-            "gender": "Gender"
-        ]
-        let image = UIImage(named: "Vy")!
-        let model = UserModel(info: info, mainImage: image)
-        XCTAssertEqual(model.id, "Id")
-        XCTAssertEqual(model.name, "First Name")
-        XCTAssertEqual(model.birthday, date)
-        XCTAssertEqual(model.work, "Work")
-        XCTAssertEqual(model.bio, "Bio")
-        XCTAssertEqual(model.gender, "Gender")
-        XCTAssertEqual(model.mainImage, image)
-    }
-    
-    func testModelInfoWithImages() {
-        let date = Date()
-        let info: [String: Any] = [
-            "id": "Id",
-            "first_name": "First Name",
-            "birthday": date,
-            "work": "Work",
-            "bio": "Bio",
-            "gender": "Gender"
-        ]
-        let image = UIImage(named: "Vy")!
-        let images = [image, image]
-        let model = UserModel(info: info, images: images)
-        XCTAssertEqual(model.id, "Id")
-        XCTAssertEqual(model.name, "First Name")
-        XCTAssertEqual(model.birthday, date)
-        XCTAssertEqual(model.work, "Work")
-        XCTAssertEqual(model.bio, "Bio")
-        XCTAssertEqual(model.gender, "Gender")
-        XCTAssertEqual(model.gender, "Gender")
-        XCTAssertEqual(model.images, images)
+    func testGetUserInfo() {
+        let dictionary = model.getUserInfo()!
+        XCTAssertEqual(dictionary["id"] as! String, "Id")
+        XCTAssertEqual(dictionary["first_name"] as! String, "First Name")
+        XCTAssertEqual(dictionary["birthday"] as! Date, date)
+        XCTAssertEqual(dictionary["work"] as! String, "Work")
+        XCTAssertEqual(dictionary["bio"] as! String, "Bio")
+        XCTAssertEqual(dictionary["gender"] as! String, "Gender")
+        XCTAssertEqual(dictionary["interestedIn"] as! String, "InterestedIn")
     }
 }
