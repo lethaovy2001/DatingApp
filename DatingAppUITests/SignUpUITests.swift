@@ -1,15 +1,14 @@
 //
-//  EmailLoginUITests.swift
+//  SignUpUITests.swift
 //  DatingAppUITests
 //
-//  Created by Vy Le on 5/22/20.
+//  Created by Vy Le on 5/25/20.
 //  Copyright © 2020 Vy Le. All rights reserved.
 //
 
 import XCTest
-@testable import DatingApp
 
-class EmailLoginUITests: XCTestCase {
+class SignUpUITests: XCTestCase {
     var app: XCUIApplication!
 
     // MARK: - XCTestCase
@@ -30,52 +29,70 @@ class EmailLoginUITests: XCTestCase {
 
     // MARK: - Tests
 
-    func testLoginWithEmail() {
+    func testSignUpWithEmail() {
         app.launch()
         XCTAssertTrue(app.isDisplayingLogin)
         
-        app.buttons["LOG IN WITH EMAIL"].tap()
-        XCTAssertTrue(app.isDisplayingEmailLogin)
+        app.buttons["Sign Up"].tap()
+        XCTAssertTrue(app.isDisplayingSignUp)
         
-        let validEmail = "Test1@gmail.com"
+        let validName = "Vy"
+        let validEmail = "vy@gmail.com"
         let validPassword = "123456"
+        let nameTextField = app.textFields["Name"]
         let emailTextField = app.textFields["Email"]
         let passwordTextField = app.secureTextFields["Password"]
-        let loginButton = app.buttons["LOG IN"]
-        let emailLabel = app.staticTexts["Email"]
+        let signUpButton = app.buttons["SIGN UP"]
         
         XCTAssertTrue(app.isDisplayingAppLogo)
+        XCTAssertTrue(nameTextField.exists)
         XCTAssertTrue(emailTextField.exists)
         XCTAssertTrue(passwordTextField.exists)
-        XCTAssertTrue(loginButton.exists)
-        XCTAssertTrue(emailLabel.exists)
+        XCTAssertTrue(signUpButton.exists)
         
+        nameTextField.tap()
+        nameTextField.typeText(validName)
         emailTextField.tap()
         emailTextField.typeText(validEmail)
         passwordTextField.tap()
         passwordTextField.typeText(validPassword)
-        loginButton.tap()
+        signUpButton.tap()
         sleep(10)
         XCTAssertFalse(app.isDisplayingEmailLogin)
     }
     
-    func testInvalidLoginWithEmail() {
+    func testInvalidSignUp() {
         app.launch()
         XCTAssertTrue(app.isDisplayingLogin)
-        app.buttons["LOG IN WITH EMAIL"].tap()
-        XCTAssertTrue(app.isDisplayingEmailLogin)
         
+        app.buttons["Sign Up"].tap()
+        XCTAssertTrue(app.isDisplayingSignUp)
+        
+        let validName = "Test1"
+        let validEmail = "Test1@gmail.com"
+        let validPassword = "123456"
+        let nameTextField = app.textFields["Name"]
         let emailTextField = app.textFields["Email"]
         let passwordTextField = app.secureTextFields["Password"]
-        let loginButton = app.buttons["LOG IN"]
-        let errorLabel = app.staticTexts["The password is invalid or the user does not have a password."]
+        let signUpButton = app.buttons["SIGN UP"]
+        let errorLabel = app.staticTexts["The email address is already in use by another account."]
         
+        XCTAssertTrue(app.isDisplayingAppLogo)
+        XCTAssertTrue(nameTextField.exists)
         XCTAssertTrue(emailTextField.exists)
         XCTAssertTrue(passwordTextField.exists)
-        XCTAssertTrue(loginButton.exists)
+        XCTAssertTrue(signUpButton.exists)
         XCTAssertFalse(errorLabel.exists)
         
-        loginButton.tap()
+        nameTextField.tap()
+        nameTextField.typeText(validName)
+        emailTextField.tap()
+        emailTextField.typeText(validEmail)
+        passwordTextField.tap()
+        passwordTextField.typeText(validPassword)
+        signUpButton.tap()
+        sleep(10)
         XCTAssertTrue(errorLabel.exists)
+        XCTAssertTrue(app.isDisplayingSignUp)
     }
 }

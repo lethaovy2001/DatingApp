@@ -20,6 +20,10 @@ extension XCUIApplication {
         return otherElements["mainView"].exists
     }
     
+    var isDisplayingSignUp: Bool {
+        return otherElements["signUpView"].exists
+    }
+    
     var isDisplayingAppLogo: Bool {
         return otherElements["appLogo"].exists
     }

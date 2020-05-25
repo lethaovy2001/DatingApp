@@ -29,6 +29,7 @@ class SignUpViewController : UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "signUpView"
         setupUI()
         setSelectors()
         mainView.addDelegate(viewController: self)

@@ -35,14 +35,14 @@ class LoginUITests: XCTestCase {
         
         let emailLoginButton = app.buttons["LOG IN WITH EMAIL"]
         let facebookButton = app.buttons["LOG IN WITH FACEBOOK"]
-        let errorLabel = app.staticTexts["Don't have an account?"]
-        let signInButton = app.buttons["Sign In"]
+        let label = app.staticTexts["Don't have an account?"]
+        let signUpButton = app.buttons["Sign Up"]
         
         XCTAssertTrue(app.isDisplayingAppLogo)
         XCTAssertTrue(emailLoginButton.exists)
         XCTAssertTrue(facebookButton.exists)
-        XCTAssertTrue(errorLabel.exists)
-        XCTAssertTrue(signInButton.exists)
+        XCTAssertTrue(label.exists)
+        XCTAssertTrue(signUpButton.exists)
     }
     
     func testLoginWithFacebook() {
