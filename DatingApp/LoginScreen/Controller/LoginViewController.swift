@@ -29,6 +29,7 @@ class LoginViewController : UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "loginView"
         setupUI()
         setSelectors()
     }
