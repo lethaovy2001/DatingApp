@@ -113,7 +113,7 @@
 		38F90B5224773D18005B0BEB /* CustomActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B5124773D18005B0BEB /* CustomActivityIndicatorView.swift */; };
 		38F90B5624775859005B0BEB /* MessageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B5524775859005B0BEB /* MessageTest.swift */; };
 		38F90B5A24775DB8005B0BEB /* MessageViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */; };
-		38F90B7024786D27005B0BEB /* DatingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B6F24786D27005B0BEB /* DatingAppUITests.swift */; };
+		38F90B7024786D27005B0BEB /* EmailLoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B6F24786D27005B0BEB /* EmailLoginUITests.swift */; };
 		582385F0EBBA40D9FCE8EE86 /* Pods_DatingAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B25DA64073197A99447DE058 /* Pods_DatingAppTests.framework */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
@@ -250,7 +250,7 @@
 		38F90B5524775859005B0BEB /* MessageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTest.swift; sourceTree = "<group>"; };
 		38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModelTest.swift; sourceTree = "<group>"; };
 		38F90B6D24786D27005B0BEB /* DatingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		38F90B6F24786D27005B0BEB /* DatingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppUITests.swift; sourceTree = "<group>"; };
+		38F90B6F24786D27005B0BEB /* EmailLoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginUITests.swift; sourceTree = "<group>"; };
 		38F90B7124786D27005B0BEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FC2FC00B6A75AFEF77A101D /* libPods-DatingAppUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DatingAppUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -742,7 +742,7 @@
 		38F90B6E24786D27005B0BEB /* DatingAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				38F90B6F24786D27005B0BEB /* DatingAppUITests.swift */,
+				38F90B6F24786D27005B0BEB /* EmailLoginUITests.swift */,
 				38F90B7124786D27005B0BEB /* Info.plist */,
 			);
 			path = DatingAppUITests;
@@ -1113,7 +1113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38F90B7024786D27005B0BEB /* DatingAppUITests.swift in Sources */,
+				38F90B7024786D27005B0BEB /* EmailLoginUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
