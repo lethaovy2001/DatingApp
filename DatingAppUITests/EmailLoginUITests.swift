@@ -77,17 +77,3 @@ class EmailLoginUITests: XCTestCase {
         XCTAssertTrue(errorLabel.exists)
     }
 }
-
-extension XCUIApplication {
-    var isDisplayingEmailLogin: Bool {
-        return otherElements["emailLoginView"].exists
-    }
-    
-    var isDisplayingLogin: Bool {
-        return otherElements["loginView"].exists
-    }
-    
-    var isDisplayingMain: Bool {
-        return otherElements["mainView"].exists
-    }
-}

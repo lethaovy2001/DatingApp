@@ -68,6 +68,8 @@
 		3854F64C2437C4EC00229E16 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6482437C4EC00229E16 /* ChatCell.swift */; };
 		3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F6542438092000229E16 /* CALayer+helpers.swift */; };
 		3854F65C2438526B00229E16 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3854F65B2438526B00229E16 /* MainView.swift */; };
+		3888D1E4247C8604009B3966 /* LoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3888D1E3247C8604009B3966 /* LoginUITests.swift */; };
+		3888D1E6247C87CA009B3966 /* XCUIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3888D1E5247C87CA009B3966 /* XCUIApplication+Extension.swift */; };
 		3889EB502454C942009B63C2 /* ChatModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB4F2454C942009B63C2 /* ChatModelController.swift */; };
 		3889EB522454D02E009B63C2 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB512454D02E009B63C2 /* MessageViewModel.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
@@ -202,6 +204,8 @@
 		3854F6482437C4EC00229E16 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		3854F6542438092000229E16 /* CALayer+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+helpers.swift"; sourceTree = "<group>"; };
 		3854F65B2438526B00229E16 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3888D1E3247C8604009B3966 /* LoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUITests.swift; sourceTree = "<group>"; };
+		3888D1E5247C87CA009B3966 /* XCUIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extension.swift"; sourceTree = "<group>"; };
 		3889EB4F2454C942009B63C2 /* ChatModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModelController.swift; sourceTree = "<group>"; };
 		3889EB512454D02E009B63C2 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
@@ -742,8 +746,10 @@
 		38F90B6E24786D27005B0BEB /* DatingAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				3888D1E3247C8604009B3966 /* LoginUITests.swift */,
 				38F90B6F24786D27005B0BEB /* EmailLoginUITests.swift */,
 				38F90B7124786D27005B0BEB /* Info.plist */,
+				3888D1E5247C87CA009B3966 /* XCUIApplication+Extension.swift */,
 			);
 			path = DatingAppUITests;
 			sourceTree = "<group>";
@@ -1114,6 +1120,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				38F90B7024786D27005B0BEB /* EmailLoginUITests.swift in Sources */,
+				3888D1E4247C8604009B3966 /* LoginUITests.swift in Sources */,
+				3888D1E6247C87CA009B3966 /* XCUIApplication+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

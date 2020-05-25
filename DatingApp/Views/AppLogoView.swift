@@ -40,6 +40,7 @@ class AppLogoView: UIView {
     private func setUpSelf() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .clear
+        self.accessibilityIdentifier = "appLogo"
     }
     
     private func addSubViews() {
