@@ -32,11 +32,17 @@ final class BioContainerView : CustomContainerView {
     private func setup() {
         addSubviews()
         setupConstraints()
+        setAccessibilityIdentifier()
     }
     
     private func addSubviews() {
         addSubview(bioLabel)
         addSubview(bioTextView)
+    }
+    
+    private func setAccessibilityIdentifier() {
+        bioLabel.accessibilityIdentifier = "Bio"
+        bioTextView.accessibilityIdentifier = "bioTextView"
     }
     
     private func setupConstraints() {

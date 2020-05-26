@@ -31,6 +31,7 @@ final class CustomNavigationView: CustomContainerView {
         self.addShadow(color: UIColor.customLightGray, radius: 3.0)
         setup()
         addTapGesture()
+        setAccessibilityIdentifier()
     }
     
     required init?(coder: NSCoder) {
@@ -111,6 +112,12 @@ final class CustomNavigationView: CustomContainerView {
         default:
             break
         }
+    }
+    
+    private func setAccessibilityIdentifier() {
+        titleLabel.accessibilityLabel = "navigationTitle"
+        rightButton.accessibilityLabel = "navigationRightItem"
+        leftButton.accessibilityIdentifier = "navigationLeftItem"
     }
     
     // MARK: Selectors

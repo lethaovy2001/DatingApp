@@ -28,6 +28,10 @@ extension XCUIApplication {
         return otherElements["preferenceView"].exists
     }
     
+    var isDisplayingUserDetails: Bool {
+        return otherElements["userDetailsView"].exists
+    }
+    
     var isDisplayingAppLogo: Bool {
         return otherElements["appLogo"].exists
     }
