@@ -26,6 +26,7 @@ class ListMessageCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setup()
+        setAccessibilityIdentifier()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +43,12 @@ class ListMessageCell : UITableViewCell {
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(chatLabel)
+    }
+    
+    private func setAccessibilityIdentifier() {
+        nameLabel.accessibilityIdentifier = "nameLabel"
+        chatLabel.accessibilityIdentifier = "chatLabel"
+        profileImageView.accessibilityIdentifier = "profileImageView"
     }
     
     private func setConstraints() {

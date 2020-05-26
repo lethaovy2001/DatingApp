@@ -48,6 +48,7 @@ class ChatViewController : UIViewController, UICollectionViewDelegate, UICollect
         super.viewDidLoad()
         setup()
         getMessages()
+        view.accessibilityIdentifier = "chatView"
     }
     
     override func viewWillAppear(_ animated: Bool) {
