@@ -72,6 +72,7 @@
 		3888D1E6247C87CA009B3966 /* XCUIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3888D1E5247C87CA009B3966 /* XCUIApplication+Extension.swift */; };
 		3888D1E8247C8B13009B3966 /* SignUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3888D1E7247C8B13009B3966 /* SignUpUITests.swift */; };
 		3888D1EA247C9454009B3966 /* MainUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3888D1E9247C9454009B3966 /* MainUITests.swift */; };
+		3888D1EC247CA809009B3966 /* PreferenceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3888D1EB247CA809009B3966 /* PreferenceUITests.swift */; };
 		3889EB502454C942009B63C2 /* ChatModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB4F2454C942009B63C2 /* ChatModelController.swift */; };
 		3889EB522454D02E009B63C2 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889EB512454D02E009B63C2 /* MessageViewModel.swift */; };
 		38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */; };
@@ -210,6 +211,7 @@
 		3888D1E5247C87CA009B3966 /* XCUIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extension.swift"; sourceTree = "<group>"; };
 		3888D1E7247C8B13009B3966 /* SignUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUITests.swift; sourceTree = "<group>"; };
 		3888D1E9247C9454009B3966 /* MainUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUITests.swift; sourceTree = "<group>"; };
+		3888D1EB247CA809009B3966 /* PreferenceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceUITests.swift; sourceTree = "<group>"; };
 		3889EB4F2454C942009B63C2 /* ChatModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModelController.swift; sourceTree = "<group>"; };
 		3889EB512454D02E009B63C2 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		38A41D0823E0C0D800F904B9 /* RoundedUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUserImage.swift; sourceTree = "<group>"; };
@@ -750,9 +752,10 @@
 		38F90B6E24786D27005B0BEB /* DatingAppUITests */ = {
 			isa = PBXGroup;
 			children = (
+				3888D1E7247C8B13009B3966 /* SignUpUITests.swift */,
+				3888D1EB247CA809009B3966 /* PreferenceUITests.swift */,
 				3888D1E3247C8604009B3966 /* LoginUITests.swift */,
 				38F90B6F24786D27005B0BEB /* EmailLoginUITests.swift */,
-				3888D1E7247C8B13009B3966 /* SignUpUITests.swift */,
 				3888D1E9247C9454009B3966 /* MainUITests.swift */,
 				3888D1E5247C87CA009B3966 /* XCUIApplication+Extension.swift */,
 				38F90B7124786D27005B0BEB /* Info.plist */,
@@ -1129,6 +1132,7 @@
 				3888D1E8247C8B13009B3966 /* SignUpUITests.swift in Sources */,
 				3888D1EA247C9454009B3966 /* MainUITests.swift in Sources */,
 				3888D1E4247C8604009B3966 /* LoginUITests.swift in Sources */,
+				3888D1EC247CA809009B3966 /* PreferenceUITests.swift in Sources */,
 				3888D1E6247C87CA009B3966 /* XCUIApplication+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
