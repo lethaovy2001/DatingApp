@@ -62,4 +62,5 @@ class ListMessageUITests: XCTestCase {
         XCTAssertFalse(app.isDisplayingListMessage)
         XCTAssertTrue(app.isDisplayingMain)
     }
+
 }

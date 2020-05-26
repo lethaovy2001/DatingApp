@@ -62,6 +62,7 @@ class CustomAlertView: UIView {
         self.isHidden = true
         self.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.accessibilityIdentifier = "alerView"
     }
     
     private func setupDescription() {
