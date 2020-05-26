@@ -126,7 +126,7 @@ class EditUserDetailsUITests: XCTestCase {
         app.launch()
         app.buttons["profileButton"].tap()
         app.buttons["navigationRightItem"].tap()
-        sleep(2)
+        sleep(4)
         
         let view = app.otherElements["editUserDetailsView"]
         let logoutButton = app.buttons["Logout"]
@@ -137,5 +137,4 @@ class EditUserDetailsUITests: XCTestCase {
         XCTAssertFalse(app.isDisplayingEditUserDetails)
         XCTAssertTrue(app.isDisplayingLogin)
     }
-    
 }
