@@ -121,4 +121,21 @@ class EditUserDetailsUITests: XCTestCase {
         saveButton.tap()
         XCTAssertTrue(errorLabel.exists)
     }
+    
+    func testLogout() {
+        app.launch()
+        app.buttons["profileButton"].tap()
+        app.buttons["navigationRightItem"].tap()
+        sleep(2)
+        
+        let view = app.otherElements["editUserDetailsView"]
+        let logoutButton = app.buttons["Logout"]
+        
+        XCTAssertTrue(app.isDisplayingEditUserDetails)
+        view.swipeUp()
+        logoutButton.tap()
+        XCTAssertFalse(app.isDisplayingEditUserDetails)
+        XCTAssertTrue(app.isDisplayingLogin)
+    }
+    
 }
