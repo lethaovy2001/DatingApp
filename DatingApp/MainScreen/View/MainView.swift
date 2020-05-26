@@ -33,6 +33,7 @@ class MainView : UIView {
         setupSelf()
         addSubViews()
         setupConstraints()
+        setAccessibilityIdentifier()
     }
     
     private func setupSelf() {
@@ -49,6 +50,13 @@ class MainView : UIView {
         addSubview(likeButton)
         addSubview(searchingAnimation)
         sendSubviewToBack(searchingAnimation)
+    }
+    
+    private func setAccessibilityIdentifier() {
+        profileButton.accessibilityIdentifier = "profileButton"
+        messageButton.accessibilityIdentifier = "messageButton"
+        likeButton.accessibilityIdentifier = "likeButton"
+        dislikeButton.accessibilityIdentifier = "dislikeButton"
     }
     
     private func setupConstraints() {

@@ -27,6 +27,10 @@ extension XCUIApplication {
     var isDisplayingAppLogo: Bool {
         return otherElements["appLogo"].exists
     }
+    
+    var isDisplayingSearchingAnimation: Bool {
+        return otherElements["SearchingAnimation"].exists
+    }
 }
 
 
