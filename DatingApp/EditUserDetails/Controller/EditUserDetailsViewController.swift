@@ -31,6 +31,7 @@ class EditUserDetailsViewController: UIViewController {
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "editUserDetailsView"
         setupUI()
         setSelectors()
         if let userModel = user {
@@ -88,6 +89,8 @@ class EditUserDetailsViewController: UIViewController {
                     self.navigationController?.pushViewController(vc, animated: false)
                 }
             }
+        } else {
+            editUserDetailsView.showError(message: "Missing some fields")
         }
     }
     

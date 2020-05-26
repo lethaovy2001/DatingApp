@@ -32,6 +32,10 @@ extension XCUIApplication {
         return otherElements["userDetailsView"].exists
     }
     
+    var isDisplayingEditUserDetails: Bool {
+        return otherElements["editUserDetailsView"].exists
+    }
+    
     var isDisplayingAppLogo: Bool {
         return otherElements["appLogo"].exists
     }

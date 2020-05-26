@@ -116,8 +116,12 @@ final class CustomNavigationView: CustomContainerView {
     
     private func setAccessibilityIdentifier() {
         titleLabel.accessibilityLabel = "navigationTitle"
-        rightButton.accessibilityLabel = "navigationRightItem"
-        leftButton.accessibilityIdentifier = "navigationLeftItem"
+        if let rightButton = rightButton {
+            rightButton.accessibilityLabel = "navigationRightItem"
+        }
+        if let leftButton = leftButton {
+            leftButton.accessibilityIdentifier = "navigationLeftItem"
+        }
     }
     
     // MARK: Selectors
