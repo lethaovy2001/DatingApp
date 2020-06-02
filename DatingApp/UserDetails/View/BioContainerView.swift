@@ -43,6 +43,7 @@ final class BioContainerView : CustomContainerView {
     private func setAccessibilityIdentifier() {
         bioLabel.accessibilityIdentifier = "Bio"
         bioTextView.accessibilityIdentifier = "bioTextView"
+        bioTextView.isAccessibilityElement = true
     }
     
     private func setupConstraints() {
