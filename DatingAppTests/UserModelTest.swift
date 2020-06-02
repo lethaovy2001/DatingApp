@@ -45,6 +45,16 @@ class UserModelTest: XCTestCase {
     }
     
     func testModelInfo() {
+        let date = Date()
+        let info: [String: Any] = [
+            "id": "Id",
+            "first_name": "First Name",
+            "birthday": date,
+            "work": "Work",
+            "bio": "Bio",
+            "gender": "Gender"
+        ]
+        let model = UserModel(info: info)
         XCTAssertEqual(model.id, "Id")
         XCTAssertEqual(model.name, "First Name")
         XCTAssertEqual(model.birthday, date)
@@ -53,6 +63,20 @@ class UserModelTest: XCTestCase {
         XCTAssertEqual(model.gender, "Gender")
     }
     
+    func testModelInfoWithMainImage() {
+        let info: [String: Any] = [:]
+        let image = UIImage(named: "Vy")!
+        let model = UserModel(info: info, mainImage: image)
+        XCTAssertEqual(model.mainImage, image)
+    }
+    
+    func testModelInfoWithImages() {
+        let info: [String: Any] = [:]
+        let image = UIImage(named: "Vy")!
+        let images = [image, image]
+        let model = UserModel(info: info, images: images)
+        XCTAssertEqual(model.images, images)
+        
     func testGetUserInfo() {
         let dictionary = model.getUserInfo()!
         XCTAssertEqual(dictionary["id"] as! String, "Id")
