@@ -19,10 +19,3 @@ protocol Database {
     func saveDislikeUser(withId id: String)
     func loadListMessages(_ completion: @escaping([ListMessageModel])->()) 
 }
-
-
-
-
-
-
-
