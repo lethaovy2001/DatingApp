@@ -28,6 +28,22 @@ extension XCUIApplication {
         return otherElements["preferenceView"].exists
     }
     
+    var isDisplayingUserDetails: Bool {
+        return otherElements["userDetailsView"].exists
+    }
+    
+    var isDisplayingEditUserDetails: Bool {
+        return otherElements["editUserDetailsView"].exists
+    }
+    
+    var isDisplayingListMessage: Bool {
+        return otherElements["listMessageView"].exists
+    }
+    
+    var isDisplayingChat: Bool {
+        return otherElements["chatView"].exists
+    }
+    
     var isDisplayingAppLogo: Bool {
         return otherElements["appLogo"].exists
     }

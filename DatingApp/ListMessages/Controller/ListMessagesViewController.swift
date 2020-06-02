@@ -30,6 +30,7 @@ class ListMessagesViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         registerCellId()
+        view.accessibilityIdentifier = "listMessageView"
         listMessagesView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
         listMessagesView.addDelegate(viewController: self)
         loadListOfUsers()

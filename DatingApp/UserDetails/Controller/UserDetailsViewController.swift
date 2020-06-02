@@ -31,6 +31,7 @@ class UserDetailsViewController : UIViewController {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "userDetailsView"
         setup()
     }
     
