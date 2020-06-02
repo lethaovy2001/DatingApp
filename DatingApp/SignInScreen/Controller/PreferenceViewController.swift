@@ -11,6 +11,7 @@ import UIKit
 class PreferenceViewController : UIViewController {
     // MARK: - Properties
     private let mainView = PreferenceView()
+    private var database: Database
     var user: UserModel!
     private let converter = DateConverter()
     
@@ -33,6 +34,7 @@ class PreferenceViewController : UIViewController {
     // MARK: - Setup
     private func setupUI() {
         view.addSubview(mainView)
+        view.backgroundColor = .white
         mainView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -40,17 +42,14 @@ class PreferenceViewController : UIViewController {
             mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        view.backgroundColor = .white
     }
     
     // MARK: Actions
     @objc private func saveButtonPressed() {
-        let gender = mainView.getGenderSelection()
-        let interestedGender = mainView.getInterestedSelection()
         if let birthday = mainView.getBirthdayText() {
             let date = converter.convertToDate(dateString: birthday)
-            user.gender = gender
-            user.interestedIn = interestedGender
+            user.gender = mainView.getGenderSelection()
+            user.interestedIn = mainView.getInterestedSelection()
             user.birthday = date
             let vc = EditUserDetailsViewController()
             vc.user = user
