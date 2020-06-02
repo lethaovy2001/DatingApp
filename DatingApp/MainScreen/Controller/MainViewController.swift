@@ -78,31 +78,6 @@ class MainViewController : UIViewController {
         mainView.setDoneSelector(selector: #selector(doneAlertPressed), target: self)
     }
     
-    // MARK: Life Cycles
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        setSelectors()
-        mainView.setDataSource(uiViewController: self)
-        mainView.addDelegate(viewController: self)
-        locationService = LocationService(viewController: self)
-        fetchAllUsers()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        fetchAllUsers()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        if (!modelController.checkIfUserExist()) {
-            let vc = LoginViewController()
-            self.navigationController?.pushViewController(vc, animated: false)
-        }
-    }
-    
     private func fetchAllUsers() {
         modelController.getAllUsers() {
             self.mainView.reloadSwipeViews()
