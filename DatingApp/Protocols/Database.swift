@@ -17,10 +17,3 @@ protocol Database {
     func saveLikeUser(withId id: String)
     func saveDislikeUser(withId id: String)
 }
-
-
-
-
-
-
-
