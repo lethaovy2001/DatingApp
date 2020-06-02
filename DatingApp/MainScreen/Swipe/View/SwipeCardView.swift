@@ -87,7 +87,7 @@ class SwipeCardView : UIView {
             if (position.x < bounds.x) {
                 self.nextImage(isLeft: true)
             } else {
-                self.nextImage(isLeft: false)
+                self.tappedImage(isOnLeftSide: false)
             }
         }
     }
@@ -132,11 +132,11 @@ class SwipeCardView : UIView {
         }
     }
     
-    private func nextImage(isLeft: Bool) {
+    private func tappedImage(isOnLeftSide: Bool) {
         if cardImages.count < 1 {
             return
         }
-        if (isLeft) {
+        if (isOnLeftSide) {
             if (currentImage <= 0) {
                 currentImage = cardImages.count - 1
             } else {
