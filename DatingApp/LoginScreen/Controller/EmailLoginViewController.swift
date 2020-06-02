@@ -15,7 +15,7 @@ class EmailLoginViewController : UIViewController {
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Initializer
-    init(authentication: Authentication) {
+    init(authentication: Authentication = FirebaseService.shared) {
         self.auth = authentication
         super.init(nibName: nil, bundle: nil)
     }

@@ -82,13 +82,13 @@ class LoginViewController : UIViewController {
         }
     }
     
-    @objc private func loginWithEmail() {
-        let vc = EmailLoginViewController(authentication: FirebaseService.shared)
+    @objc func loginWithEmail() {
+        let vc = EmailLoginViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc private func signIn() {
-        let vc = SignUpViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+    @objc func signIn() {
+        let vc = SignUpViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
