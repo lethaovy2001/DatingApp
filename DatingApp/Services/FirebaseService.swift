@@ -107,6 +107,17 @@ class FirebaseService {
     func convertToDate(timestamp: Timestamp) -> Date {
         return timestamp.dateValue()
     }
+    
+    private func getListMessageModelAtIndex(listMessageModel: ListMessageModel, models: [ListMessageModel]) -> Int? {
+        var modelIndex = 0
+        for model in models {
+            if model.user.id == listMessageModel.user.id {
+                return modelIndex
+            }
+            modelIndex += 1
+        }
+        return nil
+    }
 }
 
 // MARK: - Storage
@@ -387,8 +398,7 @@ extension FirebaseService : Database {
                 if uid == document.documentID {
                     return
                 }
-                self.getUserWithId(id: document.documentID) { userInfo in
-                    let user = UserModel(info: userInfo)
+                self.loadUserProfile(withId: document.documentID) { user in
                     users.append(user)
                     index += 1
                     if (index == querySnapshot!.documents.count) {
@@ -467,26 +477,35 @@ extension FirebaseService : Database {
         }
     }
     
-    private func getListMessageModelAtIndex(listMessageModel: ListMessageModel, models: [ListMessageModel]) -> Int? {
-        var modelIndex = 0
-        for model in models {
-            if model.user.id == listMessageModel.user.id {
-                return modelIndex
+    func loadMessages(withId id: String, _ completion: @escaping ([Message]) -> ()) {
+        var totalMessages = 0
+        var currentMessageIndex = 0
+        var messages: [Message] = []
+        
+        getMessages(toId: id, { data in
+            if data.isEmpty {
+                completion([])
+                return
             }
-            modelIndex += 1
-        }
-        return nil
-    }
-    
-    // MARK: Like/Dislike
-    func saveLikeUser(withId id: String) {
-        guard let uid = auth.currentUser?.uid else { return }
-        // match both user
-        database.collection("users").document(id).collection("available-users")
-            .whereField("id", isEqualTo: uid)
-            .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
+            guard let messageId = data["messageId"] as? String else {
+                completion([])
+                return
+            }
+            self.getMessageDetails(with: messageId, { messageData in
+                guard let time = messageData["time"] as? Timestamp else { return }
+                let convertedTime = self.convertToDate(timestamp: time)
+                var values = messageData
+                values.updateValue(convertedTime, forKey: "time")
+                var message: Message!
+                if let imageUrl = values["imageUrl"] as? String {
+                    self.downloadImageFromStorage(url: imageUrl, { image in
+                        message = Message(dictionary: values, image: image)
+                        messages.append(message)
+                        currentMessageIndex += 1
+                        if (currentMessageIndex == totalMessages) {
+                            completion(messages)
+                        }
+                    })
                 } else {
                     message = Message(dictionary: values)
                     messages.append(message)
