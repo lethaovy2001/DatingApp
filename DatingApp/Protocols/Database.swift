@@ -22,11 +22,3 @@ protocol Database {
     func loadListMessages(_ completion: @escaping([ListMessageModel])->())
     func loadMessages(withId id: String,_ completion: @escaping([Message])->())
 }
-
-
-
-
-
-
-
-
