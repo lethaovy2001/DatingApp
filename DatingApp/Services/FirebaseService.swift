@@ -478,13 +478,9 @@ extension FirebaseService {
 
 // MARK: - Database
 extension FirebaseService : Database {
-    func loadUserProfile() {
-        
-    }
+    func loadUserProfile() { }
     
-    func saveData() {
-        
-    }
+    func saveData() { }
     
     func saveProfile(ofUser user: UserModel) {
         if let uid = getCurrentUserId(), let data = user.getUserInfo() {
@@ -511,21 +507,22 @@ extension FirebaseService : Database {
     func loadAllUsers(_ completion: @escaping([UserModel]) -> ()) {
         guard let uid = auth.currentUser?.uid else { return }
         database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var users: [UserModel] = []
-                var index = 0
-                for document in querySnapshot!.documents {
-                    if (uid != document.documentID) {
-                        self.getUserWithId(id: document.documentID) { userInfo in
-                            let user = UserModel(info: userInfo)
-                            users.append(user)
-                            index += 1
-                            if (index == querySnapshot!.documents.count) {
-                                completion(users)
-                            }
-                        }
+            if err != nil {
+                print("Error getting documents")
+                return
+            }
+            var users: [UserModel] = []
+            var index = 0
+            for document in querySnapshot!.documents {
+                if uid == document.documentID {
+                    return
+                }
+                self.getUserWithId(id: document.documentID) { userInfo in
+                    let user = UserModel(info: userInfo)
+                    users.append(user)
+                    index += 1
+                    if (index == querySnapshot!.documents.count) {
+                        completion(users)
                     }
                 }
             }
