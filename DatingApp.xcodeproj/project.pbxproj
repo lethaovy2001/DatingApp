@@ -687,6 +687,7 @@
 				38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */,
 				38F90B2C24733B9E005B0BEB /* Info.plist */,
 				38F90B3224733C01005B0BEB /* UserModelTest.swift */,
+				38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */,
 			);
 			path = DatingAppTests;
 			sourceTree = "<group>";
