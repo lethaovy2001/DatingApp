@@ -23,9 +23,6 @@ class ChatViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var user: UserModel? {
         didSet {
-            if let uid = modelController.getCurrentUserId(), let user = user {
-                chatView.viewModel = ListMessageViewModel(userModel: user, currentUserId: uid)
-            }
             modelController.user = user
         }
     }
