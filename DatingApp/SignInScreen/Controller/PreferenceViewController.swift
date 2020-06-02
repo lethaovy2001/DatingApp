@@ -11,7 +11,6 @@ import UIKit
 class PreferenceViewController : UIViewController {
     // MARK: - Properties
     private let mainView = PreferenceView()
-    private var database: Database
     var user: UserModel!
     private let converter = DateConverter()
     

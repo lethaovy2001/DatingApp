@@ -69,7 +69,7 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc func logoutPressed() {
-        firebaseService.logout()
+        auth.logout()
         let vc = LoginViewController()
         self.navigationController?.pushViewController(vc, animated: false)
     }
