@@ -85,7 +85,7 @@ class SwipeCardView : UIView {
         if sender.state == .ended {
             let position = sender.location(in: self)
             if (position.x < bounds.x) {
-                self.nextImage(isLeft: true)
+                self.tappedImage(isOnLeftSide: true)
             } else {
                 self.tappedImage(isOnLeftSide: false)
             }
