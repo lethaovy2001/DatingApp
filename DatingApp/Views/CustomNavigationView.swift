@@ -31,6 +31,7 @@ final class CustomNavigationView: CustomContainerView {
         self.addShadow(color: UIColor.customLightGray, radius: 3.0)
         setup()
         addTapGesture()
+        setAccessibilityIdentifier()
     }
     
     required init?(coder: NSCoder) {
@@ -110,6 +111,16 @@ final class CustomNavigationView: CustomContainerView {
             profileImageView.addGestureRecognizer(tapGesture)
         default:
             break
+        }
+    }
+    
+    private func setAccessibilityIdentifier() {
+        titleLabel.accessibilityIdentifier = "navigationTitle"
+        if let rightButton = rightButton {
+            rightButton.accessibilityIdentifier = "navigationRightItem"
+        }
+        if let leftButton = leftButton {
+            leftButton.accessibilityIdentifier = "navigationLeftItem"
         }
     }
     

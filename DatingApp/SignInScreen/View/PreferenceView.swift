@@ -17,6 +17,7 @@ class PreferenceView: UIView {
         sc.translatesAutoresizingMaskIntoConstraints = false
         sc.tintColor = UIColor.amour
         sc.selectedSegmentIndex = 1
+        sc.accessibilityIdentifier = "genderSegmentedControl"
         return sc
     }()
     private var interestedSegmentedControl: UISegmentedControl = {
@@ -24,6 +25,7 @@ class PreferenceView: UIView {
         sc.translatesAutoresizingMaskIntoConstraints = false
         sc.tintColor = UIColor.amour
         sc.selectedSegmentIndex = 1
+        sc.accessibilityIdentifier = "interestedSegmentedControl"
         return sc
     }()
     private let saveButton = RoundedButton(title: "Save", color: UIColor.amour)
