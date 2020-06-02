@@ -36,6 +36,14 @@ extension XCUIApplication {
         return otherElements["editUserDetailsView"].exists
     }
     
+    var isDisplayingListMessage: Bool {
+        return otherElements["listMessageView"].exists
+    }
+    
+    var isDisplayingChat: Bool {
+        return otherElements["chatView"].exists
+    }
+    
     var isDisplayingAppLogo: Bool {
         return otherElements["appLogo"].exists
     }

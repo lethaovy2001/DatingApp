@@ -53,6 +53,13 @@ class ChatView : UIView {
         self.backgroundColor = .white
         addSubviews()
         setUpConstraints()
+        setAccessibilityIdentifier()
+    }
+    
+    private func setAccessibilityIdentifier() {
+        inputTextView.accessibilityIdentifier = "inputTextView"
+        sendButton.accessibilityIdentifier = "sendButton"
+        addImageButton.accessibilityIdentifier = "addImageButton"
     }
     
     private func addSubviews() {
@@ -168,6 +175,7 @@ class ChatView : UIView {
     // MARK: Alert View
     func showNewConversationAlert() {
         newChatAlertView.isHidden = false
+        newChatAlertView.accessibilityIdentifier = "alertView"
         self.addSubview(newChatAlertView)
         bringSubviewToFront(newChatAlertView)
         NSLayoutConstraint.activate([
