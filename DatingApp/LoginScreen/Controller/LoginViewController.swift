@@ -72,7 +72,7 @@ class LoginViewController : UIViewController {
                         if let userInfo = data as? [String: Any] {
                             var user = UserModel(info: userInfo)
                             user.id = self.auth.getCurrentUserId()
-                            let vc = PreferenceViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+                            let vc = PreferenceViewController()
                             vc.user = user
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
