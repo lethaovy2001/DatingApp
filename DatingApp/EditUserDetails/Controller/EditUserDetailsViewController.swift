@@ -68,9 +68,9 @@ class EditUserDetailsViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    @objc private func logoutPressed() {
+    @objc func logoutPressed() {
         auth.logout()
-        let vc = LoginViewController(authentication: auth, database: database)
+        let vc = LoginViewController()
         self.navigationController?.pushViewController(vc, animated: false)
     }
     

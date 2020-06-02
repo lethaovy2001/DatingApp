@@ -692,7 +692,6 @@
 				38F90B2C24733B9E005B0BEB /* Info.plist */,
 				38F90B3224733C01005B0BEB /* UserModelTest.swift */,
 				38F90B3424733C32005B0BEB /* UserViewModelTest.swift */,
-				38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */,
 			);
 			path = DatingAppTests;
 			sourceTree = "<group>";
@@ -1007,7 +1006,6 @@
 				38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */,
 				38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */,
 				38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */,
-				38F90B4A2475D34D005B0BEB /* SwipeCardViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
