@@ -29,6 +29,7 @@ class SwipeCardStackContainer: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         configureSelf()
+        self.accessibilityIdentifier = "swipeCardStackContainer"
     }
     
     required init?(coder: NSCoder) {

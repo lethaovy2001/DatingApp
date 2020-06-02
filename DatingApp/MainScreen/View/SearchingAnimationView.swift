@@ -24,6 +24,7 @@ class SearchingAnimationView: UIView {
     // MARK: Initializer
     init() {
         super.init(frame: .zero)
+        self.accessibilityIdentifier = "SearchingAnimation"
         setup()
     }
     
