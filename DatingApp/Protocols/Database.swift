@@ -12,10 +12,3 @@ protocol Database {
     func saveProfile(ofUser user: UserModel)
     func updateListOfUsers()
 }
-
-
-
-
-
-
-

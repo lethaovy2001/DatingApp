@@ -477,13 +477,9 @@ extension FirebaseService {
 }
 
 extension FirebaseService : Database {
-    func loadUserProfile() {
-        
-    }
+    func loadUserProfile() { }
     
-    func saveData() {
-        
-    }
+    func saveData() { }
     
     func saveProfile(ofUser user: UserModel) {
         if let uid = auth.currentUser?.uid, let data = user.getUserInfo() {
