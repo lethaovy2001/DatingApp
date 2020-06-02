@@ -16,7 +16,7 @@ class SignUpViewController : UIViewController {
     var keyboardDelegate: KeyboardDelegate?
     
     // MARK: - Initializer
-    init(authentication: Authentication, database: Database) {
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
         self.auth = authentication
         self.database = database
         super.init(nibName: nil, bundle: nil)
@@ -80,7 +80,7 @@ class SignUpViewController : UIViewController {
                     "id": id
                 ]
                 let user = UserModel(info: info)
-                let vc = PreferenceViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+                let vc = PreferenceViewController()
                 vc.user = user
                 self.navigationController?.pushViewController(vc, animated: true)
             }

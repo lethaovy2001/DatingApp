@@ -16,7 +16,7 @@ class LoginViewController : UIViewController {
     private let auth: Authentication
     
     // MARK: - Initializer
-    init(authentication: Authentication, database: Database) {
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
         self.auth = authentication
         self.database = database
         super.init(nibName: nil, bundle: nil)
@@ -72,7 +72,7 @@ class LoginViewController : UIViewController {
                         if let userInfo = data as? [String: Any] {
                             var user = UserModel(info: userInfo)
                             user.id = self.auth.getCurrentUserId()
-                            let vc = PreferenceViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+                            let vc = PreferenceViewController()
                             vc.user = user
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
@@ -82,13 +82,13 @@ class LoginViewController : UIViewController {
         }
     }
     
-    @objc private func loginWithEmail() {
-        let vc = EmailLoginViewController(authentication: FirebaseService.shared)
+    @objc func loginWithEmail() {
+        let vc = EmailLoginViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc private func signIn() {
-        let vc = SignUpViewController(authentication: FirebaseService.shared, database: FirebaseService.shared)
+    @objc func signIn() {
+        let vc = SignUpViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
