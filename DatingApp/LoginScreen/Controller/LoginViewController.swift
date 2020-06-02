@@ -16,7 +16,7 @@ class LoginViewController : UIViewController {
     private let auth: Authentication
     
     // MARK: - Initializer
-    init(authentication: Authentication, database: Database) {
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
         self.auth = authentication
         self.database = database
         super.init(nibName: nil, bundle: nil)
