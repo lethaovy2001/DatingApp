@@ -11,13 +11,11 @@ import UIKit
 class PreferenceViewController : UIViewController {
     // MARK: - Properties
     private let mainView = PreferenceView()
-    private var database: Database
     var user: UserModel!
     private let converter = DateConverter()
     
     // MARK: - Initializer
-    init(database: Database = FirebaseService.shared) {
-        self.database = database
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,10 +50,8 @@ class PreferenceViewController : UIViewController {
             user.gender = mainView.getGenderSelection()
             user.interestedIn = mainView.getInterestedSelection()
             user.birthday = date
-            self.database.saveProfile(ofUser: user)
-            self.database.updateListOfUsers()
-            let viewModel = UserDetailsViewModel(model: user)
-            let vc = EditUserDetailsViewController(viewModel: viewModel)
+            let vc = EditUserDetailsViewController()
+            vc.user = user
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

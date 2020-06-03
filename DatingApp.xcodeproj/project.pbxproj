@@ -90,18 +90,26 @@
 		38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */; };
 		38F7672524525BE900B49F62 /* ImageTapGestureDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */; };
 		38F90AD42470E91B005B0BEB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD32470E91B005B0BEB /* Database.swift */; };
-		38F90AD62470EB36005B0BEB /* WritableDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD52470EB36005B0BEB /* WritableDatabase.swift */; };
 		38F90ADA2470FF4E005B0BEB /* DateConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90AD92470FF4E005B0BEB /* DateConvertible.swift */; };
 		38F90ADC2471B048005B0BEB /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90ADB2471B048005B0BEB /* DateConverter.swift */; };
 		38F90B072473097D005B0BEB /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B062473097D005B0BEB /* CustomButton.swift */; };
 		38F90B1D24733342005B0BEB /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1C24733342005B0BEB /* BackButton.swift */; };
 		38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B1E24733358005B0BEB /* ErrorLabel.swift */; };
 		38F90B23247338F7005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B22247338F7005B0BEB /* Authentication.swift */; };
-		38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B382473A1E6005B0BEB /* PasswordTextField.swift */; };
-		38F90B3C24747A1B005B0BEB /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3B24747A1B005B0BEB /* AppLogoView.swift */; };
 		38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */; };
 		38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3224733C01005B0BEB /* UserModelTest.swift */; };
-		38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3424733C32005B0BEB /* UserViewModelTest.swift */; };
+		38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B382473A1E6005B0BEB /* PasswordTextField.swift */; };
+		38F90B3C24747A1B005B0BEB /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3B24747A1B005B0BEB /* AppLogoView.swift */; };
+		38F90B3E2474F57D005B0BEB /* fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 38F90B3D2474F57C005B0BEB /* fail.json */; };
+		38F90B422474FD7D005B0BEB /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B412474FD7D005B0BEB /* BottomButton.swift */; };
+		38F90B442474FDE1005B0BEB /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B432474FDE1005B0BEB /* HeaderButton.swift */; };
+		38F90B462475D234005B0BEB /* AgeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B452475D234005B0BEB /* AgeConverter.swift */; };
+		38F90B482475D260005B0BEB /* AgeConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B472475D260005B0BEB /* AgeConvertible.swift */; };
+		38F90B4C247653E8005B0BEB /* ListMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B4B247653E8005B0BEB /* ListMessageModel.swift */; };
+		38F90B5024773A7D005B0BEB /* InputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B4F24773A7D005B0BEB /* InputContainerView.swift */; };
+		38F90B5224773D18005B0BEB /* CustomActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B5124773D18005B0BEB /* CustomActivityIndicatorView.swift */; };
+		38F90B5624775859005B0BEB /* MessageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B5524775859005B0BEB /* MessageTest.swift */; };
+		38F90B5A24775DB8005B0BEB /* MessageViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */; };
 		582385F0EBBA40D9FCE8EE86 /* Pods_DatingAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B25DA64073197A99447DE058 /* Pods_DatingAppTests.framework */; };
 		9BA6D5103408BFD2BBA1F03E /* Pods_DatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */; };
 /* End PBXBuildFile section */
@@ -204,20 +212,28 @@
 		38DFEA76244940CB00F1BE0D /* searchLocationAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchLocationAnimation.json; sourceTree = "<group>"; };
 		38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTapGestureDelegate.swift; sourceTree = "<group>"; };
 		38F90AD32470E91B005B0BEB /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		38F90AD52470EB36005B0BEB /* WritableDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritableDatabase.swift; sourceTree = "<group>"; };
 		38F90AD92470FF4E005B0BEB /* DateConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConvertible.swift; sourceTree = "<group>"; };
 		38F90ADB2471B048005B0BEB /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		38F90B062473097D005B0BEB /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		38F90B1C24733342005B0BEB /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		38F90B1E24733358005B0BEB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		38F90B22247338F7005B0BEB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
-		38F90B382473A1E6005B0BEB /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
-		38F90B3B24747A1B005B0BEB /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
 		38F90B2824733B9D005B0BEB /* DatingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppTests.swift; sourceTree = "<group>"; };
 		38F90B2C24733B9E005B0BEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38F90B3224733C01005B0BEB /* UserModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTest.swift; sourceTree = "<group>"; };
-		38F90B3424733C32005B0BEB /* UserViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTest.swift; sourceTree = "<group>"; };
+		38F90B382473A1E6005B0BEB /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		38F90B3B24747A1B005B0BEB /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
+		38F90B3D2474F57C005B0BEB /* fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fail.json; sourceTree = "<group>"; };
+		38F90B412474FD7D005B0BEB /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
+		38F90B432474FDE1005B0BEB /* HeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderButton.swift; sourceTree = "<group>"; };
+		38F90B452475D234005B0BEB /* AgeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeConverter.swift; sourceTree = "<group>"; };
+		38F90B472475D260005B0BEB /* AgeConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeConvertible.swift; sourceTree = "<group>"; };
+		38F90B4B247653E8005B0BEB /* ListMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageModel.swift; sourceTree = "<group>"; };
+		38F90B4F24773A7D005B0BEB /* InputContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputContainerView.swift; sourceTree = "<group>"; };
+		38F90B5124773D18005B0BEB /* CustomActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicatorView.swift; sourceTree = "<group>"; };
+		38F90B5524775859005B0BEB /* MessageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTest.swift; sourceTree = "<group>"; };
+		38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModelTest.swift; sourceTree = "<group>"; };
 		749D73F991725B5396E85F76 /* Pods-DatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingApp.debug.xcconfig"; path = "Target Support Files/Pods-DatingApp/Pods-DatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		95C93F3411C66357ED08711D /* Pods-DatingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatingAppTests.release.xcconfig"; path = "Target Support Files/Pods-DatingAppTests/Pods-DatingAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A8CFFEEA26A33C258DE7A2FB /* Pods_DatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				382CC78A23D3B0DD0043060E /* LoginViewController.swift */,
-				38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */,
 				38DB15932459D46F00748B1B /* EmailLoginViewController.swift */,
 			);
 			path = Controller;
@@ -359,6 +374,7 @@
 		383E46D12440E6950012977A /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				38F90B3D2474F57C005B0BEB /* fail.json */,
 				38475D66246CB563008EDD28 /* match0.json */,
 				38475D68246CDA66008EDD28 /* match1.json */,
 				38475D69246CDA66008EDD28 /* match2.json */,
@@ -445,9 +461,10 @@
 				38BFFAE9244EBF9500AC6B5E /* AutoSwipeDelegate.swift */,
 				38F7672424525BE900B49F62 /* ImageTapGestureDelegate.swift */,
 				3837CD6124564404007B4297 /* ZoomTapDelegate.swift */,
-				38F90AD92470FF4E005B0BEB /* DateConvertible.swift */,
 				38F90AD32470E91B005B0BEB /* Database.swift */,
 				38F90B22247338F7005B0BEB /* Authentication.swift */,
+				38F90AD92470FF4E005B0BEB /* DateConvertible.swift */,
+				38F90B472475D260005B0BEB /* AgeConvertible.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -501,7 +518,6 @@
 			children = (
 				38475D74246D07AC008EDD28 /* View */,
 				38475D73246D07A4008EDD28 /* Controller */,
-				38F90ADB2471B048005B0BEB /* DateConverter.swift */,
 			);
 			path = SignInScreen;
 			sourceTree = "<group>";
@@ -552,6 +568,8 @@
 				3854F6542438092000229E16 /* CALayer+helpers.swift */,
 				38BFFAE5244D27C000AC6B5E /* UIColor+extension .swift */,
 				3837CD5F24562701007B4297 /* UITextView+helper.swift */,
+				38F90ADB2471B048005B0BEB /* DateConverter.swift */,
+				38F90B452475D234005B0BEB /* AgeConverter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -581,6 +599,8 @@
 				3854F6472437C4EC00229E16 /* InputTextView.swift */,
 				3854F6482437C4EC00229E16 /* ChatCell.swift */,
 				384EDF1C2438DFFB00001F7B /* ChatView.swift */,
+				38F90B4F24773A7D005B0BEB /* InputContainerView.swift */,
+				38F90B5124773D18005B0BEB /* CustomActivityIndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -609,6 +629,7 @@
 			children = (
 				38DACAF5244A68B600F4E60E /* FirebaseService.swift */,
 				38BFFAE7244D2A6A00AC6B5E /* LocationService.swift */,
+				38C1EA022443AE1300CEA9B2 /* FacebookAuthenticator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -619,6 +640,8 @@
 				3854F65B2438526B00229E16 /* MainView.swift */,
 				38DFEA742449166C00F1BE0D /* CustomAlertView.swift */,
 				38475D5A246B7D84008EDD28 /* SearchingAnimationView.swift */,
+				38F90B412474FD7D005B0BEB /* BottomButton.swift */,
+				38F90B432474FDE1005B0BEB /* HeaderButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -629,6 +652,7 @@
 				38475D452469F727008EDD28 /* Controller */,
 				38475D422469F6BF008EDD28 /* View */,
 				38475D48246A1CB6008EDD28 /* ListMessageViewModel.swift */,
+				38F90B4B247653E8005B0BEB /* ListMessageModel.swift */,
 			);
 			path = ListMessages;
 			sourceTree = "<group>";
@@ -661,35 +685,28 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
-        38F90B3A2473A40E005B0BEB /* TextField */ = {
-            isa = PBXGroup;
-            children = (
-                383E46F7244265980012977A /* CustomTextField.swift */,
-                38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
-            );
-            path = TextField;
-            sourceTree = "<group>";
-        };
 		38F90B2924733B9D005B0BEB /* DatingAppTests */ = {
 			isa = PBXGroup;
 			children = (
 				38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */,
 				38F90B2C24733B9E005B0BEB /* Info.plist */,
 				38F90B3224733C01005B0BEB /* UserModelTest.swift */,
-				38F90B3424733C32005B0BEB /* UserViewModelTest.swift */,
+				38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */,
+				38F90B5524775859005B0BEB /* MessageTest.swift */,
+				38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */,
 			);
 			path = DatingAppTests;
 			sourceTree = "<group>";
 		};
-        38F90B3A2473A40E005B0BEB /* TextField */ = {
-            isa = PBXGroup;
-            children = (
-                383E46F7244265980012977A /* CustomTextField.swift */,
-                38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
-            );
-            path = TextField;
-            sourceTree = "<group>";
-        };
+		38F90B3A2473A40E005B0BEB /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				383E46F7244265980012977A /* CustomTextField.swift */,
+				38F90B382473A1E6005B0BEB /* PasswordTextField.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
 		F12EC8373E2D99DDF2F32760 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,6 +807,7 @@
 				38475D6D246CDB9F008EDD28 /* match3.json in Resources */,
 				38475D6A246CDA66008EDD28 /* match1.json in Resources */,
 				38DFEA77244940CB00F1BE0D /* searchLocationAnimation.json in Resources */,
+				38F90B3E2474F57D005B0BEB /* fail.json in Resources */,
 				38475D5F246B82BD008EDD28 /* people.json in Resources */,
 				38475D57246B6D8D008EDD28 /* loading.json in Resources */,
 				38475D67246CB563008EDD28 /* match0.json in Resources */,
@@ -928,8 +946,10 @@
 				38475D70246D077F008EDD28 /* SignUpViewController.swift in Sources */,
 				38F7672524525BE900B49F62 /* ImageTapGestureDelegate.swift in Sources */,
 				383E46E6244265450012977A /* UserModel.swift in Sources */,
+				38F90B442474FDE1005B0BEB /* HeaderButton.swift in Sources */,
 				38475D78246E1CFE008EDD28 /* PreferenceView.swift in Sources */,
 				38DACB00244BAFBC00F4E60E /* ImageButtonsContainerView.swift in Sources */,
+				38F90B482475D260005B0BEB /* AgeConvertible.swift in Sources */,
 				383E470C244267000012977A /* KeyboardDelegate.swift in Sources */,
 				383E4701244265990012977A /* CustomTextField.swift in Sources */,
 				384604B423EA76D2006F6540 /* SwipeCardStackContainer.swift in Sources */,
@@ -940,6 +960,7 @@
 				382CC78723D3B0DD0043060E /* AppDelegate.swift in Sources */,
 				383E46F1244265570012977A /* SectionTitleLabel.swift in Sources */,
 				383E4703244265990012977A /* CustomImageView.swift in Sources */,
+				38F90B422474FD7D005B0BEB /* BottomButton.swift in Sources */,
 				38475D49246A1CB6008EDD28 /* ListMessageViewModel.swift in Sources */,
 				38DB15962459D4B000748B1B /* EmailLoginView.swift in Sources */,
 				38DACAFA244B89E300F4E60E /* CustomNavigationView.swift in Sources */,
@@ -947,13 +968,16 @@
 				38475D54246B6892008EDD28 /* LoadingAnimationView.swift in Sources */,
 				3837CD6224564404007B4297 /* ZoomTapDelegate.swift in Sources */,
 				383E46E4244265450012977A /* UserDetailsViewController.swift in Sources */,
+				38F90B5224773D18005B0BEB /* CustomActivityIndicatorView.swift in Sources */,
 				38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */,
+				38F90B462475D234005B0BEB /* AgeConverter.swift in Sources */,
 				382CC7A523D791150043060E /* MainViewController.swift in Sources */,
 				383E46E5244265450012977A /* UserDetailsViewModel.swift in Sources */,
 				38DFEA752449166C00F1BE0D /* CustomAlertView.swift in Sources */,
 				38F90B1F24733358005B0BEB /* ErrorLabel.swift in Sources */,
 				383E46FD244265990012977A /* CustomTextView.swift in Sources */,
 				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,
+				38F90B5024773A7D005B0BEB /* InputContainerView.swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
 				38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */,
 				38DACAF6244A68B600F4E60E /* FirebaseService.swift in Sources */,
@@ -973,6 +997,7 @@
 				382CC78923D3B0DD0043060E /* SceneDelegate.swift in Sources */,
 				38F90AD42470E91B005B0BEB /* Database.swift in Sources */,
 				3854F6492437C4EC00229E16 /* ChatViewController.swift in Sources */,
+				38F90B4C247653E8005B0BEB /* ListMessageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -982,7 +1007,10 @@
 			files = (
 				38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */,
 				38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */,
+				38F90B5624775859005B0BEB /* MessageTest.swift in Sources */,
 				38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */,
+				38F90B5A24775DB8005B0BEB /* MessageViewModelTest.swift in Sources */,
+				38F90B4A2475D34D005B0BEB /* SwipeCardViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

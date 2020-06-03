@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ListMessagesView: UIView {
-    
+class ListMessagesView : UIView {
+    // MARK: - Properties
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.allowsMultipleSelectionDuringEditing = true
@@ -19,7 +19,7 @@ class ListMessagesView: UIView {
     }()
     let customNavigationView = CustomNavigationView(type: .listMessages)
     
-    // MARK: Initializer
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
         setup()
@@ -29,8 +29,9 @@ class ListMessagesView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         addSubviews()
         setupConstraints()
     }
@@ -60,6 +61,7 @@ class ListMessagesView: UIView {
         customNavigationView.tapDelegate = viewController
     }
     
+    // MARK: Selectors
     func setBackButtonSelector(selector: Selector, target: UIViewController) {
         customNavigationView.setleftButtonSelector(selector: selector, target: target)
     }

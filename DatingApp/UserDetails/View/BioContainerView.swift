@@ -8,7 +8,8 @@
 
 import UIKit
 
-class BioContainerView: CustomContainerView {
+final class BioContainerView : CustomContainerView {
+    // MARK: - Properties
     private let bioLabel = SectionTitleLabel(title: "Bio")
     private let bioTextView = CustomTextView(text: "No bio")
     var viewModel: UserDetailsViewModel! {
@@ -17,18 +18,17 @@ class BioContainerView: CustomContainerView {
         }
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     override init() {
-        super.init()
+        super.init(cornerRadius: 6)
         setup()
-        self.layer.cornerRadius = 6
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
         addSubviews()
         setupConstraints()
