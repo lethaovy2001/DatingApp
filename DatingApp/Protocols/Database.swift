@@ -10,4 +10,15 @@ import UIKit
 
 protocol Database {
     func saveProfile(ofUser user: UserModel)
+    func saveLikeUser(withId id: String)
+    func saveDislikeUser(withId id: String)
+    func saveMessage(message: Message)
+    func uploadUserImages(images: [UIImage], _ completion: @escaping()->())
+    func uploadImageMessage(message: Message)
+    func uploadVideoMessage(url: URL, message: Message)
+    func updateListOfUsers()
+    func loadUserProfile(withId id: String,_ completion: @escaping(UserModel)->())
+    func loadAllUsers(_ completion: @escaping([UserModel])->())
+    func loadListMessages(_ completion: @escaping([ListMessageModel])->())
+    func loadMessages(withId id: String,_ completion: @escaping([Message])->())
 }

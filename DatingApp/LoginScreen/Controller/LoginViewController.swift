@@ -8,21 +8,27 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
-    private let mainView: LoginMainView = {
-        let view = LoginMainView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private var facebookAuth: FacebookAuthenticator!
-    private var firebaseService: FirebaseService!
-    private var modelController = MainModelController()
+class LoginViewController : UIViewController {
+    // MARK: - Properties
+    private let mainView = LoginMainView()
+    private var facebookAuth = FacebookAuthenticator()
+    private let database: Database
+    private let auth: Authentication
     
-    // MARK: Life Cycles
+    // MARK: - Initializer
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
+        self.auth = authentication
+        self.database = database
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        facebookAuth = FacebookAuthenticator(viewController: self)
-        firebaseService = FirebaseService()
         setupUI()
         setSelectors()
     }
@@ -31,33 +37,48 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setupUI() {
+        mainView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainView)
+        view.backgroundColor = .white
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: view.topAnchor),
             mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        view.backgroundColor = .white
     }
     
     private func setSelectors() {
         mainView.setFbLoginSelector(selector: #selector(loginWithFacebook), target: self)
         mainView.setEmailLoginSelector(selector: #selector(loginWithEmail), target: self)
         mainView.setSignInSelector(selector: #selector(signIn), target: self)
+        mainView.setDoneSelector(selector: #selector(doneButtonPressed), target: self)
     }
     
     //MARK: Actions
-    @objc func loginWithFacebook() {
-        facebookAuth.loginPressed {
-            self.firebaseService.authenticateWithFirebase(accessToken: self.facebookAuth.getFBAccessToken(), {
-                self.facebookAuth.getFBUserInfo({ data in
-                    self.modelController.update(data: data)
-                    self.goToMainViewController()
-                })
-            })
+    @objc private func loginWithFacebook() {
+        facebookAuth.loginPressed(viewController: self) { isAlreadyLogin in
+            self.auth.logUserIn(withCredential: self.facebookAuth.getFBAccessToken()) { loginError in
+                if loginError != nil {
+                    self.mainView.showAlert()
+                    return
+                }
+                if isAlreadyLogin {
+                    self.navigationController?.popToRootViewController(animated: false)
+                } else {
+                    self.facebookAuth.getFBUserInfo({ data in
+                        if let userInfo = data as? [String: Any] {
+                            var user = UserModel(info: userInfo)
+                            user.id = self.auth.getCurrentUserId()
+                            let vc = PreferenceViewController()
+                            vc.user = user
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    })
+                }
+            }
         }
     }
     
@@ -71,8 +92,8 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func goToMainViewController() {
-        self.navigationController?.popToRootViewController(animated: false)
+    @objc private func doneButtonPressed() {
+        mainView.hideAlert()
     }
 }
 

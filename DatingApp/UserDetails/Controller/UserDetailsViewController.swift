@@ -8,13 +8,27 @@
 
 import UIKit
 
-class UserDetailsViewController: UIViewController {
+class UserDetailsViewController : UIViewController {
+    // MARK: - Properties
     private let userDetailsView = UserDetailsView()
-    private let modelController = UserDetailsModelController()
-    private let firebaseService = FirebaseService()
+    private let modelController: UserDetailsModelController
+    private let database: Database
+    private let auth: Authentication
     var viewModel: UserDetailsViewModel?
     
-    // MARK: Life Cycles
+    // MARK: - Initializer
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
+        self.auth = authentication
+        self.database = database
+        self.modelController = UserDetailsModelController(database: database)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -26,9 +40,8 @@ class UserDetailsViewController: UIViewController {
         reloadUserInfo()
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
-        addNavigationBar()
         setupUI()
         setSelectors()
     }
@@ -49,35 +62,27 @@ class UserDetailsViewController: UIViewController {
         userDetailsView.setBackButtonSelector(selector: #selector(backButtonPressed), target: self)
     }
     
-    func addNavigationBar() {
-        let navBar = self.navigationController?.navigationBar
-        let navItem = self.navigationItem
-        navBar?.tintColor = UIColor.amour
-        navItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
-    }
-    
     // MARK: Actions
-    @objc func editButtonPressed() {
-        if let viewModel = viewModel {
-            let vc = EditUserDetailsViewController(viewModel: viewModel)
-            self.navigationController?.pushViewController(vc, animated: false)
-        }
+    @objc private func editButtonPressed() {
+        let vc = EditUserDetailsViewController()
+        vc.user = modelController.getUserInfo()
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
-    @objc func backButtonPressed() {
+    @objc private func backButtonPressed() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
     // MARK: Firebase
     func reloadUserInfo() {
-        if let id = viewModel?.id, id != modelController.getCurrentUserId() {
-            self.modelController.getData(id: viewModel?.id) {
+        if let id = viewModel?.id, id != auth.getCurrentUserId() {
+            self.modelController.getData(id: id) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .otherUser)
                 self.userDetailsView.viewModel = self.viewModel
                 self.userDetailsView.doneLoading()
             }
         } else {
-            self.modelController.getData(id: modelController.getCurrentUserId()) {
+            self.modelController.getData(id: auth.getCurrentUserId()) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .currentUser)
                 self.userDetailsView.viewModel = self.viewModel
                 self.userDetailsView.doneLoading()
