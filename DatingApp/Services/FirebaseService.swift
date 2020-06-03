@@ -17,18 +17,13 @@ class FirebaseService {
     private var auth: Auth!
     static let shared = FirebaseService()
     
-    enum MessageState {
-        case noMessage
-        case hasMessage
-    }
-    
     init() {
         database = Firestore.firestore()
         storage = Storage.storage()
         auth = Auth.auth()
     }
     
-    func getListMessage(withId id: String,_ completion: @escaping(ListMessageModel)->()) {
+    private func getListMessage(withId id: String,_ completion: @escaping(ListMessageModel)->()) {
         self.loadUserProfile(withId: id) { user in
             var userModel = user
             self.getMainUserImage(from: id) {
@@ -36,7 +31,7 @@ class FirebaseService {
                 if let image = image {
                     userModel.mainImage = image
                 }
-                self.getLastestMessage(toId: id) { (messageId, message) in
+                self.getLastestMessage(toId: id) { messageId in
                     if messageId == "" {
                         let model = ListMessageModel(user: userModel, message: Message(dictionary: [:]))
                         completion(model)
@@ -201,7 +196,7 @@ extension FirebaseService {
         }
     }
     
-    func getLastestMessage(toId: String, _ completion : @escaping(String, MessageState)->()) {
+    func getLastestMessage(toId: String, _ completion : @escaping(String)->()) {
         if let fromId = auth.currentUser?.uid {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").order(by: "date", descending: true).addSnapshotListener() {
                 querySnapshot, error in
@@ -211,14 +206,14 @@ extension FirebaseService {
                 }
                 
                 if snapshot.documentChanges.count == 0 {
-                    completion("", .noMessage)
+                    completion("")
                     return
                 }
                 
                 for document in snapshot.documentChanges {
                     print(document.document.data())
                     if document.type == .added {
-                        completion(document.document.documentID, .hasMessage)
+                        completion(document.document.documentID)
                         break
                     }
                 }

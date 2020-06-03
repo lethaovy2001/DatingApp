@@ -47,7 +47,3 @@ class FacebookAuthenticator {
         return AccessToken.current!.tokenString
     }
 }
-
-
-
-

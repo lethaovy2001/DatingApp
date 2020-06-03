@@ -19,7 +19,7 @@ class MainViewController : UIViewController {
     var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: - Initializer
-    init(authentication: Authentication, database: Database) {
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
         self.auth = authentication
         self.database = database
         self.modelController = MainModelController(database: database)
@@ -45,7 +45,7 @@ class MainViewController : UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         if auth.getCurrentUserId() == nil {
-            let vc = LoginViewController(authentication: auth, database: database)
+            let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
         }
     }
