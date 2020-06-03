@@ -9,8 +9,8 @@
 import UIKit
 
 class UserDetailsViewModel {
+    // MARK: - Properties
     private var model: UserModel
-    private let calendar: Calendar
     private let type: UserType
     
     enum UserType {
@@ -18,15 +18,14 @@ class UserDetailsViewModel {
         case otherUser
     }
     
+    // MARK: - Initializer
     init(model: UserModel) {
         self.model = model
-        self.calendar = Calendar(identifier: .gregorian)
         self.type = .currentUser
     }
     
     init(model: UserModel, type: UserType) {
         self.model = model
-        self.calendar = Calendar(identifier: .gregorian)
         self.type = type
     }
 }
@@ -38,12 +37,8 @@ extension UserDetailsViewModel {
     
     var ageText: String {
         guard let date = model.birthday else { return "" }
-        let today = calendar.startOfDay(for: Date())
-        let birthday = calendar.startOfDay(for: date)
-        let components = calendar.dateComponents([.year],
-                                                 from: birthday,
-                                                 to: today)
-        let age = components.year!
+        let converter = AgeConverter()
+        let age = converter.convertToAge(from: date)
         return "\(age)"
     }
     

@@ -9,10 +9,10 @@
 import UIKit
 
 class CustomContainerView: UIView {
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = .white
-        self.addShadow(color: UIColor.customLightGray)
+        self.backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -22,6 +22,14 @@ class CustomContainerView: UIView {
         self.addShadow(color: UIColor.customLightGray)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = cornerRadius
+    }
+    
+    init(cornerRadius: CGFloat, backgroundColor: UIColor) {
+        super.init(frame: .zero)
+        self.backgroundColor = backgroundColor
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 16
+        self.layer.masksToBounds = true
     }
     
     required init?(coder: NSCoder) {

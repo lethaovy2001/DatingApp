@@ -1,5 +1,5 @@
 //
-//  DateConverter.swift
+//  DateConvertible.swift
 //  DatingApp
 //
 //  Created by Vy Le on 5/17/20.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol DateConverter {
+protocol DateConvertible {
     func convertToDate(dateString: String) -> Date
 }
 
-extension DateConverter {
+extension DateConvertible {
     func convertToDate(dateString: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"

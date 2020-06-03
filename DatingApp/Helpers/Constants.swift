@@ -9,6 +9,7 @@
 import UIKit
 
 struct Constants {
+    // MARK: Strings
     struct Strings {
         struct NewMessage {
             static let title = "Say something cute!"
@@ -18,12 +19,22 @@ struct Constants {
             static let title = "Location Access"
             static let message = "Please enable location in order to match with other users"
         }
+        struct FailLoginWithFacebook {
+            static let title = "Login with Facebook"
+            static let message = "Unable to login with Facebook.\n Please try again..."
+        }
         struct Default {
             static let title = "Thank You"
             static let message = "You are now able to see others in the same area"
         }
     }
     
+    // MARK: IconNames
+    struct IconNames {
+        static let back = "chevron.left"
+    }
+
+    // MARK: PaddingValues
     struct PaddingValues {
         // MARK: Input Container
         static let inputContainerHeight: CGFloat = 54
@@ -44,13 +55,19 @@ struct Constants {
     // MARK: Animation Names
     static let loveAnimation = "loveAnimation"
     static let searchLocationAnimation = "searchLocationAnimation"
+    static let failAnimation = "fail"
     
     static let meterToMile: Double = 1609
     struct NotificationKeys {
         static let selectAddImage = "selectAddImage"
     }
     
-    //MARK: Font size
+    // MARK: - Font size
     static let textSize: CGFloat = 20
+    
+    // MARK: - Facebook Permission
+    struct FacebookPermission {
+        static let publicProfile = "public_profile"
+    }
 }
 

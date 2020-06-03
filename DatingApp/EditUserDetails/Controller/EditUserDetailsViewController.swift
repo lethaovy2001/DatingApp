@@ -9,16 +9,18 @@
 import UIKit
 
 class EditUserDetailsViewController: UIViewController {
+    // MARK: - Properties
     private let editUserDetailsView = EditUserDetailsView()
-    private var viewModel: UserDetailsViewModel
-    let firebaseService = FirebaseService()
+    private let database: Database
+    private let auth: Authentication
+    var user: UserModel?
     var textViewEditingDelegate: TextViewEditingDelegate?
     var tapGestureDelegate: ImageTapGestureDelegate?
     
-    // MARK: Init
-    init(viewModel: UserDetailsViewModel) {
-        self.viewModel = viewModel
-        editUserDetailsView.viewModel = self.viewModel
+    // MARK: - Initializer
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
+        self.auth = authentication
+        self.database = database
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,16 +28,19 @@ class EditUserDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: Life Cycles
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setSelectors()
+        if let userModel = user {
+            editUserDetailsView.viewModel = UserDetailsViewModel(model: userModel)
+        }
         editUserDetailsView.addTapGesture(target: self, selector: #selector(dismissKeyboard))
         editUserDetailsView.addDelegate(viewController: self)
-        setSelectors()
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setupUI() {
         view.addSubview(editUserDetailsView)
         view.backgroundColor = .white
@@ -55,25 +60,38 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     // MARK: Actions
-    @objc func dismissKeyboard() {
+    @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    @objc func backPressed() {
+    @objc private func backPressed() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func logoutPressed() {
-        firebaseService.logout()
+        auth.logout()
         let vc = LoginViewController()
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
-    @objc func saveButtonPressed() {
-        saveData()
+    @objc private func saveButtonPressed() {
+        if let bio = editUserDetailsView.getBioText(),
+            let work = editUserDetailsView.getWorkText(),
+            let images = editUserDetailsView.getImages() {
+            user?.bio = bio
+            user?.work = work
+            user?.images = images
+            if let userModel = user {
+                database.saveProfile(ofUser: userModel)
+                database.uploadUserImages(images: images) {
+                    let vc = UserDetailsViewController()
+                    self.navigationController?.pushViewController(vc, animated: false)
+                }
+            }
+        }
     }
     
-    @objc func addImageButtonPressed(sender: UIButton) {
+    @objc private func addImageButtonPressed(sender: UIButton) {
         editUserDetailsView.setSelectedButton(sender: sender)
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self 
@@ -82,7 +100,7 @@ class EditUserDetailsViewController: UIViewController {
     }
 }
 
-// MARK: UITextViewDelegate
+// MARK: - UITextViewDelegate
 extension EditUserDetailsViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         textViewEditingDelegate?.didChange()
@@ -97,6 +115,8 @@ extension EditUserDetailsViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate
+// MARK: UINavigationControllerDelegate
 extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var selectedImageFromPicker: UIImage?
@@ -113,25 +133,6 @@ extension EditUserDetailsViewController: UIImagePickerControllerDelegate, UINavi
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-extension EditUserDetailsViewController: WritableDatabase {
-    func saveData() {
-        if let bio = editUserDetailsView.getBioText(),
-            let work = editUserDetailsView.getWorkText(),
-            let images = editUserDetailsView.getImages() {
-            let dictionary: [String: Any] = [
-                "bio": bio,
-                "work": work,
-            ]
-            updateUser(info: dictionary)
-            updateUserImages(images: images)
-            let vc = UserDetailsViewController()
-            self.navigationController?.pushViewController(vc, animated: false)
-        } else {
-            //TODO: Alert view when user haven't fill out all fields
-        }
     }
 }
 

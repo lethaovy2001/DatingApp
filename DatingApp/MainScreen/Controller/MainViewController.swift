@@ -8,48 +8,32 @@
 
 import UIKit
 import CoreLocation
-import Firebase
 
-class MainViewController: UIViewController, UIGestureRecognizerDelegate {
-    private let mainView: MainView = {
-        let view = MainView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+class MainViewController : UIViewController {
+    // MARK: - Properties
+    private let mainView = MainView()
     private var locationService: LocationService!
-    private let modelController = MainModelController()
+    private let database: Database
+    private let auth: Authentication
+    private let modelController: MainModelController
     var autoSwipeDelegate: AutoSwipeDelegate?
     
-    // MARK: Setup
-    private func setupUI() {
-        view.addSubview(mainView)
-        NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: view.topAnchor),
-            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        view.backgroundColor = .white
+    // MARK: - Initializer
+    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
+        self.auth = authentication
+        self.database = database
+        self.modelController = MainModelController(database: database)
+        super.init(nibName: nil, bundle: nil)
     }
     
-    private func setSelectors() {
-        mainView.setLikeSelector(selector: #selector(likePressed), target: self)
-        mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
-        mainView.setProfileSelector(selector: #selector(profilePressed), target: self)
-        mainView.setMessageSelector(selector: #selector(messagePressed), target: self)
-        mainView.setDoneSelector(selector: #selector(doneAlertPressed), target: self)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Life Cycles
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setSelectors()
-        mainView.setDataSource(uiViewController: self)
-        mainView.addDelegate(viewController: self)
-        locationService = LocationService(viewController: self)
-        fetchAllUsers()
+        setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,42 +44,70 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if (!modelController.checkIfUserExist()) {
+        if auth.getCurrentUserId() == nil {
             let vc = LoginViewController()
             self.navigationController?.pushViewController(vc, animated: false)
         }
     }
     
+    // MARK: - Setup
+    private func setup() {
+        setupUI()
+        setSelectors()
+        mainView.setDataSource(uiViewController: self)
+        mainView.addDelegate(viewController: self)
+        locationService = LocationService(viewController: self)
+    }
+    
+    private func setupUI() {
+        view.backgroundColor = .white
+        view.addSubview(mainView)
+        NSLayoutConstraint.activate([
+            mainView.topAnchor.constraint(equalTo: view.topAnchor),
+            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func setSelectors() {
+        mainView.setLikeSelector(selector: #selector(likePressed), target: self)
+        mainView.setDislikeSelector(selector: #selector(dislikePressed), target: self)
+        mainView.setProfileSelector(selector: #selector(profilePressed), target: self)
+        mainView.setMessageSelector(selector: #selector(messagePressed), target: self)
+        mainView.setDoneSelector(selector: #selector(doneAlertPressed), target: self)
+    }
+    
     private func fetchAllUsers() {
-        modelController.getAllUsers {
+        modelController.getAllUsers() {
             self.mainView.reloadSwipeViews()
         }
     }
     
     // MARK: Actions
-    @objc func likePressed() {
+    @objc private func likePressed() {
         autoSwipeDelegate?.swipe(direction: .right)
     }
     
-    @objc func dislikePressed() {
+    @objc private func dislikePressed() {
         autoSwipeDelegate?.swipe(direction: .left)
     }
     
-    @objc func messagePressed() {
+    @objc private func messagePressed() {
         let vc = ListMessagesViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func profilePressed() {
+    @objc private func profilePressed() {
         let vc = UserDetailsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func doneAlertPressed() {
+    @objc private func doneAlertPressed() {
         mainView.hideAlert()
     }
     
-    @objc func reloadUsers() {
+    @objc private func reloadUsers() {
         if modelController.getUsers().count == 0 {
             fetchAllUsers()
         }
@@ -106,7 +118,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 }
 
-// MARK: SwipeableCardDataSource
+// MARK: - SwipeableCardDataSource
 extension MainViewController: SwipeableCardDataSource {
     func reloadData() {
         fetchAllUsers()
@@ -123,6 +135,7 @@ extension MainViewController: SwipeableCardDataSource {
     }
 }
 
+// MARK: - CLLocationManagerDelegate
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationService.didUpdateLocations(locations: locations)
@@ -133,16 +146,17 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 
+// MARK: - UserChoiceDelegate
 extension MainViewController: UserChoiceDelegate {
     func like(_ user: UserModel) {
         if let id = user.id {
-            modelController.matchUsers(toId: id)
+            database.saveLikeUser(withId: id)
         }
     }
     
     func dislike(_ user: UserModel) {
         if let id = user.id {
-            modelController.dislikeUser(id: id)
+            database.saveDislikeUser(withId: id)
         }
     }
 }
