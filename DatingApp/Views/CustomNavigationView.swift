@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CustomNavigationView: CustomContainerView {
+final class CustomNavigationView: CustomContainerView {
+    // MARK: - Properties
     private var titleLabel: CustomLabel!
     private var leftButton: CustomButton!
     private var rightButton: CustomButton!
@@ -23,9 +24,9 @@ class CustomNavigationView: CustomContainerView {
         case chatMessage
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     init(type: NavigationType) {
-        super.init()
+        super.init(cornerRadius: 0)
         self.type = type
         self.addShadow(color: UIColor.customLightGray, radius: 3.0)
         setup()
@@ -36,7 +37,7 @@ class CustomNavigationView: CustomContainerView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
         switch type {
         case .userDetails:
@@ -96,22 +97,6 @@ class CustomNavigationView: CustomContainerView {
         ])
     }
     
-    func setTitle(title: String) {
-        titleLabel.text = title
-    }
-    
-    func setleftButtonSelector(selector: Selector, target: UIViewController) {
-        leftButton.addTarget(target, action: selector, for: .touchUpInside)
-    }
-    
-    func setRightButtonSelector(selector: Selector, target: UIViewController) {
-        rightButton.addTarget(target, action: selector, for: .touchUpInside)
-    }
-    
-    func hideEditButton() {
-        rightButton.isHidden = true
-    }
-    
     private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
@@ -128,8 +113,25 @@ class CustomNavigationView: CustomContainerView {
         }
     }
     
+    // MARK: Selectors
+    func setleftButtonSelector(selector: Selector, target: UIViewController) {
+        leftButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
+    func setRightButtonSelector(selector: Selector, target: UIViewController) {
+        rightButton.addTarget(target, action: selector, for: .touchUpInside)
+    }
+    
     // MARK: Actions
-    @objc func handleTapGesture() {
+    @objc private func handleTapGesture() {
         tapDelegate?.didTap()
+    }
+    
+    func setTitle(title: String) {
+        titleLabel.text = title
+    }
+    
+    func hideEditButton() {
+        rightButton.isHidden = true
     }
 }

@@ -8,7 +8,8 @@
 
 import UIKit
 
-class EditUserDetailsView: UIView {
+class EditUserDetailsView : UIView {
+    // MARK: - Properties
     private let imageButtonsContainerView = ImageButtonsContainerView()
     private var featureLabel = SectionTitleLabel(title: "Featured")
     private let bioLabel = SectionTitleLabel(title: "Bio")
@@ -41,9 +42,8 @@ class EditUserDetailsView: UIView {
             }
         }
     }
-    private var modelController = MainModelController()
     
-    // MARK: Init
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
         setUp()
@@ -53,7 +53,7 @@ class EditUserDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setUp() {
         setUpSelf()
         addSubviews()
@@ -172,6 +172,7 @@ class EditUserDetailsView: UIView {
         self.isUserInteractionEnabled = true
     }
     
+    // MARK: Selectors
     func setLogoutSelector(selector: Selector, target: UIViewController) {
         logoutButton.addTarget(target, action: selector, for: .touchUpInside)
     }
@@ -192,6 +193,7 @@ class EditUserDetailsView: UIView {
         imageButtonsContainerView.setSelectedButton(sender: sender)
     }
     
+    // MARK: Actions
     func getBioText() -> String? {
         if bioTextView.text != "" {
             return bioTextView.text
@@ -219,7 +221,7 @@ class EditUserDetailsView: UIView {
     }
 }
 
-// MARK: TextViewEditingDelegate
+// MARK: - TextViewEditingDelegate
 extension EditUserDetailsView: TextViewEditingDelegate {
     func didChange() {
         bioTextView.calculateBestHeight()

@@ -174,6 +174,8 @@ PODS:
     - FBSDKLoginKit/Login (= 5.13.1)
   - FBSDKLoginKit/Login (5.13.1):
     - FBSDKCoreKit (~> 5.0)
+  - Firebase (6.14.0):
+    - Firebase/Core (= 6.14.0)
   - Firebase/Analytics (6.14.0):
     - Firebase/Core
   - Firebase/Auth (6.14.0):
@@ -296,6 +298,7 @@ PODS:
 
 DEPENDENCIES:
   - FBSDKLoginKit
+  - Firebase
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
@@ -358,6 +361,6 @@ SPEC CHECKSUMS:
   lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
 
-PODFILE CHECKSUM: 36bede34334672057f799c10c6f9dc8801bf53fc
+PODFILE CHECKSUM: fe8c161a16e0626af81aa6bec9448dac612c2541
 
 COCOAPODS: 1.8.4

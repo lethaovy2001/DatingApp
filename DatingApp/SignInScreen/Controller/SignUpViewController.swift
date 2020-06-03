@@ -74,13 +74,13 @@ class SignUpViewController : UIViewController {
                     self.mainView.showError(message: message)
                     return
                 }
+                self.database.updateListOfUsers()
                 guard let id = self.auth.getCurrentUserId() else { return }
                 let info: [String: Any] = [
                     "first_name": name,
                     "id": id
                 ]
                 let user = UserModel(info: info)
-                self.database.saveProfile(ofUser: user)
                 let vc = PreferenceViewController()
                 vc.user = user
                 self.navigationController?.pushViewController(vc, animated: true)
