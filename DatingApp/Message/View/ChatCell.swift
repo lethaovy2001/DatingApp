@@ -10,31 +10,13 @@ import UIKit
 import AVFoundation
 import AVKit
 
-class ChatCell: UICollectionViewCell {
-    
-    let activityIndicatorView: UIActivityIndicatorView = {
-        let aiv = UIActivityIndicatorView(style: .medium)
-        aiv.color = UIColor.amour
-        aiv.translatesAutoresizingMaskIntoConstraints = false
-        aiv.hidesWhenStopped = true
-        return aiv
-    }()
-    
-    private let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.amour, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private var playerLayer: AVPlayerLayer?
-    private var player: AVPlayer?
-    private var isPlaying: Bool!
-    
-    //TODO: Create a custom class for container
-    private let containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.amour
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 16
-        view.layer.masksToBounds = true
-        return view
-    }()
+class ChatCell : UICollectionViewCell {
+    // MARK: - Properties
+    private let activityIndicatorView = CustomActivityIndicatorView()
+    private let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let containerView = CustomContainerView(cornerRadius: 16, backgroundColor: UIColor.amour)
     private let profileImageView = CircleImageView(imageName: "user")
+    private var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
     private let textView: UITextView = {
         let tv = UITextView()
         tv.font = UIFont.boldSystemFont(ofSize: Constants.textSize)
@@ -45,7 +27,9 @@ class ChatCell: UICollectionViewCell {
         tv.isScrollEnabled = false
         return tv
     }()
-    private var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
+    private var playerLayer: AVPlayerLayer?
+    private var player: AVPlayer?
+    private var isPlaying: Bool!
     private var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!
@@ -63,7 +47,7 @@ class ChatCell: UICollectionViewCell {
         }
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -82,7 +66,7 @@ class ChatCell: UICollectionViewCell {
         activityIndicatorView.stopAnimating()
     }
     
-    //MARK: Setup
+    //MARK: - Setup
     private func setup() {
         addSubviews()
         setupConstraints()
@@ -101,19 +85,19 @@ class ChatCell: UICollectionViewCell {
     }
     
     private func setupConstraints() {
+        containerViewRightAnchor = containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
+        containerViewLeftAnchor = containerView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
+        containerViewWidthAnchor = containerView.widthAnchor.constraint(equalToConstant: 200)
         NSLayoutConstraint.activate([
             profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8),
             profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             profileImageView.widthAnchor.constraint(equalToConstant: 32),
             profileImageView.heightAnchor.constraint(equalToConstant: 32)
         ])
-        containerViewRightAnchor = containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
-        containerViewLeftAnchor = containerView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
-        containerViewWidthAnchor = containerView.widthAnchor.constraint(equalToConstant: 200)
-        containerViewWidthAnchor.isActive = true
         NSLayoutConstraint.activate([
             containerViewRightAnchor,
             containerViewLeftAnchor,
+            containerViewWidthAnchor,
             containerView.topAnchor.constraint(equalTo: self.topAnchor),
             containerView.heightAnchor.constraint(equalTo: self.heightAnchor)
         ])
@@ -141,43 +125,6 @@ class ChatCell: UICollectionViewCell {
             activityIndicatorView.widthAnchor.constraint(equalToConstant: 50),
             activityIndicatorView.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-    
-    private func addTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        tapGesture.cancelsTouchesInView = false
-        messageImageView.isUserInteractionEnabled = true
-        messageImageView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func handleTapGesture() {
-        if viewModel?.videoUrl != nil {
-            if isPlaying {
-                player?.pause()
-                playButton.isHidden = false
-            } else if !isPlaying {
-                player?.play()
-                playButton.isHidden = true
-            }
-            isPlaying = !isPlaying
-        } else {
-            tapDelegate?.didTap(on: messageImageView)
-        }
-    }
-    
-    @objc func handlePlay() {
-        if let videoUrlString = viewModel?.videoUrl, let url = URL(string: videoUrlString) {
-            player = AVPlayer(url: url)
-            playerLayer = AVPlayerLayer(player: player)
-            playerLayer?.frame = containerView.bounds
-            messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
-            player?.play()
-            activityIndicatorView.startAnimating()
-            playButton.isHidden = true
-            isPlaying = true
-        }
     }
     
     private func setUpMessageRelationshipStyle() {
@@ -208,6 +155,44 @@ class ChatCell: UICollectionViewCell {
             containerViewWidthAnchor.constant = 200
             textView.isHidden = true
             messageImageView.isHidden = false
+        }
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.cancelsTouchesInView = false
+        messageImageView.isUserInteractionEnabled = true
+        messageImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: Actions
+    @objc private func handleTapGesture() {
+        if viewModel?.videoUrl != nil {
+            if isPlaying {
+                player?.pause()
+                playButton.isHidden = false
+            } else if !isPlaying {
+                player?.play()
+                playButton.isHidden = true
+            }
+            isPlaying = !isPlaying
+        } else {
+            tapDelegate?.didTap(on: messageImageView)
+        }
+    }
+    
+    @objc private func handlePlay() {
+        if let videoUrlString = viewModel?.videoUrl, let url = URL(string: videoUrlString) {
+            player = AVPlayer(url: url)
+            playerLayer = AVPlayerLayer(player: player)
+            playerLayer?.frame = containerView.bounds
+            messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
+            player?.play()
+            activityIndicatorView.startAnimating()
+            playButton.isHidden = true
+            isPlaying = true
         }
     }
 }
