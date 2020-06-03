@@ -64,10 +64,9 @@ class UserDetailsViewController : UIViewController {
     
     // MARK: Actions
     @objc private func editButtonPressed() {
-        if let viewModel = viewModel {
-            let vc = EditUserDetailsViewController(viewModel: viewModel)
-            self.navigationController?.pushViewController(vc, animated: false)
-        }
+        let vc = EditUserDetailsViewController()
+        vc.user = modelController.getUserInfo()
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     @objc private func backButtonPressed() {
