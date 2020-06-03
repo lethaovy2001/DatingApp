@@ -28,26 +28,6 @@ class FirebaseService {
         auth = Auth.auth()
     }
     
-    func getUserID() -> String? {
-        return auth.currentUser?.uid
-    }
-    
-    func getUserWithId(id: String,_ completion : @escaping([String: Any])->()) {
-        database.collection("users").document(id).addSnapshotListener {
-            documentSnapshot, error in
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
-            print("Current data: \(data)")
-            completion(data)
-        }
-    }
-    
     func getListMessage(withId id: String,_ completion: @escaping(ListMessageModel)->()) {
         self.loadUserProfile(withId: id) { user in
             var userModel = user
@@ -76,99 +56,6 @@ class FirebaseService {
         }
     }
     
-    func convertToDate(timestamp: Timestamp) -> Date {
-        return timestamp.dateValue()
-    }
-}
-
-// MARK: Storage
-extension FirebaseService {
-    // MARK: User Profile Images
-    func updateImageDatabase(with data: [String: Any]) {
-        if let uid = auth.currentUser?.uid {
-            database.collection("profile_images").document(uid).setData(data, merge: true)
-        }
-    }
-    
-    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping()->()) {
-        let imageName = UUID().uuidString
-        let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
-        if let uploadData = image.jpegData(compressionQuality: 1.0) {
-            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
-                storageRef.downloadURL { (url, error) in
-                    guard let downloadURL = url?.absoluteString else {
-                        print("FirebaseService: error in downloadURL")
-                        return
-                    }
-                    let data = ["image\(index)": downloadURL]
-                    self.updateImageDatabase(with: data)
-                    completion()
-                }
-            }
-        }
-    }
-    
-    func uploadMessageVideoOntoStorage(url: URL, completion: @escaping ([String: Any]) -> ()) {
-        let imageName = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("messages-videos").child("\(imageName).mov")
-        if let videoData = NSData(contentsOf: url) as Data? {
-            let uploadTask = storageRef.putData(videoData, metadata: nil) { (metadata, error) in
-                storageRef.downloadURL { (url, error) in
-                    guard let downloadURL = url?.absoluteString else {
-                        print("FirebaseService: error in downloadURL")
-                        return
-                    }
-                    guard let fileUrl = url else {
-                        print("FirebaseService: error in fileUrl")
-                        return
-                    }
-                    
-                    if let thumbnailImage = self.thumbnailImageForFileUrl(fileUrl) {
-                        self.uploadMessageImageOntoStorage(image: thumbnailImage, { imageData in
-                            var data = imageData
-                            data.updateValue(downloadURL, forKey: "videoUrl")
-                            completion(data)
-                        })
-                    }
-                }
-            }
-            uploadTask.observe(.success) { (snapshot) in
-                print("Success")
-            }
-        }
-    }
-    
-    private func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
-        let asset = AVAsset(url: fileUrl)
-        let imageGenerator = AVAssetImageGenerator(asset: asset)
-        do {
-            let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60), actualTime: nil)
-            return UIImage(cgImage: thumbnailCGImage)
-            
-        } catch let err {
-            print(err)
-        }
-        
-        return nil
-    }
-    
-    func uploadMessageImageOntoStorage(image: UIImage, _ completion: @escaping ([String: Any]) -> ()) {
-        let imageName = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("messages-images").child("\(imageName).jpg")
-        if let uploadData = image.jpegData(compressionQuality: 1.0) {
-            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
-                storageRef.downloadURL { (url, error) in
-                    guard let downloadURL = url?.absoluteString else {
-                        print("FirebaseService: error in downloadURL")
-                        return
-                    }
-                    let properties: [String: Any] = ["imageUrl": downloadURL as String, "imageWidth": image.size.width, "imageHeight": image.size.height]
-                    completion(properties)
-                }
-            }
-        }
-    }
-    
     func getMainUserImage(from id: String, _ completion : @escaping(UIImage?)->()) {
         database.collection("profile_images").document(id).addSnapshotListener {
             documentSnapshot, error in
@@ -189,6 +76,84 @@ extension FirebaseService {
         }
     }
     
+    func updateImageDatabase(with data: [String: Any]) {
+        if let uid = auth.currentUser?.uid {
+            database.collection("profile_images").document(uid).setData(data, merge: true)
+        }
+    }
+    
+    func saveMessageReference(message: Message) {
+        if let fromId = auth.currentUser?.uid,
+            let data = message.getMessageReference(),
+            let toId = message.toId,
+            let messageId = message.messageId {
+            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Successfully update message reference")
+                }
+            })
+            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Successfully update message reference")
+                }
+            })
+        }
+    }
+    
+    func convertToDate(timestamp: Timestamp) -> Date {
+        return timestamp.dateValue()
+    }
+    
+    private func getListMessageModelAtIndex(listMessageModel: ListMessageModel, models: [ListMessageModel]) -> Int? {
+        var modelIndex = 0
+        for model in models {
+            if model.user.id == listMessageModel.user.id {
+                return modelIndex
+            }
+            modelIndex += 1
+        }
+        return nil
+    }
+}
+
+// MARK: - Storage
+extension FirebaseService {
+    // MARK: Upload
+    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping()->()) {
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
+        if let uploadData = image.jpegData(compressionQuality: 1.0) {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    let data = ["image\(index)": downloadURL]
+                    self.updateImageDatabase(with: data)
+                    completion()
+                }
+            }
+        }
+    }
+    
+    private func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
+        let asset = AVAsset(url: fileUrl)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        do {
+            let thumbnailCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60), actualTime: nil)
+            return UIImage(cgImage: thumbnailCGImage)
+        } catch let err {
+            print(err)
+        }
+        return nil
+    }
+    
+    // MARK: Download
     func downloadImageFromStorage(url: String,_ completion : @escaping(UIImage)->()) {
         let httpsReference = storage.reference(forURL: url)
         httpsReference.getData(maxSize: 5 * 1024 * 1024) { data, error in
@@ -220,43 +185,8 @@ extension FirebaseService {
     }
 }
 
-// MARK: Messages
+// MARK: - Messages
 extension FirebaseService {
-    func saveMessageToDatabase(with message: Message,_ completion : @escaping(String)->()) {
-        guard let data = message.getMessageDictionary() else { return }
-        var ref: DocumentReference? = nil
-        ref = database.collection("messages").addDocument(data: data, completion: { error in
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                print("Document added with ID: \(ref!.documentID)")
-                completion(ref!.documentID)
-            }
-        })
-    }
-    
-    func updateMessageReference(message: Message) {
-        if let fromId = auth.currentUser?.uid,
-            let data = message.getMessageReference(),
-            let toId = message.toId,
-            let messageId = message.messageId {
-            database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                } else {
-                    print("Successfully update message reference")
-                }
-            })
-            database.collection("user-messages").document(toId).collection("match-users").document(fromId).collection("messageId").document(messageId).setData(data, merge: true, completion: { error in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                } else {
-                    print("Successfully update message reference")
-                }
-            })
-        }
-    }
-    
     func getMessageDetails(with messageId: String, _ completion : @escaping([String: Any])->()) {
         database.collection("messages").document(messageId).getDocument { (documentSnapshot, error) in
             guard let document = documentSnapshot else {
@@ -304,12 +234,10 @@ extension FirebaseService {
                     print("Error fetching documents: \(error!)")
                     return
                 }
-                
                 if snapshot.isEmpty {
                     completion([:])
                     return
                 }
-                
                 for diff in snapshot.documentChanges {
                     print(diff.document.data())
                     if (diff.type == .added) {
@@ -330,6 +258,50 @@ extension FirebaseService : Database {
         }
     }
     
+    func saveLikeUser(withId id: String) {
+        guard let uid = auth.currentUser?.uid else { return }
+        // match both user
+        database.collection("users").document(id).collection("available-users")
+            .whereField("id", isEqualTo: uid)
+            .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for _ in querySnapshot!.documents {
+                        self.database.collection("user-messages").document(uid).collection("match-users").document(id).setData(["isMatch": true, "time": Date()], merge: true)
+                        self.database.collection("user-messages").document(id).collection("match-users").document(uid).setData(["isMatch": true, "time": Date()], merge: true)
+                    }
+                }
+        }
+        // save when one person like first
+        database.collection("users").document(uid).collection("available-users").document(id).setData(["hasDisplay": true], merge: true)
+    }
+    
+    func saveDislikeUser(withId id: String) {
+        guard let uid = getCurrentUserId() else { return }
+        database.collection("users").document(uid).collection("available-users").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+    
+    func saveMessage(message: Message) {
+        guard let data = message.getMessageDictionary() else { return }
+        var ref: DocumentReference? = nil
+        ref = database.collection("messages").addDocument(data: data, completion: { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                var messageRef = message
+                messageRef.messageId = ref!.documentID
+                self.saveMessageReference(message: messageRef)
+            }
+        })
+    }
+    
     func uploadUserImages(images: [UIImage], _ completion: @escaping()->()){
         if let uid = auth.currentUser?.uid {
             var index = 0
@@ -340,6 +312,58 @@ extension FirebaseService : Database {
                     }
                 })
                 index += 1
+            }
+        }
+    }
+    
+    func uploadImageMessage(message: Message) {
+        guard let image = message.image else {
+            return
+        }
+        var updateMessage = message
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-images").child("\(imageName).jpg")
+        if let uploadData = image.jpegData(compressionQuality: 1.0) {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    updateMessage.imageUrl = downloadURL
+                    updateMessage.imageWidth = image.size.width
+                    updateMessage.imageHeight = image.size.height
+                    self.saveMessage(message: updateMessage)
+                }
+            }
+        }
+    }
+    
+    func uploadVideoMessage(url: URL, message: Message) {
+        var updateMessage = message
+        let videoName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("messages-videos").child("\(videoName).mov")
+        if let videoData = NSData(contentsOf: url) as Data? {
+            let uploadTask = storageRef.putData(videoData, metadata: nil) { (metadata, error) in
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("FirebaseService: error in downloadURL")
+                        return
+                    }
+                    guard let fileUrl = url else {
+                        print("FirebaseService: error in fileUrl")
+                        return
+                    }
+                    
+                    if let thumbnailImage = self.thumbnailImageForFileUrl(fileUrl) {
+                        updateMessage.videoUrl = downloadURL
+                        updateMessage.image = thumbnailImage
+                        self.uploadImageMessage(message: updateMessage)
+                    }
+                }
+            }
+            uploadTask.observe(.success) { (snapshot) in
+                print("Success")
             }
         }
     }
@@ -374,8 +398,7 @@ extension FirebaseService : Database {
                 if uid == document.documentID {
                     return
                 }
-                self.getUserWithId(id: document.documentID) { userInfo in
-                    let user = UserModel(info: userInfo)
+                self.loadUserProfile(withId: document.documentID) { user in
                     users.append(user)
                     index += 1
                     if (index == querySnapshot!.documents.count) {
@@ -454,46 +477,46 @@ extension FirebaseService : Database {
         }
     }
     
-    private func getListMessageModelAtIndex(listMessageModel: ListMessageModel, models: [ListMessageModel]) -> Int? {
-        var modelIndex = 0
-        for model in models {
-            if model.user.id == listMessageModel.user.id {
-                return modelIndex
+    func loadMessages(withId id: String, _ completion: @escaping ([Message]) -> ()) {
+        var totalMessages = 0
+        var currentMessageIndex = 0
+        var messages: [Message] = []
+        
+        getMessages(toId: id, { data in
+            if data.isEmpty {
+                completion([])
+                return
             }
-            modelIndex += 1
-        }
-        return nil
-    }
-    
-    // MARK: Like/Dislike
-    func saveLikeUser(withId id: String) {
-        guard let uid = auth.currentUser?.uid else { return }
-        // match both user
-        database.collection("users").document(id).collection("available-users")
-            .whereField("id", isEqualTo: uid)
-            .whereField("hasDisplay", isEqualTo: true).getDocuments { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
+            guard let messageId = data["messageId"] as? String else {
+                completion([])
+                return
+            }
+            self.getMessageDetails(with: messageId, { messageData in
+                guard let time = messageData["time"] as? Timestamp else { return }
+                let convertedTime = self.convertToDate(timestamp: time)
+                var values = messageData
+                values.updateValue(convertedTime, forKey: "time")
+                var message: Message!
+                if let imageUrl = values["imageUrl"] as? String {
+                    self.downloadImageFromStorage(url: imageUrl, { image in
+                        message = Message(dictionary: values, image: image)
+                        messages.append(message)
+                        currentMessageIndex += 1
+                        if (currentMessageIndex == totalMessages) {
+                            completion(messages)
+                        }
+                    })
                 } else {
-                    for _ in querySnapshot!.documents {
-                        self.database.collection("user-messages").document(uid).collection("match-users").document(id).setData(["isMatch": true, "time": Date()], merge: true)
-                        self.database.collection("user-messages").document(id).collection("match-users").document(uid).setData(["isMatch": true, "time": Date()], merge: true)
+                    message = Message(dictionary: values)
+                    messages.append(message)
+                    currentMessageIndex += 1
+                    if (currentMessageIndex == totalMessages) {
+                        completion(messages)
                     }
                 }
-        }
-        // save when one person like first
-        database.collection("users").document(uid).collection("available-users").document(id).setData(["hasDisplay": true], merge: true)
-    }
-    
-    func saveDislikeUser(withId id: String) {
-        guard let uid = getCurrentUserId() else { return }
-        database.collection("users").document(uid).collection("available-users").document(id).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
-            } else {
-                print("Document successfully removed!")
-            }
-        }
+            })
+            totalMessages += 1
+        })
     }
 }
 
