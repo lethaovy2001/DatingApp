@@ -56,6 +56,7 @@ class UserDetailsView : UIView {
         addSubviews()
         setupConstraints()
         addGestures()
+        setAccessibilityIdentifier()
     }
     
     private func addSubviews() {
@@ -66,6 +67,10 @@ class UserDetailsView : UIView {
         scrollView.addSubview(nameContainerView)
         scrollView.addSubview(bioContainerView)
         bringSubviewToFront(customNavigationView)
+    }
+    
+    private func setAccessibilityIdentifier() {
+        userImageView.accessibilityIdentifier = "profileImageView"
     }
     
     private func setupConstraints() {
