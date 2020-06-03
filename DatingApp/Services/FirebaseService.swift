@@ -17,18 +17,13 @@ class FirebaseService {
     private var auth: Auth!
     static let shared = FirebaseService()
     
-    enum MessageState {
-        case noMessage
-        case hasMessage
-    }
-    
     init() {
         database = Firestore.firestore()
         storage = Storage.storage()
         auth = Auth.auth()
     }
     
-    func getListMessage(withId id: String,_ completion: @escaping(ListMessageModel)->()) {
+    private func getListMessage(withId id: String,_ completion: @escaping(ListMessageModel)->()) {
         self.loadUserProfile(withId: id) { user in
             var userModel = user
             self.getMainUserImage(from: id) {
@@ -36,7 +31,7 @@ class FirebaseService {
                 if let image = image {
                     userModel.mainImage = image
                 }
-                self.getLastestMessage(toId: id) { (messageId, message) in
+                self.getLastestMessage(toId: id) { messageId in
                     if messageId == "" {
                         let model = ListMessageModel(user: userModel, message: Message(dictionary: [:]))
                         completion(model)
@@ -106,6 +101,17 @@ class FirebaseService {
     
     func convertToDate(timestamp: Timestamp) -> Date {
         return timestamp.dateValue()
+    }
+    
+    private func getListMessageModelAtIndex(listMessageModel: ListMessageModel, models: [ListMessageModel]) -> Int? {
+        var modelIndex = 0
+        for model in models {
+            if model.user.id == listMessageModel.user.id {
+                return modelIndex
+            }
+            modelIndex += 1
+        }
+        return nil
     }
 }
 
@@ -190,7 +196,7 @@ extension FirebaseService {
         }
     }
     
-    func getLastestMessage(toId: String, _ completion : @escaping(String, MessageState)->()) {
+    func getLastestMessage(toId: String, _ completion : @escaping(String)->()) {
         if let fromId = auth.currentUser?.uid {
             database.collection("user-messages").document(fromId).collection("match-users").document(toId).collection("messageId").order(by: "date", descending: true).addSnapshotListener() {
                 querySnapshot, error in
@@ -200,14 +206,14 @@ extension FirebaseService {
                 }
                 
                 if snapshot.documentChanges.count == 0 {
-                    completion("", .noMessage)
+                    completion("")
                     return
                 }
                 
                 for document in snapshot.documentChanges {
                     print(document.document.data())
                     if document.type == .added {
-                        completion(document.document.documentID, .hasMessage)
+                        completion(document.document.documentID)
                         break
                     }
                 }
@@ -377,20 +383,21 @@ extension FirebaseService : Database {
     func loadAllUsers(_ completion: @escaping([UserModel]) -> ()) {
         guard let uid = auth.currentUser?.uid else { return }
         database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var users: [UserModel] = []
-                var index = 0
-                for document in querySnapshot!.documents {
-                    if (uid != document.documentID) {
-                        self.loadUserProfile(withId: document.documentID) { user in
-                            users.append(user)
-                            index += 1
-                            if (index == querySnapshot!.documents.count) {
-                                completion(users)
-                            }
-                        }
+            if err != nil {
+                print("Error getting documents")
+                return
+            }
+            var users: [UserModel] = []
+            var index = 0
+            for document in querySnapshot!.documents {
+                if uid == document.documentID {
+                    return
+                }
+                self.loadUserProfile(withId: document.documentID) { user in
+                    users.append(user)
+                    index += 1
+                    if (index == querySnapshot!.documents.count) {
+                        completion(users)
                     }
                 }
             }
@@ -436,31 +443,29 @@ extension FirebaseService : Database {
     func loadListMessages(_ completion: @escaping([ListMessageModel])->()) {
         guard let uid = auth.currentUser?.uid else { return }
         database.collection("user-messages").document(uid).collection("match-users").order(by: "time").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var models: [ListMessageModel] = []
-                var index = 0
-                for document in querySnapshot!.documents {
-                    let id = document.documentID
-                    self.getListMessage(withId: id) { listMessageModel in
-                        if models.count == querySnapshot!.documents.count {
-                            var modelIndex = 0
-                            for model in models {
-                                if model.user.id == listMessageModel.user.id {
-                                    models.remove(at: modelIndex)
-                                    models.insert(listMessageModel, at: modelIndex)
-                                    completion(models)
-                                }
-                                modelIndex += 1
-                            }
-                        } else {
-                            models.append(listMessageModel)
-                        }
-                        index += 1
-                        if index == querySnapshot!.documents.count {
-                            completion(models)
-                        }
+            if err != nil {
+                print("Error getting documents: \(String(describing: err))")
+                return
+            }
+            var models: [ListMessageModel] = []
+            var index = 0
+            for document in querySnapshot!.documents {
+                let id = document.documentID
+                self.getListMessage(withId: id) { listMessageModel in
+                    // update data
+                    if models.count == querySnapshot!.documents.count {
+                        guard let modelIndex = self.getListMessageModelAtIndex(listMessageModel: listMessageModel, models: models) else { return }
+                        models.remove(at: modelIndex)
+                        models.insert(listMessageModel, at: modelIndex)
+                        completion(models)
+                    // add new list message
+                    } else {
+                        models.append(listMessageModel)
+                    }
+                    
+                    index += 1
+                    if index == querySnapshot!.documents.count {
+                        completion(models)
                     }
                 }
             }

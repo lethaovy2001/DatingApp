@@ -109,7 +109,6 @@
 		38F90B23247338F7005B0BEB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B22247338F7005B0BEB /* Authentication.swift */; };
 		38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */; };
 		38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3224733C01005B0BEB /* UserModelTest.swift */; };
-		38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3424733C32005B0BEB /* UserViewModelTest.swift */; };
 		38F90B392473A1E6005B0BEB /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B382473A1E6005B0BEB /* PasswordTextField.swift */; };
 		38F90B3C24747A1B005B0BEB /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B3B24747A1B005B0BEB /* AppLogoView.swift */; };
 		38F90B3E2474F57D005B0BEB /* fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 38F90B3D2474F57C005B0BEB /* fail.json */; };
@@ -117,7 +116,6 @@
 		38F90B442474FDE1005B0BEB /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B432474FDE1005B0BEB /* HeaderButton.swift */; };
 		38F90B462475D234005B0BEB /* AgeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B452475D234005B0BEB /* AgeConverter.swift */; };
 		38F90B482475D260005B0BEB /* AgeConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B472475D260005B0BEB /* AgeConvertible.swift */; };
-		38F90B4A2475D34D005B0BEB /* SwipeCardViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */; };
 		38F90B4C247653E8005B0BEB /* ListMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B4B247653E8005B0BEB /* ListMessageModel.swift */; };
 		38F90B5024773A7D005B0BEB /* InputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B4F24773A7D005B0BEB /* InputContainerView.swift */; };
 		38F90B5224773D18005B0BEB /* CustomActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F90B5124773D18005B0BEB /* CustomActivityIndicatorView.swift */; };
@@ -255,7 +253,6 @@
 		38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatingAppTests.swift; sourceTree = "<group>"; };
 		38F90B2C24733B9E005B0BEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38F90B3224733C01005B0BEB /* UserModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTest.swift; sourceTree = "<group>"; };
-		38F90B3424733C32005B0BEB /* UserViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTest.swift; sourceTree = "<group>"; };
 		38F90B382473A1E6005B0BEB /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		38F90B3B24747A1B005B0BEB /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
 		38F90B3D2474F57C005B0BEB /* fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fail.json; sourceTree = "<group>"; };
@@ -263,7 +260,6 @@
 		38F90B432474FDE1005B0BEB /* HeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderButton.swift; sourceTree = "<group>"; };
 		38F90B452475D234005B0BEB /* AgeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeConverter.swift; sourceTree = "<group>"; };
 		38F90B472475D260005B0BEB /* AgeConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeConvertible.swift; sourceTree = "<group>"; };
-		38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardViewTest.swift; sourceTree = "<group>"; };
 		38F90B4B247653E8005B0BEB /* ListMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageModel.swift; sourceTree = "<group>"; };
 		38F90B4F24773A7D005B0BEB /* InputContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputContainerView.swift; sourceTree = "<group>"; };
 		38F90B5124773D18005B0BEB /* CustomActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -742,7 +738,6 @@
 				38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */,
 				38F90B2C24733B9E005B0BEB /* Info.plist */,
 				38F90B3224733C01005B0BEB /* UserModelTest.swift */,
-				38F90B3424733C32005B0BEB /* UserViewModelTest.swift */,
 				38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */,
 				38F90B5524775859005B0BEB /* MessageTest.swift */,
 				38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */,

@@ -27,9 +27,7 @@ struct UserModel {
         self.bio = info["bio"] as? String
         self.gender = info["gender"] as? String
         self.images = info["images"] as? [UIImage]
-        if let mainImage = images?[0] {
-            self.mainImage = mainImage
-        }
+        mainImage = images?.first
         self.interestedIn = info["interestedIn"] as? String
         if let birthday = info["birthday"] as? Timestamp {
             self.birthday = birthday.dateValue()

@@ -93,12 +93,10 @@ class ChatViewController : UIViewController, UICollectionViewDelegate, UICollect
                 self.chatView.collectionView.reloadData()
                 let indexPath = IndexPath(item: self.modelController.getMessages().count - 1, section: 0)
                 self.chatView.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
-                if self.modelController.getMessages().count != 0 {
-                    self.chatView.doneLoading()
-                } else {
-                    self.chatView.doneLoading()
+                if self.modelController.getMessages().count == 0 {
                     self.chatView.showNewConversationAlert()
                 }
+                self.chatView.doneLoading()
             }
         }
     }
