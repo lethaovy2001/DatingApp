@@ -8,7 +8,8 @@
 
 import UIKit
 
-class UserDetailsView: UIView {
+class UserDetailsView : UIView {
+    // MARK: - Properties
     private let userImageView = CustomImageView(imageName: "user", cornerRadius: 10)
     private let nameContainerView = NameContainerView()
     private let bioContainerView = BioContainerView()
@@ -37,6 +38,8 @@ class UserDetailsView: UIView {
             }
         }
     }
+    
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
         setUp()
@@ -48,7 +51,7 @@ class UserDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setUp() {
         addSubviews()
         setupConstraints()
@@ -105,6 +108,7 @@ class UserDetailsView: UIView {
         ])
     }
     
+    // MARK: Selectors
     func setEditSelector(selector: Selector, target: UIViewController) {
         customNavigationView.setRightButtonSelector(selector: selector, target: target)
     }
@@ -113,6 +117,7 @@ class UserDetailsView: UIView {
         customNavigationView.setleftButtonSelector(selector: selector, target: target)
     }
     
+    // MARK: Actions
     func doneLoading() {
         self.loadingView.removeFromSuperview()
     }

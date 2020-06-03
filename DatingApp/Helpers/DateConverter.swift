@@ -8,6 +8,6 @@
 
 import UIKit
 
-class DateConverter: DateConvertible {
-    
-}
+class DateConverter : DateConvertible {}
+
+
