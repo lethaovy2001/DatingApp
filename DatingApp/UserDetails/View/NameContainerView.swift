@@ -8,9 +8,10 @@
 
 import UIKit
 
-class NameContainerView: CustomContainerView {
-    private var nameLabel = CustomLabel(text: "Unknown", textColor: .darkGray, textSize: 28, textWeight: .bold)
-    private let ageLabel = CustomLabel(text: ", 19", textColor: .darkGray, textSize: 28, textWeight: .medium)
+final class NameContainerView : CustomContainerView {
+    // MARK: - Properties
+    private var nameLabel = CustomLabel(text: "First Name", textColor: .darkGray, textSize: 28, textWeight: .bold)
+    private let ageLabel = CustomLabel(text: ", Age", textColor: .darkGray, textSize: 28, textWeight: .medium)
     private let workButton = CustomButton(imageName: "bag", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let workLabel = CustomLabel(text: "Unknown workplace", textColor: .lightGray, textSize: 16, textWeight: .medium)
     private let locationButton = CustomButton(imageName: "mappin", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
@@ -23,18 +24,17 @@ class NameContainerView: CustomContainerView {
         }
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     override init() {
-        super.init()
+        super.init(cornerRadius: 6)
         setup()
-        self.layer.cornerRadius = 6
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
         addSubviews()
         setupConstraints()
@@ -67,6 +67,7 @@ class NameContainerView: CustomContainerView {
         ])
     }
     
+    // MARK: Actions
     func displayLocation() {
         addSubview(locationButton)
         addSubview(locationLabel)

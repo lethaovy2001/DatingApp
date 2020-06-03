@@ -8,10 +8,11 @@
 
 import UIKit
 
-class ListMessageCell: UITableViewCell {
+class ListMessageCell : UITableViewCell {
+    // MARK: - Properties
     let profileImageView = CircleImageView(imageName: "user")
-    let nameLabel = CustomLabel(text: "Alex", textColor: .black, textSize: 20, textWeight: .bold)
-    let chatLabel = CustomLabel(text: "Yeah sure", textColor: .black, textSize: 18, textWeight: .regular)
+    let nameLabel = CustomLabel(text: "Name", textColor: .black, textSize: 20, textWeight: .bold)
+    let chatLabel = CustomLabel(text: "Chat", textColor: .black, textSize: 18, textWeight: .regular)
     var viewModel: ListMessageViewModel? {
         didSet {
             nameLabel.text = viewModel?.userName
@@ -21,7 +22,7 @@ class ListMessageCell: UITableViewCell {
         }
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setup()
@@ -31,7 +32,7 @@ class ListMessageCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: Setup
+    //MARK: - Setup
     private func setup() {
         addSubviews()
         setConstraints()

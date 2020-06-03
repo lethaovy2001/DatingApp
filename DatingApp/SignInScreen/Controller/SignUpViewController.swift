@@ -74,6 +74,7 @@ class SignUpViewController : UIViewController {
                     self.mainView.showError(message: message)
                     return
                 }
+                self.database.updateListOfUsers()
                 guard let id = self.auth.getCurrentUserId() else { return }
                 let info: [String: Any] = [
                     "first_name": name,
