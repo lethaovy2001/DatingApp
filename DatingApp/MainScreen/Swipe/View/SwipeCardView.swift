@@ -7,23 +7,13 @@
 //
 
 import UIKit
-import Firebase
 
-class SwipeCardView: UIView {
+class SwipeCardView : UIView {
+    // MARK: Properties
     private var cardImages: [UIImage] = []
-    private let cardImageView = RoundedUserImage(imageName: "user")
     private var currentImage = 0
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.textColor = .white
-        label.text = "First, 18"
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 36, weight: .heavy)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+    private let cardImageView = RoundedUserImage(imageName: "user")
+    private let nameLabel = CustomLabel(text: "First Name, Age", textColor: .white, textSize: 36, textWeight: .heavy)
     var delegate: SwipeCardDelegate?
     var dataSource: UserModel? {
         didSet {
@@ -34,22 +24,16 @@ class SwipeCardView: UIView {
             if (!cardImages.isEmpty) {
                 cardImageView.image = images[0]
             }
-            
-            let calendar = Calendar(identifier: .gregorian)
             var ageText: String {
-                let today = calendar.startOfDay(for: Date())
-                let birthday = calendar.startOfDay(for: birthday)
-                let components = calendar.dateComponents([.year],
-                                                         from: birthday,
-                                                         to: today)
-                let age = components.year!
+                let converter = AgeConverter()
+                let age = converter.convertToAge(from: birthday)
                 return "\(age)"
             }
             self.nameLabel.text = "\(name), \(ageText)"            
         }
     }
     
-    // MARK: Initializer
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
         setup()
@@ -59,7 +43,7 @@ class SwipeCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
         addSubViews()
         setupConstraints()
@@ -78,7 +62,6 @@ class SwipeCardView: UIView {
             cardImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             cardImageView.topAnchor.constraint(equalTo: self.topAnchor)
         ])
-        
         NSLayoutConstraint.activate([
             nameLabel.leftAnchor.constraint(equalTo: cardImageView.leftAnchor, constant: 36),
             nameLabel.rightAnchor.constraint(equalTo: cardImageView.rightAnchor, constant: -36),
@@ -86,6 +69,7 @@ class SwipeCardView: UIView {
         ])
     }
     
+    // MARK: Gestures
     private func addGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
@@ -96,27 +80,26 @@ class SwipeCardView: UIView {
         self.addGestureRecognizer(panGesture)
     }
     
-    // MARK: Gestures
     @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
         let bounds = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         if sender.state == .ended {
             let position = sender.location(in: self)
             if (position.x < bounds.x) {
-                self.nextImage(isLeft: true)
+                self.tappedImage(isOnLeftSide: true)
             } else {
-                self.nextImage(isLeft: false)
+                self.tappedImage(isOnLeftSide: false)
             }
         }
     }
     
     @objc private func handlePanGesture(sender: UIPanGestureRecognizer) {
-        let card = sender.view as! SwipeCardView
+        guard let card = sender.view as? SwipeCardView else { return }
         let point = sender.translation(in: self)
         let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
-        
         switch sender.state {
         case .ended:
+            // swipe right
             if (card.center.x) > centerOfParentContainer.x + 40 {
                 self.delegate?.swipeDidEnd(on: card, isMatch: true)
                 UIView.animate(withDuration: 0.2) {
@@ -125,6 +108,7 @@ class SwipeCardView: UIView {
                     self.layoutIfNeeded()
                 }
                 return
+            // swipe left
             } else if card.center.x < centerOfParentContainer.x - 40 {
                 delegate?.swipeDidEnd(on: card, isMatch: false)
                 UIView.animate(withDuration: 0.2) {
@@ -148,22 +132,23 @@ class SwipeCardView: UIView {
         }
     }
     
-    private func nextImage(isLeft: Bool) {
-        if cardImages.count > 1 {
-            if (isLeft) {
-                if (currentImage <= 0) {
-                    currentImage = cardImages.count - 1
-                } else {
-                    currentImage = currentImage - 1
-                }
-            } else {
-                if (currentImage == cardImages.count - 1) {
-                    currentImage = 0
-                } else {
-                    currentImage = currentImage + 1
-                }
-            }
-            cardImageView.image = cardImages[currentImage]
+    private func tappedImage(isOnLeftSide: Bool) {
+        if cardImages.count < 1 {
+            return
         }
+        if (isOnLeftSide) {
+            if (currentImage <= 0) {
+                currentImage = cardImages.count - 1
+            } else {
+                currentImage = currentImage - 1
+            }
+        } else {
+            if (currentImage == cardImages.count - 1) {
+                currentImage = 0
+            } else {
+                currentImage = currentImage + 1
+            }
+        }
+        cardImageView.image = cardImages[currentImage]
     }
 }

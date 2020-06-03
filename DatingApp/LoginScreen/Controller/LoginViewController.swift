@@ -61,7 +61,7 @@ class LoginViewController : UIViewController {
     @objc private func loginWithFacebook() {
         facebookAuth.loginPressed(viewController: self) { isAlreadyLogin in
             self.auth.logUserIn(withCredential: self.facebookAuth.getFBAccessToken()) { loginError in
-                if let error = loginError {
+                if loginError != nil {
                     self.mainView.showAlert()
                     return
                 }
