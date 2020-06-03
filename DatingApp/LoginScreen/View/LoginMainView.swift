@@ -6,41 +6,36 @@
 //  Copyright © 2020 Vy Le. All rights reserved.
 //
 
-import Foundation
 import UIKit
-import Lottie
 
-class LoginMainView: UIView {
-    
+class LoginMainView : UIView {
+    // MARK: Properties
     private let fbLoginButton = RoundedButton(title: "LOG IN WITH FACEBOOK", color: UIColor.fbColor)
     private let emailLoginButton = RoundedButton(title: "LOG IN WITH EMAIL", color: UIColor.amour)
     private let signInLabel = CustomLabel(text: "Don't have an account?", textColor: UIColor.darkGray, textSize: 16, textWeight: .regular)
     private let signInButton = CustomButton(title: "Sign In", textColor: UIColor.amour, textSize: 16, textWeight: .bold)
     private let customStackView = CustomStackView(axis: .horizontal, distribution: .fill)
+    private let appLogo = AppLogoView()
+    private let customAlertView = CustomAlertView(type: .failLoginWithFacebook)
     
-    private let appLogo: AnimationView = {
-        let animationView = AnimationView(name: Constants.loveAnimation)
-        animationView.contentMode = .scaleAspectFill
-        animationView.play()
-        animationView.loopMode = .repeat(.infinity)
-        animationView.animationSpeed = 3
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        return animationView
-    }()
-    
-    // MARK: Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Initializer
+    init() {
+        super.init(frame: .zero)
         setup()
     }
     
-    // MARK: Setup
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Setup
     private func setup() {
         addSubViews()
         setupConstraints()
     }
     
     private func addSubViews() {
+        addSubview(customAlertView)
         addSubview(fbLoginButton)
         addSubview(emailLoginButton)
         addSubview(appLogo)
@@ -50,6 +45,12 @@ class LoginMainView: UIView {
     }
     
     private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            customAlertView.topAnchor.constraint(equalTo: topAnchor),
+            customAlertView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            customAlertView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            customAlertView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
         NSLayoutConstraint.activate([
             appLogo.centerXAnchor.constraint(equalTo: centerXAnchor),
             appLogo.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -200),
@@ -88,7 +89,19 @@ class LoginMainView: UIView {
         signInButton.addTarget(target, action: selector, for: .touchUpInside)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func setDoneSelector(selector: Selector, target: UIViewController) {
+        customAlertView.setDoneSelector(selector: selector, target: target)
+    }
+}
+
+// MARK: - AlertView
+extension LoginMainView {
+    func showAlert() {
+        customAlertView.isHidden = false
+        bringSubviewToFront(customAlertView)
+    }
+    
+    func hideAlert() {
+        customAlertView.isHidden = true
     }
 }

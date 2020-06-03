@@ -70,7 +70,7 @@ class EmailLoginViewController : UIViewController {
                 self.mainView.showError(message: error)
                 return
             }
-            let vc = MainViewController()
+            let vc = MainViewController(authentication: self.auth, database: FirebaseService.shared)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

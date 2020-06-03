@@ -10,20 +10,17 @@ import UIKit
 
 class MessageViewModel {
     private var model: Message
-    private let calendar: Calendar
     private var currentUserId: String
     private var userImage: UIImage?
     
     init(model: Message, currentUserId: String) {
         self.model = model
         self.currentUserId = currentUserId
-        self.calendar = Calendar(identifier: .gregorian)
     }
     
     init(model: Message, currentUserId: String, userImage: UIImage) {
         self.model = model
         self.currentUserId = currentUserId
-        self.calendar = Calendar(identifier: .gregorian)
         self.userImage = userImage
     }
 }
