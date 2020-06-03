@@ -59,6 +59,7 @@ class EditUserDetailsView : UIView {
         addSubviews()
         setUpConstraints()
         setUpErrorLabel()
+        setAccessibilityIdentifier()
     }
     
     private func setUpSelf() {
@@ -69,6 +70,15 @@ class EditUserDetailsView : UIView {
     private func setUpErrorLabel() {
         errorLabel.isHidden = true
         errorLabel.numberOfLines = 2
+    }
+    
+    private func setAccessibilityIdentifier() {
+        mainProfileImage.accessibilityIdentifier = "mainImage"
+        nameLabel.accessibilityIdentifier = "nameLabel"
+        bioTextView.accessibilityIdentifier = "bioTextView"
+        workTextField.accessibilityIdentifier = "workTextField"
+        imageButtonsContainerView.accessibilityIdentifier = "imageButtonsContainerView"
+        errorLabel.accessibilityIdentifier = "errorLabel"
     }
     
     private func addSubviews() {

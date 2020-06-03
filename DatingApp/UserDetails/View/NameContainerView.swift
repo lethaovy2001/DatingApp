@@ -38,6 +38,7 @@ final class NameContainerView : CustomContainerView {
     private func setup() {
         addSubviews()
         setupConstraints()
+        setAccessibilityIdentifier()
     }
     
     private func addSubviews() {
@@ -45,6 +46,13 @@ final class NameContainerView : CustomContainerView {
         addSubview(ageLabel)
         addSubview(workButton)
         addSubview(workLabel)
+    }
+    
+    private func setAccessibilityIdentifier() {
+        nameLabel.accessibilityIdentifier = "profileName"
+        ageLabel.accessibilityIdentifier = "profileAge"
+        workLabel.accessibilityIdentifier = "profileWork"
+        workButton.accessibilityIdentifier = "workButton"
     }
     
     private func setupConstraints() {

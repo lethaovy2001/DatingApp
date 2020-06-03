@@ -27,6 +27,7 @@ class PreferenceViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        self.view.accessibilityIdentifier = "preferenceView"
         mainView.setSaveButton(selector: #selector(saveButtonPressed), target: self)
     }
     
