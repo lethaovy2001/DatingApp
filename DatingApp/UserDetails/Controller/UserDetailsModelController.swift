@@ -9,29 +9,30 @@
 import UIKit
 
 class UserDetailsModelController {
-    private var firebaseService = FirebaseService()
+    // MARK: - Properties
     private var user = UserModel(info: ["":""])
+    private let database: Database
     
-    func getCurrentUserId() -> String? {
-        return firebaseService.getUserID() ?? nil
+    // MARK: - Initializer
+    init(database: Database) {
+        self.database = database
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Getters
     func getUserInfo() -> UserModel {
         return user
     }
     
     func getData(id: String?,_ completion : @escaping()->()) {
         if let id = id {
-            firebaseService.getUserWithId(id: id, { user in
-                self.firebaseService.getUserImagesFromDatabase(from: id, { images in
-                    if images.isEmpty {
-                        self.user = UserModel(info: user)
-                    } else {
-                        self.user = UserModel(info: user, images: images)
-                    }
-                    completion()
-                })
-            })
+            database.loadUserProfile(withId: id) { user in
+                self.user = user
+                completion()
+            }
         }
     }
 }
