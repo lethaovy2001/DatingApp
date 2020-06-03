@@ -8,24 +8,19 @@
 
 import UIKit
 
-class MainView: UIView {
+class MainView : UIView {
+    // MARK: - Properties
     private var swipeStackContainer = SwipeCardStackContainer()
-    private let likeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.fill", size: 25, color: UIColor.robinBlue, cornerRadius: (Constants.PaddingValues.likeButtonHeight/2), shadowColor: UIColor.customLightGray, backgroundColor: .white)
-        return button
-    }()
-    private let dislikeButton: CustomButton = {
-        let button = CustomButton(imageName: "heart.slash.fill", size: 25, color: UIColor.amour, cornerRadius: Constants.PaddingValues.likeButtonHeight/2, shadowColor: UIColor.customLightGray, backgroundColor: .white)
-        return button
-    }()
-    private let profileButton = CustomButton(imageName: "person.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let messageButton = CustomButton(imageName: "message.fill", size: 25, color: UIColor.customLightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    private let likeButton = BottomButton(imageName: "heart.fill", color: .robinBlue)
+    private let dislikeButton = BottomButton(imageName: "heart.slash.fill", color: .amour)
+    private let profileButton = HeaderButton(imageName: "person.fill")
+    private let messageButton = HeaderButton(imageName: "message.fill")
     private let customAlertView = CustomAlertView(type: .deniedLocationAccess)
     private let searchingAnimation = SearchingAnimationView()
     
-    // MARK: Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Initializer
+    init() {
+        super.init(frame: .zero)
         setup()
     }
     
@@ -33,11 +28,16 @@ class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     private func setup() {
-        backgroundColor = UIColor.mainBackgroundColor
+        setupSelf()
         addSubViews()
         setupConstraints()
+    }
+    
+    private func setupSelf() {
+        self.backgroundColor = UIColor.mainBackgroundColor
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func addSubViews() {
@@ -96,6 +96,14 @@ class MainView: UIView {
         ])
     }
     
+    func addDelegate(viewController: MainViewController) {
+        swipeStackContainer.addDelegate(viewController: viewController)
+    }
+    
+    func reloadSwipeViews() {
+        swipeStackContainer.reloadData()
+    }
+    
     // MARK: Selectors
     func setDataSource(uiViewController: UIViewController) {
         swipeStackContainer.dataSource = uiViewController as? SwipeableCardDataSource
@@ -120,17 +128,9 @@ class MainView: UIView {
     func setDoneSelector(selector: Selector, target: UIViewController) {
         customAlertView.setDoneSelector(selector: selector, target: target)
     }
-    
-    func addDelegate(viewController: MainViewController) {
-        swipeStackContainer.addDelegate(viewController: viewController)
-    }
-    
-    func reloadSwipeViews() {
-        swipeStackContainer.reloadData()
-    }
 }
 
-// MARK: AlertView
+// MARK: - AlertView
 extension MainView {
     func showAlert() {
         customAlertView.isHidden = false

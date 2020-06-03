@@ -62,7 +62,12 @@ struct Constants {
         static let selectAddImage = "selectAddImage"
     }
     
-    //MARK: - Font size
+    // MARK: - Font size
     static let textSize: CGFloat = 20
+    
+    // MARK: - Facebook Permission
+    struct FacebookPermission {
+        static let publicProfile = "public_profile"
+    }
 }
 
