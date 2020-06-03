@@ -20,3 +20,8 @@ target 'DatingApp' do
   end
   
 end
+
+target 'DatingAppUITests' do
+  inherit! :search_paths
+  pod 'Firebase'
+end

@@ -1,0 +1,6 @@
+module Pods_DatingAppUITests {
+  umbrella header "Pods-DatingAppUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

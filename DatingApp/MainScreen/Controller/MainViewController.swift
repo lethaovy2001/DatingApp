@@ -33,6 +33,7 @@ class MainViewController : UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "mainView"
         setup()
     }
     

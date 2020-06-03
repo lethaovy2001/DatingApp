@@ -27,6 +27,7 @@ class EmailLoginViewController : UIViewController {
     // MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "emailLoginView"
         setup()
     }
     
