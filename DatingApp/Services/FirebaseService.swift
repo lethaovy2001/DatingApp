@@ -300,15 +300,15 @@ extension FirebaseService : Database {
     
     func uploadUserImages(images: [UIImage], _ completion: @escaping()->()){
         guard let uid = auth.currentUser?.uid else { return }
-        let downloadGroup = DispatchGroup()
+        let dispatchGroup = DispatchGroup()
         let _ = DispatchQueue.global(qos: .userInitiated)
         DispatchQueue.concurrentPerform(iterations: images.count) { index in
-            downloadGroup.enter()
+            dispatchGroup.enter()
             uploadImageOntoStorage(image: images[index], uid: uid, index: index, {
-                downloadGroup.leave()
+                dispatchGroup.leave()
             })
         }
-        downloadGroup.notify(queue: DispatchQueue.main) {
+        dispatchGroup.notify(queue: DispatchQueue.main) {
             completion()
         }
     }
@@ -391,18 +391,18 @@ extension FirebaseService : Database {
             }
             guard let documents = querySnapshot?.documents else { return }
             var users: [UserModel] = []
-            let downloadGroup = DispatchGroup()
+            let dispatchGroup = DispatchGroup()
             let _ = DispatchQueue.global(qos: .userInitiated)
             DispatchQueue.concurrentPerform(iterations: documents.count) { (index) in
                 let documentID = documents[index].documentID
                 guard uid != documentID else { return }
-                downloadGroup.enter()
+                dispatchGroup.enter()
                 self.loadUserProfile(withId: documentID) { user in
                     users.append(user)
-                    downloadGroup.leave()
+                    dispatchGroup.leave()
                 }
             }
-            downloadGroup.notify(queue: DispatchQueue.main) {
+            dispatchGroup.notify(queue: DispatchQueue.main) {
                 completion(users)
             }
         }
