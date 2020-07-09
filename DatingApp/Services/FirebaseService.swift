@@ -298,8 +298,12 @@ extension FirebaseService : Database {
         })
     }
     
-    func uploadUserImages(images: [UIImage], _ completion: @escaping()->()){
-        guard let uid = auth.currentUser?.uid else { return }
+    func uploadUserImages(images: [UIImage], _ completion: @escaping(UIState)->())
+    {
+        guard let uid = auth.currentUser?.uid else {
+            completion(.fail)
+            return
+        }
         let dispatchGroup = DispatchGroup()
         let _ = DispatchQueue.global(qos: .userInitiated)
         DispatchQueue.concurrentPerform(iterations: images.count) { index in
@@ -309,7 +313,7 @@ extension FirebaseService : Database {
             })
         }
         dispatchGroup.notify(queue: DispatchQueue.main) {
-            completion()
+            completion(.success)
         }
     }
     
@@ -565,5 +569,10 @@ extension FirebaseService : Authentication {
             print("Error signing out: %@", signOutError)
         }
     }
+}
+
+enum UIState {
+    case success
+    case fail
 }
 
