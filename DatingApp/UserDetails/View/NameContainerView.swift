@@ -10,19 +10,12 @@ import UIKit
 
 final class NameContainerView : CustomContainerView {
     // MARK: - Properties
-    private var nameLabel = CustomLabel(text: "First Name", textColor: .darkGray, textSize: 28, textWeight: .bold)
-    private let ageLabel = CustomLabel(text: ", Age", textColor: .darkGray, textSize: 28, textWeight: .medium)
     private let workButton = CustomButton(imageName: "bag", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
-    private let workLabel = CustomLabel(text: "Unknown workplace", textColor: .lightGray, textSize: 16, textWeight: .medium)
     private let locationButton = CustomButton(imageName: "mappin", size: 10, color: .lightGray, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let locationLabel = CustomLabel(text: "Less than a kilometer away", textColor: .lightGray, textSize: 16, textWeight: .medium)
-    var viewModel: UserDetailsViewModel! {
-        didSet {
-            nameLabel.setText(text: viewModel.name)
-            ageLabel.setText(text: ", \(viewModel.ageText)")
-            workLabel.setText(text: viewModel.work)
-        }
-    }
+    var nameLabel = CustomLabel(text: "First Name", textColor: .darkGray, textSize: 28, textWeight: .bold)
+    let ageLabel = CustomLabel(text: ", Age", textColor: .darkGray, textSize: 28, textWeight: .medium)
+    let workLabel = CustomLabel(text: "Unknown workplace", textColor: .lightGray, textSize: 16, textWeight: .medium)
     
     // MARK: - Initializer
     override init() {

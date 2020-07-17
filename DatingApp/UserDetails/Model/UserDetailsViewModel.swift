@@ -63,4 +63,24 @@ extension UserDetailsViewModel {
     }
 }
 
-
+extension UserDetailsViewModel {
+    func configure(_ view: UserDetailsView) {
+        switch userType {
+        case .currentUser:
+            view.nameContainerHeight?.constant = 100
+            break
+        case .otherUser:
+            view.customNavigationView.hideEditButton()
+            view.nameContainerView.displayLocation()
+            view.nameContainerHeight?.constant = 120
+        }
+        view.bioContainerView.bioTextView.setText(text: bio)
+        view.nameContainerView.nameLabel.setText(text: name)
+        view.nameContainerView.ageLabel.setText(text: ", \(ageText)")
+        view.nameContainerView.workLabel.setText(text: work)
+        view.cardImages = images
+        if let image = images.first {
+            view.userImageView.setImage(image: image)
+        }
+    }
+}

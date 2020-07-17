@@ -11,12 +11,7 @@ import UIKit
 final class BioContainerView : CustomContainerView {
     // MARK: - Properties
     private let bioLabel = SectionTitleLabel(title: "Bio")
-    private let bioTextView = CustomTextView(text: "No bio")
-    var viewModel: UserDetailsViewModel! {
-        didSet {
-            bioTextView.setText(text: viewModel.bio)
-        }
-    }
+    let bioTextView = CustomTextView(text: "No bio")
     
     // MARK: - Initializer
     override init() {

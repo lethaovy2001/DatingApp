@@ -14,7 +14,11 @@ class UserDetailsViewController : UIViewController {
     private let modelController: UserDetailsModelController
     private let database: Database
     private let auth: Authentication
-    var viewModel: UserDetailsViewModel?
+    var viewModel: UserDetailsViewModel? {
+        didSet {
+            reloadUserInfo()
+        }
+    }
     
     // MARK: - Initializer
     init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
@@ -79,13 +83,13 @@ class UserDetailsViewController : UIViewController {
         if let id = viewModel?.id, id != auth.getCurrentUserId() {
             self.modelController.getData(id: id) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .otherUser)
-                self.userDetailsView.viewModel = self.viewModel
+                self.viewModel?.configure(self.userDetailsView)
                 self.userDetailsView.doneLoading()
             }
         } else {
             self.modelController.getData(id: auth.getCurrentUserId()) {
                 self.viewModel = UserDetailsViewModel(model: self.modelController.getUserInfo(), type: .currentUser)
-                self.userDetailsView.viewModel = self.viewModel
+                self.viewModel?.configure(self.userDetailsView)
                 self.userDetailsView.doneLoading()
             }
         }

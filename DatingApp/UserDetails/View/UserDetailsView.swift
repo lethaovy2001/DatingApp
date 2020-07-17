@@ -10,34 +10,15 @@ import UIKit
 
 class UserDetailsView : UIView {
     // MARK: - Properties
-    private let userImageView = CustomImageView(imageName: "user", cornerRadius: 10)
-    private let nameContainerView = NameContainerView()
-    private let bioContainerView = BioContainerView()
     private let scrollView = CustomScrollView()
-    private var cardImages: [UIImage]?
     private var currentImage = 0
-    private let customNavigationView = CustomNavigationView(type: .userDetails)
     private let loadingView = LoadingAnimationView()
-    private var nameContainerHeight: NSLayoutConstraint!
-    var viewModel: UserDetailsViewModel! {
-        didSet {
-            nameContainerView.viewModel = viewModel
-            bioContainerView.viewModel = viewModel
-            cardImages = viewModel.images
-            if !viewModel.images.isEmpty {
-                userImageView.setImage(image: viewModel.images[0])
-            }
-            switch viewModel.userType {
-            case .currentUser:
-                nameContainerHeight?.constant = 100
-                break
-            case .otherUser:
-                customNavigationView.hideEditButton()
-                nameContainerView.displayLocation()
-                nameContainerHeight?.constant = 120
-            }
-        }
-    }
+    let userImageView = CustomImageView(imageName: "user", cornerRadius: 10)
+    let nameContainerView = NameContainerView()
+    let bioContainerView = BioContainerView()
+    var cardImages: [UIImage]?
+    let customNavigationView = CustomNavigationView(type: .userDetails)
+    var nameContainerHeight: NSLayoutConstraint!
     
     // MARK: - Initializer
     init() {
