@@ -13,11 +13,11 @@ import AVKit
 class ChatCell : UICollectionViewCell {
     // MARK: - Properties
     private let activityIndicatorView = CustomActivityIndicatorView()
-    private let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let containerView = CustomContainerView(cornerRadius: 16, backgroundColor: UIColor.amour)
-    private let profileImageView = CircleImageView(imageName: "user")
-    private var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
-    private let textView: UITextView = {
+    let profileImageView = CircleImageView(imageName: "user")
+    var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
+    let textView: UITextView = {
         let tv = UITextView()
         tv.font = UIFont.boldSystemFont(ofSize: Constants.textSize)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -30,16 +30,16 @@ class ChatCell : UICollectionViewCell {
     private var playerLayer: AVPlayerLayer?
     private var player: AVPlayer?
     private var isPlaying: Bool!
-    private var containerViewWidthAnchor: NSLayoutConstraint!
+    var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!
     var tapDelegate: ZoomTapDelegate?
     var viewModel: MessageViewModel! {
         didSet {
-            profileImageView.setImage(image: viewModel.userMainImage) 
+            profileImageView.setImage(image: viewModel.userMainImage)
             textView.text = viewModel.text
-            setUpMessageRelationshipStyle()
-            setUpMessageType()
+//            setUpMessageRelationshipStyle()
+//            setUpMessageType()
             if let image = viewModel.image {
                 messageImageView.setImage(image: image)
             }
@@ -127,8 +127,8 @@ class ChatCell : UICollectionViewCell {
         ])
     }
     
-    private func setUpMessageRelationshipStyle() {
-        switch viewModel.style {
+    func setUpMessageRelationshipStyle(style: RelationshipType) {
+        switch style {
         case .currentUser:
             containerView.backgroundColor = UIColor.amour
             textView.textColor = UIColor.white
@@ -144,10 +144,10 @@ class ChatCell : UICollectionViewCell {
         }
     }
     
-    private func setUpMessageType() {
-        switch viewModel.messageType {
+    func setUpMessageType(messageType: MessageType) {
+        switch messageType {
         case .text:
-            containerViewWidthAnchor.constant = textView.estimatedFrameForText(text: viewModel.text).width + 36
+            //containerViewWidthAnchor.constant = textView.estimatedFrameForText(text: viewModel.text).width + 36
             textView.isHidden = false
             messageImageView.isHidden = true
             playButton.isHidden = true
@@ -169,30 +169,30 @@ class ChatCell : UICollectionViewCell {
     
     // MARK: Actions
     @objc private func handleTapGesture() {
-        if viewModel?.videoUrl != nil {
-            if isPlaying {
-                player?.pause()
-                playButton.isHidden = false
-            } else if !isPlaying {
-                player?.play()
-                playButton.isHidden = true
-            }
-            isPlaying = !isPlaying
-        } else {
-            tapDelegate?.didTap(on: messageImageView)
-        }
+//        if viewModel?.videoUrl != nil {
+//            if isPlaying {
+//                player?.pause()
+//                playButton.isHidden = false
+//            } else if !isPlaying {
+//                player?.play()
+//                playButton.isHidden = true
+//            }
+//            isPlaying = !isPlaying
+//        } else {
+//            tapDelegate?.didTap(on: messageImageView)
+//        }
     }
     
     @objc private func handlePlay() {
-        if let videoUrlString = viewModel?.videoUrl, let url = URL(string: videoUrlString) {
-            player = AVPlayer(url: url)
-            playerLayer = AVPlayerLayer(player: player)
-            playerLayer?.frame = containerView.bounds
-            messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
-            player?.play()
-            activityIndicatorView.startAnimating()
-            playButton.isHidden = true
-            isPlaying = true
-        }
+//        if let videoUrlString = viewModel?.videoUrl, let url = URL(string: videoUrlString) {
+//            player = AVPlayer(url: url)
+//            playerLayer = AVPlayerLayer(player: player)
+//            playerLayer?.frame = containerView.bounds
+//            messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
+//            player?.play()
+//            activityIndicatorView.startAnimating()
+//            playButton.isHidden = true
+//            isPlaying = true
+//        }
     }
 }

@@ -153,6 +153,8 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         if let uid = auth.getCurrentUserId(),
         let image = user?.mainImage {
             let message = modelController.getMessages()[indexPath.item]
+//            let viewModel = MessageViewModel(model: message, currentUserId: uid, userImage: image)
+//            viewModel.configure(cell)
             cell.viewModel = MessageViewModel(model: message, currentUserId: uid, userImage: image)
         }
         cell.tapDelegate = self
