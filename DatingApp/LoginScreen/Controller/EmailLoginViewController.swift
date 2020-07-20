@@ -66,13 +66,14 @@ class EmailLoginViewController : UIViewController {
             let email = mainView.getEmailText(),
             let password = mainView.getPasswordText()
         else { return }
-        auth.logUserIn(withEmail: email, password: password) { signInError in
-            if let error = signInError {
-                self.mainView.showError(message: error)
-                return
+        auth.logUserIn(withEmail: email, password: password) { result in
+            switch result {
+            case .success(let data):
+                let vc = MainViewController(authentication: self.auth, database: FirebaseService.shared)
+                self.navigationController?.pushViewController(vc, animated: true)
+            case .failure(let error):
+                self.mainView.showError(message: error.localizedDescription)
             }
-            let vc = MainViewController(authentication: self.auth, database: FirebaseService.shared)
-            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

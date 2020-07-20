@@ -532,14 +532,14 @@ extension FirebaseService : Authentication {
         }
     }
     
-    func logUserIn(withEmail email: String, password: String,  completion: @escaping(String?)->()) {
+    func logUserIn(withEmail email: String, password: String,  completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
         auth.signIn(withEmail: email, password: password, completion: {(authResult, error) in
-            if error != nil {
-                completion(error?.localizedDescription)
-                return
+            if let error = error {
+                completion(.failure(error))
             }
-            print("Successfully log user into firebase")
-            completion(nil)
+            if let authResult = authResult {
+                completion(.success(authResult))
+            }
         })
     }
     

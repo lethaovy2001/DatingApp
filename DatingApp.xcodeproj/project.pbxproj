@@ -94,6 +94,9 @@
 		38DB158E2457FE2F00748B1B /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */; };
 		38DB15942459D46F00748B1B /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB15932459D46F00748B1B /* EmailLoginViewController.swift */; };
 		38DB15962459D4B000748B1B /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DB15952459D4B000748B1B /* EmailLoginView.swift */; };
+		38DD9C5024C6503A0039B44B /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DD9C4F24C6503A0039B44B /* AsyncOperation.swift */; };
+		38DD9C5324C651020039B44B /* CreateUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DD9C5224C651020039B44B /* CreateUserOperation.swift */; };
+		38DD9C5524C651950039B44B /* SignInOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DD9C5424C651950039B44B /* SignInOperation.swift */; };
 		38DFEA6A2445FF6600F1BE0D /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */; };
 		38DFEA6D2446013B00F1BE0D /* ListMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */; };
 		38DFEA6F24461B4700F1BE0D /* ListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */; };
@@ -236,6 +239,9 @@
 		38DB158D2457FE2F00748B1B /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		38DB15932459D46F00748B1B /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		38DB15952459D4B000748B1B /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
+		38DD9C4F24C6503A0039B44B /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		38DD9C5224C651020039B44B /* CreateUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserOperation.swift; sourceTree = "<group>"; };
+		38DD9C5424C651950039B44B /* SignInOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInOperation.swift; sourceTree = "<group>"; };
 		38DFEA692445FF6600F1BE0D /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
 		38DFEA6C2446013B00F1BE0D /* ListMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesView.swift; sourceTree = "<group>"; };
 		38DFEA6E24461B4700F1BE0D /* ListMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessageCell.swift; sourceTree = "<group>"; };
@@ -383,6 +389,7 @@
 				38475D4C246A8382008EDD28 /* Model */,
 				382CC79B23D5ECBF0043060E /* Views */,
 				3889EB5524560042009B63C2 /* Services */,
+				38DD9C5124C650E50039B44B /* Operation */,
 				38475D6E246D0759008EDD28 /* SignInScreen */,
 				38F1B52E23E25AF30003F6A9 /* LoginScreen */,
 				384604AA23E7A308006F6540 /* MainScreen */,
@@ -693,6 +700,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		38DD9C5124C650E50039B44B /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				38DD9C4F24C6503A0039B44B /* AsyncOperation.swift */,
+				38DD9C5224C651020039B44B /* CreateUserOperation.swift */,
+				38DD9C5424C651950039B44B /* SignInOperation.swift */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
 		38DFEA6B2445FF6D00F1BE0D /* ListMessages */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,7 +755,6 @@
 				38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */,
 				38F90B2C24733B9E005B0BEB /* Info.plist */,
 				38F90B3224733C01005B0BEB /* UserModelTest.swift */,
-				38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */,
 				38F90B5524775859005B0BEB /* MessageTest.swift */,
 				38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */,
 			);
@@ -1032,6 +1048,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38DD9C5324C651020039B44B /* CreateUserOperation.swift in Sources */,
 				38F90B1D24733342005B0BEB /* BackButton.swift in Sources */,
 				38F90ADA2470FF4E005B0BEB /* DateConvertible.swift in Sources */,
 				38475D472469F894008EDD28 /* ListMessageModelController.swift in Sources */,
@@ -1041,6 +1058,7 @@
 				38DACAFE244BAB9000F4E60E /* BioContainerView.swift in Sources */,
 				38475D76246E1CF3008EDD28 /* PreferenceViewController.swift in Sources */,
 				382CC78B23D3B0DD0043060E /* LoginViewController.swift in Sources */,
+				38DD9C5524C651950039B44B /* SignInOperation.swift in Sources */,
 				38A41D0923E0C0D800F904B9 /* RoundedUserImage.swift in Sources */,
 				3854F6552438092000229E16 /* CALayer+helpers.swift in Sources */,
 				38BFFAEA244EBF9500AC6B5E /* AutoSwipeDelegate.swift in Sources */,
@@ -1099,6 +1117,7 @@
 				38BFFAE6244D27C000AC6B5E /* UIColor+extension .swift in Sources */,
 				38F90B5024773A7D005B0BEB /* InputContainerView.swift in Sources */,
 				383E4702244265990012977A /* CustomStackView.swift in Sources */,
+				38DD9C5024C6503A0039B44B /* AsyncOperation.swift in Sources */,
 				38C1EA052443F58200CEA9B2 /* FacebookUserDataDelegate.swift in Sources */,
 				38DACAF6244A68B600F4E60E /* FirebaseService.swift in Sources */,
 				384EDF1D2438DFFB00001F7B /* ChatView.swift in Sources */,
@@ -1126,11 +1145,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */,
-				38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */,
 				38F90B5624775859005B0BEB /* MessageTest.swift in Sources */,
 				38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */,
 				38F90B5A24775DB8005B0BEB /* MessageViewModelTest.swift in Sources */,
-				38F90B4A2475D34D005B0BEB /* SwipeCardViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
