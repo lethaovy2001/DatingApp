@@ -521,13 +521,14 @@ extension FirebaseService : Authentication {
         return auth.currentUser?.uid
     }
     
-    func createUser(email: String, password: String, name: String, completion: @escaping(String?)->()) {
+    func createUser(email: String, password: String, completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
         auth.createUser(withEmail: email, password: password) { authResult, error in
-            if error != nil {
-                completion(error?.localizedDescription)
-                return
+            if let error = error {
+                completion(.failure(error))
             }
-            completion(nil)
+            if let authResult = authResult {
+                completion(.success(authResult))
+            }
         }
     }
     
