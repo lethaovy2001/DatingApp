@@ -738,7 +738,6 @@
 				38F90B2A24733B9E005B0BEB /* DatingAppTests.swift */,
 				38F90B2C24733B9E005B0BEB /* Info.plist */,
 				38F90B3224733C01005B0BEB /* UserModelTest.swift */,
-				38F90B492475D34D005B0BEB /* SwipeCardViewTest.swift */,
 				38F90B5524775859005B0BEB /* MessageTest.swift */,
 				38F90B5924775DB8005B0BEB /* MessageViewModelTest.swift */,
 			);
@@ -1126,11 +1125,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				38F90B3324733C01005B0BEB /* UserModelTest.swift in Sources */,
-				38F90B3524733C32005B0BEB /* UserViewModelTest.swift in Sources */,
 				38F90B5624775859005B0BEB /* MessageTest.swift in Sources */,
 				38F90B2B24733B9E005B0BEB /* DatingAppTests.swift in Sources */,
 				38F90B5A24775DB8005B0BEB /* MessageViewModelTest.swift in Sources */,
-				38F90B4A2475D34D005B0BEB /* SwipeCardViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

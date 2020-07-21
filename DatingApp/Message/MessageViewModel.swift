@@ -52,25 +52,29 @@ extension MessageViewModel {
     
     var messageType: MessageType {
         if model.text != nil {
-            return MessageType.text
+            return .text
+        } else if videoUrl != nil {
+            return .video
         } else {
-            return MessageType.image
+            return .image
         }
     }
 }
 
 extension MessageViewModel {
     func configure(_ view: ChatCell) {
-        view.profileImageView.setImage(image: userMainImage)
-        view.textView.text = text
-        view.setUpMessageRelationshipStyle(style: style)
-        view.setUpMessageType(messageType: messageType)
-        view.containerViewWidthAnchor.constant =
+        if !text.isEmpty {
+            view.textView.text = text
+            view.containerViewWidthAnchor.constant =
             view.textView.estimatedFrameForText(text: text).width + 36
+        }
         if let image = image {
             view.messageImageView.setImage(image: image)
+            view.containerViewWidthAnchor.constant = 200
         }
-        view.playButton.isHidden = videoUrl == nil
+        view.profileImageView.setImage(image: userMainImage)
+        view.setUpMessageRelationshipStyle(style: style)
+        view.setUpMessageType(messageType: messageType)
     }
 }
 
@@ -82,4 +86,5 @@ enum RelationshipType {
 enum MessageType {
     case text
     case image
+    case video
 }

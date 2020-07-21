@@ -29,30 +29,20 @@ class ChatCell : UICollectionViewCell {
     }()
     private var playerLayer: AVPlayerLayer?
     private var player: AVPlayer?
-    private var isPlaying: Bool!
+    private var isPlaying = false
+    private var isStarted: Bool?
     var containerViewWidthAnchor: NSLayoutConstraint!
     private var containerViewRightAnchor: NSLayoutConstraint!
     private var containerViewLeftAnchor: NSLayoutConstraint!
     var tapDelegate: ZoomTapDelegate?
-    var viewModel: MessageViewModel! {
-        didSet {
-            profileImageView.setImage(image: viewModel.userMainImage)
-            textView.text = viewModel.text
-//            setUpMessageRelationshipStyle()
-//            setUpMessageType()
-            if let image = viewModel.image {
-                messageImageView.setImage(image: image)
-            }
-            playButton.isHidden = viewModel.videoUrl == nil
-        }
-    }
+    private var messageType: MessageType?
+    var videoURL: URL?
     
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        isPlaying = false
-        playButton.addTarget(self, action: #selector(handlePlay), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(startPlayingVideo), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -145,20 +135,24 @@ class ChatCell : UICollectionViewCell {
     }
     
     func setUpMessageType(messageType: MessageType) {
+        self.messageType = messageType
         switch messageType {
         case .text:
-            //containerViewWidthAnchor.constant = textView.estimatedFrameForText(text: viewModel.text).width + 36
             textView.isHidden = false
             messageImageView.isHidden = true
             playButton.isHidden = true
         case .image:
-            containerViewWidthAnchor.constant = 200
             textView.isHidden = true
             messageImageView.isHidden = false
+            playButton.isHidden = true
+        case .video:
+            textView.isHidden = true
+            messageImageView.isHidden = false
+            playButton.isHidden = false
         }
     }
     
-    private func addTapGesture() {
+    func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
@@ -169,30 +163,34 @@ class ChatCell : UICollectionViewCell {
     
     // MARK: Actions
     @objc private func handleTapGesture() {
-//        if viewModel?.videoUrl != nil {
-//            if isPlaying {
-//                player?.pause()
-//                playButton.isHidden = false
-//            } else if !isPlaying {
-//                player?.play()
-//                playButton.isHidden = true
-//            }
-//            isPlaying = !isPlaying
-//        } else {
-//            tapDelegate?.didTap(on: messageImageView)
-//        }
+        switch messageType {
+        case .image:
+            tapDelegate?.didTap(on: messageImageView)
+        case .video:
+            if isPlaying {
+                player?.pause()
+                playButton.isHidden = false
+            } else if !isPlaying {
+                player?.play()
+                playButton.isHidden = true
+            }
+            isPlaying = !isPlaying
+        default:
+            break
+        }
     }
     
-    @objc private func handlePlay() {
-//        if let videoUrlString = viewModel?.videoUrl, let url = URL(string: videoUrlString) {
-//            player = AVPlayer(url: url)
-//            playerLayer = AVPlayerLayer(player: player)
-//            playerLayer?.frame = containerView.bounds
-//            messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
-//            player?.play()
-//            activityIndicatorView.startAnimating()
-//            playButton.isHidden = true
-//            isPlaying = true
-//        }
+    @objc private func startPlayingVideo() {
+        guard let videoURL = videoURL, isStarted == nil else { return }
+        player = AVPlayer(url: videoURL)
+        player?.allowsExternalPlayback = true
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer?.frame = containerView.bounds
+        messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
+        player?.play()
+        isStarted = true
+        activityIndicatorView.startAnimating()
+        playButton.isHidden = true
+        isPlaying = true
     }
 }
