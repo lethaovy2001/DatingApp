@@ -11,10 +11,19 @@ import AVFoundation
 import AVKit
 
 class ChatCell : UICollectionViewCell {
-    // MARK: - Properties
+    // MARK: - Private Properties
     private let activityIndicatorView = CustomActivityIndicatorView()
-    let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let containerView = CustomContainerView(cornerRadius: 16, backgroundColor: UIColor.amour)
+    private var playerLayer: AVPlayerLayer?
+    private var player: AVPlayer?
+    private var isPlaying = false
+    private var isStarted: Bool?
+    private var containerViewRightAnchor: NSLayoutConstraint!
+    private var containerViewLeftAnchor: NSLayoutConstraint!
+    private var messageType: MessageType?
+    
+    // MARK: - Public Properties
+    let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     let profileImageView = CircleImageView(imageName: "user")
     var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
     let textView: UITextView = {
@@ -27,22 +36,14 @@ class ChatCell : UICollectionViewCell {
         tv.isScrollEnabled = false
         return tv
     }()
-    private var playerLayer: AVPlayerLayer?
-    private var player: AVPlayer?
-    private var isPlaying = false
-    private var isStarted: Bool?
     var containerViewWidthAnchor: NSLayoutConstraint!
-    private var containerViewRightAnchor: NSLayoutConstraint!
-    private var containerViewLeftAnchor: NSLayoutConstraint!
     var tapDelegate: ZoomTapDelegate?
-    private var messageType: MessageType?
     var videoURL: URL?
     
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        playButton.addTarget(self, action: #selector(startPlayingVideo), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -61,6 +62,7 @@ class ChatCell : UICollectionViewCell {
         addSubviews()
         setupConstraints()
         addTapGesture()
+        setSelectors()
     }
     
     private func addSubviews() {
@@ -117,6 +119,10 @@ class ChatCell : UICollectionViewCell {
         ])
     }
     
+    private func setSelectors() {
+        playButton.addTarget(self, action: #selector(startPlayingVideo), for: .touchUpInside)
+    }
+    
     func setUpMessageRelationshipStyle(style: RelationshipType) {
         switch style {
         case .currentUser:
@@ -152,7 +158,7 @@ class ChatCell : UICollectionViewCell {
         }
     }
     
-    func addTapGesture() {
+    private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
