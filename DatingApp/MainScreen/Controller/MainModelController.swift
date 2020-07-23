@@ -34,9 +34,9 @@ class MainModelController {
     }
     
     // MARK: - Load data
-    func getAllUsers(_ completion : @escaping()->()){
+    func getAllUsers(filterBy gender: Gender? = nil, _ completion : @escaping()->()){
         database.loadAllUsers() { users in
-            self.users = users
+            self.users = users.filter { $0.gender == gender?.rawValue }
             completion()
         }
     }
