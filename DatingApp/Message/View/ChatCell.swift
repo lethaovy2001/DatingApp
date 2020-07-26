@@ -52,8 +52,11 @@ class ChatCell : UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        playerLayer?.removeFromSuperlayer()
-        player?.pause()
+        guard let player = player,
+            let playerLayer = playerLayer
+            else { return }
+        playerLayer.removeFromSuperlayer()
+        player.pause()
         activityIndicatorView.stopAnimating()
     }
     
@@ -123,6 +126,15 @@ class ChatCell : UICollectionViewCell {
         playButton.addTarget(self, action: #selector(startPlayingVideo), for: .touchUpInside)
     }
     
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.cancelsTouchesInView = false
+        messageImageView.isUserInteractionEnabled = true
+        messageImageView.addGestureRecognizer(tapGesture)
+    }
+    
     func setUpMessageRelationshipStyle(style: RelationshipType) {
         switch style {
         case .currentUser:
@@ -158,16 +170,7 @@ class ChatCell : UICollectionViewCell {
         }
     }
     
-    private func addTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        tapGesture.cancelsTouchesInView = false
-        messageImageView.isUserInteractionEnabled = true
-        messageImageView.addGestureRecognizer(tapGesture)
-    }
-    
-    // MARK: Actions
+    // MARK: - Actions
     @objc private func handleTapGesture() {
         switch messageType {
         case .image:
@@ -187,16 +190,24 @@ class ChatCell : UICollectionViewCell {
     }
     
     @objc private func startPlayingVideo() {
-        guard let videoURL = videoURL, isStarted == nil else { return }
+        guard let videoURL = videoURL,
+            isStarted == nil
+            else { return }
         player = AVPlayer(url: videoURL)
-        player?.allowsExternalPlayback = true
         playerLayer = AVPlayerLayer(player: player)
-        playerLayer?.frame = containerView.bounds
-        messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
-        player?.play()
+        
+        guard let player = player,
+            let playerLayer = playerLayer
+            else { return }
+        player.allowsExternalPlayback = true
+        playerLayer.frame = containerView.bounds
+        messageImageView.layer.insertSublayer(playerLayer, below: playButton.layer)
+        
+        // Start playing video
+        player.play()
         isStarted = true
+        isPlaying = true
         activityIndicatorView.startAnimating()
         playButton.isHidden = true
-        isPlaying = true
     }
 }
