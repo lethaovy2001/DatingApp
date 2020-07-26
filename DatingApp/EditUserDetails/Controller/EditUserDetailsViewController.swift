@@ -90,15 +90,14 @@ class EditUserDetailsViewController: UIViewController {
         user.work = work
         user.images = images
         database.saveProfile(ofUser: user)
-        database.uploadUserImages(images: images) { state in
-            self.editUserDetailsView.doneLoading()
-            switch state {
-            case .success:
+        database.uploadUserImages(images: images) { error in
+            if error != nil {
+                self.editUserDetailsView.showError(message: "Fail to save user profile")
+            } else {
                 let vc = UserDetailsViewController()
                 self.navigationController?.pushViewController(vc, animated: false)
-            case .fail:
-                self.editUserDetailsView.showError(message: "Fail to save user profile")
             }
+            self.editUserDetailsView.doneLoading()
         }
     }
     

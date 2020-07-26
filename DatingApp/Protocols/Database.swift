@@ -13,7 +13,7 @@ protocol Database {
     func saveLikeUser(withId id: String)
     func saveDislikeUser(withId id: String)
     func saveMessage(message: Message)
-    func uploadUserImages(images: [UIImage], _ completion: @escaping(UIState)->())
+    func uploadUserImages(images: [UIImage], _ completion: @escaping(ImageUploadingError?)->())
     func uploadImageMessage(message: Message)
     func uploadVideoMessage(url: URL, message: Message)
     func updateListOfUsers()
