@@ -26,16 +26,6 @@ class MessageViewModel {
 }
 
 extension MessageViewModel {
-    enum RelationshipType {
-        case currentUser
-        case otherPerson
-    }
-    
-    enum MessageType {
-        case text
-        case image
-    }
-    
     var userMainImage: UIImage {
         return self.userImage ?? UIImage(systemName: "person.fill")!
     }
@@ -62,9 +52,39 @@ extension MessageViewModel {
     
     var messageType: MessageType {
         if model.text != nil {
-            return MessageType.text
+            return .text
+        } else if videoUrl != nil {
+            return .video
         } else {
-            return MessageType.image
+            return .image
         }
     }
+}
+
+extension MessageViewModel {
+    func configure(_ view: ChatCell) {
+        if !text.isEmpty {
+            view.textView.text = text
+            view.containerViewWidthAnchor.constant =
+            view.textView.estimatedFrameForText(text: text).width + 36
+        }
+        if let image = image {
+            view.messageImageView.setImage(image: image)
+            view.containerViewWidthAnchor.constant = 200
+        }
+        view.profileImageView.setImage(image: userMainImage)
+        view.setUpMessageRelationshipStyle(style: style)
+        view.setUpMessageType(messageType: messageType)
+    }
+}
+
+enum RelationshipType {
+    case currentUser
+    case otherPerson
+}
+
+enum MessageType {
+    case text
+    case image
+    case video
 }
