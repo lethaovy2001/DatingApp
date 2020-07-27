@@ -45,3 +45,12 @@ extension ListMessageViewModel {
         }
     }
 }
+
+extension ListMessageViewModel {
+    func configure(_ view: ListMessageCell) {
+        view.nameLabel.text = userName
+        view.profileImageView.image = userImage
+        view.chatLabel.text = latestMessage
+        view.chatLabel.font = messageStyle
+    }
+}

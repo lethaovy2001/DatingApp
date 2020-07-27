@@ -42,6 +42,7 @@ class EditUserDetailsView : UIView {
             }
         }
     }
+    private let loadingView = LoadingAnimationView()
     
     // MARK: - Initializer
     init() {
@@ -249,5 +250,22 @@ extension EditUserDetailsView: TextViewEditingDelegate {
             bioTextView.text = "Describe Yourself..."
             bioTextView.textColor = .customLightGray
         }
+    }
+}
+
+extension EditUserDetailsView {
+    func showLoadingAnimation() {
+        self.addSubview(loadingView)
+        self.bringSubviewToFront(customNavigationView)
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: self.topAnchor),
+            loadingView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            loadingView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
+    }
+    
+    func doneLoading() {
+        self.loadingView.removeFromSuperview()
     }
 }

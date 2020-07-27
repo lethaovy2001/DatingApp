@@ -76,21 +76,28 @@ class EditUserDetailsViewController: UIViewController {
     }
     
     @objc private func saveButtonPressed() {
-        if let bio = editUserDetailsView.getBioText(),
+        editUserDetailsView.showLoadingAnimation()
+        guard
+            let bio = editUserDetailsView.getBioText(),
             let work = editUserDetailsView.getWorkText(),
-            let images = editUserDetailsView.getImages() {
-            user?.bio = bio
-            user?.work = work
-            user?.images = images
-            if let userModel = user {
-                database.saveProfile(ofUser: userModel)
-                database.uploadUserImages(images: images) {
-                    let vc = UserDetailsViewController()
-                    self.navigationController?.pushViewController(vc, animated: false)
-                }
+            let images = editUserDetailsView.getImages(),
+            var user = user
+            else {
+                editUserDetailsView.showError(message: "Missing some fields")
+                return
             }
-        } else {
-            editUserDetailsView.showError(message: "Missing some fields")
+        user.bio = bio
+        user.work = work
+        user.images = images
+        database.saveProfile(ofUser: user)
+        database.uploadUserImages(images: images) { error in
+            if error != nil {
+                self.editUserDetailsView.showError(message: "Fail to save user profile")
+            } else {
+                let vc = UserDetailsViewController()
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
+            self.editUserDetailsView.doneLoading()
         }
     }
     

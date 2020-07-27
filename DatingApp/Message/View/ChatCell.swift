@@ -11,13 +11,22 @@ import AVFoundation
 import AVKit
 
 class ChatCell : UICollectionViewCell {
-    // MARK: - Properties
+    // MARK: - Private Properties
     private let activityIndicatorView = CustomActivityIndicatorView()
-    private let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
     private let containerView = CustomContainerView(cornerRadius: 16, backgroundColor: UIColor.amour)
-    private let profileImageView = CircleImageView(imageName: "user")
-    private var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
-    private let textView: UITextView = {
+    private var playerLayer: AVPlayerLayer?
+    private var player: AVPlayer?
+    private var isPlaying = false
+    private var isStarted: Bool?
+    private var containerViewRightAnchor: NSLayoutConstraint!
+    private var containerViewLeftAnchor: NSLayoutConstraint!
+    private var messageType: MessageType?
+    
+    // MARK: - Public Properties
+    let playButton = CustomButton(imageName: "play.fill", size: 20, color: UIColor.white, cornerRadius: nil, shadowColor: nil, backgroundColor: .clear)
+    let profileImageView = CircleImageView(imageName: "user")
+    var messageImageView = CustomImageView(imageName: "user", cornerRadius: 16)
+    let textView: UITextView = {
         let tv = UITextView()
         tv.font = UIFont.boldSystemFont(ofSize: Constants.textSize)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -27,32 +36,14 @@ class ChatCell : UICollectionViewCell {
         tv.isScrollEnabled = false
         return tv
     }()
-    private var playerLayer: AVPlayerLayer?
-    private var player: AVPlayer?
-    private var isPlaying: Bool!
-    private var containerViewWidthAnchor: NSLayoutConstraint!
-    private var containerViewRightAnchor: NSLayoutConstraint!
-    private var containerViewLeftAnchor: NSLayoutConstraint!
+    var containerViewWidthAnchor: NSLayoutConstraint!
     var tapDelegate: ZoomTapDelegate?
-    var viewModel: MessageViewModel! {
-        didSet {
-            profileImageView.setImage(image: viewModel.userMainImage) 
-            textView.text = viewModel.text
-            setUpMessageRelationshipStyle()
-            setUpMessageType()
-            if let image = viewModel.image {
-                messageImageView.setImage(image: image)
-            }
-            playButton.isHidden = viewModel.videoUrl == nil
-        }
-    }
+    var videoURL: URL?
     
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        isPlaying = false
-        playButton.addTarget(self, action: #selector(handlePlay), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -61,8 +52,11 @@ class ChatCell : UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        playerLayer?.removeFromSuperlayer()
-        player?.pause()
+        guard let player = player,
+            let playerLayer = playerLayer
+            else { return }
+        playerLayer.removeFromSuperlayer()
+        player.pause()
         activityIndicatorView.stopAnimating()
     }
     
@@ -71,6 +65,7 @@ class ChatCell : UICollectionViewCell {
         addSubviews()
         setupConstraints()
         addTapGesture()
+        setSelectors()
     }
     
     private func addSubviews() {
@@ -127,8 +122,21 @@ class ChatCell : UICollectionViewCell {
         ])
     }
     
-    private func setUpMessageRelationshipStyle() {
-        switch viewModel.style {
+    private func setSelectors() {
+        playButton.addTarget(self, action: #selector(startPlayingVideo), for: .touchUpInside)
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.cancelsTouchesInView = false
+        messageImageView.isUserInteractionEnabled = true
+        messageImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    func setUpMessageRelationshipStyle(style: RelationshipType) {
+        switch style {
         case .currentUser:
             containerView.backgroundColor = UIColor.amour
             textView.textColor = UIColor.white
@@ -144,32 +152,30 @@ class ChatCell : UICollectionViewCell {
         }
     }
     
-    private func setUpMessageType() {
-        switch viewModel.messageType {
+    func setUpMessageType(messageType: MessageType) {
+        self.messageType = messageType
+        switch messageType {
         case .text:
-            containerViewWidthAnchor.constant = textView.estimatedFrameForText(text: viewModel.text).width + 36
             textView.isHidden = false
             messageImageView.isHidden = true
             playButton.isHidden = true
         case .image:
-            containerViewWidthAnchor.constant = 200
             textView.isHidden = true
             messageImageView.isHidden = false
+            playButton.isHidden = true
+        case .video:
+            textView.isHidden = true
+            messageImageView.isHidden = false
+            playButton.isHidden = false
         }
     }
     
-    private func addTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        tapGesture.cancelsTouchesInView = false
-        messageImageView.isUserInteractionEnabled = true
-        messageImageView.addGestureRecognizer(tapGesture)
-    }
-    
-    // MARK: Actions
+    // MARK: - Actions
     @objc private func handleTapGesture() {
-        if viewModel?.videoUrl != nil {
+        switch messageType {
+        case .image:
+            tapDelegate?.didTap(on: messageImageView)
+        case .video:
             if isPlaying {
                 player?.pause()
                 playButton.isHidden = false
@@ -178,21 +184,30 @@ class ChatCell : UICollectionViewCell {
                 playButton.isHidden = true
             }
             isPlaying = !isPlaying
-        } else {
-            tapDelegate?.didTap(on: messageImageView)
+        default:
+            break
         }
     }
     
-    @objc private func handlePlay() {
-        if let videoUrlString = viewModel?.videoUrl, let url = URL(string: videoUrlString) {
-            player = AVPlayer(url: url)
-            playerLayer = AVPlayerLayer(player: player)
-            playerLayer?.frame = containerView.bounds
-            messageImageView.layer.insertSublayer(playerLayer!, below: playButton.layer)
-            player?.play()
-            activityIndicatorView.startAnimating()
-            playButton.isHidden = true
-            isPlaying = true
-        }
+    @objc private func startPlayingVideo() {
+        guard let videoURL = videoURL,
+            isStarted == nil
+            else { return }
+        player = AVPlayer(url: videoURL)
+        playerLayer = AVPlayerLayer(player: player)
+        
+        guard let player = player,
+            let playerLayer = playerLayer
+            else { return }
+        player.allowsExternalPlayback = true
+        playerLayer.frame = containerView.bounds
+        messageImageView.layer.insertSublayer(playerLayer, below: playButton.layer)
+        
+        // Start playing video
+        player.play()
+        isStarted = true
+        isPlaying = true
+        activityIndicatorView.startAnimating()
+        playButton.isHidden = true
     }
 }

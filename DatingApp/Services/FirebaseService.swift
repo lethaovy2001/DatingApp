@@ -118,23 +118,31 @@ class FirebaseService {
 // MARK: - Storage
 extension FirebaseService {
     // MARK: Upload
-    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping()->()) {
+    func uploadImageOntoStorage(image: UIImage, uid: String, index: Int,_ completion: @escaping(ImageUploadingError?)->()) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child(uid).child("\(imageName).jpg")
         if let uploadData = image.jpegData(compressionQuality: 1.0) {
             storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
                 storageRef.downloadURL { (url, error) in
-                    guard let downloadURL = url?.absoluteString else {
-                        print("FirebaseService: error in downloadURL")
+                    if let error = error {
+                        completion(.failure(error))
                         return
                     }
+                    
+                    guard let downloadURL = url?.absoluteString else {
+                        completion(.invalidDownloadURL)
+                        return
+                    }
+                    
                     let data = ["image\(index)": downloadURL]
                     self.updateImageDatabase(with: data)
-                    completion()
+                    completion(nil)
                 }
             }
         }
     }
+    
+    
     
     private func thumbnailImageForFileUrl(_ fileUrl: URL) -> UIImage? {
         let asset = AVAsset(url: fileUrl)
@@ -165,17 +173,18 @@ extension FirebaseService {
     
     func downloadImages(data: [String: Any], _ completion : @escaping([UIImage])->()) {
         var imageTemp: [UIImage] = []
-        var index = 0
-        for imageName in data {
-            if let url = data[imageName.key] as? String {
-                self.downloadImageFromStorage(url: url, { downloadedImage in
-                    imageTemp.append(downloadedImage)
-                    index += 1
-                    if (index == data.count) {
-                        completion(imageTemp)
-                    }
-                })
-            }
+        let downloadGroup = DispatchGroup()
+        let _ = DispatchQueue.global(qos: .userInitiated)
+        DispatchQueue.concurrentPerform(iterations: data.count) { index in
+            guard let url = data["image\(index)"] as? String else { return }
+            downloadGroup.enter()
+            self.downloadImageFromStorage(url: url, { downloadedImage in
+                imageTemp.append(downloadedImage)
+                downloadGroup.leave()
+            })
+        }
+        downloadGroup.notify(queue: DispatchQueue.main) {
+            completion(imageTemp)
         }
     }
 }
@@ -297,17 +306,26 @@ extension FirebaseService : Database {
         })
     }
     
-    func uploadUserImages(images: [UIImage], _ completion: @escaping()->()){
-        if let uid = auth.currentUser?.uid {
-            var index = 0
-            for image in images {
-                uploadImageOntoStorage(image: image, uid: uid, index: index, {
-                    if index == images.count {
-                        completion()
-                    }
-                })
-                index += 1
-            }
+    // MARK: Upload data
+    func uploadUserImages(images: [UIImage], _ completion: @escaping(ImageUploadingError?)->()) {
+        var storedError: ImageUploadingError?
+        guard let uid = auth.currentUser?.uid else {
+            completion(.invalidUserId)
+            return
+        }
+        let dispatchGroup = DispatchGroup()
+        let _ = DispatchQueue.global(qos: .userInitiated)
+        DispatchQueue.concurrentPerform(iterations: images.count) { index in
+            dispatchGroup.enter()
+            uploadImageOntoStorage(image: images[index], uid: uid, index: index, { error in
+                if error != nil {
+                  storedError = error
+                }
+                dispatchGroup.leave()
+            })
+        }
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            completion(storedError)
         }
     }
     
@@ -382,24 +400,26 @@ extension FirebaseService : Database {
     // MARK: Load data
     func loadAllUsers(_ completion: @escaping([UserModel]) -> ()) {
         guard let uid = auth.currentUser?.uid else { return }
-        database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).getDocuments { (querySnapshot, err) in
+        database.collection("users").document(uid).collection("available-users").whereField("hasDisplay", isEqualTo: false).limit(to: 3).getDocuments { (querySnapshot, err) in
             if err != nil {
                 print("Error getting documents")
                 return
             }
+            guard let documents = querySnapshot?.documents else { return }
             var users: [UserModel] = []
-            var index = 0
-            for document in querySnapshot!.documents {
-                if uid == document.documentID {
-                    return
-                }
-                self.loadUserProfile(withId: document.documentID) { user in
+            let dispatchGroup = DispatchGroup()
+            let _ = DispatchQueue.global(qos: .userInitiated)
+            DispatchQueue.concurrentPerform(iterations: documents.count) { (index) in
+                let documentID = documents[index].documentID
+                guard uid != documentID else { return }
+                dispatchGroup.enter()
+                self.loadUserProfile(withId: documentID) { user in
                     users.append(user)
-                    index += 1
-                    if (index == querySnapshot!.documents.count) {
-                        completion(users)
-                    }
+                    dispatchGroup.leave()
                 }
+            }
+            dispatchGroup.notify(queue: DispatchQueue.main) {
+                completion(users)
             }
         }
     }
@@ -563,3 +583,8 @@ extension FirebaseService : Authentication {
     }
 }
 
+enum ImageUploadingError: Error {
+    case invalidDownloadURL
+    case invalidUserId
+    case failure(Error)
+}

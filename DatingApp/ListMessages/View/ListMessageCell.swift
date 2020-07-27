@@ -13,14 +13,6 @@ class ListMessageCell : UITableViewCell {
     let profileImageView = CircleImageView(imageName: "user")
     let nameLabel = CustomLabel(text: "Name", textColor: .black, textSize: 20, textWeight: .bold)
     let chatLabel = CustomLabel(text: "Chat", textColor: .black, textSize: 18, textWeight: .regular)
-    var viewModel: ListMessageViewModel? {
-        didSet {
-            nameLabel.text = viewModel?.userName
-            profileImageView.image = viewModel?.userImage
-            chatLabel.text = viewModel?.latestMessage
-            chatLabel.font = viewModel?.messageStyle
-        }
-    }
     
     // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
