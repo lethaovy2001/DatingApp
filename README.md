@@ -4,32 +4,34 @@ The UI is created programmatically
 
 ## Register or Sign In 
 You can register new account or sign in to the app via Email or Facebook
-![Dating App Demo](Demo/SelectLoginOptions.gif)
+
+<img src="Demo/SelectLoginOptions.gif" width=25% height=25%>
 
 ## Create a new account
-![Dating App Demo](Demo/SignIn.gif)
+<img src="Demo/SignIn.gif" width=25% height=25%>
 
 ### Fill in basic infomation
-![Dating App Demo](Demo/Preference.gif)
+<img src="Demo/Preference.gif" width=25% height=25%>
 
 ## Match Users
 Swipe to like or dislike other profiles based on their photos, a small bio, and common interests.
-![Dating App Demo](Demo/Match.gif)
+
+<img src="Demo/Match.gif" width=25% height=25%>
 
 ## Send messages, images and videos
 You can type message in the text box, send images and videos in your library. 
 The chat message will be updated in real-time.
 
-![Dating App Demo](Demo/Chat-Details.gif)
+<img src="Demo/Chat-Details.gif" width=25% height=25%>
 
 ## User Profile
-![Dating App Demo](Demo/Profile.gif)
+<img src="Demo/Profile.gif" width=25% height=25%>
 
 ## Edit Profile
-![Dating App Demo](Demo/EditProfile.gif)
+<img src="Demo/EditProfile.gif" width=25% height=25%>
 
 ## Log out 
-![Dating App Demo](Demo/Logout.gif)
+<img src="Demo/Logout.gif" width=25% height=25%>
 
 ## Built With
 * UIKit
