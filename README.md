@@ -1,16 +1,15 @@
-# Chat App
-An iOS message platform in Swift 4
+# Dating App
+An iOS online dating platform in Swift 5
 The UI is created programmatically
 
 ## Register or Sign In 
-You can register new account or sign in to the app
-User can click on the logo to change their profile picture
+You can register new account or sign in to the app via Email or Facebook
 
+## Create a new account
 
-## Messages
-### View an existed chat message
-The previous chat message are updated in real-time using Firebase Real-time Database. 
-You can see the previous chat message by clicking on it. 
+## 
+### Fill in basic infomation
+
 
 
 ### Start a new chat message 
