@@ -117,7 +117,7 @@ class PreferenceView: UIView {
     }
     
     func getInterestedSelection() -> String {
-        if genderSegmentedControl.selectedSegmentIndex == 0 {
+        if interestedSegmentedControl.selectedSegmentIndex == 0 {
             return "male"
         } else {
             return "female"
