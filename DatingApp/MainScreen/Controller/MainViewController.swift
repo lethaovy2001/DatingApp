@@ -15,11 +15,13 @@ class MainViewController : UIViewController {
     private var locationService: LocationService!
     private let database: Database
     private let auth: Authentication
-    private let modelController: MainModelController
+    private var modelController: MainModelController
+    private var userModelController = UserModelController()
     var autoSwipeDelegate: AutoSwipeDelegate?
     
     // MARK: - Initializer
-    init(authentication: Authentication = FirebaseService.shared, database: Database = FirebaseService.shared) {
+    init(authentication: Authentication = FirebaseService.shared,
+         database: Database = FirebaseService.shared) {
         self.auth = authentication
         self.database = database
         self.modelController = MainModelController(database: database)
@@ -35,20 +37,12 @@ class MainViewController : UIViewController {
         super.viewDidLoad()
         view.accessibilityIdentifier = "mainView"
         setup()
+        loadUserProfile()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        fetchAllUsers()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        if auth.getCurrentUserId() == nil {
-            let vc = LoginViewController()
-            self.navigationController?.pushViewController(vc, animated: false)
-        }
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     // MARK: - Setup
@@ -79,8 +73,20 @@ class MainViewController : UIViewController {
         mainView.setDoneSelector(selector: #selector(doneAlertPressed), target: self)
     }
     
+    private func loadUserProfile() {
+        guard let id = auth.getCurrentUserId() else {
+            let vc = LoginViewController()
+            self.navigationController?.pushViewController(vc, animated: false)
+            return
+        }
+        userModelController.loadCurrentUserProfile(id: id) {
+            self.fetchAllUsers()
+        }
+    }
+    
     private func fetchAllUsers() {
-        modelController.getAllUsers() {
+        guard let gender = self.userModelController.interestedInGender else { return }
+        self.modelController.getAllUsers(filterBy: gender) {
             self.mainView.reloadSwipeViews()
         }
     }
